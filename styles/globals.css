@@ -18,3 +18,11 @@ a {
 * {
   box-sizing: border-box;
 }
+
+.bg-icon {
+  background-image: url("../public/moon3.svg");
+}
+
+input:checked + .bg-icon {
+  background-image: url("../public/sun3.svg");
+}
