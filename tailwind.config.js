@@ -8,6 +8,8 @@ module.exports = {
       colors: {
         primaryColor: "#427676",
         secondaryColor: "rgb(253 224 71)",
+        taskColor: "rgb(147 197 253)",
+
       },
     },
   },
