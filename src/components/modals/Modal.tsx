@@ -51,7 +51,7 @@ function Modal({
               className={`relative inline-block align-bottom bg-primaryDark rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-sm sm:w-full 
               }`}
             >
-              <div className={`p-4 sm:p-6 sm:pb-4 w-full `}>
+              <div className={`p-4 sm:p-6 sm:pb-4 w-full bg-secondaryColor`}>
                 <div className="flex justify-between mb-5">
                   <h2 className="w-max font-semibold text-[1.2rem] md:text-2xl lg:text-[1.5rem]  mb-1">
                     {label}

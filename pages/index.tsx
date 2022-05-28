@@ -1,8 +1,8 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import Navbar from ".././components/Navbar";
-import Form from "../components/Form";
-import TasksContainer from "../components/TasksContainer";
+import Navbar from "../src/components/Navbar";
+import TaskForm from "../src/components/TaskForm";
+import TasksContainer from "../src/components/TasksContainer";
 
 const Home: NextPage = () => {
   return (
@@ -13,7 +13,7 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Navbar />
-      <Form />
+      <TaskForm />
       <TasksContainer />
     </div>
   );
