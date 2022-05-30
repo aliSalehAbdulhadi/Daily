@@ -4,6 +4,8 @@ import Modal from "./Modal";
 import { Formik, Form } from "formik";
 import { SignUpInterface } from "../../interfaces/interfaces";
 import FormField from "../FormField";
+import { useAppDispatch, useAppSelector } from "../../interfaces/interfaces";
+import { signUpThunk } from "../../redux/slices/authentication/signUpSlice";
 
 const signUpSchema = Yup.object().shape({
   Email: Yup.string().min(3).max(24).required(),
@@ -13,6 +15,9 @@ const signUpSchema = Yup.object().shape({
 });
 
 const SignUp = ({ open, setOpen, setSignIn }: SignUpInterface) => {
+  const dispatch = useAppDispatch();
+  const users = useAppSelector((state: any) => state.signUpReducer);
+
   return (
     <Modal label="Sign Up" setOpen={setOpen} open={open}>
       <Formik
@@ -24,8 +29,11 @@ const SignUp = ({ open, setOpen, setSignIn }: SignUpInterface) => {
         }}
         validationSchema={signUpSchema}
         onSubmit={(values, { resetForm }) => {
-          console.log(values.Email, values.Password);
+          dispatch(
+            signUpThunk({ email: values.Email, password: values.Password }),
+          );
           resetForm();
+          setOpen(false);
         }}
       >
         {({}) => (

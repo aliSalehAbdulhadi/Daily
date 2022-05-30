@@ -1,23 +1,39 @@
 import * as Yup from "yup";
 import { Formik, Form } from "formik";
+import { v4 as uuidv4 } from "uuid";
 import FormField from "./FormField";
-import { useDispatch, useSelector } from "react-redux";
-import { addTask } from "../redux/features/addTaskSlice";
-import { RootState } from "../interfaces/interfaces";
+import { addTodo } from "../redux/slices/features/addTodoSlice";
+import { getTodo } from "../redux/slices/features/getTodoSlice";
+import {
+  RootState,
+  useAppDispatch,
+  useAppSelector,
+} from "../interfaces/interfaces";
 
 const formSchema = Yup.object().shape({
   Form: Yup.string(),
 });
 const TaskForm = () => {
-  const dispatch = useDispatch();
-  const tasks = useSelector((state: RootState) => state.addTaskReducer.tasks);
-  console.log(tasks);
+  const dispatch = useAppDispatch();
+  const user = useAppSelector((state: RootState) => state.userReducer.userUid);
+  const addTodoError = useAppSelector(
+    (state: RootState) => state.addTodoReducer,
+  );
   return (
     <Formik
       initialValues={{ Form: "" }}
       validationSchema={formSchema}
       onSubmit={(values, { resetForm }) => {
-        dispatch(addTask({ task: values.Form, id: tasks.length + 1 }));
+        dispatch(
+          addTodo({
+            todo: { content: values.Form, completed: false, id: uuidv4() },
+            userUid: user,
+          }),
+        );
+        setTimeout(() => {
+          dispatch(getTodo({ userUid: user }));
+        }, 500);
+
         resetForm();
       }}
     >

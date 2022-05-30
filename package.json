@@ -11,7 +11,10 @@
   "dependencies": {
     "@headlessui/react": "^1.6.3",
     "@reduxjs/toolkit": "^1.8.2",
+    "@types/react-redux": "^7.1.24",
     "@types/redux-actions": "^2.6.2",
+    "@types/uuid": "^8.3.4",
+    "firebase": "^9.8.2",
     "formik": "^2.2.9",
     "next": "12.1.6",
     "react": "18.1.0",
