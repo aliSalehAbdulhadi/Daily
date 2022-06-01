@@ -114,7 +114,7 @@ const SingleTask = (content: {
           ref={provided.innerRef}
         >
           <div className="mb-3 md:mb-0">
-            <CardIcon icon={content.content.icon} />
+            <CardIcon icon={content?.content?.icon} />
           </div>
           {edit ? (
             <form onSubmit={editHanlder}>
