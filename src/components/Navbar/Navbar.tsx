@@ -33,7 +33,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className="text-white h-[10vh] bg-primaryColor flex items-center justify-between px-5 whitespace-nowrap text-sm md:text-base md:px-10">
+    <div className="text-white w-full h-[10vh] bg-primaryColor flex items-center justify-between px-5 whitespace-nowrap text-sm md:text-base md:px-10">
       <div className="px-3">
         <h1>Daily Icon</h1>
       </div>

@@ -1,5 +1,4 @@
 import { Fragment, useRef } from "react";
-import PropTypes from "prop-types";
 import { Dialog, Transition } from "@headlessui/react";
 import { ModalInterface } from "../../../interfaces/interfaces";
 
@@ -81,17 +80,5 @@ function Modal({
     </Transition.Root>
   );
 }
-Modal.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node,
-  ]),
-  label: PropTypes.string.isRequired,
-  open: PropTypes.bool.isRequired,
-  setOpen: PropTypes.func.isRequired,
-};
-Modal.defaultProps = {
-  children: "",
-};
 
 export default Modal;

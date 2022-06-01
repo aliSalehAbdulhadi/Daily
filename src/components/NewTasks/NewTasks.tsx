@@ -4,8 +4,12 @@ import { useAppSelector } from "../../interfaces/interfaces";
 import { RootState } from "../../interfaces/interfaces";
 
 const NewTasks = () => {
-  const todos: { id: string; content: string; completed: boolean }[] =
-    useAppSelector((state: RootState) => state.getTodoReducer.todos);
+  const todos: {
+    id: string;
+    content: string;
+    completed: boolean;
+    icon: string;
+  }[] = useAppSelector((state: RootState) => state.getTodoReducer.todos);
   return (
     <Droppable droppableId="NewTodos">
       {(provided) => (
