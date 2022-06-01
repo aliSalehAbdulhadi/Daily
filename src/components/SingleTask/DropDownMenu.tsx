@@ -1,4 +1,4 @@
-import { SyntheticEvent, useState, useEffect, useRef } from "react";
+import { SyntheticEvent, useState } from "react";
 import { BsFillPersonFill, BsFillArrowDownCircleFill } from "react-icons/bs";
 import { MdWork } from "react-icons/md";
 import { IoGameController } from "react-icons/io5";
@@ -56,15 +56,11 @@ const DropDownMenu = ({ iconValue }: { iconValue: Function }) => {
       );
     }
   };
-  const dropdownRef = useRef<any>(null);
 
-  useEffect(() => {
-    dropdownRef.current?.blur();
-  }, []);
   return (
     <div className="w-[5rem] text-white scale-[1.5] flex flex-col mr-[.80rem] mb-1">
       <button
-        ref={dropdownRef}
+        type="button"
         className="self-end"
         onClick={(e) => {
           setHidden(false);
@@ -73,6 +69,7 @@ const DropDownMenu = ({ iconValue }: { iconValue: Function }) => {
         {dynamicIconHandler()}
       </button>
       <button
+        type="button"
         className="flex justify-end"
         value="personal"
         onClick={(e) => iconsHandler(e)}
@@ -89,6 +86,7 @@ const DropDownMenu = ({ iconValue }: { iconValue: Function }) => {
         />
       </button>
       <button
+        type="button"
         className="flex justify-end"
         value="work"
         onClick={(e) => iconsHandler(e)}
@@ -107,6 +105,7 @@ const DropDownMenu = ({ iconValue }: { iconValue: Function }) => {
         />
       </button>
       <button
+        type="button"
         className="flex justify-end"
         value="fun"
         onClick={(e) => iconsHandler(e)}

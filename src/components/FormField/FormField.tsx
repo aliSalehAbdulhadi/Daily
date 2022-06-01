@@ -16,7 +16,7 @@ function FormField({
     <div className={className}>
       <label
         htmlFor={name}
-        className={`ml-3 block text-sm font-medium placeholder-slate-400`}
+        className={`ml-3 block text-xs md:text-sm whitespace-nowrap font-medium placeholder-slate-400`}
       >
         {label}
       </label>
