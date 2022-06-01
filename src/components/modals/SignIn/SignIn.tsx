@@ -17,7 +17,14 @@ const signInSchema = Yup.object().shape({
 
 const SignIn = ({ open, setOpen, setSignUp }: SignInInterface) => {
   const dispatch = useAppDispatch();
-  const signIn = useAppSelector((state: any) => state.signInReducer);
+  const signInError = useAppSelector(
+    (state: any) => state.signInReducer?.error?.payload?.message,
+  );
+  const signInStatus = useAppSelector(
+    (state: any) => state.signInReducer?.state,
+  );
+  // console.log(signIn);
+  let t = "10tT";
 
   return (
     <Modal label="Sign In" setOpen={setOpen} open={open}>
@@ -28,8 +35,11 @@ const SignIn = ({ open, setOpen, setSignUp }: SignInInterface) => {
           dispatch(
             signInThunk({ email: values.Email, password: values.Password }),
           );
-          resetForm();
-          setOpen(false);
+          console.log(signInStatus);
+          setTimeout(() => {
+            resetForm();
+            setOpen(false);
+          }, 500);
         }}
       >
         {({}) => (

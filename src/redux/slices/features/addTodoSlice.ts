@@ -10,7 +10,7 @@ export const addTodo = createAsyncThunk(
     todo,
     userUid,
   }: {
-    todo?: { content: string; completed: boolean; id: string };
+    todo?: { content: string; completed: boolean; id: string; icon: string };
     userUid: string;
   }) => {
     await setDoc(

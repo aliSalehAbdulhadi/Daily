@@ -34,7 +34,7 @@ const SignInSlice = createSlice({
         state.state = "fulfilled";
       }),
       build.addCase(signInThunk.rejected, (state, action: any) => {
-        state.error = action.error.message;
+        state.error = action;
         state.state = "rejected";
       });
   },

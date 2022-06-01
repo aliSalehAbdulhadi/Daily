@@ -5,7 +5,7 @@ import TaskForm from "../src/components/TaskForm/TaskForm";
 import TasksContainer from "../src/components/TasksContainer/TasksContainer";
 import { DragDropContext, DropResult } from "react-beautiful-dnd";
 import { completedTodo } from "../src/redux/slices/features/completeTodo";
-import { getTodo } from "../src/redux/slices/features/getTodoSlice";
+import { getTodo, updateTodo } from "../src/redux/slices/features/getTodoSlice";
 
 import {
   useAppDispatch,
@@ -34,9 +34,8 @@ const Home: NextPage = () => {
             allTodos: todos,
           }),
         );
-        setTimeout(() => {
-          dispatch(getTodo({ userUid: user }));
-        }, 100);
+
+        dispatch(updateTodo({ todoId: result.draggableId }));
       }
     }
   };

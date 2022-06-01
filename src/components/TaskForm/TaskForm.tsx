@@ -11,13 +11,14 @@ import {
   useAppDispatch,
   useAppSelector,
 } from "../../interfaces/interfaces";
-import DropDownMenu from "../modals/DropDownMenu/DropDownMenu";
+import DropDownMenu from "../SingleTask/DropDownMenu";
 
 const formSchema = Yup.object().shape({
   Form: Yup.string(),
 });
 const TaskForm = () => {
   const [submitAnimation, setSubmitAnimation] = useState<boolean>(false);
+  const [iconValue, setIconValue] = useState<string>("");
   const dispatch = useAppDispatch();
   const user = useAppSelector((state: RootState) => state.userReducer.userUid);
 
@@ -26,19 +27,33 @@ const TaskForm = () => {
       initialValues={{ Form: "" }}
       validationSchema={formSchema}
       onSubmit={(values, { resetForm }) => {
-        console.log(values.Form);
         values.Form.length === 0
           ? false
           : dispatch(
               addTodo({
-                todo: { content: values.Form, completed: false, id: uuidv4() },
+                todo: {
+                  content: values.Form,
+                  completed: false,
+                  id: uuidv4(),
+                  icon: iconValue.length === 0 ? "personal" : iconValue,
+                },
                 userUid: user,
               }),
             );
 
-        dispatch(
-          setTodos({ content: values.Form, completed: false, id: uuidv4() }),
-        );
+        values.Form.length === 0
+          ? false
+          : setTimeout(() => {
+              dispatch(
+                setTodos({
+                  content: values.Form,
+                  completed: false,
+                  id: uuidv4(),
+                  icon: iconValue.length === 0 ? "personal" : iconValue,
+                }),
+              );
+            }, 200);
+
         setSubmitAnimation(true);
         setTimeout(() => {
           setSubmitAnimation(false);
@@ -50,7 +65,10 @@ const TaskForm = () => {
       {({}) => (
         <Form className="bg-primaryColor flex items-center justify-center text-white">
           {user ? (
-            <div className="w-full flex items-center pl-10 justify-center">
+            <div className="w-full flex items-center justify-center pr-[3rem]">
+              <div className="mt-8">
+                <DropDownMenu iconValue={(e: string) => setIconValue(e)} />
+              </div>
               <FormField
                 type="text"
                 label="What are you up to today?"
@@ -58,9 +76,9 @@ const TaskForm = () => {
                 value="form"
                 autoComplete="form"
                 placeholder="Enter Your Task"
-                className=" bg-primaryColor py-4 px-4 rounded-tl-md outline-none w-[70%] md:w-[30%]"
+                className=" bg-primaryColor py-4 px-4 rounded-tl-md outline-none w-[70%] md:w-[30%] "
               />
-              <DropDownMenu />
+
               <button
                 type="submit"
                 className="scale-[1.6] pt-[1rem] text-white rounded-br-md"
@@ -73,7 +91,7 @@ const TaskForm = () => {
               </button>
             </div>
           ) : (
-            <h1 className="bg-secondaryColor py-4 px-10 rounded-tl-md rounded-br-md text-white">
+            <h1 className="bg-secondaryColor py-4 px-10 rounded-md text-white">
               Please login to add new tasks.
             </h1>
           )}

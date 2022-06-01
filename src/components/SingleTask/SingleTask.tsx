@@ -11,20 +11,25 @@ import {
 } from "../../interfaces/interfaces";
 import { completedTodo } from "../../redux/slices/features/completeTodo";
 import { removeTodo } from "../../redux/slices/features/deleteTodoSlice";
-import { getTodo } from "../../redux/slices/features/getTodoSlice";
+import {
+  deleteTodo,
+  getTodo,
+  updateTodo,
+} from "../../redux/slices/features/getTodoSlice";
 import { editTodo } from "../../redux/slices/features/editTodo";
+import CardIcon from "./CardIcon";
 
 const SingleTask = (content: {
   content: {
     id: string;
     content: string;
     completed: boolean;
+    icon: string;
   };
   index: number;
 }) => {
   const [deleteAnimation, setDeleteAnimation] = useState<boolean>(false);
   const [CompleteAnimation, setCompleteAnimation] = useState<boolean>(false);
-
   const [edit, setEdit] = useState<boolean>(false);
   const [editText, setEditText] = useState<string>(content.content.content);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -63,14 +68,12 @@ const SingleTask = (content: {
         allTodos: todos,
       }),
     );
-    setDeleteAnimation(true);
 
+    setDeleteAnimation(true);
     setTimeout(() => {
+      dispatch(deleteTodo({ todoId: content.content.id }));
       setDeleteAnimation(false);
-    }, 1000);
-    setTimeout(() => {
-      dispatch(getTodo({ userUid: user }));
-    }, 50);
+    }, 300);
   };
 
   const completionHandler = () => {
@@ -84,12 +87,11 @@ const SingleTask = (content: {
     setCompleteAnimation(true);
 
     setTimeout(() => {
+      dispatch(updateTodo({ todoId: content.content.id }));
       setCompleteAnimation(false);
-    }, 1000);
-    setTimeout(() => {
-      dispatch(getTodo({ userUid: user }));
-    }, 200);
+    }, 300);
   };
+
   return (
     <Draggable draggableId={content.content.id} index={content.index}>
       {(provided, snapshot) => (
@@ -111,7 +113,9 @@ const SingleTask = (content: {
           {...provided.dragHandleProps}
           ref={provided.innerRef}
         >
-          <div className="mb-3 md:mb-0">Icon</div>
+          <div className="mb-3 md:mb-0">
+            <CardIcon icon={content.content.icon} />
+          </div>
           {edit ? (
             <form onSubmit={editHanlder}>
               <input
@@ -129,22 +133,24 @@ const SingleTask = (content: {
               {content.content.content}
             </span>
           )}
-          <div className="flex md:pl-10 ">
-            <AiFillDelete
-              onClick={deletionHandler}
-              className="cursor-pointer mb-3 mr-1 scale-[1.2] hover:text-white hover:scale-150 transition-all ease-in-out "
-            />
-            <MdModeEditOutline
-              onClick={() => setEdit(!edit)}
-              className={`cursor-pointer mb-3 ml-3 scale-[1.2] ${
-                content.content.completed
-                  ? "hidden"
-                  : "block hover:text-white hover:scale-150 transition-all ease-in-out"
-              }`}
-            />
+          <div className="flex md:flex-col md:pl-10">
             <GoCheck
               onClick={completionHandler}
-              className="cursor-pointer ml-3 scale-[1.2] hover:text-white hover:scale-150 transition-all ease-in-out "
+              className="cursor-pointer mb-3 mr-1 scale-[1.2] hover:text-white hover:scale-150 transition-all ease-in-out"
+            />
+
+            <MdModeEditOutline
+              onClick={() => setEdit(!edit)}
+              className={`cursor-pointer mb-3  scale-[1.2] ${
+                content.content.completed
+                  ? "hidden"
+                  : "block hover:text-white hover:scale-150 transition-all ease-in-out ml-2 md:ml-0"
+              }`}
+            />
+
+            <AiFillDelete
+              onClick={deletionHandler}
+              className="cursor-pointer  scale-[1.2] hover:text-white hover:scale-150 transition-all ease-in-out ml-3 md:ml-0 "
             />
           </div>
         </div>

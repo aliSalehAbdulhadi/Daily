@@ -29,9 +29,33 @@ const getTodosSlice = createSlice({
         content: string;
         completed: boolean;
         id: string;
+        icon: string;
       }>,
     ) => {
       state.todos.push(action.payload);
+    },
+    deleteTodo: (
+      state: any,
+      action: PayloadAction<{
+        todoId: string;
+      }>,
+    ) => {
+      state.todos = state.todos.filter(
+        (todo: {
+          content: string;
+          id: string;
+          icon: string;
+          completed: boolean;
+        }) => todo.id !== action.payload.todoId,
+      );
+    },
+    updateTodo: (state: any, action: PayloadAction<{ todoId: string }>) => {
+      state.todos = state.todos.map((todo: any) => {
+        if (todo.id === action.payload.todoId) {
+          todo.completed = !todo.completed;
+        }
+        return todo;
+      });
     },
   },
   extraReducers(build) {
@@ -50,4 +74,4 @@ const getTodosSlice = createSlice({
 });
 
 export default getTodosSlice.reducer;
-export const { setTodos } = getTodosSlice.actions;
+export const { setTodos, deleteTodo, updateTodo } = getTodosSlice.actions;
