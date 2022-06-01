@@ -1,22 +1,29 @@
 import React from "react";
 import * as Yup from "yup";
-import Modal from "./Modal";
 import { Formik, Form } from "formik";
-import { SignUpInterface } from "../../interfaces/interfaces";
-import FormField from "../FormField";
-import { useAppDispatch, useAppSelector } from "../../interfaces/interfaces";
-import { signUpThunk } from "../../redux/slices/authentication/signUpSlice";
+import Modal from "./../Modal/Modal";
+import { SignUpInterface } from "../../../interfaces/interfaces";
+import FormField from "../../FormField/FormField";
+import {
+  useAppDispatch,
+  useAppSelector,
+  RootState,
+} from "../../../interfaces/interfaces";
+import { signUpThunk } from "../../../redux/slices/authentication/signUpSlice";
+import { addUsername } from "../../../redux/slices/features/addUsername";
 
 const signUpSchema = Yup.object().shape({
-  Email: Yup.string().min(3).max(24).required(),
-  Password: Yup.string().min(6).required(),
-  PasswordConfirmation: Yup.string().min(6).required(),
-  UserName: Yup.string().min(3).max(24).required(),
+  UserName: Yup.string().min(3).max(24).required("User name is required"),
+  Email: Yup.string().min(3).max(24).required("Email is required"),
+  Password: Yup.string().min(6).required("Password is required"),
+  PasswordConfirmation: Yup.string()
+    .required("Password is required")
+    .oneOf([Yup.ref("Password"), null], "Password must match"),
 });
 
 const SignUp = ({ open, setOpen, setSignIn }: SignUpInterface) => {
   const dispatch = useAppDispatch();
-  const users = useAppSelector((state: any) => state.signUpReducer);
+  const user = useAppSelector((state: RootState) => state.userReducer.userUid);
 
   return (
     <Modal label="Sign Up" setOpen={setOpen} open={open}>
@@ -32,8 +39,16 @@ const SignUp = ({ open, setOpen, setSignIn }: SignUpInterface) => {
           dispatch(
             signUpThunk({ email: values.Email, password: values.Password }),
           );
-          resetForm();
+          setTimeout(() => {
+            dispatch(
+              addUsername({
+                userName: values.UserName,
+                userUid: user,
+              }),
+            );
+          });
           setOpen(false);
+          resetForm();
         }}
       >
         {({}) => (
@@ -75,21 +90,27 @@ const SignUp = ({ open, setOpen, setSignIn }: SignUpInterface) => {
               placeholder="Enter Your Password Again"
               value="password"
             />
-            <button
-              className="bg-primaryColor py-3 px-7 rounded-tl-md rounded-br-md text-white"
-              type="submit"
-            >
-              Sign Up
-            </button>
-            <button
-              type="button"
-              onClick={() => {
-                setSignIn(true);
-                setOpen(false);
-              }}
-            >
-              Sign In
-            </button>
+            <div className="flex justify-between items-center mt-5">
+              <button
+                className="bg-primaryColor py-3 px-7 rounded-tl-md rounded-br-md text-white"
+                type="submit"
+              >
+                Sign Up
+              </button>
+              <div className="flex flex-col text-sm">
+                <span>Already have an account?</span>
+                <button
+                  className="mt-1"
+                  type="button"
+                  onClick={() => {
+                    setOpen(false);
+                    setSignIn(true);
+                  }}
+                >
+                  Sign In
+                </button>
+              </div>
+            </div>
           </Form>
         )}
       </Formik>

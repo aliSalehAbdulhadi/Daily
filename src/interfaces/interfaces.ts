@@ -1,4 +1,3 @@
-import { Dispatch } from "react";
 import { useSelector } from "react-redux";
 import { TypedUseSelectorHook, useDispatch } from "react-redux";
 import store from "../redux/store/store";
@@ -30,12 +29,6 @@ export interface SignUpInterface {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   setSignIn: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-export interface TaskSlice {
-  state: {
-    tasks: [];
-  };
 }
 
 export interface UserInfo {

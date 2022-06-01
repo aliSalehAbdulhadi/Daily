@@ -7,8 +7,12 @@ module.exports = {
     extend: {
       colors: {
         primaryColor: "#427676",
-        secondaryColor: "rgb(253 224 71)",
+        secondaryColor: "#2c5252",
         taskColor: "rgb(147 197 253)",
+      },
+      fontFamily: {
+        Montserrat: ["Montserrat", "sans-serif"],
+        Righteous: ["Righteous", "cursive"],
       },
     },
   },
