@@ -8,6 +8,7 @@ const CompletedTasks = () => {
     id: string;
     content: string;
     completed: boolean;
+    icon: string;
   }[] = useAppSelector((state: RootState) => state.getTodoReducer.todos);
   return (
     <Droppable droppableId="CompletedTodos">
