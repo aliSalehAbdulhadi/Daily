@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 
 import { ErrorMessage, Field } from "formik";
-import { FieldPropsInterface } from "../interfaces/interfaces";
+import { FieldPropsInterface } from "../../interfaces/interfaces";
 
 function FormField({
   autoComplete = "",
@@ -16,13 +16,13 @@ function FormField({
     <div className={className}>
       <label
         htmlFor={name}
-        className={`block text-sm font-medium placeholder-slate-400 `}
+        className={`ml-3 block text-sm font-medium placeholder-slate-400`}
       >
         {label}
       </label>
       <Field
         autoComplete={autoComplete}
-        className={`my-1 p-2 outline-none block w-full shadow-sm sm:text-sm border-gray-300 rounded-tl-md rounded-br-md placeholder-slate-400 `}
+        className={`my-1 p-5 text-black outline-none block w-full shadow-sm sm:text-sm border-gray-300 rounded-3xl py-3 placeholder-slate-400 mt-3 `}
         id={name}
         name={name}
         type={type}

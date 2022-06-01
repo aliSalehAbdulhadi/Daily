@@ -1,14 +1,14 @@
 import React from "react";
 import * as Yup from "yup";
-import Modal from "./Modal";
 import { Formik, Form } from "formik";
+import Modal from "../Modal/Modal";
 import {
   SignInInterface,
   useAppDispatch,
   useAppSelector,
-} from "../../interfaces/interfaces";
-import FormField from "../FormField";
-import { signInThunk } from "../../redux/slices/authentication/signInSlice";
+} from "../../../interfaces/interfaces";
+import FormField from "../../FormField/FormField";
+import { signInThunk } from "../../../redux/slices/authentication/signInSlice";
 
 const signInSchema = Yup.object().shape({
   Email: Yup.string().min(3).max(24).required(),
@@ -52,21 +52,27 @@ const SignIn = ({ open, setOpen, setSignUp }: SignInInterface) => {
               placeholder="Enter Your Password"
               value="password"
             />
-            <button
-              className="bg-primaryColor py-3 px-7 rounded-tl-md rounded-br-md text-white"
-              type="submit"
-            >
-              Sign In
-            </button>
-            <button
-              type="button"
-              onClick={() => {
-                setOpen(false);
-                setSignUp(true);
-              }}
-            >
-              Sign Up
-            </button>
+            <div className="flex justify-between items-center">
+              <button
+                className="bg-primaryColor py-3 px-7 rounded-tl-md rounded-br-md text-white ml-2"
+                type="submit"
+              >
+                Sign In
+              </button>
+              <div className="flex flex-col text-sm">
+                <span>Dont have an account?</span>
+                <button
+                  className="mt-1"
+                  type="button"
+                  onClick={() => {
+                    setOpen(false);
+                    setSignUp(true);
+                  }}
+                >
+                  Sign Up
+                </button>
+              </div>
+            </div>
           </Form>
         )}
       </Formik>

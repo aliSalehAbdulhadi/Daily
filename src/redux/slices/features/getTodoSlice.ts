@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { db } from "../../../container/firebase";
 import { getDoc, doc } from "firebase/firestore";
 
@@ -22,7 +22,18 @@ const getTodosSlice = createSlice({
     error: [],
     status: "",
   },
-  reducers: {},
+  reducers: {
+    setTodos: (
+      state: any,
+      action: PayloadAction<{
+        content: string;
+        completed: boolean;
+        id: string;
+      }>,
+    ) => {
+      state.todos.push(action.payload);
+    },
+  },
   extraReducers(build) {
     build.addCase(getTodo.pending, (state) => {
       state.status = "pending";
@@ -39,3 +50,4 @@ const getTodosSlice = createSlice({
 });
 
 export default getTodosSlice.reducer;
+export const { setTodos } = getTodosSlice.actions;

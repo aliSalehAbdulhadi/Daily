@@ -1,7 +1,7 @@
 import { Fragment, useRef } from "react";
 import PropTypes from "prop-types";
 import { Dialog, Transition } from "@headlessui/react";
-import { ModalInterface } from "../../interfaces/interfaces";
+import { ModalInterface } from "../../../interfaces/interfaces";
 
 function Modal({
   children,
@@ -15,7 +15,7 @@ function Modal({
     <Transition.Root show={open} as={Fragment}>
       <Dialog
         as="div"
-        className="fixed z-[98] inset-0 overflow-y-auto"
+        className="fixed z-[98] inset-0 overflow-y-auto text-white "
         initialFocus={cancelButtonRef}
         onClose={setOpen}
       >
@@ -52,8 +52,8 @@ function Modal({
               }`}
             >
               <div className={`p-4 sm:p-6 sm:pb-4 w-full bg-secondaryColor`}>
-                <div className="flex justify-between mb-5">
-                  <h2 className="w-max font-semibold text-[1.2rem] md:text-2xl lg:text-[1.5rem]  mb-1">
+                <div className="flex  justify-between mb-5">
+                  <h2 className="  w-max font-semibold text-[1.2rem] md:text-2xl lg:text-[1.5rem]  mb-1">
                     {label}
                   </h2>
                   <button
