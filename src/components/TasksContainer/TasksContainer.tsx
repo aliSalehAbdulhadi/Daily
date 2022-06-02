@@ -17,7 +17,7 @@ const TasksContainer = () => {
         </div>
       ) : (
         <div
-          className={`text-white  self-center p-10 rounded-md text-center mx-10  bg-secondaryColor ${
+          className={`text-white font-Comfortaa mt-10 md:mt-0 self-center p-10 rounded-md text-center mx-10  bg-secondaryColor ${
             user ? "block" : "hidden"
           }`}
         >

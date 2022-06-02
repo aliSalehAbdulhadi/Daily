@@ -96,7 +96,7 @@ const SingleTask = (content: {
     <Draggable draggableId={content.content.id} index={content.index}>
       {(provided, snapshot) => (
         <div
-          className={`my-5 px-5 py-2 min-h-[20vh] md:p-10 min-w-[65vw] md:min-h-[15vh] md:min-w-[30vw] md:max-w-[30vw] ${
+          className={`font-Comfortaa font-semibold my-5 px-5 py-2 min-h-[20vh] md:p-10 min-w-[65vw] md:min-h-[15vh] md:min-w-[30vw] md:max-w-[30vw] ${
             content.content.completed
               ? "bg-red-400 shadow-2xl"
               : "bg-green-400 shadow-2xl"

@@ -12,7 +12,7 @@ module.exports = {
       },
       fontFamily: {
         Montserrat: ["Montserrat", "sans-serif"],
-        Righteous: ["Righteous", "cursive"],
+        Comfortaa: ["Comfortaa", "cursive"],
       },
     },
   },

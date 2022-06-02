@@ -16,13 +16,13 @@ function FormField({
     <div className={className}>
       <label
         htmlFor={name}
-        className={`ml-3 block text-xs md:text-sm whitespace-nowrap font-medium placeholder-slate-400`}
+        className={`ml-3 block text-xs font-Comfortaa md:text-sm whitespace-nowrap font-medium placeholder-slate-400`}
       >
         {label}
       </label>
       <Field
         autoComplete={autoComplete}
-        className={`my-1 p-5 text-black outline-none block w-full shadow-sm sm:text-sm border-gray-300 rounded-3xl py-3 placeholder-slate-400 mt-3 `}
+        className={`my-1 p-5 text-black outline-none block w-full shadow-sm sm:text-sm border-gray-300 rounded-3xl py-3 placeholder-slate-400 mt-3 font-Comfortaa`}
         id={name}
         name={name}
         type={type}
