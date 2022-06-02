@@ -96,7 +96,7 @@ const SingleTask = (content: {
     <Draggable draggableId={content.content.id} index={content.index}>
       {(provided, snapshot) => (
         <div
-          className={`my-5 px-5 py-2 min-h-[20vh] md:p-10 min-w-[65vw] md:min-h-[15vh] md:min-w-[30vw] md:max-w-[30vw] ${
+          className={`font-Comfortaa font-semibold my-5 px-5 py-2 min-h-[20vh] md:p-10 min-w-[65vw] md:min-h-[15vh] md:min-w-[30vw] md:max-w-[30vw] ${
             content.content.completed
               ? "bg-red-400 shadow-2xl"
               : "bg-green-400 shadow-2xl"
@@ -106,7 +106,7 @@ const SingleTask = (content: {
               : ""
           } ${
             snapshot.isDragging && content.content.completed ? "bg-red-600" : ""
-          } flex flex-col justify-between md:flex-row items-center rounded-md text-sm md:text-base transition-all ease-out duration-300 ${
+          }  flex flex-col justify-between md:flex-row items-center rounded-md text-sm md:text-base transition-all ease-out duration-300 ${
             deleteAnimation ? "translate-x-[-35rem]" : ""
           } ${CompleteAnimation ? "animate-bounce" : ""} `}
           {...provided.draggableProps}
@@ -136,12 +136,12 @@ const SingleTask = (content: {
           <div className="flex md:flex-col md:pl-10">
             <GoCheck
               onClick={completionHandler}
-              className="cursor-pointer mb-3 mr-1 scale-[1.2] hover:text-white hover:scale-150 transition-all ease-in-out"
+              className="cursor-pointer mb-3 mr-6 scale-[1.8] md:scale-[1.2] hover:text-white hover:scale-150 transition-all ease-in-out"
             />
 
             <MdModeEditOutline
               onClick={() => setEdit(!edit)}
-              className={`cursor-pointer mb-3  scale-[1.2] ${
+              className={`cursor-pointer mb-3 mr-6 scale-[1.8] md:scale-[1.2] ${
                 content.content.completed
                   ? "hidden"
                   : "block hover:text-white hover:scale-150 transition-all ease-in-out ml-2 md:ml-0"
@@ -150,7 +150,7 @@ const SingleTask = (content: {
 
             <AiFillDelete
               onClick={deletionHandler}
-              className="cursor-pointer  scale-[1.2] hover:text-white hover:scale-150 transition-all ease-in-out ml-3 md:ml-0 "
+              className="cursor-pointer  scale-[1.8] md:scale-[1.2] hover:text-white hover:scale-150 transition-all ease-in-out ml-3 md:ml-0 "
             />
           </div>
         </div>

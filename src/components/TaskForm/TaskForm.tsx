@@ -65,8 +65,8 @@ const TaskForm = () => {
       {({}) => (
         <Form className="bg-primaryColor flex items-center justify-center text-white">
           {user ? (
-            <div className="w-full flex items-center justify-center pr-[3rem]">
-              <div className="mt-8">
+            <div className="w-full flex items-center justify-center pr-[3rem] mr-6 md:mr-10">
+              <div className="mt-7 md:mt-8 ">
                 <DropDownMenu iconValue={(e: string) => setIconValue(e)} />
               </div>
               <FormField
@@ -76,12 +76,12 @@ const TaskForm = () => {
                 value="form"
                 autoComplete="form"
                 placeholder="Enter Your Task"
-                className=" bg-primaryColor py-4 px-4 rounded-tl-md outline-none w-[70%] md:w-[30%] "
+                className=" bg-primaryColor py-4 px-4 rounded-tl-md outline-none w-[70%] md:w-[30%] md:text-base text-xs"
               />
 
               <button
                 type="submit"
-                className="scale-[1.6] pt-[1rem] text-white rounded-br-md"
+                className="scale-[1.6] mt-6 md:mt-1 md:pt-[1rem] text-white rounded-br-md"
               >
                 <BsPlusCircleDotted
                   className={`hover:rotate-[360deg] transition-all ease-in-out duration-500 ${
