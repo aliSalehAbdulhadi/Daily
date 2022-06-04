@@ -9,7 +9,6 @@ import { addTodo } from "../../redux/slices/features/addTodoSlice";
 import { setTodos } from "../../redux/slices/features/getTodoSlice";
 import {
   RootState,
-  SingeTodoInterface,
   useAppDispatch,
   useAppSelector,
 } from "../../interfaces/interfaces";
@@ -23,27 +22,21 @@ const TaskForm = () => {
   const [submitAnimation, setSubmitAnimation] = useState<boolean>(false);
   const [checkInternet, setCheckInternet] = useState<boolean>(true);
   const [iconValue, setIconValue] = useState<string>("");
-  const [localTodo, setLocalTodo] = useState<any>("");
   const dark = useAppSelector(
     (state: RootState) => state.darkModeReducer.darkMode,
   );
   const dispatch = useAppDispatch();
   const user = useAppSelector((state: RootState) => state.userReducer.userUid);
-  console.log(localTodo);
 
   useEffect((): void => {
     window.ononline = () => {
       setCheckInternet(true);
-      localStorage.removeItem("localTodo");
     };
 
     window.onoffline = () => {
       setCheckInternet(false);
-      localTodo.length <= 0
-        ? null
-        : localStorage.setItem("localTodo", JSON.stringify(localTodo));
     };
-  }, [localTodo]);
+  }, []);
 
   return (
     <Formik
@@ -81,8 +74,6 @@ const TaskForm = () => {
                 }),
               );
             }, 200);
-
-        checkInternet ? null : setLocalTodo("no net");
 
         setSubmitAnimation(true);
         setTimeout(() => {

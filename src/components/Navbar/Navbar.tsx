@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import SignIn from "../modals/SignIn/SignIn";
-import SignUp from "./../modals/SignUp/SignUp";
+import SignUp from "../modals/SignUp/SignUp";
 import { auth } from "../../container/firebase";
 import { setUserUid } from "../../redux/slices/authentication/userSlice";
 import {
@@ -17,14 +17,15 @@ import { toggleDarkMode } from "../../redux/slices/features/darkMode";
 const Navbar = () => {
   const [signIn, setSignIn] = useState<boolean>(false);
   const [signUp, setSignUp] = useState<boolean>(false);
-  const [darkMode, setSetDarkMode] = useState<boolean>(true);
+  //this get reset when i reload the page
+  const [darkModeStorage, setDarkModeStorage] = useState<any>("");
+  const [darkMode, setSetDarkMode] = useState<boolean>(darkModeStorage);
   const [logoutAnimation, setLogoutAnimation] = useState<boolean>(false);
   const dispatch = useAppDispatch();
   const user = useAppSelector((state: RootState) => state.userReducer.userUid);
   const dark = useAppSelector(
     (state: RootState) => state.darkModeReducer.darkMode,
   );
-
   useEffect(() => {
     onAuthStateChanged(auth, (user) => dispatch(setUserUid(user?.uid)));
     dispatch(getTodo({ userUid: user }));
@@ -37,6 +38,20 @@ const Navbar = () => {
       setLogoutAnimation(false);
     }, 500);
   };
+
+  console.log(darkMode, "darkMode");
+  console.log(darkModeStorage, "darkModeStorage");
+  if (typeof window !== "undefined") {
+    localStorage?.setItem("darkMode", JSON.stringify(darkMode));
+  }
+  useEffect(() => {
+    dispatch(toggleDarkMode(darkMode));
+
+    if (typeof window !== "undefined") {
+      const savedDarkMode = localStorage.getItem("darkMode");
+      setDarkModeStorage(savedDarkMode);
+    }
+  }, [darkMode, dispatch]);
 
   return (
     <div
@@ -60,7 +75,6 @@ const Navbar = () => {
             className=" cursor-pointer select-none outline-none"
             onChange={() => {
               setSetDarkMode(!darkMode);
-              dispatch(toggleDarkMode(darkMode));
             }}
           />
           <div className="bg-icon w-7 h-5 bg-no-repeat absolute pointer-events-none top-[-1px] right-[-12px] sm:top-[-0px] sm:right-[-14px] sm:w-8 sm:h-6" />

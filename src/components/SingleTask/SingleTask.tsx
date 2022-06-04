@@ -140,7 +140,7 @@ const SingleTask = (content: {
                     : editText.length / 10
                 }
               />
-              <button className="md:ml-8 mb-5 mt-1 md:mb-0 bg-primaryColor py-2 text-xs rounded w-[40%] self-center text-white hover:scale-110 transition-all ease-in-out">
+              <button className="md:ml-10 mb-5 mt-1 md:mb-0 bg-primaryColor py-2 text-xs rounded w-[50%] md:w-[40%] self-center text-white hover:scale-110 transition-all ease-in-out whitespace-nowrap">
                 Save Changes
               </button>
             </form>
