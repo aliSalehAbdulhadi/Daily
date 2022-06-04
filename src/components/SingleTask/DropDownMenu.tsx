@@ -2,10 +2,15 @@ import { SyntheticEvent, useState } from "react";
 import { BsFillPersonFill, BsFillArrowDownCircleFill } from "react-icons/bs";
 import { MdWork } from "react-icons/md";
 import { IoGameController } from "react-icons/io5";
+import useClickOutside from "../../hooks/useClickOutside";
 
 const DropDownMenu = ({ iconValue }: { iconValue: Function }) => {
   const [hidden, setHidden] = useState<boolean>(true);
   const [value, setValue] = useState<any>("");
+
+  let domNode = useClickOutside(() => {
+    setHidden(true);
+  });
 
   const iconsHandler = (e: SyntheticEvent) => {
     e.preventDefault();
@@ -19,7 +24,7 @@ const DropDownMenu = ({ iconValue }: { iconValue: Function }) => {
     if (!value) {
       return (
         <BsFillArrowDownCircleFill
-          className={` hover:translate-y-[-5px] duration-500 ease-in-out transition-all ${
+          className={`animate-bounce hover:translate-y-[-5px] duration-500 ease-in-out transition-all ${
             !hidden ? "hidden" : "block"
           }`}
         />
@@ -29,7 +34,7 @@ const DropDownMenu = ({ iconValue }: { iconValue: Function }) => {
     if (value === "work") {
       return (
         <MdWork
-          className={`hover:translate-y-[-5px] duration-500 ease-in-out transition-all ${
+          className={`animate-bounce hover:translate-y-[-5px] duration-500 ease-in-out transition-all ${
             !hidden ? "hidden" : "block"
           }`}
         />
@@ -39,7 +44,7 @@ const DropDownMenu = ({ iconValue }: { iconValue: Function }) => {
     if (value === "personal") {
       return (
         <BsFillPersonFill
-          className={`hover:translate-y-[-5px] duration-500 ease-in-out transition-all ${
+          className={`animate-bounce hover:translate-y-[-5px] duration-500 ease-in-out transition-all ${
             !hidden ? "hidden" : "block"
           }`}
         />
@@ -49,7 +54,7 @@ const DropDownMenu = ({ iconValue }: { iconValue: Function }) => {
     if (value === "fun") {
       return (
         <IoGameController
-          className={`hover:translate-y-[-5px] duration-500 ease-in-out transition-all ${
+          className={`animate-bounce hover:translate-y-[-5px] duration-500 ease-in-out transition-all ${
             !hidden ? "hidden" : "block"
           }`}
         />
@@ -58,11 +63,14 @@ const DropDownMenu = ({ iconValue }: { iconValue: Function }) => {
   };
 
   return (
-    <div className="w-[5rem] text-white scale-[1.5] flex flex-col mr-[.80rem] mb-1">
+    <div
+      ref={domNode}
+      className="w-[5rem] text-white scale-[1.5] flex flex-col mr-[.80rem] mb-1 "
+    >
       <button
         type="button"
         className="self-end"
-        onClick={(e) => {
+        onClick={() => {
           setHidden(false);
         }}
       >
@@ -70,7 +78,7 @@ const DropDownMenu = ({ iconValue }: { iconValue: Function }) => {
       </button>
       <button
         type="button"
-        className="flex justify-end"
+        className="flex justify-end hover:translate-x-[-5px] transition-all ease-in-out duration-500"
         value="personal"
         onClick={(e) => iconsHandler(e)}
       >
@@ -87,7 +95,7 @@ const DropDownMenu = ({ iconValue }: { iconValue: Function }) => {
       </button>
       <button
         type="button"
-        className="flex justify-end"
+        className="flex justify-end hover:translate-x-[-5px] transition-all ease-in-out duration-500"
         value="work"
         onClick={(e) => iconsHandler(e)}
       >
@@ -106,7 +114,7 @@ const DropDownMenu = ({ iconValue }: { iconValue: Function }) => {
       </button>
       <button
         type="button"
-        className="flex justify-end"
+        className="flex justify-end hover:translate-x-[-5px] transition-all ease-in-out duration-500"
         value="fun"
         onClick={(e) => iconsHandler(e)}
       >

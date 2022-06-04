@@ -1,13 +1,15 @@
 import React, { SyntheticEvent } from "react";
 import { AiFillDelete } from "react-icons/ai";
 import { GoCheck } from "react-icons/go";
-import { MdModeEditOutline } from "react-icons/md";
+import { MdModeEditOutline, MdEditOff } from "react-icons/md";
+import { IoCloseSharp } from "react-icons/io5";
 import { useState, useEffect, useRef } from "react";
 import { Draggable } from "react-beautiful-dnd";
 import {
   RootState,
   useAppDispatch,
   useAppSelector,
+  SingeTodoInterface,
 } from "../../interfaces/interfaces";
 import { completedTodo } from "../../redux/slices/features/completeTodo";
 import { removeTodo } from "../../redux/slices/features/deleteTodoSlice";
@@ -18,6 +20,7 @@ import {
 } from "../../redux/slices/features/getTodoSlice";
 import { editTodo } from "../../redux/slices/features/editTodo";
 import CardIcon from "./CardIcon";
+import useClickOutside from "../../hooks/useClickOutside";
 
 const SingleTask = (content: {
   content: {
@@ -32,14 +35,20 @@ const SingleTask = (content: {
   const [CompleteAnimation, setCompleteAnimation] = useState<boolean>(false);
   const [edit, setEdit] = useState<boolean>(false);
   const [editText, setEditText] = useState<string>(content.content.content);
-  const inputRef = useRef<HTMLInputElement>(null);
+  const inputRef = useRef<HTMLTextAreaElement>(null);
   const dispatch = useAppDispatch();
-  const todos: { id: string; content: string; completed: boolean }[] =
-    useAppSelector((state: RootState) => state.getTodoReducer.todos);
+  const todos: SingeTodoInterface[] = useAppSelector(
+    (state: RootState) => state.getTodoReducer.todos,
+  );
   const user = useAppSelector((state: RootState) => state.userReducer.userUid);
   useEffect(() => {
     inputRef?.current?.focus();
   }, [edit]);
+
+  let textareaRef = useClickOutside(() => {
+    setEdit(false);
+    setEditText(content.content.content);
+  });
 
   const editHanlder = (e: SyntheticEvent) => {
     e.preventDefault();
@@ -96,7 +105,7 @@ const SingleTask = (content: {
     <Draggable draggableId={content.content.id} index={content.index}>
       {(provided, snapshot) => (
         <div
-          className={`font-Comfortaa font-semibold my-5 px-5 py-2 min-h-[20vh] md:p-10 min-w-[65vw] md:min-h-[15vh] md:min-w-[30vw] md:max-w-[30vw] ${
+          className={`hover:scale-[1.05] font-Comfortaa font-semibold my-5 px-5 py-2 min-h-[20vh] md:p-10 min-w-[65vw] md:min-h-[17vh] md:min-w-[30vw] md:max-w-[30vw] ${
             content.content.completed
               ? "bg-red-400 shadow-2xl"
               : "bg-green-400 shadow-2xl"
@@ -117,13 +126,17 @@ const SingleTask = (content: {
             <CardIcon icon={content?.content?.icon} />
           </div>
           {edit ? (
-            <form onSubmit={editHanlder}>
-              <input
-                className={`my-1 p-1 md:ml-5 md:p-2 outline-none w-full text-sm shadow-sm sm:text-base border-gray-300 rounded-md placeholder-slate-400 `}
-                ref={inputRef}
+            <form ref={textareaRef} onSubmit={editHanlder}>
+              <textarea
+                className={`my-1 p-1 md:ml-5 md:p-2 outline-none w-full text-sm shadow-sm sm:text-base border-gray-300 rounded-md placeholder-slate-400`}
                 onChange={(e) => setEditText(e.target.value)}
-                type="text"
                 value={editText}
+                ref={inputRef}
+                rows={
+                  editText.length >= 100
+                    ? editText.length / 50
+                    : editText.length / 10
+                }
               />
             </form>
           ) : content.content.completed ? (
@@ -134,21 +147,44 @@ const SingleTask = (content: {
             </span>
           )}
           <div className="flex md:flex-col md:pl-10">
-            <GoCheck
-              onClick={completionHandler}
-              className="cursor-pointer mb-3 mr-6 scale-[1.8] md:scale-[1.2] hover:text-white hover:scale-150 transition-all ease-in-out"
-            />
+            {content.content.completed ? (
+              <IoCloseSharp
+                type="button"
+                onClick={completionHandler}
+                className="cursor-pointer mb-3 mr-6 scale-[1.8] md:scale-[1.3] hover:text-white hover:scale-150 transition-all ease-in-out"
+              />
+            ) : (
+              <GoCheck
+                type="button"
+                onClick={completionHandler}
+                className="cursor-pointer mb-3 mr-6 scale-[1.8] md:scale-[1.2] hover:text-white hover:scale-150 transition-all ease-in-out"
+              />
+            )}
 
-            <MdModeEditOutline
-              onClick={() => setEdit(!edit)}
-              className={`cursor-pointer mb-3 mr-6 scale-[1.8] md:scale-[1.2] ${
-                content.content.completed
-                  ? "hidden"
-                  : "block hover:text-white hover:scale-150 transition-all ease-in-out ml-2 md:ml-0"
-              }`}
-            />
+            {!edit ? (
+              <MdModeEditOutline
+                type="submit"
+                onClick={() => setEdit(true)}
+                className={`cursor-pointer mb-3 mr-6 scale-[1.8] md:scale-[1.2] ${
+                  content.content.completed
+                    ? "hidden"
+                    : "block hover:text-white hover:scale-150 transition-all ease-in-out ml-2 md:ml-0"
+                }`}
+              />
+            ) : (
+              <MdEditOff
+                type="submit"
+                onClick={() => setEdit(false)}
+                className={`cursor-pointer mb-3 mr-6 scale-[1.8] md:scale-[1.2] ${
+                  content.content.completed
+                    ? "hidden"
+                    : "block hover:text-white hover:scale-150 transition-all ease-in-out ml-2 md:ml-0"
+                }`}
+              />
+            )}
 
             <AiFillDelete
+              type="button"
               onClick={deletionHandler}
               className="cursor-pointer  scale-[1.8] md:scale-[1.2] hover:text-white hover:scale-150 transition-all ease-in-out ml-3 md:ml-0 "
             />

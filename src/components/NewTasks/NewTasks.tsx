@@ -1,15 +1,15 @@
 import { Droppable } from "react-beautiful-dnd";
 import SingleTask from "./../SingleTask/SingleTask";
-import { useAppSelector } from "../../interfaces/interfaces";
+import {
+  useAppSelector,
+  SingeTodoInterface,
+} from "../../interfaces/interfaces";
 import { RootState } from "../../interfaces/interfaces";
 
 const NewTasks = () => {
-  const todos: {
-    id: string;
-    content: string;
-    completed: boolean;
-    icon: string;
-  }[] = useAppSelector((state: RootState) => state.getTodoReducer.todos);
+  const todos: SingeTodoInterface[] = useAppSelector(
+    (state: RootState) => state.getTodoReducer.todos,
+  );
   return (
     <Droppable droppableId="NewTodos">
       {(provided) => (
@@ -23,7 +23,7 @@ const NewTasks = () => {
             {todos
               ?.slice()
               .reverse()
-              .map((todo, index) =>
+              .map((todo: SingeTodoInterface, index: number) =>
                 !todo.completed ? (
                   <SingleTask key={todo?.id} content={todo} index={index} />
                 ) : (

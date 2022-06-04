@@ -42,6 +42,12 @@ export interface initialState {
   state: string;
 }
 
+export interface SingeTodoInterface {
+  id: string;
+  content: string;
+  completed: boolean;
+  icon: string;
+}
 export interface AsyncThunkConfig {
   /** return type for `thunkApi.getState` */
   state?: unknown;

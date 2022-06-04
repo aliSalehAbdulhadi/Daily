@@ -5,18 +5,19 @@ import TaskForm from "../src/components/TaskForm/TaskForm";
 import TasksContainer from "../src/components/TasksContainer/TasksContainer";
 import { DragDropContext, DropResult } from "react-beautiful-dnd";
 import { completedTodo } from "../src/redux/slices/features/completeTodo";
-import { getTodo, updateTodo } from "../src/redux/slices/features/getTodoSlice";
+import { updateTodo } from "../src/redux/slices/features/getTodoSlice";
 
 import {
   useAppDispatch,
   useAppSelector,
   RootState,
+  SingeTodoInterface,
 } from "../src/interfaces/interfaces";
-import Favicon from "../assets/Favicon/Favicon";
 
 const Home: NextPage = () => {
-  const todos: { id: string; content: string; completed: boolean }[] =
-    useAppSelector((state: RootState) => state.getTodoReducer.todos);
+  const todos: SingeTodoInterface[] = useAppSelector(
+    (state: RootState) => state.getTodoReducer.todos,
+  );
   const user = useAppSelector((state: RootState) => state.userReducer.userUid);
   const dispatch = useAppDispatch();
 
