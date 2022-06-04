@@ -12,6 +12,28 @@ function FormField({
   value,
   placeholder,
 }: FieldPropsInterface) {
+  if (type === "textarea") {
+    return (
+      <div className={className}>
+        <label htmlFor={name} className={`block text-sm font-medium`}>
+          {label}
+        </label>
+        <Field
+          as="textarea"
+          autoComplete={autoComplete}
+          className={`my-1 focus:ring-cusOrange focus:border-cusOrange block w-full shadow-sm sm:text-sm border-gray-300 rounded-md placeholder-slate-400 bg-red-500`}
+          name={name}
+          placeholder={placeholder}
+          rows={5}
+        />
+        <ErrorMessage
+          className="text-sm text-red-600"
+          component="div"
+          name={name}
+        />
+      </div>
+    );
+  }
   return (
     <div className={className}>
       <label

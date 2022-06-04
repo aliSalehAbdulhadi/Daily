@@ -11,6 +11,7 @@ import {
 } from "../../interfaces/interfaces";
 import { getTodo } from "../../redux/slices/features/getTodoSlice";
 import { IoMdLogOut } from "react-icons/io";
+import Image from "next/image";
 
 const Navbar = () => {
   const [signIn, setSignIn] = useState<boolean>(false);
@@ -26,15 +27,19 @@ const Navbar = () => {
 
   const logOutHandler = () => {
     setLogoutAnimation(true);
-    setTimeout(() => {
+    const timer = setTimeout(() => {
       signOut(auth);
       setLogoutAnimation(false);
     }, 500);
+
+    clearTimeout(timer);
   };
 
   return (
     <div className="text-white w-full h-[10vh] bg-primaryColor flex items-center justify-between px-5 whitespace-nowrap text-sm md:text-base md:px-10 font-Comfortaa">
-      <div className="px-3">Daily Icon</div>
+      <div className="px-3">
+        <Image src="/logo.svg" width="50" height="50" alt="Daily-logo" />
+      </div>
 
       <div className="flex items-center relative">
         <div className="absolute right-[170px] sm:right-[180px]">
@@ -43,7 +48,6 @@ const Navbar = () => {
             className=" sm:scale-[1.2] cursor-pointer"
             onChange={() => console.log("aa")}
           />
-          <div className="bg-icon w-7 h-5 bg-no-repeat absolute pointer-events-none top-[-1px] right-[-12px] sm:top-[-0px] sm:right-[-14px] sm:w-8 sm:h-6"></div>
         </div>
         <div>
           {!user ? (
@@ -56,7 +60,7 @@ const Navbar = () => {
             <button className="flex items-center" onClick={logOutHandler}>
               Sign out
               <IoMdLogOut
-                className={`scale-[2] ml-4 transition-all ease-in-out duration-500 ${
+                className={`scale-[2] ml-4 mb-1 transition-all ease-in-out duration-500 ${
                   logoutAnimation ? "rotate-[-90deg]" : ""
                 }`}
               />

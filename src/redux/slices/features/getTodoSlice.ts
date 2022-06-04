@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { db } from "../../../container/firebase";
 import { getDoc, doc } from "firebase/firestore";
+import { SingeTodoInterface } from "../../../interfaces/interfaces";
 
 export const getTodo = createAsyncThunk(
   "getTodos",
@@ -41,16 +42,23 @@ const getTodosSlice = createSlice({
       }>,
     ) => {
       state.todos = state.todos.filter(
-        (todo: {
+        (todo: SingeTodoInterface) => todo.id !== action.payload.todoId,
+      );
+    },
+    updateTodo: (
+      state: {
+        todos: {
           content: string;
           id: string;
           icon: string;
           completed: boolean;
-        }) => todo.id !== action.payload.todoId,
-      );
-    },
-    updateTodo: (state: any, action: PayloadAction<{ todoId: string }>) => {
-      state.todos = state.todos.map((todo: any) => {
+        }[];
+        error: {}[];
+        status: string;
+      },
+      action: PayloadAction<{ todoId: string }>,
+    ) => {
+      state.todos = state.todos.map((todo: SingeTodoInterface) => {
         if (todo.id === action.payload.todoId) {
           todo.completed = !todo.completed;
         }
