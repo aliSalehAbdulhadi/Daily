@@ -27,12 +27,10 @@ const Navbar = () => {
 
   const logOutHandler = () => {
     setLogoutAnimation(true);
-    const timer = setTimeout(() => {
+    setTimeout(() => {
       signOut(auth);
       setLogoutAnimation(false);
     }, 500);
-
-    clearTimeout(timer);
   };
 
   return (
