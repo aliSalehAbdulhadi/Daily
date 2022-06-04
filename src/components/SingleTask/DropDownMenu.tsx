@@ -65,7 +65,7 @@ const DropDownMenu = ({ iconValue }: { iconValue: Function }) => {
   return (
     <div
       ref={domNode}
-      className="w-[5rem] text-white scale-[1.5] flex flex-col mr-[.80rem] mb-1 "
+      className={` w-[5rem] scale-[1.5] flex flex-col mr-[.80rem] mb-1 `}
     >
       <button
         type="button"

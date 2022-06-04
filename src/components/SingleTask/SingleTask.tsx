@@ -21,14 +21,10 @@ import {
 import { editTodo } from "../../redux/slices/features/editTodo";
 import CardIcon from "./CardIcon";
 import useClickOutside from "../../hooks/useClickOutside";
+import moment from "moment";
 
 const SingleTask = (content: {
-  content: {
-    id: string;
-    content: string;
-    completed: boolean;
-    icon: string;
-  };
+  content: SingeTodoInterface;
   index: number;
 }) => {
   const [deleteAnimation, setDeleteAnimation] = useState<boolean>(false);
@@ -44,6 +40,8 @@ const SingleTask = (content: {
   useEffect(() => {
     inputRef?.current?.focus();
   }, [edit]);
+
+  const formatDate = moment(content.content.date).format("MMMM Do YYYY");
 
   let textareaRef = useClickOutside(() => {
     setEdit(false);
@@ -105,7 +103,7 @@ const SingleTask = (content: {
     <Draggable draggableId={content.content.id} index={content.index}>
       {(provided, snapshot) => (
         <div
-          className={`hover:scale-[1.05] font-Comfortaa font-semibold my-5 px-5 py-2 min-h-[20vh] md:p-10 min-w-[65vw] md:min-h-[17vh] md:min-w-[30vw] md:max-w-[30vw] ${
+          className={`text-textLight hover:scale-[1.05] font-Comfortaa font-semibold my-5 px-5 py-2 min-h-[20vh] md:p-10 min-w-[80vw] md:min-h-[19vh] md:min-w-[30vw] md:max-w-[30vw] relative ${
             content.content.completed
               ? "bg-red-400 shadow-2xl"
               : "bg-green-400 shadow-2xl"
@@ -126,7 +124,11 @@ const SingleTask = (content: {
             <CardIcon icon={content?.content?.icon} />
           </div>
           {edit ? (
-            <form ref={textareaRef} onSubmit={editHanlder}>
+            <form
+              ref={textareaRef}
+              onSubmit={editHanlder}
+              className="flex flex-col"
+            >
               <textarea
                 className={`my-1 p-1 md:ml-5 md:p-2 outline-none w-full text-sm shadow-sm sm:text-base border-gray-300 rounded-md placeholder-slate-400`}
                 onChange={(e) => setEditText(e.target.value)}
@@ -138,13 +140,24 @@ const SingleTask = (content: {
                     : editText.length / 10
                 }
               />
+              <button className="md:ml-8 mb-5 mt-1 md:mb-0 bg-primaryColor py-2 text-xs rounded w-[40%] self-center text-white hover:scale-110 transition-all ease-in-out">
+                Save Changes
+              </button>
             </form>
           ) : content.content.completed ? (
-            <s className="md:pl-10 mb-3 md:mb-0">{content.content.content}</s>
+            <div className="md:pl-10 mb-3 md:mb-0 flex flex-col items-center">
+              <s className="">{content.content.content}</s>
+              <div className="text-xs absolute top-3 left-[20px] md:bottom-2 w-fit whitespace-nowrap">
+                {formatDate}
+              </div>
+            </div>
           ) : (
-            <span className="md:pl-10 mb-3 md:mb-0">
-              {content.content.content}
-            </span>
+            <div className="md:pl-10 mb-3 md:mb-0 flex flex-col items-center">
+              <span className="">{content.content.content}</span>
+              <div className="text-xs absolute top-5 left-[20px] md:bottom-2 w-fit whitespace-nowrap">
+                {formatDate}
+              </div>
+            </div>
           )}
           <div className="flex md:flex-col md:pl-10">
             {content.content.completed ? (

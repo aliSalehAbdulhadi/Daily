@@ -47,6 +47,7 @@ export interface SingeTodoInterface {
   content: string;
   completed: boolean;
   icon: string;
+  date: string;
 }
 export interface AsyncThunkConfig {
   /** return type for `thunkApi.getState` */
