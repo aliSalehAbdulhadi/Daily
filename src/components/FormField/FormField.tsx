@@ -1,7 +1,11 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 
 import { ErrorMessage, Field } from "formik";
-import { FieldPropsInterface } from "../../interfaces/interfaces";
+import {
+  FieldPropsInterface,
+  RootState,
+  useAppSelector,
+} from "../../interfaces/interfaces";
 
 function FormField({
   autoComplete = "",
@@ -12,16 +16,20 @@ function FormField({
   value,
   placeholder,
 }: FieldPropsInterface) {
+  const dark = useAppSelector(
+    (state: RootState) => state.darkModeReducer.darkMode,
+  );
+
   if (type === "textarea") {
     return (
       <div className={className}>
-        <label htmlFor={name} className={`block text-sm font-medium`}>
+        <label htmlFor={name} className={`text-sm font-medium`}>
           {label}
         </label>
         <Field
           as="textarea"
           autoComplete={autoComplete}
-          className={`my-1 focus:ring-cusOrange focus:border-cusOrange block w-full shadow-sm sm:text-sm border-gray-300 rounded-md placeholder-slate-400 bg-red-500`}
+          className={`my-1 w-full shadow-sm sm:text-sm border-gray-300 rounded-md placeholder-slate-400`}
           name={name}
           placeholder={placeholder}
           rows={5}
@@ -44,7 +52,9 @@ function FormField({
       </label>
       <Field
         autoComplete={autoComplete}
-        className={`my-1 p-5 text-black outline-none block w-full shadow-sm sm:text-sm border-gray-300 rounded-3xl py-3 placeholder-slate-400 mt-3 font-Comfortaa`}
+        className={`my-1 p-5 outline-none block w-full shadow-sm sm:text-sm border-gray-300 rounded-3xl py-3 placeholder-white mt-3 font-Comfortaa ${
+          dark ? "bg-textDark" : "bg-secondaryLight"
+        } ${dark ? "text-textLight" : "text-textDark"}`}
         id={name}
         name={name}
         type={type}

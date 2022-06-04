@@ -4,6 +4,7 @@ import signInSlice from "../slices/authentication/signInSlice";
 import userSlice from "../slices/authentication/userSlice";
 import addTodoSlice from "../slices/features/addTodoSlice";
 import getTodoSlice from "../slices/features/getTodoSlice";
+import darkMode from "../slices/features/darkMode";
 
 const store = configureStore({
   reducer: {
@@ -12,6 +13,7 @@ const store = configureStore({
     userReducer: userSlice,
     addTodoReducer: addTodoSlice,
     getTodoReducer: getTodoSlice,
+    darkModeReducer: darkMode,
   },
 });
 

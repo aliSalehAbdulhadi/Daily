@@ -19,7 +19,8 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "src/assets/svgExport/arrow.js,"
-, "src/redux/store/store.ts"  ],
+    "src/assets/svgExport/arrow.js,",
+    "src/redux/store/store.ts"
+, "src/components/Navbar/Navbar.tsx"  ],
   "exclude": ["node_modules"]
 }

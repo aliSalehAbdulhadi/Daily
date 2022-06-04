@@ -24,16 +24,8 @@ const getTodosSlice = createSlice({
     status: "",
   },
   reducers: {
-    setTodos: (
-      state: any,
-      action: PayloadAction<{
-        content: string;
-        completed: boolean;
-        id: string;
-        icon: string;
-      }>,
-    ) => {
-      state.todos.push(action.payload);
+    setTodos: (state: any, action: PayloadAction<SingeTodoInterface>) => {
+      state.todos?.push(action.payload);
     },
     deleteTodo: (
       state: any,
@@ -41,24 +33,19 @@ const getTodosSlice = createSlice({
         todoId: string;
       }>,
     ) => {
-      state.todos = state.todos.filter(
+      state.todos = state.todos?.filter(
         (todo: SingeTodoInterface) => todo.id !== action.payload.todoId,
       );
     },
     updateTodo: (
       state: {
-        todos: {
-          content: string;
-          id: string;
-          icon: string;
-          completed: boolean;
-        }[];
+        todos: SingeTodoInterface[];
         error: {}[];
         status: string;
       },
       action: PayloadAction<{ todoId: string }>,
     ) => {
-      state.todos = state.todos.map((todo: SingeTodoInterface) => {
+      state.todos = state.todos?.map((todo: SingeTodoInterface) => {
         if (todo.id === action.payload.todoId) {
           todo.completed = !todo.completed;
         }
