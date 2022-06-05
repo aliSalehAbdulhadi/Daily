@@ -119,9 +119,7 @@ const SingleTask = (content: {
             content.content.completed
               ? "bg-red-400 shadow-2xl"
               : setCardColorByTypeHandler()
-          } ${
-            snapshot.isDragging && content.content.completed ? "bg-red-600" : ""
-          }  flex flex-col justify-between md:flex-row items-center rounded-md text-sm md:text-base  ease-in-out
+          } flex flex-col justify-between md:flex-row items-center rounded-md text-sm md:text-base  ease-in-out
             ${deleteAnimation ? "translate-x-[-35rem]" : ""} ${
             CompleteAnimation ? "animate-bounce" : ""
           } `}
