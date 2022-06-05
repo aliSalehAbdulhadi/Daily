@@ -15,11 +15,17 @@ import Image from "next/image";
 import { toggleDarkMode } from "../../redux/slices/features/darkMode";
 
 const Navbar = () => {
+  const darkModeFunction = () => {
+    if (typeof window !== "undefined") {
+      const localDarkOption = localStorage.getItem("darkMode");
+      return localDarkOption === "true" ? true : false;
+    }
+  };
   const [signIn, setSignIn] = useState<boolean>(false);
   const [signUp, setSignUp] = useState<boolean>(false);
-  //this get reset when i reload the page
-  const [darkModeStorage, setDarkModeStorage] = useState<any>("");
-  const [darkMode, setSetDarkMode] = useState<boolean>(darkModeStorage);
+  const [darkMode, setSetDarkMode] = useState<Function | boolean>(
+    darkModeFunction,
+  );
   const [logoutAnimation, setLogoutAnimation] = useState<boolean>(false);
   const dispatch = useAppDispatch();
   const user = useAppSelector((state: RootState) => state.userReducer.userUid);
@@ -39,18 +45,11 @@ const Navbar = () => {
     }, 500);
   };
 
-  console.log(darkMode, "darkMode");
-  console.log(darkModeStorage, "darkModeStorage");
   if (typeof window !== "undefined") {
     localStorage?.setItem("darkMode", JSON.stringify(darkMode));
   }
   useEffect(() => {
     dispatch(toggleDarkMode(darkMode));
-
-    if (typeof window !== "undefined") {
-      const savedDarkMode = localStorage.getItem("darkMode");
-      setDarkModeStorage(savedDarkMode);
-    }
   }, [darkMode, dispatch]);
 
   return (
@@ -72,7 +71,7 @@ const Navbar = () => {
         <div className="absolute right-[120px] sm:right-[180px]">
           <input
             type="checkbox"
-            className=" cursor-pointer select-none outline-none"
+            className=" cursor-pointer select-none outline-none scale-75 "
             onChange={() => {
               setSetDarkMode(!darkMode);
             }}

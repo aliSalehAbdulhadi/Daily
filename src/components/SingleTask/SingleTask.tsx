@@ -64,7 +64,7 @@ const SingleTask = (content: {
     setEdit(false);
     setTimeout(() => {
       dispatch(getTodo({ userUid: user }));
-    }, 50);
+    }, 150);
   };
 
   const deletionHandler = () => {
@@ -99,29 +99,41 @@ const SingleTask = (content: {
     }, 300);
   };
 
+  const setCardColorByTypeHandler = () => {
+    if (content.content.icon === "personal") {
+      return "bg-green-400";
+    }
+    if (content.content.icon === "work") {
+      return "bg-blue-400";
+    }
+    if (content.content.icon === "fun") {
+      return "bg-purple-400";
+    }
+  };
+
   return (
     <Draggable draggableId={content.content.id} index={content.index}>
       {(provided, snapshot) => (
         <div
-          className={`text-textLight hover:scale-[1.05] font-Comfortaa font-semibold my-5 px-5 py-2 min-h-[20vh] md:p-10 min-w-[80vw] md:min-h-[19vh] md:min-w-[30vw] md:max-w-[30vw] relative ${
+          className={`text-textLight hover:scale-105 hover:transition-all hover:ease-in-out hover:duration-300 font-Comfortaa font-semibold my-5 px-5 py-2 min-h-[20vh] md:p-10 min-w-[80vw] md:min-h-[19vh] md:min-w-[30vw] md:max-w-[30vw] relative ${
             content.content.completed
               ? "bg-red-400 shadow-2xl"
-              : "bg-green-400 shadow-2xl"
-          } ${
-            snapshot.isDragging && !content.content.completed
-              ? "bg-green-500"
-              : ""
+              : setCardColorByTypeHandler()
           } ${
             snapshot.isDragging && content.content.completed ? "bg-red-600" : ""
-          }  flex flex-col justify-between md:flex-row items-center rounded-md text-sm md:text-base transition-all ease-out duration-300 ${
-            deleteAnimation ? "translate-x-[-35rem]" : ""
-          } ${CompleteAnimation ? "animate-bounce" : ""} `}
+          }  flex flex-col justify-between md:flex-row items-center rounded-md text-sm md:text-base  ease-in-out
+            ${deleteAnimation ? "translate-x-[-35rem]" : ""} ${
+            CompleteAnimation ? "animate-bounce" : ""
+          } `}
           {...provided.draggableProps}
           {...provided.dragHandleProps}
           ref={provided.innerRef}
         >
           <div className="mb-3 md:mb-0">
-            <CardIcon icon={content?.content?.icon} />
+            <CardIcon
+              icon={content?.content?.icon}
+              completed={content.content.completed}
+            />
           </div>
           {edit ? (
             <form
@@ -140,7 +152,7 @@ const SingleTask = (content: {
                     : editText.length / 10
                 }
               />
-              <button className="md:ml-10 mb-5 mt-1 md:mb-0 bg-primaryColor py-2 text-xs rounded w-[50%] md:w-[40%] self-center text-white hover:scale-110 transition-all ease-in-out whitespace-nowrap">
+              <button className="md:ml-10 mb-5 mt-1 md:mb-0 bg-primaryColor py-2 text-xs rounded w-[50%] self-center text-white hover:scale-110 transition-all ease-in-out whitespace-nowrap">
                 Save Changes
               </button>
             </form>

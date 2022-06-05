@@ -5,7 +5,10 @@ import TaskForm from "../src/components/TaskForm/TaskForm";
 import TasksContainer from "../src/components/TasksContainer/TasksContainer";
 import { DragDropContext, DropResult } from "react-beautiful-dnd";
 import { completedTodo } from "../src/redux/slices/features/completeTodo";
-import { updateTodo } from "../src/redux/slices/features/getTodoSlice";
+import {
+  reArrangeTodos,
+  updateTodo,
+} from "../src/redux/slices/features/getTodoSlice";
 
 import {
   useAppDispatch,
@@ -13,17 +16,27 @@ import {
   RootState,
   SingeTodoInterface,
 } from "../src/interfaces/interfaces";
+import { useState } from "react";
 
 const Home: NextPage = () => {
+  const [updateCharacters, setUpdateCharacters] = useState<any>([]);
+  console.log(updateCharacters, "updateCharacters");
+
   const todos: SingeTodoInterface[] = useAppSelector(
     (state: RootState) => state.getTodoReducer.todos,
   );
   const user = useAppSelector((state: RootState) => state.userReducer.userUid);
   const dispatch = useAppDispatch();
 
-  const onDragEnd = (result: DropResult) => {
+  const onDragEndHandler = (result: DropResult) => {
     const { destination, source } = result;
     if (!destination) return;
+
+    const items = Array.from(todos);
+    const [reorderedItem] = items.splice(source.index, 1);
+    items.splice(destination.index, 0, reorderedItem);
+
+    dispatch(reArrangeTodos(items));
 
     if (destination.droppableId === "CompletedTodos" || "NewTodos") {
       if (source.droppableId === destination.droppableId) {
@@ -43,7 +56,7 @@ const Home: NextPage = () => {
   };
 
   return (
-    <DragDropContext onDragEnd={onDragEnd}>
+    <DragDropContext onDragEnd={onDragEndHandler}>
       <Head>
         <title className="bg-red-500">Daily</title>
         <meta name="Todo App" content="Add your daily tasks" />

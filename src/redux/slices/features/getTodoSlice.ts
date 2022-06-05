@@ -25,7 +25,7 @@ const getTodosSlice = createSlice({
   },
   reducers: {
     setTodos: (state: any, action: PayloadAction<SingeTodoInterface>) => {
-      state.todos?.push(action.payload);
+      state.todos?.unshift(action.payload);
     },
     deleteTodo: (
       state: any,
@@ -52,6 +52,16 @@ const getTodosSlice = createSlice({
         return todo;
       });
     },
+    reArrangeTodos: (
+      state: {
+        todos: SingeTodoInterface[];
+        error: {}[];
+        status: string;
+      },
+      action: PayloadAction<SingeTodoInterface[]>,
+    ) => {
+      state.todos = action.payload;
+    },
   },
   extraReducers(build) {
     build.addCase(getTodo.pending, (state) => {
@@ -69,4 +79,5 @@ const getTodosSlice = createSlice({
 });
 
 export default getTodosSlice.reducer;
-export const { setTodos, deleteTodo, updateTodo } = getTodosSlice.actions;
+export const { setTodos, deleteTodo, updateTodo, reArrangeTodos } =
+  getTodosSlice.actions;
