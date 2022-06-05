@@ -24,6 +24,16 @@ a {
   background-image: url("/moon3.svg");
 }
 
+.card-animation {
+  trnasition-property: transform;
+  trnasition-duration: 0.5s;
+  transition-timing-function: ease-in-out;
+}
+
+.card-animation:hover {
+  transform: scale(1.05);
+}
+
 input:checked + .bg-icon {
   background-image: url("/sun3.svg");
 }

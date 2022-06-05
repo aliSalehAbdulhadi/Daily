@@ -27,13 +27,15 @@ const TasksContainer = () => {
         <div
           className={`${
             dark ? "bg-secondaryColor" : "bg-secondaryLight"
-          } mx-1 md:flex justify-around rounded-md transition-all ease-in-out h-[100%] pt-2`}
+          }  md:flex justify-around md:rounded-md transition-all ease-in-out h-[100%] pt-2`}
         >
           <NewTasks /> <CompletedTasks />
         </div>
       ) : (
         <div
-          className={`font-Comfortaa mt-10 md:mt-0 self-center p-10 rounded-md text-center mx-10 ${
+          className={`${
+            dark ? "text-textDark" : "text-textLight"
+          } font-Comfortaa mt-10 md:mt-0 self-center p-10 rounded-md text-center mx-10 ${
             user ? "block" : "hidden"
           }`}
         >

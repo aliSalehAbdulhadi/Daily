@@ -29,16 +29,13 @@ const NewTasks = () => {
             New Tasks
           </h1>
           <div className="w-fit">
-            {todos
-              ?.slice()
-              .reverse()
-              .map((todo: SingeTodoInterface, index: number) =>
-                !todo.completed ? (
-                  <SingleTask key={todo?.id} content={todo} index={index} />
-                ) : (
-                  false
-                ),
-              )}
+            {todos.map((todo: SingeTodoInterface, index: number) =>
+              !todo.completed ? (
+                <SingleTask key={todo?.id} content={todo} index={index} />
+              ) : (
+                false
+              ),
+            )}
           </div>
           {provided.placeholder}
         </div>
