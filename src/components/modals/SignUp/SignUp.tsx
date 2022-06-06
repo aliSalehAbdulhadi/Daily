@@ -11,6 +11,8 @@ import {
 } from "../../../interfaces/interfaces";
 import { signUpThunk } from "../../../redux/slices/authentication/signUpSlice";
 import { addUsername } from "../../../redux/slices/features/addUsername";
+import useCheckStatus from "../../../hooks/useCheckStatus";
+import { FaSpinner } from "react-icons/fa";
 
 const signUpSchema = Yup.object().shape({
   UserName: Yup.string().min(3).max(24).required("User name is required"),
@@ -24,6 +26,9 @@ const signUpSchema = Yup.object().shape({
 const SignUp = ({ open, setOpen, setSignIn }: SignUpInterface) => {
   const dispatch = useAppDispatch();
   const user = useAppSelector((state: RootState) => state.userReducer.userUid);
+  const [pending, fulfilled, rejected, errorMessage] = useCheckStatus({
+    setOpen,
+  });
 
   return (
     <Modal label="Sign Up" setOpen={setOpen} open={open}>
@@ -39,6 +44,7 @@ const SignUp = ({ open, setOpen, setSignIn }: SignUpInterface) => {
           dispatch(
             signUpThunk({ email: values.Email, password: values.Password }),
           );
+
           setTimeout(() => {
             dispatch(
               addUsername({
@@ -47,8 +53,6 @@ const SignUp = ({ open, setOpen, setSignIn }: SignUpInterface) => {
               }),
             );
           });
-          setOpen(false);
-          resetForm();
         }}
       >
         {({}) => (
@@ -90,14 +94,32 @@ const SignUp = ({ open, setOpen, setSignIn }: SignUpInterface) => {
               placeholder="Enter Your Password Again"
               value="password"
             />
+            <div className="py-4 h-4 w-full flex items-center justify-center">
+              {rejected ? (
+                <h2 className="text-red-600 text-sm">{errorMessage}</h2>
+              ) : null}
+              {fulfilled ? (
+                <h2 className="text-green-600 text-sm">Sign Up Successful</h2>
+              ) : null}
+            </div>
             <div className="flex justify-between items-center mt-5">
-              <button
-                className="bg-primaryColor py-3 px-7 rounded-tl-md rounded-br-md text-white"
-                type="submit"
-              >
-                Sign Up
-              </button>
-              <div className="flex flex-col text-sm">
+              {pending ? (
+                <button
+                  className="flex items-center justify-center bg-primaryColor py-3 px-3 md:px-7 rounded-md text-white ml-2 text-xs md:text-sm"
+                  type="submit"
+                >
+                  <FaSpinner className="mr-3 animate-spin" />
+                  Signing Up
+                </button>
+              ) : (
+                <button
+                  className="bg-primaryColor py-3 px-7 rounded-md text-white ml-2 text-xs md:text-sm"
+                  type="submit"
+                >
+                  Sign Up
+                </button>
+              )}
+              <div className="flex flex-col text-xs md:text-sm">
                 <span>Already have an account?</span>
                 <button
                   className="mt-1"

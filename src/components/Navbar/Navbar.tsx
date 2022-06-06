@@ -32,6 +32,7 @@ const Navbar = () => {
   const dark = useAppSelector(
     (state: RootState) => state.darkModeReducer.darkMode,
   );
+
   useEffect(() => {
     onAuthStateChanged(auth, (user) => dispatch(setUserUid(user?.uid)));
     dispatch(getTodo({ userUid: user }));
@@ -68,7 +69,11 @@ const Navbar = () => {
       </div>
 
       <div className="flex items-center relative">
-        <div className="absolute right-[120px] sm:right-[180px]">
+        <div
+          className={`absolute  ${
+            user ? "right-[120px]" : "right-[150px]"
+          } sm:right-[180px]`}
+        >
           <input
             type="checkbox"
             className=" cursor-pointer select-none outline-none scale-75 "

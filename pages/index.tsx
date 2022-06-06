@@ -20,7 +20,6 @@ import { useState } from "react";
 
 const Home: NextPage = () => {
   const [updateCharacters, setUpdateCharacters] = useState<any>([]);
-  console.log(updateCharacters, "updateCharacters");
 
   const todos: SingeTodoInterface[] = useAppSelector(
     (state: RootState) => state.getTodoReducer.todos,

@@ -1,4 +1,4 @@
-import { configureStore, combineReducers } from "@reduxjs/toolkit";
+import { configureStore } from "@reduxjs/toolkit";
 import signUpSlice from "../slices/authentication/signUpSlice";
 import signInSlice from "../slices/authentication/signInSlice";
 import userSlice from "../slices/authentication/userSlice";
@@ -15,6 +15,10 @@ const store = configureStore({
     getTodoReducer: getTodoSlice,
     darkModeReducer: darkMode,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }),
 });
 
 export default store;

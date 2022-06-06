@@ -7,7 +7,6 @@ import { initialState } from "../../../interfaces/interfaces";
 export const addUsername = createAsyncThunk(
   "addUsername",
   async ({ userName, userUid }: { userUid: string; userName: string }) => {
-    console.log(userUid, userName);
     await setDoc(
       doc(db, "userData", userUid),
       { todo: userName },
