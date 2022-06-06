@@ -7,7 +7,7 @@ export const signUpThunk = createAsyncThunk(
   "user/signUp",
   async (
     { email, password }: { email: string; password: string },
-    { rejectWithValue, dispatch },
+    { rejectWithValue },
   ) => {
     try {
       await createUserWithEmailAndPassword(auth, email, password);
@@ -24,7 +24,12 @@ const initialState: initialState = {
 const signUpSlice = createSlice({
   name: "signUpSlice",
   initialState,
-  reducers: {},
+  reducers: {
+    clearSignUpState: (state: any) => {
+      state.state = "";
+      state.error = [];
+    },
+  },
 
   extraReducers(build) {
     build.addCase(signUpThunk.pending, (state) => {
@@ -41,3 +46,4 @@ const signUpSlice = createSlice({
 });
 
 export default signUpSlice.reducer;
+export const { clearSignUpState } = signUpSlice.actions;

@@ -17,13 +17,19 @@ const TasksContainer = () => {
     (state: RootState) => state.darkModeReducer.darkMode,
   );
 
+  const signInStatus = useAppSelector(
+    (state: any) => state.signInReducer?.state,
+  );
+
   return (
     <div
       className={`${
         dark ? "bg-primaryColor" : "bg-primaryLight"
       }  w-[100%] md:p-10 md:pt-[5rem] min-h-[90vh] pb-10`}
     >
-      {todos?.length > 0 ? (
+      {signInStatus === "pending" ? (
+        <h1 className="font-bold">Loading...</h1>
+      ) : todos?.length > 0 ? (
         <div
           className={`${
             dark ? "bg-secondaryColor" : "bg-secondaryLight"
