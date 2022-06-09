@@ -17,11 +17,23 @@ const signInSchema = Yup.object().shape({
   Password: Yup.string().min(6).required(),
 });
 
-const SignIn = ({ open, setOpen, setSignUp }: SignInInterface) => {
+const SignIn = ({
+  open,
+  setOpen,
+  setSignUp,
+  setResetPassword,
+}: SignInInterface) => {
   const dispatch = useAppDispatch();
-
+  const signInError = useAppSelector(
+    (state: any) => state.signInReducer?.error?.payload?.message,
+  );
+  const signInStatus = useAppSelector(
+    (state: any) => state.signInReducer?.state,
+  );
   const [pending, fulfilled, rejected, errorMessage] = useCheckStatus({
     setOpen,
+    status: signInStatus,
+    error: signInError,
   });
 
   return (
@@ -36,7 +48,7 @@ const SignIn = ({ open, setOpen, setSignUp }: SignInInterface) => {
         }}
       >
         {({}) => (
-          <Form>
+          <Form className="flex flex-col">
             <FormField
               autoComplete="email"
               className="mb-3"
@@ -55,6 +67,16 @@ const SignIn = ({ open, setOpen, setSignUp }: SignInInterface) => {
               placeholder="Enter Your Password"
               value="password"
             />
+            <button
+              type="button"
+              onClick={() => {
+                setResetPassword(true);
+                setOpen(false);
+              }}
+              className="text-[.85rem] self-end mr-5 mt-1"
+            >
+              Forgot Password?
+            </button>
             <div className="py-4 h-4 w-full flex items-center justify-center">
               {rejected ? (
                 <h2 className="text-red-600 text-sm">{errorMessage}</h2>
@@ -66,7 +88,7 @@ const SignIn = ({ open, setOpen, setSignUp }: SignInInterface) => {
             <div className="flex justify-between items-center mt-7">
               {pending ? (
                 <button
-                  className="flex items-center justify-center bg-primaryColor py-3 px-5 md:px-7 rounded-md text-white ml-2 text-xs md:text-sm"
+                  className="flex items-center justify-center bg-primaryColor py-3 px-5 md:px-7 rounded text-white ml-2 text-xs md:text-sm"
                   type="submit"
                 >
                   <FaSpinner className="mr-4 animate-spin" />
@@ -74,7 +96,7 @@ const SignIn = ({ open, setOpen, setSignUp }: SignInInterface) => {
                 </button>
               ) : (
                 <button
-                  className="bg-primaryColor py-3 px-7 rounded-md text-white ml-2 text-xs md:text-sm"
+                  className="bg-primaryColor py-3 px-7 rounded text-white ml-2 text-xs md:text-sm hover:text-primaryColor hover:bg-white"
                   type="submit"
                 >
                   Sign In

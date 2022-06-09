@@ -3,28 +3,18 @@ import { db } from "../../../container/firebase";
 import { updateDoc, doc } from "firebase/firestore";
 import { SingeTodoInterface } from "../../../interfaces/interfaces";
 
-export const removeTodo = createAsyncThunk(
-  "removeTodo/bookmark",
+export const reArrangeFirebase = createAsyncThunk(
+  "reArrangeFirebase/bookmark",
   async ({
     userUid,
-    todoId,
     allTodos,
   }: {
     userUid: string;
-    todoId: string;
     allTodos: SingeTodoInterface[];
   }) => {
     const docRef = doc(db, "userData", userUid);
     await updateDoc(docRef, {
-      userData: {
-        todos: allTodos.filter((todo: SingeTodoInterface) => {
-          if (todo.id === todoId) {
-            return false;
-          } else {
-            return true;
-          }
-        }),
-      },
+      userData: { todos: allTodos },
     });
   },
 );

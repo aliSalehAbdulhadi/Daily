@@ -13,6 +13,8 @@ import { getTodo } from "../../redux/slices/features/getTodoSlice";
 import { IoMdLogOut } from "react-icons/io";
 import Image from "next/image";
 import { toggleDarkMode } from "../../redux/slices/features/darkMode";
+import User from "../userSection/User";
+import ResetPassword from "../modals/resetPassword/ResetPassword";
 
 const Navbar = () => {
   const darkModeFunction = () => {
@@ -23,10 +25,11 @@ const Navbar = () => {
   };
   const [signIn, setSignIn] = useState<boolean>(false);
   const [signUp, setSignUp] = useState<boolean>(false);
+  const [resetPassword, setResetPassword] = useState<boolean>(false);
   const [darkMode, setSetDarkMode] = useState<Function | boolean>(
     darkModeFunction,
   );
-  const [logoutAnimation, setLogoutAnimation] = useState<boolean>(false);
+
   const dispatch = useAppDispatch();
   const user = useAppSelector((state: RootState) => state.userReducer.userUid);
   const dark = useAppSelector(
@@ -37,14 +40,6 @@ const Navbar = () => {
     onAuthStateChanged(auth, (user) => dispatch(setUserUid(user?.uid)));
     dispatch(getTodo({ userUid: user }));
   }, [dispatch, user]);
-
-  const logOutHandler = () => {
-    setLogoutAnimation(true);
-    setTimeout(() => {
-      signOut(auth);
-      setLogoutAnimation(false);
-    }, 500);
-  };
 
   if (typeof window !== "undefined") {
     localStorage?.setItem("darkMode", JSON.stringify(darkMode));
@@ -59,7 +54,7 @@ const Navbar = () => {
         dark ? "text-textDark" : "text-textLight"
       } w-full h-[10vh]  flex items-center justify-between px-5 whitespace-nowrap text-sm md:text-base md:px-10 font-Comfortaa`}
     >
-      <div className="px-3 flex">
+      <div className="px-3 flex select-none">
         <div className={`${dark ? "hidden" : "block"}`}>
           <Image src="/logoBlack.svg" width="45" height="45" alt="Daily-logo" />
         </div>
@@ -68,10 +63,10 @@ const Navbar = () => {
         </div>
       </div>
 
-      <div className="flex items-center relative">
+      <div className="flex items-center justify-center relative">
         <div
           className={`absolute  ${
-            user ? "right-[120px]" : "right-[150px]"
+            user ? "right-[160px]" : "right-[150px]"
           } sm:right-[180px]`}
         >
           <input
@@ -91,20 +86,19 @@ const Navbar = () => {
               <button onClick={() => setSignIn(true)}>Sign In</button>
             </div>
           ) : (
-            <button className="flex items-center" onClick={logOutHandler}>
-              Sign out
-              <IoMdLogOut
-                className={`scale-[2] ml-4 mb-1 transition-all ease-in-out duration-500 ${
-                  logoutAnimation ? "rotate-[-90deg]" : ""
-                }`}
-              />
-            </button>
+            <User />
           )}
         </div>
       </div>
 
-      <SignIn open={signIn} setOpen={setSignIn} setSignUp={setSignUp} />
+      <SignIn
+        open={signIn}
+        setOpen={setSignIn}
+        setSignUp={setSignUp}
+        setResetPassword={setResetPassword}
+      />
       <SignUp open={signUp} setOpen={setSignUp} setSignIn={setSignIn} />
+      <ResetPassword open={resetPassword} setOpen={setResetPassword} />
     </div>
   );
 };

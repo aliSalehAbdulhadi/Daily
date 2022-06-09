@@ -10,7 +10,7 @@ export const addTodo = createAsyncThunk(
   async ({ todo, userUid }: { todo: SingeTodoInterface; userUid: string }) => {
     await setDoc(
       doc(db, "userData", userUid),
-      { todos: arrayUnion(todo) },
+      { userData: { todos: arrayUnion(todo) } },
       { merge: true },
     );
   },

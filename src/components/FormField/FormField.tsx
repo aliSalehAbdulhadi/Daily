@@ -1,5 +1,3 @@
-/* eslint-disable jsx-a11y/label-has-associated-control */
-
 import { ErrorMessage, Field } from "formik";
 import {
   FieldPropsInterface,
@@ -29,7 +27,9 @@ function FormField({
         <Field
           as="textarea"
           autoComplete={autoComplete}
-          className={`my-1 w-full shadow-sm sm:text-sm border-gray-300 rounded-md placeholder-slate-400`}
+          className={`my-1 w-full shadow-sm sm:text-sm border-gray-300 rounded-md  ${
+            dark ? "text-textLight" : "text-textDark"
+          }`}
           name={name}
           placeholder={placeholder}
           rows={5}
@@ -46,15 +46,17 @@ function FormField({
     <div className={className}>
       <label
         htmlFor={name}
-        className={`ml-3 block text-xs font-Comfortaa md:text-sm whitespace-nowrap font-medium placeholder-slate-400`}
+        className={`ml-3 block text-xs font-Comfortaa md:text-sm whitespace-nowrap font-medium`}
       >
         {label}
       </label>
       <Field
         autoComplete={autoComplete}
-        className={`my-1 p-5 outline-none block w-full shadow-sm sm:text-sm border-gray-300 rounded-3xl py-3 placeholder-white mt-3 font-Comfortaa ${
+        className={`my-1  p-5 outline-none block w-full shadow-sm sm:text-sm border-gray-300 rounded py-3  mt-3 font-Comfortaa ${
           dark ? "bg-textDark" : "bg-secondaryLight"
-        } ${dark ? "text-textLight" : "text-textDark"}`}
+        } ${dark ? "text-textLight" : "text-textDark"} text-sm md:text-base ${
+          dark ? "" : "placeholder-textDark"
+        }`}
         id={name}
         name={name}
         type={type}

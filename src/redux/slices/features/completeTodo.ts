@@ -17,9 +17,11 @@ export const completedTodo = createAsyncThunk(
     const docRef = doc(db, "userData", userUid);
 
     await updateDoc(docRef, {
-      todos: allTodos.map((todo: SingeTodoInterface) =>
-        todo.id === todoId ? { ...todo, completed: !todo.completed } : todo,
-      ),
+      userData: {
+        todos: allTodos.map((todo: SingeTodoInterface) =>
+          todo.id === todoId ? { ...todo, completed: !todo.completed } : todo,
+        ),
+      },
     });
   },
 );

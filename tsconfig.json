@@ -20,7 +20,8 @@
     "**/*.ts",
     "**/*.tsx",
     "src/assets/svgExport/arrow.js,",
-    "src/redux/store/store.ts"
-, "src/components/Navbar/Navbar.tsx"  ],
+    "src/redux/store/store.ts",
+    "src/components/Navbar/Navbar.tsx"
+  ],
   "exclude": ["node_modules"]
 }

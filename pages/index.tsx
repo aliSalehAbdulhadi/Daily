@@ -16,16 +16,15 @@ import {
   RootState,
   SingeTodoInterface,
 } from "../src/interfaces/interfaces";
-import { useState } from "react";
+import { reArrangeFirebase } from "../src/redux/slices/features/reArrangeTodos";
 
 const Home: NextPage = () => {
-  const [updateCharacters, setUpdateCharacters] = useState<any>([]);
+  const dispatch = useAppDispatch();
 
   const todos: SingeTodoInterface[] = useAppSelector(
     (state: RootState) => state.getTodoReducer.todos,
   );
   const user = useAppSelector((state: RootState) => state.userReducer.userUid);
-  const dispatch = useAppDispatch();
 
   const onDragEndHandler = (result: DropResult) => {
     const { destination, source } = result;
@@ -36,6 +35,7 @@ const Home: NextPage = () => {
     items.splice(destination.index, 0, reorderedItem);
 
     dispatch(reArrangeTodos(items));
+    dispatch(reArrangeFirebase({ userUid: user, allTodos: items }));
 
     if (destination.droppableId === "CompletedTodos" || "NewTodos") {
       if (source.droppableId === destination.droppableId) {
@@ -48,7 +48,6 @@ const Home: NextPage = () => {
             allTodos: todos,
           }),
         );
-
         dispatch(updateTodo({ todoId: result.draggableId }));
       }
     }

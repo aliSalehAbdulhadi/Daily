@@ -5,6 +5,7 @@ import userSlice from "../slices/authentication/userSlice";
 import addTodoSlice from "../slices/features/addTodoSlice";
 import getTodoSlice from "../slices/features/getTodoSlice";
 import darkMode from "../slices/features/darkMode";
+import resetPasswordSlice from "../slices/authentication/resetPasswordSlice";
 
 const store = configureStore({
   reducer: {
@@ -14,6 +15,7 @@ const store = configureStore({
     addTodoReducer: addTodoSlice,
     getTodoReducer: getTodoSlice,
     darkModeReducer: darkMode,
+    resetPasswordReducer: resetPasswordSlice,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

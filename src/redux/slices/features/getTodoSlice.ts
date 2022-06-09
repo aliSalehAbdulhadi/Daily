@@ -19,6 +19,7 @@ export const getTodo = createAsyncThunk(
 const getTodosSlice = createSlice({
   name: "getTodos",
   initialState: {
+    userName: "",
     todos: [],
     error: [],
     status: "",
@@ -69,7 +70,8 @@ const getTodosSlice = createSlice({
     }),
       build.addCase(getTodo.fulfilled, (state, action: any) => {
         state.status = "fulfilled";
-        state.todos = action.payload?.todos;
+        state.todos = action.payload?.userData?.todos;
+        state.userName = action.payload?.userName;
       }),
       build.addCase(getTodo.rejected, (state, action: any) => {
         state.error = action.error.message;

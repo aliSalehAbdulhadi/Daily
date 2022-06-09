@@ -4,7 +4,6 @@ import {
   useAppSelector,
   SingeTodoInterface,
 } from "../../interfaces/interfaces";
-import CompletedTasks from "./../CompletedTasks/CompletedTasks";
 import NewTasks from "./../NewTasks/NewTasks";
 
 const TasksContainer = () => {
@@ -25,7 +24,7 @@ const TasksContainer = () => {
     <div
       className={`${
         dark ? "bg-primaryColor" : "bg-primaryLight"
-      }  w-[100%] md:p-10 md:pt-[5rem] min-h-[90vh] pb-10`}
+      }  w-[100%] md:p-10 pt-[5rem] min-h-[90vh] pb-10`}
     >
       {signInStatus === "pending" ? (
         <h1 className="font-bold">Loading...</h1>
@@ -33,9 +32,9 @@ const TasksContainer = () => {
         <div
           className={`${
             dark ? "bg-secondaryColor" : "bg-secondaryLight"
-          }  md:flex justify-around md:rounded-md transition-all ease-in-out h-[100%] pt-2`}
+          }  md:flex justify-around md:rounded transition-all ease-in-out h-[100%] pt-2`}
         >
-          <NewTasks /> <CompletedTasks />
+          <NewTasks />
         </div>
       ) : (
         <div
@@ -45,7 +44,7 @@ const TasksContainer = () => {
             user ? "block" : "hidden"
           }`}
         >
-          No added tasks yet.
+          There are no tasks to display.
         </div>
       )}
     </div>
