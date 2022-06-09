@@ -79,7 +79,7 @@ const SignUp = ({ open, setOpen, setSignIn }: SignUpInterface) => {
         }}
       >
         {({}) => (
-          <Form>
+          <Form className="min-w-[35vh]">
             <FormField
               autoComplete="username"
               className="mb-3"

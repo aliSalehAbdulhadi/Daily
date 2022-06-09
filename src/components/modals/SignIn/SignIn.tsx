@@ -48,7 +48,7 @@ const SignIn = ({
         }}
       >
         {({}) => (
-          <Form className="flex flex-col">
+          <Form className="flex flex-col min-w-[35vh]">
             <FormField
               autoComplete="email"
               className="mb-3"
@@ -73,7 +73,7 @@ const SignIn = ({
                 setResetPassword(true);
                 setOpen(false);
               }}
-              className="text-[.85rem] self-end mr-5 mt-1"
+              className="text-xs self-end mr-1 mt-1"
             >
               Forgot Password?
             </button>
