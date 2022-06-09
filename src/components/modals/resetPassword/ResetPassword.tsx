@@ -7,7 +7,6 @@ import { useAppDispatch, useAppSelector } from "../../../interfaces/interfaces";
 import FormField from "../../FormField/FormField";
 import useCheckStatus from "../../../hooks/useCheckStatus";
 import { resetPasswordThunk } from "../../../redux/slices/authentication/resetPasswordSlice";
-import { stat } from "fs";
 
 const signInSchema = Yup.object().shape({
   Email: Yup.string().min(3).max(24).required(),
@@ -56,7 +55,7 @@ const ResetPassword = ({
               value="email"
             />
 
-            <div className="py-4 h-4 w-full flex items-center justify-center">
+            <div className="py-2 h-4 w-full flex items-center justify-center">
               {rejected ? (
                 <h2 className="text-red-600 text-sm">{errorMessage}</h2>
               ) : null}
@@ -69,7 +68,7 @@ const ResetPassword = ({
             <div className="flex justify-center items-center mt-7">
               {pending ? (
                 <button
-                  className="flex items-center justify-center bg-primaryColor py-3 px-5 md:px-5 rounded text-white ml-2 text-xs md:text-sm"
+                  className="flex items-center justify-center bg-primaryColor py-3 px-5 md:px-5 rounded text-white  text-xs md:text-sm"
                   type="submit"
                 >
                   <FaSpinner className="mr-4 animate-spin" />
@@ -77,7 +76,7 @@ const ResetPassword = ({
                 </button>
               ) : (
                 <button
-                  className="bg-primaryColor py-3 px-[4rem] rounded text-white ml-2 text-xs md:text-sm hover:text-primaryColor hover:bg-white"
+                  className="bg-primaryColor py-3 px-[4rem] rounded text-white  text-xs md:text-sm hover:text-primaryColor hover:bg-white"
                   type="submit"
                 >
                   Submit

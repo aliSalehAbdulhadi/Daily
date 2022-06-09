@@ -18,7 +18,7 @@ const ConfirmLogOut = ({
   };
   return (
     <Modal label="Want to log out?" setOpen={setOpen} open={open}>
-      <div className="flex items-center justify-evenly md:text-base text-sm">
+      <div className="flex items-center justify-evenly md:text-base text-sm min-w-[35vh]">
         <button
           onClick={logOutHandler}
           className="bg-red-600 hover:bg-white hover:text-red-600 text-white font-bold py-2 px-4 rounded"

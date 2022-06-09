@@ -103,7 +103,7 @@ const TaskForm = () => {
                   placeholder="Enter Your Task"
                   className={`${
                     dark ? "bg-primaryColor" : "bg-primaryLight"
-                  } py-4 px-4 rounded-tl-md outline-none w-[70%] md:w-[30%] md:text-base text-xs `}
+                  } py-4 px-4 rounded outline-none w-[70%] md:w-[30%] md:text-base text-xs`}
                 />
 
                 <button

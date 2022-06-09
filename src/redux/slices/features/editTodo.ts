@@ -26,5 +26,3 @@ export const editTodo = createAsyncThunk(
     });
   },
 );
-
-//edit delete username fix bug
