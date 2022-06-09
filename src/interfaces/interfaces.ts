@@ -23,6 +23,7 @@ export interface SignInInterface {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   setSignUp: React.Dispatch<React.SetStateAction<boolean>>;
+  setResetPassword: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export interface SignUpInterface {

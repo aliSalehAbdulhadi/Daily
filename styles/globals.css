@@ -49,3 +49,7 @@ textarea::-webkit-scrollbar-track {
 textarea::-webkit-scrollbar-thumb {
   background-color: #bddae0;
 }
+
+input::-webkit-input-placeholder {
+  font-size: 13px;
+}

@@ -112,17 +112,23 @@ const SingleTask = (content: {
   };
 
   return (
-    <Draggable draggableId={content.content.id} index={content.index}>
-      {(provided, snapshot) => (
+    <Draggable
+      key={content.content.id}
+      draggableId={content.content.id}
+      index={content.index}
+    >
+      {(provided) => (
         <div
           className={`text-textLight hover:scale-105 hover:transition-all hover:ease-in-out hover:duration-300 font-Comfortaa font-semibold my-5 px-5 py-2 min-h-[20vh] md:p-10 min-w-[80vw] md:min-h-[19vh] md:min-w-[30vw] md:max-w-[30vw] relative ${
             content.content.completed
               ? "bg-red-400 shadow-2xl"
               : setCardColorByTypeHandler()
-          } flex flex-col justify-between md:flex-row items-center rounded-md text-sm md:text-base  ease-in-out
-            ${deleteAnimation ? "translate-x-[-35rem]" : ""} ${
-            CompleteAnimation ? "animate-bounce" : ""
-          } `}
+          } flex flex-col justify-between md:flex-row items-center rounded text-sm md:text-base  ease-in-out
+            ${
+              deleteAnimation
+                ? "translate-x-[-35rem] transition-all ease-in-out"
+                : ""
+            } ${CompleteAnimation ? "animate-bounce" : ""} `}
           {...provided.draggableProps}
           {...provided.dragHandleProps}
           ref={provided.innerRef}
@@ -156,15 +162,15 @@ const SingleTask = (content: {
             </form>
           ) : content.content.completed ? (
             <div className="md:pl-10 mb-3 md:mb-0 flex flex-col items-center">
-              <s className="">{content.content.content}</s>
-              <div className="text-xs absolute top-3 left-[20px] md:bottom-2 w-fit whitespace-nowrap">
+              <s>{content.content.content}</s>
+              <div className="text-xs absolute top-3 left-[20px] md:bottom-2 w-fit whitespace-nowrap select-none">
                 {formatDate}
               </div>
             </div>
           ) : (
             <div className="md:pl-10 mb-3 md:mb-0 flex flex-col items-center">
-              <span className="">{content.content.content}</span>
-              <div className="text-xs absolute top-5 left-[20px] md:bottom-2 w-fit whitespace-nowrap">
+              <span>{content.content.content}</span>
+              <div className="text-xs absolute top-5 left-[20px] md:bottom-2 w-fit whitespace-nowrap  select-none">
                 {formatDate}
               </div>
             </div>

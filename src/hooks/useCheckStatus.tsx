@@ -1,9 +1,18 @@
-import { useEffect, useState } from "react";
+import { SetStateAction, useEffect, useState } from "react";
 import { clearSignInState } from "../redux/slices/authentication/signInSlice";
 import { useAppDispatch, useAppSelector } from "../interfaces/interfaces";
 import { clearSignUpState } from "../redux/slices/authentication/signUpSlice";
+import { clearPasswordState } from "../redux/slices/authentication/resetPasswordSlice";
 
-const useCheckStatus = ({ setOpen }: { setOpen: Function }) => {
+const useCheckStatus = ({
+  setOpen,
+  status,
+  error,
+}: {
+  setOpen: React.Dispatch<SetStateAction<boolean>>;
+  status: string;
+  error: any;
+}) => {
   const [pending, setPending] = useState<boolean>(false);
   const [fulfilled, setFulfilled] = useState<boolean>(false);
   const [rejected, setRejected] = useState<boolean>(false);
@@ -11,25 +20,15 @@ const useCheckStatus = ({ setOpen }: { setOpen: Function }) => {
 
   const dispatch = useAppDispatch();
 
-  const signInError = useAppSelector(
-    (state: any) => state.signInReducer?.error?.payload?.message,
-  );
-  const signInStatus = useAppSelector(
-    (state: any) => state.signInReducer?.state,
-  );
-  const signUpStatus = useAppSelector(
-    (state: any) => state.signUpReducer?.state,
-  );
-
   useEffect(() => {
-    if (signInStatus && signUpStatus === "pending") {
+    if (status === "pending") {
       setPending(true);
       setTimeout(() => {
         setPending(false);
       }, 500);
     }
 
-    if (signInStatus && signUpStatus === "fulfilled") {
+    if (status === "fulfilled") {
       setFulfilled(true);
       setRejected(false);
       setErrorMessage("");
@@ -40,20 +39,23 @@ const useCheckStatus = ({ setOpen }: { setOpen: Function }) => {
       }, 500);
     }
 
-    if (signInStatus && signUpStatus === "rejected") {
+    if (status === "rejected") {
       setRejected(true);
-      if (signInError === "Firebase: Error (auth/wrong-password).") {
+      if (error === "Firebase: Error (auth/wrong-password).") {
         setErrorMessage("Wrong Password");
       }
-      if (signInError === "Firebase: Error (auth/user-not-found).") {
+      if (error === "Firebase: Error (auth/user-not-found).") {
         setErrorMessage("User Not Found");
       }
 
-      if (signInError.indexOf("auth/too-many-requests") > -1) {
+      if (error.indexOf("auth/too-many-requests") > -1) {
         setErrorMessage("Too Many Attempts");
       }
-      if (signInError === "Firebase: Error (auth/email-already-in-use).") {
+      if (error === "Firebase: Error (auth/email-already-in-use).") {
         setErrorMessage("Email Already Exists");
+      }
+      if (error === "auth/user-not-found") {
+        setErrorMessage("User Not Found");
       }
 
       setTimeout(() => {
@@ -64,8 +66,9 @@ const useCheckStatus = ({ setOpen }: { setOpen: Function }) => {
     return () => {
       dispatch(clearSignInState());
       dispatch(clearSignUpState());
+      // dispatch(clearPasswordState());
     };
-  }, [setOpen, signInStatus, signInError, signUpStatus, dispatch]);
+  }, [setOpen, status, error, dispatch]);
 
   return [pending, fulfilled, rejected, errorMessage];
 };

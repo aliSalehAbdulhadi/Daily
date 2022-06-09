@@ -18,9 +18,13 @@ export const editTodo = createAsyncThunk(
   }) => {
     const docRef = doc(db, "userData", userUid);
     await updateDoc(docRef, {
-      todos: allTodos.map((todo: SingeTodoInterface) =>
-        todo.id === todoId ? { ...todo, content: newTodo } : todo,
-      ),
+      userData: {
+        todos: allTodos.map((todo: SingeTodoInterface) =>
+          todo.id === todoId ? { ...todo, content: newTodo } : todo,
+        ),
+      },
     });
   },
 );
+
+//edit delete username fix bug

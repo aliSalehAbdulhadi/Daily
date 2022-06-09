@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { initialState, UserInfo } from "../../../interfaces/interfaces";
+import { initialState } from "../../../interfaces/interfaces";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../../container/firebase";
 

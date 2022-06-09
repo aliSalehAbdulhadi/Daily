@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/rules-of-hooks */
 import * as Yup from "yup";
 import { Formik, Form } from "formik";
 import { v4 as uuidv4 } from "uuid";
@@ -6,7 +5,7 @@ import { BsPlusCircleDotted } from "react-icons/bs";
 import { useEffect, useState } from "react";
 import FormField from "../FormField/FormField";
 import { addTodo } from "../../redux/slices/features/addTodoSlice";
-import { setTodos } from "../../redux/slices/features/getTodoSlice";
+import { getTodo, setTodos } from "../../redux/slices/features/getTodoSlice";
 import {
   RootState,
   useAppDispatch,
@@ -87,7 +86,7 @@ const TaskForm = () => {
         <Form
           className={`${dark ? "bg-primaryColor" : "bg-primaryLight"} ${
             dark ? "text-textDark" : "text-textLight"
-          } flex items-center justify-center`}
+          } flex items-center justify-center select-none`}
         >
           {user ? (
             <div className="w-full pb-10 md:pb-0">
@@ -104,7 +103,7 @@ const TaskForm = () => {
                   placeholder="Enter Your Task"
                   className={`${
                     dark ? "bg-primaryColor" : "bg-primaryLight"
-                  } py-4 px-4 rounded-tl-md outline-none w-[70%] md:w-[30%] md:text-base text-xs`}
+                  } py-4 px-4 rounded-tl-md outline-none w-[70%] md:w-[30%] md:text-base text-xs `}
                 />
 
                 <button
