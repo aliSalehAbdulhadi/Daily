@@ -30,11 +30,12 @@ const ChangeUserName = ({
   return (
     <Modal label="Change User Name" setOpen={setOpen} open={open}>
       <Formik
-        initialValues={{ userName: "" }}
+        initialValues={{ username: "" }}
         validationSchema={signInSchema}
         onSubmit={(values) => {
+          if (values.username.length <= 0) return;
           dispatch(
-            changeUserName({ newUserName: values.userName, userUid: user }),
+            changeUserName({ newUserName: values.username, userUid: user }),
           );
           setAnimation(true);
           setTimeout(() => {
