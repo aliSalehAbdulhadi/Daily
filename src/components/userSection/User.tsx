@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { IoMdLogOut } from "react-icons/io";
 import useClickOutside from "../../hooks/useClickOutside";
 import { RootState, useAppSelector } from "../../interfaces/interfaces";
@@ -41,7 +41,7 @@ const User = () => {
       <div
         className={`absolute top-10 right-0 flex flex-col items-start justify-center  p-2 rounded text-xs  text-white ${
           openUserModal ? "block" : "hidden"
-        } ${dark ? "bg-secondaryColor" : "bg-primaryColor"} `}
+        } ${dark ? "bg-secondaryColor" : "bg-primaryColor"}`}
       >
         <button
           className="mb-3 "

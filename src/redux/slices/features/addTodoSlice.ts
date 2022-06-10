@@ -3,11 +3,11 @@ import { createSlice } from "@reduxjs/toolkit";
 import { db } from "../../../container/firebase";
 import { doc, setDoc, arrayUnion } from "firebase/firestore";
 import { initialState } from "../../../interfaces/interfaces";
-import { SingeTodoInterface } from "../../../interfaces/interfaces";
+import { SingleTodoInterface } from "../../../interfaces/interfaces";
 
 export const addTodo = createAsyncThunk(
   "addTodo/bookmark",
-  async ({ todo, userUid }: { todo: SingeTodoInterface; userUid: string }) => {
+  async ({ todo, userUid }: { todo: SingleTodoInterface; userUid: string }) => {
     await setDoc(
       doc(db, "userData", userUid),
       { userData: { todos: arrayUnion(todo) } },

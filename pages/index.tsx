@@ -9,19 +9,18 @@ import {
   reArrangeTodos,
   updateTodo,
 } from "../src/redux/slices/features/getTodoSlice";
-
+import { reArrangeFirebase } from "../src/redux/slices/features/reArrangeTodos";
 import {
   useAppDispatch,
   useAppSelector,
   RootState,
-  SingeTodoInterface,
+  SingleTodoInterface,
 } from "../src/interfaces/interfaces";
-import { reArrangeFirebase } from "../src/redux/slices/features/reArrangeTodos";
 
 const Home: NextPage = () => {
   const dispatch = useAppDispatch();
 
-  const todos: SingeTodoInterface[] = useAppSelector(
+  const todos: SingleTodoInterface[] = useAppSelector(
     (state: RootState) => state.getTodoReducer.todos,
   );
   const user = useAppSelector((state: RootState) => state.userReducer.userUid);
