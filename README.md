@@ -1,7 +1,7 @@
 Daily is a simple To-do app, that is only made for the purpose of learning Typescript, Nextjs and improving my Firebase skills. And its not supposed to replace your currently used Todo apps.
 
 Features: <br/>
- 1- The ability to create an account and having all of your tasks accessible across all platforms.<br/>
+ 1- The ability to create an account and having all of your tasks accessible across all devices.<br/>
  2- Change password functionality.<br/>
  3- Change user name functionality.<br/>
  4- Fully responsive design.<br/>
