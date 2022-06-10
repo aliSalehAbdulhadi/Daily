@@ -56,7 +56,10 @@ const Home: NextPage = () => {
     <DragDropContext onDragEnd={onDragEndHandler}>
       <Head>
         <title className="bg-red-500">Daily</title>
-        <meta name="Todo App" content="Add your daily tasks" />
+        <meta
+          name="description"
+          content="A simple to do app for your daily tasks"
+        />
         <link
           rel="apple-touch-icon"
           sizes="180x180"

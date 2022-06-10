@@ -68,6 +68,8 @@ const Navbar = () => {
         >
           <input
             type="checkbox"
+            alt="Dark mode switch"
+            name="dark_mode_switch"
             className=" cursor-pointer select-none opacity-0 outline-none scale-75 mt-1"
             onChange={() => {
               setSetDarkMode(!darkMode);
