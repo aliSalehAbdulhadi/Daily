@@ -1,4 +1,4 @@
-Daily is a simple To-do app, Daily is only made for the purpose of learning Typescript, Nextjs and improving my Firebase skills. And its not supposed to replace your currently used Todo apps.
+Daily is a simple To-do app, that is only made for the purpose of learning Typescript, Nextjs and improving my Firebase skills. And its not supposed to replace your currently used Todo apps.
 
 Features: <br/>
  1- The ability to create an account and having all of your tasks accessible across all platforms.<br/>
