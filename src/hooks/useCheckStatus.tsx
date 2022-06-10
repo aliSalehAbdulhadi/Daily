@@ -2,7 +2,6 @@ import { SetStateAction, useEffect, useState } from "react";
 import { clearSignInState } from "../redux/slices/authentication/signInSlice";
 import { useAppDispatch } from "../interfaces/interfaces";
 import { clearSignUpState } from "../redux/slices/authentication/signUpSlice";
-import { clearPasswordState } from "../redux/slices/authentication/resetPasswordSlice";
 
 const useCheckStatus = ({
   setOpen,
@@ -66,7 +65,6 @@ const useCheckStatus = ({
     return () => {
       dispatch(clearSignInState());
       dispatch(clearSignUpState());
-      dispatch(clearPasswordState());
     };
   }, [setOpen, status, error, dispatch]);
 
