@@ -1,4 +1,4 @@
-import React, { SyntheticEvent } from "react";
+import { SyntheticEvent } from "react";
 import { AiFillDelete } from "react-icons/ai";
 import { GoCheck } from "react-icons/go";
 import { MdModeEditOutline, MdEditOff } from "react-icons/md";
@@ -9,7 +9,7 @@ import {
   RootState,
   useAppDispatch,
   useAppSelector,
-  SingeTodoInterface,
+  SingleTodoInterface,
 } from "../../interfaces/interfaces";
 import { completedTodo } from "../../redux/slices/features/completeTodo";
 import { removeTodo } from "../../redux/slices/features/deleteTodoSlice";
@@ -24,7 +24,7 @@ import useClickOutside from "../../hooks/useClickOutside";
 import moment from "moment";
 
 const SingleTask = (content: {
-  content: SingeTodoInterface;
+  content: SingleTodoInterface;
   index: number;
 }) => {
   const [deleteAnimation, setDeleteAnimation] = useState<boolean>(false);
@@ -33,7 +33,7 @@ const SingleTask = (content: {
   const [editText, setEditText] = useState<string>(content.content.content);
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const dispatch = useAppDispatch();
-  const todos: SingeTodoInterface[] = useAppSelector(
+  const todos: SingleTodoInterface[] = useAppSelector(
     (state: RootState) => state.getTodoReducer.todos,
   );
   const user = useAppSelector((state: RootState) => state.userReducer.userUid);

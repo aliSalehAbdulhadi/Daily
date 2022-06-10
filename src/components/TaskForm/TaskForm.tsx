@@ -3,16 +3,16 @@ import { Formik, Form } from "formik";
 import { v4 as uuidv4 } from "uuid";
 import { BsPlusCircleDotted } from "react-icons/bs";
 import { useEffect, useState } from "react";
+import { MdWifiOff } from "react-icons/md";
 import FormField from "../FormField/FormField";
 import { addTodo } from "../../redux/slices/features/addTodoSlice";
-import { getTodo, setTodos } from "../../redux/slices/features/getTodoSlice";
+import { setTodos } from "../../redux/slices/features/getTodoSlice";
 import {
   RootState,
   useAppDispatch,
   useAppSelector,
 } from "../../interfaces/interfaces";
 import DropDownMenu from "../SingleTask/DropDownMenu";
-import { MdWifiOff } from "react-icons/md";
 
 const formSchema = Yup.object().shape({
   Form: Yup.string(),
@@ -53,7 +53,7 @@ const TaskForm = () => {
                     completed: false,
                     id: uuidv4(),
                     icon: iconValue.length === 0 ? "personal" : iconValue,
-                    date: newDate.toLocaleString(),
+                    date: newDate.toISOString(),
                   },
                   userUid: user,
                 }),
@@ -69,7 +69,7 @@ const TaskForm = () => {
                   completed: false,
                   id: uuidv4(),
                   icon: iconValue.length === 0 ? "personal" : iconValue,
-                  date: newDate.toLocaleDateString(),
+                  date: newDate.toISOString(),
                 }),
               );
             }, 200);

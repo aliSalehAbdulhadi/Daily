@@ -1,4 +1,3 @@
-import React, { Dispatch } from "react";
 import * as Yup from "yup";
 import { Formik, Form } from "formik";
 import { FaSpinner } from "react-icons/fa";
@@ -22,10 +21,10 @@ const ResetPassword = ({
   const dispatch = useAppDispatch();
 
   const passwordError = useAppSelector(
-    (state) => state.resetPasswordReducer.error,
+    (state) => state.resetPasswordReducer?.error,
   );
   const passwordState = useAppSelector(
-    (state) => state.resetPasswordReducer.state,
+    (state) => state.resetPasswordReducer?.state,
   );
 
   const [pending, fulfilled, rejected, errorMessage] = useCheckStatus({

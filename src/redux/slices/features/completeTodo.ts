@@ -1,7 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { db } from "../../../container/firebase";
 import { updateDoc, doc } from "firebase/firestore";
-import { SingeTodoInterface } from "../../../interfaces/interfaces";
+import { db } from "../../../container/firebase";
+import { SingleTodoInterface } from "../../../interfaces/interfaces";
 
 export const completedTodo = createAsyncThunk(
   "completedTodo/bookmark",
@@ -12,13 +12,13 @@ export const completedTodo = createAsyncThunk(
   }: {
     userUid: string;
     todoId: string;
-    allTodos: SingeTodoInterface[];
+    allTodos: SingleTodoInterface[];
   }) => {
     const docRef = doc(db, "userData", userUid);
 
     await updateDoc(docRef, {
       userData: {
-        todos: allTodos.map((todo: SingeTodoInterface) =>
+        todos: allTodos.map((todo: SingleTodoInterface) =>
           todo.id === todoId ? { ...todo, completed: !todo.completed } : todo,
         ),
       },

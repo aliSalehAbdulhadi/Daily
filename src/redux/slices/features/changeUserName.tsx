@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { db } from "../../../container/firebase";
 import { updateDoc, doc } from "firebase/firestore";
+import { db } from "../../../container/firebase";
 
 export const changeUserName = createAsyncThunk(
   "changeUserName/bookmark",

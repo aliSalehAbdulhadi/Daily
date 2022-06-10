@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { onAuthStateChanged, signOut } from "firebase/auth";
+import { onAuthStateChanged } from "firebase/auth";
+import Image from "next/image";
 import SignIn from "../modals/SignIn/SignIn";
 import SignUp from "../modals/SignUp/SignUp";
 import { auth } from "../../container/firebase";
@@ -10,14 +11,12 @@ import {
   useAppSelector,
 } from "../../interfaces/interfaces";
 import { getTodo } from "../../redux/slices/features/getTodoSlice";
-import { IoMdLogOut } from "react-icons/io";
-import Image from "next/image";
 import { toggleDarkMode } from "../../redux/slices/features/darkMode";
 import User from "../userSection/User";
 import ResetPassword from "../modals/resetPassword/ResetPassword";
 
 const Navbar = () => {
-  const darkModeFunction = () => {
+  const darkModeFunction = (): any => {
     if (typeof window !== "undefined") {
       const localDarkOption = localStorage.getItem("darkMode");
       return localDarkOption === "true" ? true : false;
@@ -26,9 +25,7 @@ const Navbar = () => {
   const [signIn, setSignIn] = useState<boolean>(false);
   const [signUp, setSignUp] = useState<boolean>(false);
   const [resetPassword, setResetPassword] = useState<boolean>(false);
-  const [darkMode, setSetDarkMode] = useState<Function | boolean>(
-    darkModeFunction,
-  );
+  const [darkMode, setSetDarkMode] = useState<boolean>(darkModeFunction);
 
   const dispatch = useAppDispatch();
   const user = useAppSelector((state: RootState) => state.userReducer.userUid);
@@ -71,7 +68,7 @@ const Navbar = () => {
         >
           <input
             type="checkbox"
-            className=" cursor-pointer select-none outline-none scale-75 "
+            className=" cursor-pointer select-none opacity-0 outline-none scale-75 mt-1"
             onChange={() => {
               setSetDarkMode(!darkMode);
             }}

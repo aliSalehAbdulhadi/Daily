@@ -2,12 +2,12 @@ import { Droppable } from "react-beautiful-dnd";
 import SingleTask from "./../SingleTask/SingleTask";
 import {
   useAppSelector,
-  SingeTodoInterface,
+  SingleTodoInterface,
 } from "../../interfaces/interfaces";
 import { RootState } from "../../interfaces/interfaces";
 
 const NewTasks = () => {
-  const todos: SingeTodoInterface[] = useAppSelector(
+  const todos: SingleTodoInterface[] = useAppSelector(
     (state: RootState) => state.getTodoReducer.todos,
   );
   const dark = useAppSelector(
@@ -30,7 +30,7 @@ const NewTasks = () => {
               New Tasks
             </h1>
             <div className="w-fit">
-              {todos?.map((todo: SingeTodoInterface, index: number) =>
+              {todos?.map((todo: SingleTodoInterface, index: number) =>
                 !todo.completed ? (
                   <SingleTask key={todo?.id} content={todo} index={index} />
                 ) : (
@@ -58,7 +58,7 @@ const NewTasks = () => {
               Completed Tasks
             </h1>
             <div className="w-fit">
-              {todos?.map((todo: SingeTodoInterface, index: number) =>
+              {todos?.map((todo: SingleTodoInterface, index: number) =>
                 todo.completed ? (
                   <SingleTask key={todo?.id} content={todo} index={index} />
                 ) : (

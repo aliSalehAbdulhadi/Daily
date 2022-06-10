@@ -6,7 +6,7 @@ import useClickOutside from "../../hooks/useClickOutside";
 
 const DropDownMenu = ({ iconValue }: { iconValue: Function }) => {
   const [hidden, setHidden] = useState<boolean>(true);
-  const [value, setValue] = useState<any>("");
+  const [value, setValue] = useState<string>("");
 
   let domNode = useClickOutside(() => {
     setHidden(true);

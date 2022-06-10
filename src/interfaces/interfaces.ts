@@ -43,7 +43,7 @@ export interface initialState {
   state: string;
 }
 
-export interface SingeTodoInterface {
+export interface SingleTodoInterface {
   id: string;
   content: string;
   completed: boolean;

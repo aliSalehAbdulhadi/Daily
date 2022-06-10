@@ -1,13 +1,12 @@
-import React from "react";
 import {
   RootState,
   useAppSelector,
-  SingeTodoInterface,
+  SingleTodoInterface,
 } from "../../interfaces/interfaces";
 import NewTasks from "./../NewTasks/NewTasks";
 
 const TasksContainer = () => {
-  const todos: SingeTodoInterface[] = useAppSelector(
+  const todos: SingleTodoInterface[] = useAppSelector(
     (state: RootState) => state.getTodoReducer.todos,
   );
   const user = useAppSelector((state: RootState) => state.userReducer.userUid);
@@ -17,7 +16,7 @@ const TasksContainer = () => {
   );
 
   const signInStatus = useAppSelector(
-    (state: any) => state.signInReducer?.state,
+    (state: RootState) => state.signInReducer?.state,
   );
 
   return (
