@@ -8,7 +8,7 @@ Features:
  5- Dark and light mode.
  6- the ability to edit, complete and delete tasks.
  7- Drag and drop tasks to re-arrange their order or to complete them.
- 8- Able to select task types.
+ 8- Able to select task type.
 
  
 ## Deployed on Vercel
