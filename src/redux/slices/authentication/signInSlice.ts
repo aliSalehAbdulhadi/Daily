@@ -25,7 +25,12 @@ const initialState: initialState = {
 const SignInSlice = createSlice({
   name: "SignInSlice",
   initialState,
-  reducers: {},
+  reducers: {
+    clearSignInState: (state: any) => {
+      state.error = [];
+      state.state = "";
+    },
+  },
   extraReducers(build) {
     build.addCase(signInThunk.pending, (state) => {
       state.state = "pending";
@@ -39,5 +44,5 @@ const SignInSlice = createSlice({
       });
   },
 });
-
+export const { clearSignInState } = SignInSlice.actions;
 export default SignInSlice.reducer;
