@@ -1,5 +1,5 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { AsyncThunkConfig, initialState } from "../../../interfaces/interfaces";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { initialState } from "../../../interfaces/interfaces";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../../container/firebase";
 
@@ -27,8 +27,8 @@ const SignInSlice = createSlice({
   initialState,
   reducers: {
     clearSignInState: (state: any) => {
-      state.error = [];
       state.state = "";
+      state.error = [];
     },
   },
   extraReducers(build) {

@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { db } from "../../../container/firebase";
 import { getDoc, doc } from "firebase/firestore";
+import { db } from "../../../container/firebase";
+import { SingleTodoInterface } from "../../../interfaces/interfaces";
 
 export const getTodo = createAsyncThunk(
   "getTodos",
@@ -18,21 +19,14 @@ export const getTodo = createAsyncThunk(
 const getTodosSlice = createSlice({
   name: "getTodos",
   initialState: {
+    userName: "",
     todos: [],
     error: [],
     status: "",
   },
   reducers: {
-    setTodos: (
-      state: any,
-      action: PayloadAction<{
-        content: string;
-        completed: boolean;
-        id: string;
-        icon: string;
-      }>,
-    ) => {
-      state.todos.push(action.payload);
+    setTodos: (state: any, action: PayloadAction<SingleTodoInterface>) => {
+      state.todos?.unshift(action.payload);
     },
     deleteTodo: (
       state: any,
@@ -40,22 +34,34 @@ const getTodosSlice = createSlice({
         todoId: string;
       }>,
     ) => {
-      state.todos = state.todos.filter(
-        (todo: {
-          content: string;
-          id: string;
-          icon: string;
-          completed: boolean;
-        }) => todo.id !== action.payload.todoId,
+      state.todos = state.todos?.filter(
+        (todo: SingleTodoInterface) => todo.id !== action.payload.todoId,
       );
     },
-    updateTodo: (state: any, action: PayloadAction<{ todoId: string }>) => {
-      state.todos = state.todos.map((todo: any) => {
+    updateTodo: (
+      state: {
+        todos: SingleTodoInterface[];
+        error: {}[];
+        status: string;
+      },
+      action: PayloadAction<{ todoId: string }>,
+    ) => {
+      state.todos = state.todos?.map((todo: SingleTodoInterface) => {
         if (todo.id === action.payload.todoId) {
           todo.completed = !todo.completed;
         }
         return todo;
       });
+    },
+    reArrangeTodos: (
+      state: {
+        todos: SingleTodoInterface[];
+        error: {}[];
+        status: string;
+      },
+      action: PayloadAction<SingleTodoInterface[]>,
+    ) => {
+      state.todos = action.payload;
     },
   },
   extraReducers(build) {
@@ -64,7 +70,8 @@ const getTodosSlice = createSlice({
     }),
       build.addCase(getTodo.fulfilled, (state, action: any) => {
         state.status = "fulfilled";
-        state.todos = action.payload?.todos;
+        state.todos = action.payload?.userData?.todos;
+        state.userName = action.payload?.userName;
       }),
       build.addCase(getTodo.rejected, (state, action: any) => {
         state.error = action.error.message;
@@ -74,4 +81,5 @@ const getTodosSlice = createSlice({
 });
 
 export default getTodosSlice.reducer;
-export const { setTodos, deleteTodo, updateTodo } = getTodosSlice.actions;
+export const { setTodos, deleteTodo, updateTodo, reArrangeTodos } =
+  getTodosSlice.actions;

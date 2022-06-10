@@ -23,6 +23,7 @@ export interface SignInInterface {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   setSignUp: React.Dispatch<React.SetStateAction<boolean>>;
+  setResetPassword: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export interface SignUpInterface {
@@ -42,6 +43,13 @@ export interface initialState {
   state: string;
 }
 
+export interface SingleTodoInterface {
+  id: string;
+  content: string;
+  completed: boolean;
+  icon: string;
+  date: string;
+}
 export interface AsyncThunkConfig {
   /** return type for `thunkApi.getState` */
   state?: unknown;

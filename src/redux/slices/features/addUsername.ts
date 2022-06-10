@@ -7,10 +7,9 @@ import { initialState } from "../../../interfaces/interfaces";
 export const addUsername = createAsyncThunk(
   "addUsername",
   async ({ userName, userUid }: { userUid: string; userName: string }) => {
-    console.log(userUid, userName);
     await setDoc(
       doc(db, "userData", userUid),
-      { todo: userName },
+      { userName: userName, userData: { todos: [] } },
       { merge: true },
     );
   },
@@ -26,16 +25,25 @@ const SignInSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers(build) {
-    build.addCase(addUsername.pending, (state) => {
-      state.state = "pending";
-    }),
-      build.addCase(addUsername.fulfilled, (state) => {
-        state.state = "fulfilled";
-      }),
-      build.addCase(addUsername.rejected, (state, action: any) => {
-        state.error = action.error.message;
-        state.state = "rejected";
-      });
+    build.addCase(
+      addUsername.pending,
+      (state: { error: {}[]; state: string }) => {
+        state.state = "pending";
+      },
+    ),
+      build.addCase(
+        addUsername.fulfilled,
+        (state: { error: {}[]; state: string }) => {
+          state.state = "fulfilled";
+        },
+      ),
+      build.addCase(
+        addUsername.rejected,
+        (state: { error: {}[]; state: string }, action: any) => {
+          state.error = action.error.message;
+          state.state = "rejected";
+        },
+      );
   },
 });
 

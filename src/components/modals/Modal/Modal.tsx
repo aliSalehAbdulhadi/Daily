@@ -47,7 +47,7 @@ function Modal({
             leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
           >
             <div
-              className={`relative inline-block align-bottom bg-primaryDark rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-sm sm:w-full 
+              className={`relative inline-block align-bottom bg-primaryDark rounded text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-sm sm:w-full 
               }`}
             >
               <div className={`p-4 sm:p-6 sm:pb-4 w-full bg-secondaryColor`}>
@@ -57,7 +57,7 @@ function Modal({
                   </h2>
                   <button
                     type="button"
-                    className="rounded-full cursor-pointer hover:bg-cusOrange hover:text-white"
+                    className="rounded-full cursor-pointer hover:bg-cusOrange hover:text-white outline-none"
                     onClick={() => setOpen(false)}
                     ref={cancelButtonRef}
                   >

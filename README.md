@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
@@ -5,6 +6,8 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 First, run the development server:
 =======
+=======
+>>>>>>> 42cd18c0035578d8f4d6bcc454a3f94f4a272218
 Daily is a simple To-do app, that is only made for the purpose of learning Typescript, Nextjs and improving my Firebase skills. And its not supposed to replace your currently used Todo apps.
 
 Features: <br/>
@@ -19,6 +22,7 @@ Features: <br/>
 
  
 ## Deployed on Vercel
+<<<<<<< HEAD
 >>>>>>> Stashed changes
 
 ```bash
@@ -49,3 +53,7 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+=======
+
+Daily is fully deployed on vercel. Follow this link: https://daily-five.vercel.app
+>>>>>>> 42cd18c0035578d8f4d6bcc454a3f94f4a272218
