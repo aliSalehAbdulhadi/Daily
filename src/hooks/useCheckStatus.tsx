@@ -66,7 +66,6 @@ const useCheckStatus = ({
     return () => {
       dispatch(clearSignInState());
       dispatch(clearSignUpState());
-      dispatch(clearPasswordState());
     };
   }, [setOpen, status, error, dispatch]);
 

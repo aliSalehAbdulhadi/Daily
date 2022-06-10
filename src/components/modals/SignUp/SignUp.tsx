@@ -44,7 +44,7 @@ const SignUp = ({ open, setOpen, setSignIn }: SignUpInterface) => {
 
   const [fullName, setFullName] = useState<string>(userName);
   const [submit, setSubmit] = useState<boolean>(false);
-
+  console.log(fullName);
   useEffect(() => {
     if (submit) {
       dispatch(
