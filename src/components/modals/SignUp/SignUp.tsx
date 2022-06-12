@@ -144,7 +144,7 @@ const SignUp = ({ open, setOpen, setSignIn }: SignUpInterface) => {
               <div className="flex flex-col text-xs md:text-sm">
                 <span>Already have an account?</span>
                 <button
-                  className="mt-1"
+                  className="mt-1 transition-all duration-300 ease-in-out hover:translate-y-[2px]"
                   type="button"
                   onClick={() => {
                     setOpen(false);

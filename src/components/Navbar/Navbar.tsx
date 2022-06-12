@@ -53,10 +53,22 @@ const Navbar = () => {
     >
       <div className="px-3 flex select-none">
         <div className={`${dark ? "hidden" : "block"}`}>
-          <Image src="/logoBlack.svg" width="45" height="45" alt="Daily-logo" />
+          <Image
+            className="transition-all duration-300 ease-in-out hover:rotate-[360deg]"
+            src="/logoBlack.svg"
+            width="45"
+            height="45"
+            alt="Daily-logo"
+          />
         </div>
         <div className={`${dark ? "block" : "hidden"}`}>
-          <Image src="/logo.svg" width="45" height="45" alt="Daily-logo" />
+          <Image
+            className="transition-all duration-300 ease-in-out hover:rotate-[360deg]"
+            src="/logo.svg"
+            width="45"
+            height="45"
+            alt="Daily-logo"
+          />
         </div>
       </div>
 
@@ -67,6 +79,7 @@ const Navbar = () => {
           } sm:right-[180px]`}
         >
           <input
+            title="Dark and Light mode"
             type="checkbox"
             alt="Dark mode switch"
             name="dark_mode_switch"
@@ -80,9 +93,19 @@ const Navbar = () => {
         <div>
           {!user ? (
             <div>
-              <button onClick={() => setSignUp(true)}>Sign Up</button>
+              <button
+                className="transition-all duration-300 ease-in-out hover:translate-x-[-3px]"
+                onClick={() => setSignUp(true)}
+              >
+                Sign Up
+              </button>
               <span className="px-2">|</span>
-              <button onClick={() => setSignIn(true)}>Sign In</button>
+              <button
+                className="transition-all duration-300 ease-in-out hover:translate-x-[3px]"
+                onClick={() => setSignIn(true)}
+              >
+                Sign In
+              </button>
             </div>
           ) : (
             <User />

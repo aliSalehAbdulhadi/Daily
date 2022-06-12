@@ -26,14 +26,16 @@ const User = () => {
   return (
     <div ref={userRef} className="relative flex items-center justify-center">
       <h1
+        title="Click to edit profile"
         onClick={() => setOpenUserModal(!openUserModal)}
-        className="select-none cursor-pointer"
+        className="select-none cursor-pointer transition-all duration-300 ease-in-out hover:translate-x-[-5px]"
       >
         {userName}
       </h1>
       <IoMdLogOut
+        title="Log Out"
         onClick={() => setOpenModal(true)}
-        className={`scale-[1.8] cursor-pointer ml-5 mb-[.20rem] transition-all ease-in-out duration-500 ${
+        className={`scale-[1.8] cursor-pointer ml-5 mb-[.20rem] transition-all ease-in-out duration-500 hover:rotate-[-90deg] ${
           openModal ? "rotate-[-90deg]" : ""
         }`}
       />

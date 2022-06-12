@@ -178,12 +178,14 @@ const SingleTask = (content: {
           <div className="flex md:flex-col md:pl-10">
             {content.content.completed ? (
               <IoCloseSharp
+                title="Remove from completed tasks"
                 type="button"
                 onClick={completionHandler}
                 className="cursor-pointer mb-3 mr-6 scale-[1.8] md:scale-[1.3] hover:text-white hover:scale-150 transition-all ease-in-out"
               />
             ) : (
               <GoCheck
+                title="Complete task"
                 type="button"
                 onClick={completionHandler}
                 className="cursor-pointer mb-3 mr-6 scale-[1.8] md:scale-[1.2] hover:text-white hover:scale-150 transition-all ease-in-out"
@@ -192,6 +194,7 @@ const SingleTask = (content: {
 
             {!edit ? (
               <MdModeEditOutline
+                title="Edit"
                 type="submit"
                 onClick={() => setEdit(true)}
                 className={`cursor-pointer mb-3 mr-6 scale-[1.8] md:scale-[1.2] ${
@@ -213,6 +216,7 @@ const SingleTask = (content: {
             )}
 
             <AiFillDelete
+              title="Delete"
               type="button"
               onClick={deletionHandler}
               className="cursor-pointer  scale-[1.8] md:scale-[1.2] hover:text-white hover:scale-150 transition-all ease-in-out ml-3 md:ml-0 "
