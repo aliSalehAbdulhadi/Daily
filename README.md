@@ -11,7 +11,7 @@
  <li>Fully responsive design</li>
  <li>Dark and light mode</li>
  <li>the ability to edit, complete and delete tasks</li>
- <li>Drag and drop tasks to re-arrange and completed tasks</li>
+ <li>Drag and drop to re-arrange and complete tasks</li>
  <li>The ability to create an account and having all of your tasks accessible across all devices</li>
  <li>Able to select task type.<br/></li>
 </ul>
