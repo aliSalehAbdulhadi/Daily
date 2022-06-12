@@ -20,6 +20,7 @@
  # Sample
  ![Daily light mode](https://user-images.githubusercontent.com/97849626/173240077-65a22a50-44a6-4f6f-8335-c1ecc2d15fd0.png)
 ![Daily dark mode](https://user-images.githubusercontent.com/97849626/173240098-3561ec4e-22f8-461e-90de-4d9e7d91c36a.png)
+![Daily Mobile](https://user-images.githubusercontent.com/97849626/173241383-c874feae-f112-4985-81f0-94b04557b683.png)
 
 
 # Getting started
