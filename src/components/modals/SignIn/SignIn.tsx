@@ -72,7 +72,7 @@ const SignIn = ({
                 setResetPassword(true);
                 setOpen(false);
               }}
-              className="text-xs self-end mr-1 mt-1"
+              className="text-xs self-end mr-1 mt-1 transition-all duration-300 ease-in-out hover:translate-x-[-2px]"
             >
               Forgot Password?
             </button>
@@ -101,10 +101,10 @@ const SignIn = ({
                   Sign In
                 </button>
               )}
-              <div className="flex flex-col text-xs md:text-sm">
+              <div className="flex flex-col text-xs md:text-sm ">
                 <span>Dont have an account?</span>
                 <button
-                  className="mt-1"
+                  className="mt-1 transition-all duration-300 ease-in-out hover:translate-y-[2px]"
                   type="button"
                   onClick={() => {
                     setOpen(false);
