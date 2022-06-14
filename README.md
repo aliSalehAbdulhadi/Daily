@@ -1,5 +1,5 @@
 # Daily!
-##### <b>Daily</b> is a simple To-do app, that is only made for the purpose of learning Typescript, Nextjs and improving my Firebase skills. And its not supposed to replace your currently used Todo apps.
+<ul><b>Daily</b> is a simple To-do app, that is only made for the purpose of learning Typescript, Nextjs and improving my Firebase skills. And its not supposed to replace your currently used Todo apps.</ul>
 
 
 # Features
