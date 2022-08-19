@@ -22,11 +22,7 @@ const NewTasks = () => {
             ref={provided.innerRef}
             {...provided.droppableProps}
           >
-            <h1
-              className={`${
-                dark ? "text-textDark" : "text-textLight"
-              }  mb-5 mt-5 md:mt-0 select-none`}
-            >
+            <h1 className="text-textDark mb-5 mt-5 md:mt-0 select-none">
               New Tasks
             </h1>
             <div className="w-fit">
@@ -50,11 +46,7 @@ const NewTasks = () => {
             ref={provided.innerRef}
             {...provided.droppableProps}
           >
-            <h1
-              className={`${
-                dark ? "text-textDark" : "text-textLight"
-              } mb-5 mt-5 md:mt-0 select-none`}
-            >
+            <h1 className="text-textDark mb-5 mt-5 md:mt-0 select-none">
               Completed Tasks
             </h1>
             <div className="w-fit">

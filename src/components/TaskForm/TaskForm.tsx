@@ -12,7 +12,7 @@ import {
   useAppDispatch,
   useAppSelector,
 } from "../../interfaces/interfaces";
-import DropDownMenu from "../SingleTask/DropDownMenu";
+import DropDownMenu from "./DropDownMenu";
 
 const formSchema = Yup.object().shape({
   Form: Yup.string(),
@@ -107,6 +107,7 @@ const TaskForm = () => {
                 />
 
                 <button
+                  title="Submit"
                   type="submit"
                   className={`${
                     dark ? "text-textDark" : "text-textLight"

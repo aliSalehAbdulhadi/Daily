@@ -24,6 +24,7 @@ const DropDownMenu = ({ iconValue }: { iconValue: Function }) => {
     if (!value) {
       return (
         <BsFillArrowDownCircleFill
+          title="Chose task type"
           className={`animate-bounce hover:translate-y-[-5px] duration-500 ease-in-out transition-all ${
             !hidden ? "hidden" : "block"
           }`}
@@ -34,6 +35,7 @@ const DropDownMenu = ({ iconValue }: { iconValue: Function }) => {
     if (value === "work") {
       return (
         <MdWork
+          title="Work task"
           className={`animate-bounce hover:translate-y-[-5px] duration-500 ease-in-out transition-all ${
             !hidden ? "hidden" : "block"
           }`}
@@ -44,6 +46,7 @@ const DropDownMenu = ({ iconValue }: { iconValue: Function }) => {
     if (value === "personal") {
       return (
         <BsFillPersonFill
+          title="Personal task"
           className={`animate-bounce hover:translate-y-[-5px] duration-500 ease-in-out transition-all ${
             !hidden ? "hidden" : "block"
           }`}
@@ -54,6 +57,7 @@ const DropDownMenu = ({ iconValue }: { iconValue: Function }) => {
     if (value === "fun") {
       return (
         <IoGameController
+          title="Fun task"
           className={`animate-bounce hover:translate-y-[-5px] duration-500 ease-in-out transition-all ${
             !hidden ? "hidden" : "block"
           }`}
@@ -82,16 +86,18 @@ const DropDownMenu = ({ iconValue }: { iconValue: Function }) => {
         value="personal"
         onClick={(e) => iconsHandler(e)}
       >
-        <h4
-          className={`text-[.6rem] mr-1 mt-1 pointer-events-none ${
+        <label
+          className={`text-[.6rem] mr-1 mt-1 pointer-events-none flex items-center justify-center  ${
             hidden ? "hidden" : "block"
           }`}
         >
           Personal
-        </h4>
-        <BsFillPersonFill
-          className={`pointer-events-none mb-1 ${hidden ? "hidden" : "block"}`}
-        />
+          <BsFillPersonFill
+            className={`pointer-events-none transition-all scale-150 ease-in-out ml-2 mb-[.2rem] duration-500 ${
+              hidden ? "hidden" : "block"
+            }`}
+          />
+        </label>
       </button>
       <button
         type="button"
@@ -99,18 +105,18 @@ const DropDownMenu = ({ iconValue }: { iconValue: Function }) => {
         value="work"
         onClick={(e) => iconsHandler(e)}
       >
-        <h4
-          className={`text-[.6rem] mr-1 mt-1 pointer-events-none  ${
+        <label
+          className={`text-[.6rem] mr-1 mt-1 pointer-events-none flex items-center justify-center  ${
             hidden ? "hidden" : "block"
           }`}
         >
           Work
-        </h4>
-        <MdWork
-          className={`pointer-events-none mb-1 transition-all ease-in-out duration-500 ${
-            hidden ? "hidden" : "block"
-          }`}
-        />
+          <MdWork
+            className={`pointer-events-none transition-all scale-150 ease-in-out ml-2 mb-[.2rem] duration-500 ${
+              hidden ? "hidden" : "block"
+            }`}
+          />
+        </label>
       </button>
       <button
         type="button"
@@ -118,18 +124,18 @@ const DropDownMenu = ({ iconValue }: { iconValue: Function }) => {
         value="fun"
         onClick={(e) => iconsHandler(e)}
       >
-        <h4
-          className={`text-[.6rem] mr-1 mt-1 pointer-events-none  ${
+        <label
+          className={`text-[.6rem] mr-1 mt-1 pointer-events-none flex items-center justify-center  ${
             hidden ? "hidden" : "block"
           }`}
         >
           Fun
-        </h4>
-        <IoGameController
-          className={`pointer-events-none transition-all ease-in-out duration-500 ${
-            hidden ? "hidden" : "block"
-          }`}
-        />
+          <IoGameController
+            className={`pointer-events-none transition-all scale-150 ease-in-out ml-2 mb-[.2rem] duration-500 ${
+              hidden ? "hidden" : "block"
+            }`}
+          />
+        </label>
       </button>
     </div>
   );
