@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -21,7 +21,7 @@ a {
 }
 
 .bg-icon {
-  background-image: url("/moon3.svg");
+  background-image: url('/moon3.svg');
 }
 
 .card-animation {
@@ -34,8 +34,19 @@ a {
   transform: scale(1.05);
 }
 
+.scrollBar::-webkit-scrollbar {
+  width: 4px;
+  color: red;
+  direction: ltr;
+}
+
+.scrollBar::-webkit-scrollbar-thumb {
+  background: white;
+  border-radius: 3px;
+}
+
 input:checked + .bg-icon {
-  background-image: url("/sun3.svg");
+  background-image: url('/sun3.svg');
 }
 
 textarea::-webkit-scrollbar {
@@ -52,4 +63,11 @@ textarea::-webkit-scrollbar-thumb {
 
 input::-webkit-input-placeholder {
   font-size: 13px;
+}
+
+.autoFillBg:-webkit-autofill,
+.autoFillBg:-webkit-autofill:hover,
+.autoFillBg:-webkit-autofill:focus,
+.autoFillBg:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px #427676 inset !important;
 }

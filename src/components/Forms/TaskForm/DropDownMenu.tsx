@@ -1,12 +1,12 @@
-import { SyntheticEvent, useState } from "react";
-import { BsFillPersonFill, BsFillArrowDownCircleFill } from "react-icons/bs";
-import { MdWork } from "react-icons/md";
-import { IoGameController } from "react-icons/io5";
-import useClickOutside from "../../hooks/useClickOutside";
+import { SyntheticEvent, useState } from 'react';
+import { BsFillPersonFill, BsFillArrowDownCircleFill } from 'react-icons/bs';
+import { MdWork } from 'react-icons/md';
+import { IoGameController } from 'react-icons/io5';
+import useClickOutside from '../../../hooks/useClickOutside';
 
 const DropDownMenu = ({ iconValue }: { iconValue: Function }) => {
   const [hidden, setHidden] = useState<boolean>(true);
-  const [value, setValue] = useState<string>("");
+  const [value, setValue] = useState<string>('');
 
   let domNode = useClickOutside(() => {
     setHidden(true);
@@ -26,40 +26,40 @@ const DropDownMenu = ({ iconValue }: { iconValue: Function }) => {
         <BsFillArrowDownCircleFill
           title="Chose task type"
           className={`animate-bounce hover:translate-y-[-5px] duration-500 ease-in-out transition-all ${
-            !hidden ? "hidden" : "block"
+            !hidden ? 'hidden' : 'block'
           }`}
         />
       );
     }
 
-    if (value === "work") {
+    if (value === 'work') {
       return (
         <MdWork
           title="Work task"
           className={`animate-bounce hover:translate-y-[-5px] duration-500 ease-in-out transition-all ${
-            !hidden ? "hidden" : "block"
+            !hidden ? 'hidden' : 'block'
           }`}
         />
       );
     }
 
-    if (value === "personal") {
+    if (value === 'personal') {
       return (
         <BsFillPersonFill
           title="Personal task"
           className={`animate-bounce hover:translate-y-[-5px] duration-500 ease-in-out transition-all ${
-            !hidden ? "hidden" : "block"
+            !hidden ? 'hidden' : 'block'
           }`}
         />
       );
     }
 
-    if (value === "fun") {
+    if (value === 'fun') {
       return (
         <IoGameController
           title="Fun task"
           className={`animate-bounce hover:translate-y-[-5px] duration-500 ease-in-out transition-all ${
-            !hidden ? "hidden" : "block"
+            !hidden ? 'hidden' : 'block'
           }`}
         />
       );
@@ -88,13 +88,13 @@ const DropDownMenu = ({ iconValue }: { iconValue: Function }) => {
       >
         <label
           className={`text-[.6rem] mr-1 mt-1 pointer-events-none flex items-center justify-center  ${
-            hidden ? "hidden" : "block"
+            hidden ? 'hidden' : 'block'
           }`}
         >
           Personal
           <BsFillPersonFill
             className={`pointer-events-none transition-all scale-150 ease-in-out ml-2 mb-[.2rem] duration-500 ${
-              hidden ? "hidden" : "block"
+              hidden ? 'hidden' : 'block'
             }`}
           />
         </label>
@@ -107,13 +107,13 @@ const DropDownMenu = ({ iconValue }: { iconValue: Function }) => {
       >
         <label
           className={`text-[.6rem] mr-1 mt-1 pointer-events-none flex items-center justify-center  ${
-            hidden ? "hidden" : "block"
+            hidden ? 'hidden' : 'block'
           }`}
         >
           Work
           <MdWork
             className={`pointer-events-none transition-all scale-150 ease-in-out ml-2 mb-[.2rem] duration-500 ${
-              hidden ? "hidden" : "block"
+              hidden ? 'hidden' : 'block'
             }`}
           />
         </label>
@@ -126,13 +126,13 @@ const DropDownMenu = ({ iconValue }: { iconValue: Function }) => {
       >
         <label
           className={`text-[.6rem] mr-1 mt-1 pointer-events-none flex items-center justify-center  ${
-            hidden ? "hidden" : "block"
+            hidden ? 'hidden' : 'block'
           }`}
         >
           Fun
           <IoGameController
             className={`pointer-events-none transition-all scale-150 ease-in-out ml-2 mb-[.2rem] duration-500 ${
-              hidden ? "hidden" : "block"
+              hidden ? 'hidden' : 'block'
             }`}
           />
         </label>

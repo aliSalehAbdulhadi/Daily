@@ -1,6 +1,6 @@
-import { useSelector } from "react-redux";
-import { TypedUseSelectorHook, useDispatch } from "react-redux";
-import store from "../redux/store/store";
+import { useSelector } from 'react-redux';
+import { TypedUseSelectorHook, useDispatch } from 'react-redux';
+import store from '../redux/store/store';
 
 export interface ModalInterface {
   label: string;
@@ -17,6 +17,7 @@ export interface FieldPropsInterface {
   placeholder: string;
   autoComplete: string;
   className: string;
+  classNameField: string;
 }
 
 export interface SignInInterface {
