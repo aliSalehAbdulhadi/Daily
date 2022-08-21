@@ -9,14 +9,14 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@headlessui/react": "^1.6.4",
+    "@headlessui/react": "^1.6.6",
     "@next/bundle-analyzer": "^12.1.6",
-    "@reduxjs/toolkit": "^1.8.2",
+    "@reduxjs/toolkit": "^1.8.3",
     "@types/react-beautiful-dnd": "^13.1.2",
     "@types/react-redux": "^7.1.24",
     "@types/redux-actions": "^2.6.2",
     "@types/uuid": "^8.3.4",
-    "firebase": "^9.8.3",
+    "firebase": "^9.9.1",
     "formik": "^2.2.9",
     "moment": "^2.29.4",
     "next": "12.2.3",
