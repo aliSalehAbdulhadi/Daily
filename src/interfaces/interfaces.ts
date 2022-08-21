@@ -17,7 +17,7 @@ export interface FieldPropsInterface {
   placeholder: string;
   autoComplete: string;
   className: string;
-  classNameField: string;
+  classNameField?: string;
 }
 
 export interface SignInInterface {

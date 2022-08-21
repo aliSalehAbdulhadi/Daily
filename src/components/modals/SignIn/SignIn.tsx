@@ -1,15 +1,15 @@
-import * as Yup from "yup";
-import { Formik, Form } from "formik";
-import { FaSpinner } from "react-icons/fa";
-import Modal from "../Modal/Modal";
+import * as Yup from 'yup';
+import { Formik, Form } from 'formik';
+import { FaSpinner } from 'react-icons/fa';
+import Modal from '../Modal/Modal';
 import {
   SignInInterface,
   useAppDispatch,
   useAppSelector,
-} from "../../../interfaces/interfaces";
-import FormField from "../../FormField/FormField";
-import { signInThunk } from "../../../redux/slices/authentication/signInSlice";
-import useCheckStatus from "../../../hooks/useCheckStatus";
+} from '../../../interfaces/interfaces';
+import FormField from '../../FormField/FormField';
+import { signInThunk } from '../../../redux/slices/authentication/signInSlice';
+import useCheckStatus from '../../../hooks/useCheckStatus';
 
 const signInSchema = Yup.object().shape({
   Email: Yup.string().min(3).max(24).required(),
@@ -38,7 +38,7 @@ const SignIn = ({
   return (
     <Modal label="Sign In" setOpen={setOpen} open={open}>
       <Formik
-        initialValues={{ Email: "", Password: "" }}
+        initialValues={{ Email: '', Password: '' }}
         validationSchema={signInSchema}
         onSubmit={(values) => {
           dispatch(
