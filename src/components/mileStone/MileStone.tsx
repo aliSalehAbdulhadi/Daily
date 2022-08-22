@@ -12,15 +12,10 @@ import MilestoneSinglePage from '../MilestoneSinglePage/MilestoneSinglePage';
 
 const MileStone = ({ taskId }: { taskId: string }) => {
   const [addMilestone, setAddMilestone] = useState<boolean>(false);
-  const [editMilestone, setEditMilestone] = useState<boolean>(false);
-  const [text, setText] = useState<string>('');
-  const editRef = useRef<HTMLInputElement>(null);
-
-  const user = useAppSelector((state: RootState) => state.userReducer.userUid);
   const todos: SingleTodoInterface[] = useAppSelector(
-    (state: RootState) => state.getTodoReducer.todos,
+    (state: RootState) => state.getTodoReducer?.todos,
   );
-  const todo = todos.find((todo) => todo.id === taskId);
+  const todo = todos.find((todo) => todo?.id === taskId);
 
   const milestoneRef = useClickOutside(() => {
     setAddMilestone(false);

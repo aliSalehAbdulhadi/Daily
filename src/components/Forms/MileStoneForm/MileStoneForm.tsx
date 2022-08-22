@@ -21,13 +21,10 @@ const formSchema = Yup.object().shape({
 });
 const MileStoneForm = ({ taskId }: { taskId: string }) => {
   const [submitAnimation, setSubmitAnimation] = useState<boolean>(false);
-  const [checkInternet, setCheckInternet] = useState<boolean>(true);
   const todos: SingleTodoInterface[] = useAppSelector(
     (state: RootState) => state.getTodoReducer.todos,
   );
-  const dark = useAppSelector(
-    (state: RootState) => state.darkModeReducer.darkMode,
-  );
+
   const dispatch = useAppDispatch();
   const user = useAppSelector((state: RootState) => state.userReducer.userUid);
 
@@ -37,22 +34,20 @@ const MileStoneForm = ({ taskId }: { taskId: string }) => {
       validationSchema={formSchema}
       onSubmit={(values, { resetForm }) => {
         const newDate = new Date();
-        checkInternet
-          ? values.Form.length === 0
-            ? false
-            : dispatch(
-                addMilestones({
-                  userUid: user,
-                  milestone: {
-                    id: uuidv4(),
-                    milestoneContent: values.Form,
-                    milestoneCompleted: false,
-                  },
-                  allTodos: todos,
-                  todoId: taskId,
-                }),
-              )
-          : null;
+        values.Form.length === 0
+          ? false
+          : dispatch(
+              addMilestones({
+                userUid: user,
+                milestone: {
+                  id: uuidv4(),
+                  milestoneContent: values.Form,
+                  milestoneCompleted: false,
+                },
+                allTodos: todos,
+                todoId: taskId,
+              }),
+            );
 
         values.Form.length === 0
           ? false

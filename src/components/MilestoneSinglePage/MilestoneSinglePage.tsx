@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { AiFillDelete } from 'react-icons/ai';
-
 import { BsCheckCircle, BsFillXCircleFill } from 'react-icons/bs';
 import useClickOutside from '../../hooks/useClickOutside';
 import {
@@ -34,7 +33,7 @@ const MilestoneSinglePage = ({
   const todos: SingleTodoInterface[] = useAppSelector(
     (state: RootState) => state.getTodoReducer.todos,
   );
-  const todo = todos.find((todo) => todo.id === taskId);
+  const todo = todos?.find((todo) => todo?.id === taskId);
   const dispatch = useAppDispatch();
   const inputRef = useClickOutside(() => {
     setEdit(false);
@@ -54,7 +53,7 @@ const MilestoneSinglePage = ({
                 <textarea
                   ref={editRef}
                   className="w-[100%] py-2 mt-2 rounded outline-none text-black px-2"
-                  onChange={(e: any) => setEditText(e.target.value)}
+                  onChange={(e: any) => setEditText(e?.target?.value)}
                   rows={editText.length / 30}
                   value={editText}
                 />

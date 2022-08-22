@@ -101,22 +101,3 @@ input::-webkit-input-placeholder {
 .deleteAnimation {
   animation: deleteAnimation 0.5s;
 }
-
-@keyframes deleteAnimation {
-  0% {
-    transfrom: scale(1);
-    transition: 1s ease-in-out;
-  }
-  25% {
-    transfrom: scale(0.75);
-    transition: 1s ease-in-out;
-  }
-  50% {
-    transfrom: scale(0.5);
-    transition: 1s ease-in-out;
-  }
-  100% {
-    transfrom: scale(0.25);
-    transition: 1s ease-in-out;
-  }
-}
