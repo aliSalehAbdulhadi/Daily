@@ -1,15 +1,15 @@
-import { useState } from "react";
-import * as Yup from "yup";
-import { Formik, Form } from "formik";
-import { FaSpinner } from "react-icons/fa";
-import Modal from "../Modal/Modal";
+import { useState } from 'react';
+import * as Yup from 'yup';
+import { Formik, Form } from 'formik';
+import { FaSpinner } from 'react-icons/fa';
+import Modal from '../Modal/Modal';
 import {
   RootState,
   useAppDispatch,
   useAppSelector,
-} from "../../../interfaces/interfaces";
-import FormField from "../../FormField/FormField";
-import { changeUserName } from "../../../redux/slices/features/changeUserName";
+} from '../../../interfaces/interfaces';
+import FormField from '../../FormField/FormField';
+import { changeUserName } from '../../../redux/slices/features/changeUserName';
 
 const signInSchema = Yup.object().shape({
   username: Yup.string().min(0).max(15).required(),
@@ -30,7 +30,7 @@ const ChangeUserName = ({
   return (
     <Modal label="Change User Name" setOpen={setOpen} open={open}>
       <Formik
-        initialValues={{ username: "" }}
+        initialValues={{ username: '' }}
         validationSchema={signInSchema}
         onSubmit={(values) => {
           if (values.username.length <= 0) return;
@@ -39,6 +39,7 @@ const ChangeUserName = ({
           );
           setAnimation(true);
           setTimeout(() => {
+            location.reload();
             setOpen(false);
             setAnimation(false);
           }, 1000);

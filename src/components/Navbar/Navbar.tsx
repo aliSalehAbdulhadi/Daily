@@ -1,29 +1,31 @@
-import { useEffect, useState } from "react";
-import { onAuthStateChanged } from "firebase/auth";
-import Image from "next/image";
-import SignIn from "../modals/SignIn/SignIn";
-import SignUp from "../modals/SignUp/SignUp";
-import { auth } from "../../container/firebase";
-import { setUserUid } from "../../redux/slices/authentication/userSlice";
+/* eslint-disable @next/next/no-img-element */
+import { useEffect, useState } from 'react';
+import { onAuthStateChanged } from 'firebase/auth';
+import Image from 'next/image';
+import { IoPersonCircleSharp } from 'react-icons/io5';
+import SignIn from '../modals/SignIn/SignIn';
+import SignUp from '../modals/SignUp/SignUp';
+import { auth } from '../../container/firebase';
+import { setUserUid } from '../../redux/slices/authentication/userSlice';
 import {
   RootState,
   useAppDispatch,
   useAppSelector,
-} from "../../interfaces/interfaces";
-import { getTodo } from "../../redux/slices/features/getTodoSlice";
-import { toggleDarkMode } from "../../redux/slices/features/darkMode";
-import User from "../userSection/User";
-import ResetPassword from "../modals/resetPassword/ResetPassword";
-
+} from '../../interfaces/interfaces';
+import { getTodo } from '../../redux/slices/features/getTodoSlice';
+import { toggleDarkMode } from '../../redux/slices/features/darkMode';
+import ResetPassword from '../modals/resetPassword/ResetPassword';
+import Link from 'next/link';
 const Navbar = () => {
   const darkModeFunction = (): any => {
-    if (typeof window !== "undefined") {
-      const localDarkOption = localStorage.getItem("darkMode");
-      return localDarkOption === "true" ? true : false;
+    if (typeof window !== 'undefined') {
+      const localDarkOption = localStorage.getItem('darkMode');
+      return localDarkOption === 'true' ? true : false;
     }
   };
   const [signIn, setSignIn] = useState<boolean>(false);
   const [signUp, setSignUp] = useState<boolean>(false);
+  const [openUserModal, setOpenUserModal] = useState<boolean>(false);
   const [resetPassword, setResetPassword] = useState<boolean>(false);
   const [darkMode, setSetDarkMode] = useState<boolean>(darkModeFunction);
 
@@ -38,8 +40,8 @@ const Navbar = () => {
     dispatch(getTodo({ userUid: user }));
   }, [dispatch, user]);
 
-  if (typeof window !== "undefined") {
-    localStorage?.setItem("darkMode", JSON.stringify(darkMode));
+  if (typeof window !== 'undefined') {
+    localStorage?.setItem('darkMode', JSON.stringify(darkMode));
   }
   useEffect(() => {
     dispatch(toggleDarkMode(darkMode));
@@ -47,37 +49,37 @@ const Navbar = () => {
 
   return (
     <div
-      className={`${dark ? "bg-primaryColor" : "bg-primaryLight"} ${
-        dark ? "text-textDark" : "text-textLight"
+      className={`${dark ? 'bg-primaryColor' : 'bg-primaryLight'} ${
+        dark ? 'text-textDark' : 'text-textLight'
       } w-full h-[10vh]  flex items-center justify-between px-5 whitespace-nowrap text-sm md:text-base md:px-10 font-Comfortaa`}
     >
       <div className="px-3 flex select-none">
-        <div className={`${dark ? "hidden" : "block"}`}>
-          <Image
-            className="transition-all duration-300 ease-in-out hover:rotate-[360deg]"
-            src="/logoBlack.svg"
-            width="45"
-            height="45"
-            alt="Daily-logo"
-          />
+        <div className={`${dark ? 'hidden' : 'block'} cursor-pointer`}>
+          <Link href="/">
+            <Image
+              className="transition-all duration-300 ease-in-out hover:rotate-[360deg]"
+              src="/logoBlack.svg"
+              width="45"
+              height="45"
+              alt="Daily-logo"
+            />
+          </Link>
         </div>
-        <div className={`${dark ? "block" : "hidden"}`}>
-          <Image
-            className="transition-all duration-300 ease-in-out hover:rotate-[360deg]"
-            src="/logo.svg"
-            width="45"
-            height="45"
-            alt="Daily-logo"
-          />
+        <div className={`${dark ? 'block' : 'hidden'} cursor-pointer`}>
+          <Link href="/">
+            <Image
+              className="transition-all duration-300 ease-in-out hover:rotate-[360deg]"
+              src="/logo.svg"
+              width="45"
+              height="45"
+              alt="Daily-logo"
+            />
+          </Link>
         </div>
       </div>
 
-      <div className="flex items-center justify-center relative">
-        <div
-          className={`absolute  ${
-            user ? "right-[160px]" : "right-[150px]"
-          } sm:right-[180px]`}
-        >
+      <div className="flex items-center justify-center relative b">
+        <div className={`absolute mr-36`}>
           <input
             title="Dark and Light mode"
             type="checkbox"
@@ -108,11 +110,24 @@ const Navbar = () => {
               </button>
             </div>
           ) : (
-            <User />
+            <Link href={`/users `} onClick={() => setOpenUserModal(true)}>
+              <div className="flex border rounded-full py-1 pl-2 pr-1 transition-all ease-in-out duration-200 cursor-pointer hover:shadow-lg relative">
+                <button>
+                  <img
+                    className="h-5 mr-2"
+                    src="/svg/burger.svg"
+                    alt="burger icon"
+                  />
+                </button>
+                <button>
+                  <IoPersonCircleSharp size={35} color="#696969" />
+                </button>
+              </div>
+            </Link>
           )}
         </div>
       </div>
-
+      <div className="absolute top-0 left-0"></div>
       <SignIn
         open={signIn}
         setOpen={setSignIn}

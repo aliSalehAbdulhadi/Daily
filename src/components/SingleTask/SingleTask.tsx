@@ -1,27 +1,27 @@
-import { SyntheticEvent } from "react";
-import { AiFillDelete } from "react-icons/ai";
-import { GoCheck } from "react-icons/go";
-import { MdModeEditOutline, MdEditOff } from "react-icons/md";
-import { IoCloseSharp } from "react-icons/io5";
-import { useState, useEffect, useRef } from "react";
-import { Draggable } from "react-beautiful-dnd";
+import { SyntheticEvent } from 'react';
+import { AiFillDelete } from 'react-icons/ai';
+import { GoCheck } from 'react-icons/go';
+import { MdModeEditOutline, MdEditOff } from 'react-icons/md';
+import { IoCloseSharp } from 'react-icons/io5';
+import { useState, useEffect, useRef } from 'react';
+import { Draggable } from 'react-beautiful-dnd';
 import {
   RootState,
   useAppDispatch,
   useAppSelector,
   SingleTodoInterface,
-} from "../../interfaces/interfaces";
-import { completedTodo } from "../../redux/slices/features/completeTodo";
-import { removeTodo } from "../../redux/slices/features/deleteTodoSlice";
+} from '../../interfaces/interfaces';
+import { completedTodo } from '../../redux/slices/features/completeTodo';
+import { removeTodo } from '../../redux/slices/features/deleteTodoSlice';
 import {
   deleteTodo,
   getTodo,
   updateTodo,
-} from "../../redux/slices/features/getTodoSlice";
-import { editTodo } from "../../redux/slices/features/editTodo";
-import CardIcon from "./CardIcon";
-import useClickOutside from "../../hooks/useClickOutside";
-import moment from "moment";
+} from '../../redux/slices/features/getTodoSlice';
+import { editTodo } from '../../redux/slices/features/editTodo';
+import CardIcon from './CardIcon';
+import useClickOutside from '../../hooks/useClickOutside';
+import moment from 'moment';
 
 const SingleTask = (content: {
   content: SingleTodoInterface;
@@ -41,7 +41,7 @@ const SingleTask = (content: {
     inputRef?.current?.focus();
   }, [edit]);
 
-  const formatDate = moment(content.content.date).format("MMMM Do YYYY");
+  const formatDate = moment(content.content.date).format('MMMM Do YYYY');
 
   let textareaRef = useClickOutside(() => {
     setEdit(false);
@@ -100,14 +100,14 @@ const SingleTask = (content: {
   };
 
   const setCardColorByTypeHandler = () => {
-    if (content.content.icon === "personal") {
-      return "bg-green-400";
+    if (content.content.icon === 'personal') {
+      return 'bg-green-400';
     }
-    if (content.content.icon === "work") {
-      return "bg-blue-400";
+    if (content.content.icon === 'work') {
+      return 'bg-blue-400';
     }
-    if (content.content.icon === "fun") {
-      return "bg-purple-400";
+    if (content.content.icon === 'fun') {
+      return 'bg-purple-400';
     }
   };
 
@@ -119,16 +119,17 @@ const SingleTask = (content: {
     >
       {(provided) => (
         <div
-          className={`text-textLight hover:scale-105 hover:transition-all hover:ease-in-out hover:duration-300 font-Comfortaa font-semibold my-5 px-5 py-2 min-h-[20vh] md:p-10 min-w-[80vw] md:min-h-[19vh] md:min-w-[30vw] md:max-w-[30vw] relative ${
-            content.content.completed
-              ? "bg-red-400 shadow-2xl"
-              : setCardColorByTypeHandler()
-          } flex flex-col justify-between md:flex-row items-center rounded text-sm md:text-base  ease-in-out
+          className={`text-textLight hover:scale-[1.01]
+           hover:transition-all hover:ease-in-out hover:duration-300 font-Comfortaa font-semibold my-2 px-5 py-2 min-h-[10rem] w-[20rem]  lg:w-[25rem] relative ${
+             content.content.completed
+               ? 'bg-red-400 shadow-2xl'
+               : setCardColorByTypeHandler()
+           } flex flex-col justify-between md:flex-row items-center rounded text-sm md:text-base  ease-in-out
             ${
               deleteAnimation
-                ? "translate-x-[-35rem] transition-all ease-in-out"
-                : ""
-            } ${CompleteAnimation ? "animate-bounce" : ""} `}
+                ? 'translate-x-[-35rem] transition-all ease-in-out'
+                : ''
+            } ${CompleteAnimation ? 'animate-bounce' : ''} `}
           {...provided.draggableProps}
           {...provided.dragHandleProps}
           ref={provided.innerRef}
@@ -161,7 +162,7 @@ const SingleTask = (content: {
               </button>
             </form>
           ) : content.content.completed ? (
-            <div className="md:pl-10 mb-3 md:mb-0 flex flex-col items-center">
+            <div className="md:pl-10 mb-3 md:mb-0 flex flex-col items-center whitespace-pre-wrap">
               <s>{content.content.content}</s>
               <div className="text-xs absolute top-3 left-[20px] md:bottom-2 w-fit whitespace-nowrap select-none">
                 {formatDate}
@@ -199,8 +200,8 @@ const SingleTask = (content: {
                 onClick={() => setEdit(true)}
                 className={`cursor-pointer mb-3 mr-6 scale-[1.8] md:scale-[1.2] ${
                   content.content.completed
-                    ? "hidden"
-                    : "block hover:text-white hover:scale-150 transition-all ease-in-out ml-2 md:ml-0"
+                    ? 'hidden'
+                    : 'block hover:text-white hover:scale-150 transition-all ease-in-out ml-2 md:ml-0'
                 }`}
               />
             ) : (
@@ -209,8 +210,8 @@ const SingleTask = (content: {
                 onClick={() => setEdit(false)}
                 className={`cursor-pointer mb-3 mr-6 scale-[1.8] md:scale-[1.2] ${
                   content.content.completed
-                    ? "hidden"
-                    : "block hover:text-white hover:scale-150 transition-all ease-in-out ml-2 md:ml-0"
+                    ? 'hidden'
+                    : 'block hover:text-white hover:scale-150 transition-all ease-in-out ml-2 md:ml-0'
                 }`}
               />
             )}
