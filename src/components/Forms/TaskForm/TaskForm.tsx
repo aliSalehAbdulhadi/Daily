@@ -89,6 +89,7 @@ const TaskForm = () => {
                     id: uuidv4(),
                     icon: iconValue.length === 0 ? 'personal' : iconValue,
                     date: newDate.toISOString(),
+                    milestones: [],
                   },
                   userUid: user,
                 }),
@@ -105,6 +106,7 @@ const TaskForm = () => {
                   id: uuidv4(),
                   icon: iconValue.length === 0 ? 'personal' : iconValue,
                   date: newDate.toISOString(),
+                  milestones: [],
                 }),
               );
             }, 200);

@@ -55,6 +55,7 @@ const ChangeUserName = ({
               type="userName"
               placeholder="Enter user name"
               value="userName"
+              classNameField="p-5 outline-none block w-full shadow-sm sm:text-sm border-gray-300 rounded py-3 font-Comfortaa text-textLight"
             />
 
             <div className="py-4 h-4 w-full flex items-center justify-center">

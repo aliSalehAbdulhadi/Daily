@@ -65,9 +65,58 @@ input::-webkit-input-placeholder {
   font-size: 13px;
 }
 
+.container {
+  display: block;
+  position: relative;
+  padding-left: 5px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.container input:checked {
+  background-color: #e6e6e6;
+}
+
 .autoFillBg:-webkit-autofill,
 .autoFillBg:-webkit-autofill:hover,
 .autoFillBg:-webkit-autofill:focus,
 .autoFillBg:-webkit-autofill:active {
   -webkit-box-shadow: 0 0 0 30px #427676 inset !important;
+}
+
+.autoFillText input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 50px white inset; /* Change the color to your own background color */
+  -webkit-text-fill-color: white;
+}
+.autoFillText input:-webkit-autofill:focus {
+  -webkit-box-shadow: /*your box-shadow*/ , 0 0 0 50px white inset;
+  -webkit-text-fill-color: white;
+}
+
+.deleteAnimation {
+  animation: deleteAnimation 0.5s;
+}
+
+@keyframes deleteAnimation {
+  0% {
+    transfrom: scale(1);
+    transition: 1s ease-in-out;
+  }
+  25% {
+    transfrom: scale(0.75);
+    transition: 1s ease-in-out;
+  }
+  50% {
+    transfrom: scale(0.5);
+    transition: 1s ease-in-out;
+  }
+  100% {
+    transfrom: scale(0.25);
+    transition: 1s ease-in-out;
+  }
 }

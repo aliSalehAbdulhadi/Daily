@@ -25,7 +25,6 @@ const Navbar = () => {
   };
   const [signIn, setSignIn] = useState<boolean>(false);
   const [signUp, setSignUp] = useState<boolean>(false);
-  const [openUserModal, setOpenUserModal] = useState<boolean>(false);
   const [resetPassword, setResetPassword] = useState<boolean>(false);
   const [darkMode, setSetDarkMode] = useState<boolean>(darkModeFunction);
 
@@ -48,7 +47,7 @@ const Navbar = () => {
   }, [darkMode, dispatch]);
 
   return (
-    <div
+    <nav
       className={`${dark ? 'bg-primaryColor' : 'bg-primaryLight'} ${
         dark ? 'text-textDark' : 'text-textLight'
       } w-full h-[10vh]  flex items-center justify-between px-5 whitespace-nowrap text-sm md:text-base md:px-10 font-Comfortaa`}
@@ -56,29 +55,33 @@ const Navbar = () => {
       <div className="px-3 flex select-none">
         <div className={`${dark ? 'hidden' : 'block'} cursor-pointer`}>
           <Link href="/">
-            <Image
-              className="transition-all duration-300 ease-in-out hover:rotate-[360deg]"
-              src="/logoBlack.svg"
-              width="45"
-              height="45"
-              alt="Daily-logo"
-            />
+            <div>
+              <Image
+                className="transition-all duration-300 ease-in-out hover:rotate-[360deg]"
+                src="/logoBlack.svg"
+                width="45"
+                height="45"
+                alt="Daily-logo"
+              />
+            </div>
           </Link>
         </div>
         <div className={`${dark ? 'block' : 'hidden'} cursor-pointer`}>
           <Link href="/">
-            <Image
-              className="transition-all duration-300 ease-in-out hover:rotate-[360deg]"
-              src="/logo.svg"
-              width="45"
-              height="45"
-              alt="Daily-logo"
-            />
+            <div>
+              <Image
+                className="transition-all duration-300 ease-in-out hover:rotate-[360deg]"
+                src="/logo.svg"
+                width="45"
+                height="45"
+                alt="Daily-logo"
+              />
+            </div>
           </Link>
         </div>
       </div>
 
-      <div className="flex items-center justify-center relative b">
+      <div className="flex items-center justify-center relative">
         <div className={`absolute mr-36`}>
           <input
             title="Dark and Light mode"
@@ -110,7 +113,7 @@ const Navbar = () => {
               </button>
             </div>
           ) : (
-            <Link href={`/users `} onClick={() => setOpenUserModal(true)}>
+            <Link href={`/users `}>
               <div className="flex border rounded-full py-1 pl-2 pr-1 transition-all ease-in-out duration-200 cursor-pointer hover:shadow-lg relative">
                 <button>
                   <img
@@ -136,7 +139,7 @@ const Navbar = () => {
       />
       <SignUp open={signUp} setOpen={setSignUp} setSignIn={setSignIn} />
       <ResetPassword open={resetPassword} setOpen={setResetPassword} />
-    </div>
+    </nav>
   );
 };
 

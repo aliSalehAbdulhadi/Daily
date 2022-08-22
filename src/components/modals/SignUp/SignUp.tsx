@@ -1,26 +1,26 @@
-import { useEffect, useState } from "react";
-import * as Yup from "yup";
-import { Formik, Form } from "formik";
-import Modal from "../Modal/Modal";
-import { SignUpInterface } from "../../../interfaces/interfaces";
-import FormField from "../../FormField/FormField";
+import { useEffect, useState } from 'react';
+import * as Yup from 'yup';
+import { Formik, Form } from 'formik';
+import Modal from '../Modal/Modal';
+import { SignUpInterface } from '../../../interfaces/interfaces';
+import FormField from '../../FormField/FormField';
 import {
   useAppDispatch,
   useAppSelector,
   RootState,
-} from "../../../interfaces/interfaces";
-import { signUpThunk } from "../../../redux/slices/authentication/signUpSlice";
-import { addUsername } from "../../../redux/slices/features/addUsername";
-import useCheckStatus from "../../../hooks/useCheckStatus";
-import { FaSpinner } from "react-icons/fa";
+} from '../../../interfaces/interfaces';
+import { signUpThunk } from '../../../redux/slices/authentication/signUpSlice';
+import { addUsername } from '../../../redux/slices/features/addUsername';
+import useCheckStatus from '../../../hooks/useCheckStatus';
+import { FaSpinner } from 'react-icons/fa';
 
 const signUpSchema = Yup.object().shape({
-  UserName: Yup.string().min(3).max(15).required("User name is required"),
-  Email: Yup.string().min(3).max(24).required("Email is required"),
-  Password: Yup.string().min(6).required("Password is required"),
+  UserName: Yup.string().min(3).max(15).required('User name is required'),
+  Email: Yup.string().min(3).max(24).required('Email is required'),
+  Password: Yup.string().min(6).required('Password is required'),
   PasswordConfirmation: Yup.string()
-    .required("Password is required")
-    .oneOf([Yup.ref("Password"), null], "Password must match"),
+    .required('Password is required')
+    .oneOf([Yup.ref('Password'), null], 'Password must match'),
 });
 
 const SignUp = ({ open, setOpen, setSignIn }: SignUpInterface) => {
@@ -59,10 +59,10 @@ const SignUp = ({ open, setOpen, setSignIn }: SignUpInterface) => {
     <Modal label="Sign Up" setOpen={setOpen} open={open}>
       <Formik
         initialValues={{
-          UserName: "",
-          Email: "",
-          Password: "",
-          PasswordConfirmation: "",
+          UserName: '',
+          Email: '',
+          Password: '',
+          PasswordConfirmation: '',
         }}
         validationSchema={signUpSchema}
         onSubmit={(values) => {
@@ -87,6 +87,7 @@ const SignUp = ({ open, setOpen, setSignIn }: SignUpInterface) => {
               type="text"
               placeholder="Enter Your User Name"
               value="username"
+              classNameField="p-5 outline-none block w-full shadow-sm sm:text-sm border-gray-300 rounded py-3 font-Comfortaa text-textLight mt-1"
             />
             <FormField
               autoComplete="email"
@@ -96,6 +97,7 @@ const SignUp = ({ open, setOpen, setSignIn }: SignUpInterface) => {
               type="email"
               placeholder="Enter Your Email"
               value="email"
+              classNameField="p-5 outline-none block w-full shadow-sm sm:text-sm border-gray-300 rounded py-3 font-Comfortaa text-textLight mt-1"
             />
             <FormField
               autoComplete="password"
@@ -105,6 +107,7 @@ const SignUp = ({ open, setOpen, setSignIn }: SignUpInterface) => {
               type="password"
               placeholder="Enter Your Password"
               value="password"
+              classNameField="p-5 outline-none block w-full shadow-sm sm:text-sm border-gray-300 rounded py-3 font-Comfortaa text-textLight mt-1"
             />
 
             <FormField
@@ -115,6 +118,7 @@ const SignUp = ({ open, setOpen, setSignIn }: SignUpInterface) => {
               type="password"
               placeholder="Enter Your Password Again"
               value="password"
+              classNameField="p-5 outline-none block w-full shadow-sm sm:text-sm border-gray-300 rounded py-3 font-Comfortaa text-textLight mt-1"
             />
             <div className="py-4 h-4 w-full flex items-center justify-center">
               {rejected ? (

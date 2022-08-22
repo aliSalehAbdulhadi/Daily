@@ -5,7 +5,7 @@ import {
   SingleTodoInterface,
 } from '../../interfaces/interfaces';
 import { RootState } from '../../interfaces/interfaces';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const Tasks = ({ id }: { id: any }) => {
   const [completedTask, setCompletedTask] = useState<boolean>(false);
@@ -17,7 +17,9 @@ const Tasks = ({ id }: { id: any }) => {
     (state: RootState) => state.darkModeReducer.darkMode,
   );
 
-  id(taskId);
+  useEffect(() => {
+    id(taskId);
+  }, [taskId, id]);
 
   return (
     <div className="flex justify-center">
@@ -54,7 +56,7 @@ const Tasks = ({ id }: { id: any }) => {
               {completedTask
                 ? todos?.map((todo: SingleTodoInterface, index: number) =>
                     todo.completed ? (
-                      <div onClick={() => setTaskId(todo.id)}>
+                      <div key={todo?.id} onClick={() => setTaskId(todo.id)}>
                         <SingleTask
                           key={todo?.id}
                           content={todo}
@@ -67,7 +69,7 @@ const Tasks = ({ id }: { id: any }) => {
                   )
                 : todos?.map((todo: SingleTodoInterface, index: number) =>
                     !todo.completed ? (
-                      <div onClick={() => setTaskId(todo.id)}>
+                      <div key={todo?.id} onClick={() => setTaskId(todo.id)}>
                         <SingleTask
                           key={todo?.id}
                           content={todo}

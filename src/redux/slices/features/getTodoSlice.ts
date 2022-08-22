@@ -1,13 +1,13 @@
-import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { getDoc, doc } from "firebase/firestore";
-import { db } from "../../../container/firebase";
-import { SingleTodoInterface } from "../../../interfaces/interfaces";
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { getDoc, doc } from 'firebase/firestore';
+import { db } from '../../../container/firebase';
+import { SingleTodoInterface } from '../../../interfaces/interfaces';
 
 export const getTodo = createAsyncThunk(
-  "getTodos",
+  'getTodos',
   async ({ userUid }: { userUid: string }) => {
     try {
-      const docRef = doc(db, "userData", userUid);
+      const docRef = doc(db, 'userData', userUid);
       const docData = getDoc(docRef).then((doc) => ({
         ...doc.data(),
       }));
@@ -17,12 +17,12 @@ export const getTodo = createAsyncThunk(
 );
 
 const getTodosSlice = createSlice({
-  name: "getTodos",
+  name: 'getTodos',
   initialState: {
-    userName: "",
+    userName: '',
     todos: [],
     error: [],
-    status: "",
+    status: '',
   },
   reducers: {
     setTodos: (state: any, action: PayloadAction<SingleTodoInterface>) => {
@@ -63,23 +63,43 @@ const getTodosSlice = createSlice({
     ) => {
       state.todos = action.payload;
     },
+
+    setMilestones: (
+      state: any,
+      action: PayloadAction<{
+        todoId: string;
+        milestone: any;
+      }>,
+    ) => {
+      state.todos = state.todos?.map((todo: SingleTodoInterface) => {
+        if (todo.id === action.payload.todoId) {
+          todo.milestones = [...todo.milestones, action.payload.milestone];
+        }
+        return todo;
+      });
+    },
   },
   extraReducers(build) {
     build.addCase(getTodo.pending, (state) => {
-      state.status = "pending";
+      state.status = 'pending';
     }),
       build.addCase(getTodo.fulfilled, (state, action: any) => {
-        state.status = "fulfilled";
+        state.status = 'fulfilled';
         state.todos = action.payload?.userData?.todos;
         state.userName = action.payload?.userName;
       }),
       build.addCase(getTodo.rejected, (state, action: any) => {
         state.error = action.error.message;
-        state.status = "rejected";
+        state.status = 'rejected';
       });
   },
 });
 
 export default getTodosSlice.reducer;
-export const { setTodos, deleteTodo, updateTodo, reArrangeTodos } =
-  getTodosSlice.actions;
+export const {
+  setTodos,
+  deleteTodo,
+  updateTodo,
+  reArrangeTodos,
+  setMilestones,
+} = getTodosSlice.actions;

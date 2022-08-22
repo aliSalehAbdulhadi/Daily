@@ -1,11 +1,11 @@
-import * as Yup from "yup";
-import { Formik, Form } from "formik";
-import { FaSpinner } from "react-icons/fa";
-import Modal from "../Modal/Modal";
-import { useAppDispatch, useAppSelector } from "../../../interfaces/interfaces";
-import FormField from "../../FormField/FormField";
-import useCheckStatus from "../../../hooks/useCheckStatus";
-import { resetPasswordThunk } from "../../../redux/slices/authentication/resetPasswordSlice";
+import * as Yup from 'yup';
+import { Formik, Form } from 'formik';
+import { FaSpinner } from 'react-icons/fa';
+import Modal from '../Modal/Modal';
+import { useAppDispatch, useAppSelector } from '../../../interfaces/interfaces';
+import FormField from '../../FormField/FormField';
+import useCheckStatus from '../../../hooks/useCheckStatus';
+import { resetPasswordThunk } from '../../../redux/slices/authentication/resetPasswordSlice';
 
 const signInSchema = Yup.object().shape({
   Email: Yup.string().min(3).max(24).required(),
@@ -36,7 +36,7 @@ const ResetPassword = ({
   return (
     <Modal label="Reset Password" setOpen={setOpen} open={open}>
       <Formik
-        initialValues={{ Email: "" }}
+        initialValues={{ Email: '' }}
         validationSchema={signInSchema}
         onSubmit={(values) => {
           dispatch(resetPasswordThunk({ email: values.Email }));
@@ -52,6 +52,7 @@ const ResetPassword = ({
               type="email"
               placeholder="Enter Your Email"
               value="email"
+              classNameField="p-5 outline-none block w-full mt-1 shadow-sm sm:text-sm border-gray-300 rounded py-3 font-Comfortaa text-textLight"
             />
 
             <div className="py-2 h-4 w-full flex items-center justify-center">

@@ -50,6 +50,7 @@ export interface SingleTodoInterface {
   completed: boolean;
   icon: string;
   date: string;
+  milestones: string[];
 }
 export interface AsyncThunkConfig {
   /** return type for `thunkApi.getState` */
