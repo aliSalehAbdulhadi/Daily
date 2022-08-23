@@ -120,7 +120,7 @@ const SingleTask = (content: {
       {(provided) => (
         <div
           className={`text-textLight hover:scale-[1.01]
-           hover:transition-all hover:ease-in-out hover:duration-300 font-Comfortaa font-semibold my-2 px-5 py-2 min-h-[10rem] w-[20rem]  lg:w-[25rem] relative ${
+           hover:transition-all hover:ease-in-out hover:duration-300 font-Comfortaa font-semibold my-2 px-5 py-2 min-h-[10rem] relative ${
              content.content.completed
                ? 'bg-red-400 shadow-2xl'
                : setCardColorByTypeHandler()
@@ -157,13 +157,13 @@ const SingleTask = (content: {
                     : editText.length / 10
                 }
               />
-              <button className="md:ml-10 mb-5 mt-1 md:mb-0 bg-primaryColor py-2 text-xs rounded w-[50%] self-center text-white hover:scale-110 transition-all ease-in-out whitespace-nowrap">
-                Save Changes
+              <button className="md:ml-10 mb-5 mt-1 md:mb-0 bg-primaryColor py-2 text-xs rounded w-[50%] self-center text-white transition-all ease-in-out whitespace-nowrap">
+                Submit
               </button>
             </form>
           ) : content.content.completed ? (
             <div className="md:pl-10 mb-3 md:mb-0 flex flex-col items-center whitespace-pre-wrap">
-              <s>{content.content.content}</s>
+              <s className="opacity-60">{content.content.content}</s>
               <div className="text-xs absolute top-3 left-[20px] md:bottom-2 w-fit whitespace-nowrap select-none">
                 {formatDate}
               </div>

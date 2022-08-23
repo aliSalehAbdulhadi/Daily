@@ -56,6 +56,7 @@ const SignIn = ({
               type="email"
               placeholder="Enter Your Email"
               value="email"
+              classNameField="p-5 outline-none block w-full shadow-sm sm:text-sm border-gray-300 rounded py-3 font-Comfortaa text-textLight mt-1"
             />
             <FormField
               autoComplete="password"
@@ -65,6 +66,7 @@ const SignIn = ({
               type="password"
               placeholder="Enter Your Password"
               value="password"
+              classNameField="p-5 outline-none block w-full shadow-sm sm:text-sm border-gray-300 rounded py-3 font-Comfortaa text-textLight mt-1 "
             />
             <button
               type="button"

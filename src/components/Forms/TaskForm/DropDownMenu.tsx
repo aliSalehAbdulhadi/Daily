@@ -87,13 +87,13 @@ const DropDownMenu = ({ iconValue }: { iconValue: Function }) => {
         onClick={(e) => iconsHandler(e)}
       >
         <label
-          className={`text-[.6rem] mr-1 mt-1 pointer-events-none flex items-center justify-center  ${
+          className={`text-[.65rem] mr-1 scale-[.80] h-4 pointer-events-none flex items-center justify-center  ${
             hidden ? 'hidden' : 'block'
           }`}
         >
           Personal
           <BsFillPersonFill
-            className={`pointer-events-none transition-all scale-150 ease-in-out ml-2 mb-[.2rem] duration-500 ${
+            className={`pointer-events-none transition-all scale-150 ease-in-out ml-2 mr-[-1.5px] mb-[.2rem] duration-500 ${
               hidden ? 'hidden' : 'block'
             }`}
           />
@@ -106,7 +106,7 @@ const DropDownMenu = ({ iconValue }: { iconValue: Function }) => {
         onClick={(e) => iconsHandler(e)}
       >
         <label
-          className={`text-[.6rem] mr-1 mt-1 pointer-events-none flex items-center justify-center  ${
+          className={`text-[.65rem] mr-1 scale-[.80] h-4 pointer-events-none flex items-center justify-center  ${
             hidden ? 'hidden' : 'block'
           }`}
         >
@@ -125,7 +125,7 @@ const DropDownMenu = ({ iconValue }: { iconValue: Function }) => {
         onClick={(e) => iconsHandler(e)}
       >
         <label
-          className={`text-[.6rem] mr-1 mt-1 pointer-events-none flex items-center justify-center  ${
+          className={`text-[.65rem] mr-1 scale-[.80] h-4 pointer-events-none flex items-center justify-center  ${
             hidden ? 'hidden' : 'block'
           }`}
         >

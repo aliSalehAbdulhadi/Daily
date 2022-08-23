@@ -16,6 +16,7 @@ import { getTodo } from '../../redux/slices/features/getTodoSlice';
 import { toggleDarkMode } from '../../redux/slices/features/darkMode';
 import ResetPassword from '../modals/resetPassword/ResetPassword';
 import Link from 'next/link';
+import TaskForm from '../Forms/TaskForm/TaskForm';
 const Navbar = () => {
   const darkModeFunction = (): any => {
     if (typeof window !== 'undefined') {
@@ -25,7 +26,6 @@ const Navbar = () => {
   };
   const [signIn, setSignIn] = useState<boolean>(false);
   const [signUp, setSignUp] = useState<boolean>(false);
-  const [openUserModal, setOpenUserModal] = useState<boolean>(false);
   const [resetPassword, setResetPassword] = useState<boolean>(false);
   const [darkMode, setSetDarkMode] = useState<boolean>(darkModeFunction);
 
@@ -48,7 +48,7 @@ const Navbar = () => {
   }, [darkMode, dispatch]);
 
   return (
-    <div
+    <nav
       className={`${dark ? 'bg-primaryColor' : 'bg-primaryLight'} ${
         dark ? 'text-textDark' : 'text-textLight'
       } w-full h-[10vh]  flex items-center justify-between px-5 whitespace-nowrap text-sm md:text-base md:px-10 font-Comfortaa`}
@@ -56,29 +56,37 @@ const Navbar = () => {
       <div className="px-3 flex select-none">
         <div className={`${dark ? 'hidden' : 'block'} cursor-pointer`}>
           <Link href="/">
-            <Image
-              className="transition-all duration-300 ease-in-out hover:rotate-[360deg]"
-              src="/logoBlack.svg"
-              width="45"
-              height="45"
-              alt="Daily-logo"
-            />
+            <div>
+              <Image
+                className="transition-all duration-300 ease-in-out hover:rotate-[360deg]"
+                src="/logoBlack.svg"
+                width="45"
+                height="45"
+                alt="Daily-logo"
+              />
+            </div>
           </Link>
         </div>
         <div className={`${dark ? 'block' : 'hidden'} cursor-pointer`}>
           <Link href="/">
-            <Image
-              className="transition-all duration-300 ease-in-out hover:rotate-[360deg]"
-              src="/logo.svg"
-              width="45"
-              height="45"
-              alt="Daily-logo"
-            />
+            <div>
+              <Image
+                className="transition-all duration-300 ease-in-out hover:rotate-[360deg]"
+                src="/logo.svg"
+                width="45"
+                height="45"
+                alt="Daily-logo"
+              />
+            </div>
           </Link>
         </div>
       </div>
 
-      <div className="flex items-center justify-center relative b">
+      <div className="hidden sm:block">
+        <TaskForm />
+      </div>
+
+      <div className="flex items-center justify-center relative pl-[2rem]">
         <div className={`absolute mr-36`}>
           <input
             title="Dark and Light mode"
@@ -90,7 +98,7 @@ const Navbar = () => {
               setSetDarkMode(!darkMode);
             }}
           />
-          <div className="bg-icon w-8 h-6 bg-no-repeat absolute pointer-events-none top-[-1px] right-[-12px] sm:top-[-0px] sm:right-[-14px] sm:w-8 sm:h-6" />
+          <div className="bg-icon w-8 h-6 bg-no-repeat absolute pointer-events-none top-[-1px] right-[-12px] sm:top-[-1.2px] sm:right-[-14px] sm:w-8 sm:h-6" />
         </div>
         <div>
           {!user ? (
@@ -110,7 +118,7 @@ const Navbar = () => {
               </button>
             </div>
           ) : (
-            <Link href={`/users `} onClick={() => setOpenUserModal(true)}>
+            <Link href={`/users `}>
               <div className="flex border rounded-full py-1 pl-2 pr-1 transition-all ease-in-out duration-200 cursor-pointer hover:shadow-lg relative">
                 <button>
                   <img
@@ -136,7 +144,7 @@ const Navbar = () => {
       />
       <SignUp open={signUp} setOpen={setSignUp} setSignIn={setSignIn} />
       <ResetPassword open={resetPassword} setOpen={setResetPassword} />
-    </div>
+    </nav>
   );
 };
 
