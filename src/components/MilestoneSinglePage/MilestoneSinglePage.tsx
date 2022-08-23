@@ -105,7 +105,7 @@ const MilestoneSinglePage = ({
               </div>
             )}
           </div>
-          <div className="flex items-center ml-5 h-full">
+          <div className="flex items-center ml-2 md:ml-5 h-full">
             <button
               onMouseEnter={() => setCompleteIcon(true)}
               onMouseLeave={() => setCompleteIcon(false)}

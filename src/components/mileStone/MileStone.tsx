@@ -29,11 +29,13 @@ const MileStone = ({ taskId }: { taskId: string }) => {
   });
 
   return (
-    <div className="h-[50vh] w-full m-10 font-Comfortaa transition-all">
-      <div className="flex flex-col">
-        <h1 className="mb-5 py-3 self-center text-white ">Milestones</h1>
-        <div className="bg-primaryColor h-[65vh] rounded overflow-auto scrollBar p-10 text-white">
-          <div className=" flex flex-col">
+    <div className="m-10 font-Comfortaa transition-all ">
+      <div className="flex flex-col ">
+        <h1 className="mb-4 py-3 self-center px-5 bg-white text-primaryColor rounded">
+          Milestones
+        </h1>
+        <div className="bg-primaryColor  rounded overflow-auto scrollBar  text-white h-[65vh]">
+          <div className=" flex flex-col m-10">
             <div className="self-center mb-10 text-xl">
               <h1>{todo?.content}</h1>
             </div>

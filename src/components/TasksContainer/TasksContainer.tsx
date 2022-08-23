@@ -26,7 +26,7 @@ const TasksContainer = () => {
     <div
       className={`${
         dark ? 'bg-primaryColor' : 'bg-primaryLight'
-      }  w-[100%] md:p-10 md:pt-[3rem] h-[90vh] pb-10`}
+      }  w-[100%] sm:p-10 pt-[3rem] h-[90vh] `}
     >
       <div>
         {signInStatus === 'pending' ? (
@@ -35,15 +35,15 @@ const TasksContainer = () => {
           </h1>
         ) : todos?.length > 0 ? (
           <div
-            className={`${
+            className={`h-[80vh] lg:px-10  ${
               dark ? 'bg-secondaryColor' : 'bg-secondaryLight'
             }  flex justify-center rounded transition-all ease-in-out `}
           >
-            <div className="md:w-[50%] lg:w-[40%] w-[100%] ">
+            <div className="semiSm:w-[45%] md:w-[40%] w-full ">
               <Tasks id={(e: string) => setTaskId(e)} />
             </div>
 
-            <div className="w-[50%] hidden md:block">
+            <div className="w-[55%] md:w-[60%] hidden semiSm:block">
               <MileStone taskId={taskId} />
             </div>
           </div>

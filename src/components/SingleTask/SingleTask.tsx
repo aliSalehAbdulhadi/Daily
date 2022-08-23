@@ -120,7 +120,7 @@ const SingleTask = (content: {
       {(provided) => (
         <div
           className={`text-textLight hover:scale-[1.01]
-           hover:transition-all hover:ease-in-out hover:duration-300 font-Comfortaa font-semibold my-2 px-5 py-2 min-h-[10rem] w-[20rem]  lg:w-[25rem] relative ${
+           hover:transition-all hover:ease-in-out hover:duration-300 font-Comfortaa font-semibold my-2 px-5 py-2 min-h-[10rem] relative ${
              content.content.completed
                ? 'bg-red-400 shadow-2xl'
                : setCardColorByTypeHandler()
