@@ -26,7 +26,7 @@ const TasksContainer = () => {
     <div
       className={`${
         dark ? 'bg-primaryColor' : 'bg-primaryLight'
-      }  w-[100%] md:p-10 md:pt-[5rem] min-h-[90vh] pb-10`}
+      }  w-[100%] md:p-10 md:pt-[3rem] h-[90vh] pb-10`}
     >
       <div>
         {signInStatus === 'pending' ? (
@@ -39,7 +39,7 @@ const TasksContainer = () => {
               dark ? 'bg-secondaryColor' : 'bg-secondaryLight'
             }  flex justify-center rounded transition-all ease-in-out `}
           >
-            <div className="md:w-[50%] lg:w-[40%] w-[100%]">
+            <div className="md:w-[50%] lg:w-[40%] w-[100%] ">
               <Tasks id={(e: string) => setTaskId(e)} />
             </div>
 

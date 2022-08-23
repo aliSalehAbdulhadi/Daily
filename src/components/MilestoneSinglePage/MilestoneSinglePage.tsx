@@ -1,6 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { AiFillDelete } from 'react-icons/ai';
-import { BsCheckCircle, BsFillXCircleFill } from 'react-icons/bs';
+import { AiFillDelete, AiOutlineDelete } from 'react-icons/ai';
+import {
+  BsCheckCircle,
+  BsCheckCircleFill,
+  BsFillXCircleFill,
+} from 'react-icons/bs';
 import useClickOutside from '../../hooks/useClickOutside';
 import {
   RootState,
@@ -27,6 +31,9 @@ const MilestoneSinglePage = ({
   const [edit, setEdit] = useState<boolean>(false);
   const [editText, setEditText] = useState<string>(milestone?.milestoneContent);
   const [deleteAnimation, setDeleteAnimation] = useState<boolean>(false);
+  const [deleteIcon, setDeleteIcon] = useState<boolean>(false);
+  const [completeIcon, setCompleteIcon] = useState<boolean>(false);
+
   const editRef = useRef<HTMLTextAreaElement>(null);
 
   const user = useAppSelector((state: RootState) => state.userReducer.userUid);
@@ -59,7 +66,7 @@ const MilestoneSinglePage = ({
                 />
 
                 <button
-                  className="mb-1 text-sm animate-pulse"
+                  className="mb-1 text-sm animate-pulse tracking-wider"
                   onClick={() => {
                     dispatch(
                       editMilestone({
@@ -100,6 +107,8 @@ const MilestoneSinglePage = ({
           </div>
           <div className="flex items-center ml-5 h-full">
             <button
+              onMouseEnter={() => setCompleteIcon(true)}
+              onMouseLeave={() => setCompleteIcon(false)}
               onClick={() => {
                 dispatch(
                   completeMilestone({
@@ -117,12 +126,16 @@ const MilestoneSinglePage = ({
               className="container w-fit h-fit mt-2"
             >
               {milestone?.milestoneCompleted ? (
-                <BsFillXCircleFill className=" h-5" />
+                <BsFillXCircleFill className=" h-[1.15rem]" />
+              ) : completeIcon ? (
+                <BsCheckCircleFill className="h-[1.15rem]" />
               ) : (
-                <BsCheckCircle className=" h-5" />
+                <BsCheckCircle className="h-[1.15rem]" />
               )}
             </button>
             <button
+              onMouseEnter={() => setDeleteIcon(true)}
+              onMouseLeave={() => setDeleteIcon(false)}
               onClick={() => {
                 dispatch(
                   deleteMilestone({
@@ -141,7 +154,11 @@ const MilestoneSinglePage = ({
               }}
               className="container w-fit h-fit mt-2"
             >
-              <AiFillDelete className="h-5 " />
+              {deleteIcon ? (
+                <AiFillDelete className="h-5" />
+              ) : (
+                <AiOutlineDelete className="h-5 " />
+              )}
             </button>
           </div>
         </div>

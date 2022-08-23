@@ -1,5 +1,6 @@
 import React, { useRef, useState } from 'react';
-import { AiFillPlusCircle } from 'react-icons/ai';
+import { AiFillPlusCircle, AiOutlinePlusCircle } from 'react-icons/ai';
+import { BsPlusCircle, BsPlusCircleFill } from 'react-icons/bs';
 import useClickOutside from '../../hooks/useClickOutside';
 import {
   RootState,
@@ -12,6 +13,8 @@ import MilestoneSinglePage from '../MilestoneSinglePage/MilestoneSinglePage';
 
 const MileStone = ({ taskId }: { taskId: string }) => {
   const [addMilestone, setAddMilestone] = useState<boolean>(false);
+  const [plusIcon, setPlusIcon] = useState<boolean>(false);
+
   const todos: SingleTodoInterface[] = useAppSelector(
     (state: RootState) => state.getTodoReducer?.todos,
   );
@@ -21,11 +24,15 @@ const MileStone = ({ taskId }: { taskId: string }) => {
     setAddMilestone(false);
   });
 
+  const plusRef = useClickOutside(() => {
+    setPlusIcon(false);
+  });
+
   return (
-    <div className="h-[80vh] w-full m-10 font-Comfortaa transition-all">
+    <div className="h-[50vh] w-full m-10 font-Comfortaa transition-all">
       <div className="flex flex-col">
         <h1 className="mb-5 py-3 self-center text-white ">Milestones</h1>
-        <div className="bg-primaryColor h-[80vh] rounded overflow-auto scrollBar p-10 text-white">
+        <div className="bg-primaryColor h-[65vh] rounded overflow-auto scrollBar p-10 text-white">
           <div className=" flex flex-col">
             <div className="self-center mb-10 text-xl">
               <h1>{todo?.content}</h1>
@@ -48,13 +55,26 @@ const MileStone = ({ taskId }: { taskId: string }) => {
               </div>
             ) : taskId ? (
               <div
-                onClick={() => setAddMilestone(true)}
+                ref={plusRef}
+                onMouseEnter={() => setPlusIcon(true)}
+                onMouseLeave={() => setPlusIcon(false)}
+                onClick={() => {
+                  setAddMilestone(true);
+                  setPlusIcon(false);
+                }}
                 className={`self-center cursor-pointer mt-10`}
               >
-                <AiFillPlusCircle
-                  fill="white"
-                  className="h-10 w-10 hover:scale-105 transition-all"
-                />
+                {plusIcon ? (
+                  <BsPlusCircleFill
+                    fill="white"
+                    className="h-8 w-8  transition-all"
+                  />
+                ) : (
+                  <BsPlusCircle
+                    fill="white"
+                    className="h-8 w-8 transition-all"
+                  />
+                )}
               </div>
             ) : (
               <div className="self-center">Select a task to add milestones</div>

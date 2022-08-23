@@ -16,6 +16,7 @@ import { getTodo } from '../../redux/slices/features/getTodoSlice';
 import { toggleDarkMode } from '../../redux/slices/features/darkMode';
 import ResetPassword from '../modals/resetPassword/ResetPassword';
 import Link from 'next/link';
+import TaskForm from '../Forms/TaskForm/TaskForm';
 const Navbar = () => {
   const darkModeFunction = (): any => {
     if (typeof window !== 'undefined') {
@@ -81,7 +82,11 @@ const Navbar = () => {
         </div>
       </div>
 
-      <div className="flex items-center justify-center relative">
+      <div className="hidden sm:block">
+        <TaskForm />
+      </div>
+
+      <div className="flex items-center justify-center relative pl-[2rem]">
         <div className={`absolute mr-36`}>
           <input
             title="Dark and Light mode"
@@ -93,7 +98,7 @@ const Navbar = () => {
               setSetDarkMode(!darkMode);
             }}
           />
-          <div className="bg-icon w-8 h-6 bg-no-repeat absolute pointer-events-none top-[-1px] right-[-12px] sm:top-[-0px] sm:right-[-14px] sm:w-8 sm:h-6" />
+          <div className="bg-icon w-8 h-6 bg-no-repeat absolute pointer-events-none top-[-1px] right-[-12px] sm:top-[-1.2px] sm:right-[-14px] sm:w-8 sm:h-6" />
         </div>
         <div>
           {!user ? (

@@ -22,7 +22,7 @@ const Tasks = ({ id }: { id: any }) => {
   }, [taskId, id]);
 
   return (
-    <div className="flex justify-center">
+    <div className="flex justify-center h-[80vh] ">
       <Droppable droppableId="NewTodos">
         {(provided) => (
           <div

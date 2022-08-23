@@ -53,7 +53,7 @@ const TaskForm = () => {
 
   const disconnectHandler = () => {
     return !checkInternet ? (
-      <div className="flex  mt-5 md:mt-0 justify-center items-center transition-all ease-in-out">
+      <div className="flex mt-5 md:mt-0 justify-center items-center transition-all ease-in-out">
         <MdWifiOff
           type="button"
           className="cursor-pointer scale-[1.8] md:scale-[2] transition-all ease-in-out fill-red-600 animate-pulse"
@@ -121,27 +121,30 @@ const TaskForm = () => {
     >
       {({}) => (
         <Form
-          className={`${dark ? 'bg-primaryColor' : 'bg-primaryLight'} ${
+          className={`${
+            dark ? 'bg-primaryColor' : 'bg-primaryLight'
+          } w-full px-10 pt-3 ${
             dark ? 'text-textDark' : 'text-textLight'
-          } flex items-center justify-center select-none`}
+          } flex items-center justify-center select-none h-fit`}
         >
           {user ? (
-            <div className="w-full pb-10 md:pb-0">
-              <div className="flex items-center justify-center pr-[3rem] mr-7 md:mr-10">
-                <div className="mt-7 md:mt-8 ">
+            <div className="w-fit flex flex-col mb-5 sm:mb-0 ml-7">
+              <div className="flex items-center justify-center  w-full relative">
+                <div className="absolute top-7 left-[-115px]">
                   <DropDownMenu iconValue={(e: string) => setIconValue(e)} />
                 </div>
                 <FormField
                   type="text"
-                  label="What are you up to today?"
+                  // label="What are you up to today?"
+                  label=""
                   name="Form"
                   value="form"
                   autoComplete="form"
                   placeholder="Enter Your Task"
                   className={`${
                     dark ? 'bg-primaryColor' : 'bg-primaryLight'
-                  } py-4 px-4 rounded outline-none w-[70%] md:w-[30%] md:text-base text-xs`}
-                  classNameField={`my-1  p-5 outline-none block w-full shadow-sm sm:text-sm border-gray-300 rounded py-3  mt-3 font-Comfortaa ${
+                  } rounded outline-none w-full md:text-base text-xs mr-5`}
+                  classNameField={`my-1  p-5 outline-none block w-full shadow-sm sm:text-sm border-gray-300 rounded py-3  mt-3 font-Comfortaa sm:pr-[8rem] ${
                     dark ? 'bg-textDark' : 'bg-secondaryLight'
                   } ${
                     dark ? 'text-textLight' : 'text-textDark'
@@ -153,7 +156,7 @@ const TaskForm = () => {
                   type="submit"
                   className={`${
                     dark ? 'text-textDark' : 'text-textLight'
-                  } scale-[1.6] mt-6 md:mt-1 md:pt-[1rem] rounded-br-md `}
+                  } scale-[1.6] mt-2 rounded-br-md `}
                 >
                   <BsPlusCircleDotted
                     className={` hover:rotate-[360deg] transition-all ease-in-out duration-500 ${
@@ -162,6 +165,9 @@ const TaskForm = () => {
                   />
                 </button>
               </div>
+              <h1 className="text-sm self-start ml-1 font-Comfortaa">
+                What are you up to today?
+              </h1>
 
               {disconnectHandler()}
             </div>
