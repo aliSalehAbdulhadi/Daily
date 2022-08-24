@@ -124,7 +124,7 @@ const SingleTask = (content: {
              content.content.completed
                ? 'bg-red-400 shadow-2xl'
                : setCardColorByTypeHandler()
-           } flex flex-col justify-between md:flex-row items-center rounded text-sm md:text-base  ease-in-out
+           } flex flex-col justify-between lg:flex-row items-center rounded text-sm lg:text-base  ease-in-out
             ${
               deleteAnimation
                 ? 'translate-x-[-35rem] transition-all ease-in-out'
@@ -134,7 +134,7 @@ const SingleTask = (content: {
           {...provided.dragHandleProps}
           ref={provided.innerRef}
         >
-          <div className="mb-3 md:mb-0">
+          <div className="mb-3 lg:mb-0">
             <CardIcon
               icon={content?.content?.icon}
               completed={content.content.completed}
@@ -147,7 +147,7 @@ const SingleTask = (content: {
               className="flex flex-col"
             >
               <textarea
-                className={`my-1 p-1 md:ml-5 md:p-2 outline-none w-full text-sm shadow-sm sm:text-base border-gray-300 rounded-md placeholder-slate-400`}
+                className={`my-1 p-1 lg:ml-5 lg:p-2 outline-none w-full text-sm shadow-sm sm:text-base border-gray-300 rounded-md placeholder-slate-400`}
                 onChange={(e) => setEditText(e.target.value)}
                 value={editText}
                 ref={inputRef}
@@ -157,39 +157,39 @@ const SingleTask = (content: {
                     : editText.length / 10
                 }
               />
-              <button className="md:ml-10 mb-5 mt-1 md:mb-0 bg-primaryColor py-2 text-xs rounded w-[50%] self-center text-white transition-all ease-in-out whitespace-nowrap">
+              <button className="lg:ml-10 mb-5 mt-1 lg:mb-0 bg-primaryColor py-2 text-xs rounded w-[50%] self-center text-white transition-all ease-in-out whitespace-nowrap">
                 Submit
               </button>
             </form>
           ) : content.content.completed ? (
-            <div className="md:pl-10 mb-3 md:mb-0 flex flex-col items-center whitespace-pre-wrap">
+            <div className="lg:pl-10 mb-3 lg:mb-0 flex flex-col items-center whitespace-pre-wrap">
               <s className="opacity-60">{content.content.content}</s>
-              <div className="text-xs absolute top-3 left-[20px] md:bottom-2 w-fit whitespace-nowrap select-none">
+              <div className="text-xs absolute top-3 left-[20px] lg:bottom-2 w-fit whitespace-nowrap select-none">
                 {formatDate}
               </div>
             </div>
           ) : (
-            <div className="md:pl-10 mb-3 md:mb-0 flex flex-col items-center">
+            <div className="lg:pl-10 mb-3 lg:mb-0 flex flex-col items-center">
               <span>{content.content.content}</span>
-              <div className="text-xs absolute top-5 left-[20px] md:bottom-2 w-fit whitespace-nowrap  select-none">
+              <div className="text-xs absolute top-5 left-[20px] lg:bottom-2 w-fit whitespace-nowrap  select-none">
                 {formatDate}
               </div>
             </div>
           )}
-          <div className="flex md:flex-col md:pl-10">
+          <div className="flex lg:flex-col lg:pl-10">
             {content.content.completed ? (
               <IoCloseSharp
                 title="Remove from completed tasks"
                 type="button"
                 onClick={completionHandler}
-                className="cursor-pointer mb-3 mr-6 scale-[1.8] md:scale-[1.3] hover:text-white hover:scale-150 transition-all ease-in-out"
+                className="cursor-pointer mb-3 mr-2 scale-[1.8] md:scale-[1.3] hover:text-white hover:scale-150 transition-all ease-in-out"
               />
             ) : (
               <GoCheck
                 title="Complete task"
                 type="button"
                 onClick={completionHandler}
-                className="cursor-pointer mb-3 mr-6 scale-[1.8] md:scale-[1.2] hover:text-white hover:scale-150 transition-all ease-in-out"
+                className="cursor-pointer mb-3 mr-2 scale-[1.8] md:scale-[1.2] hover:text-white hover:scale-150 transition-all ease-in-out"
               />
             )}
 
@@ -198,20 +198,20 @@ const SingleTask = (content: {
                 title="Edit"
                 type="submit"
                 onClick={() => setEdit(true)}
-                className={`cursor-pointer mb-3 mr-6 scale-[1.8] md:scale-[1.2] ${
+                className={`cursor-pointer mb-3 mr-2 scale-[1.8] md:scale-[1.2] ${
                   content.content.completed
                     ? 'hidden'
-                    : 'block hover:text-white hover:scale-150 transition-all ease-in-out ml-2 md:ml-0'
+                    : 'block hover:text-white hover:scale-150 transition-all ease-in-out ml-2 lg:ml-0'
                 }`}
               />
             ) : (
               <MdEditOff
                 type="submit"
                 onClick={() => setEdit(false)}
-                className={`cursor-pointer mb-3 mr-6 scale-[1.8] md:scale-[1.2] ${
+                className={`cursor-pointer mb-3 mr-2 scale-[1.8] md:scale-[1.2] ${
                   content.content.completed
                     ? 'hidden'
-                    : 'block hover:text-white hover:scale-150 transition-all ease-in-out ml-2 md:ml-0'
+                    : 'block hover:text-white hover:scale-150 transition-all ease-in-out ml-2 lg:ml-0'
                 }`}
               />
             )}
@@ -220,7 +220,7 @@ const SingleTask = (content: {
               title="Delete"
               type="button"
               onClick={deletionHandler}
-              className="cursor-pointer  scale-[1.8] md:scale-[1.2] hover:text-white hover:scale-150 transition-all ease-in-out ml-3 md:ml-0 "
+              className="cursor-pointer  scale-[1.8] md:scale-[1.2] hover:text-white hover:scale-150 transition-all ease-in-out ml-3 lg:ml-0 "
             />
           </div>
         </div>
