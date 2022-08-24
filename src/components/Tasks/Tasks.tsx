@@ -52,7 +52,7 @@ const Tasks = ({ id }: { id: any }) => {
                 Completed Tasks
               </button>
             </div>
-            <div className=" bg-primaryColor h-[65vh] w-[100%] overflow-auto p-5 md:p-10 scrollBar flex flex-col items-center rounded py-6">
+            <div className=" bg-primaryColor h-[65vh] w-[100%] overflow-auto p-5 lg:p-10 scrollBar flex flex-col items-center rounded py-6">
               {completedTask
                 ? todos?.map((todo: SingleTodoInterface, index: number) =>
                     todo.completed ? (
