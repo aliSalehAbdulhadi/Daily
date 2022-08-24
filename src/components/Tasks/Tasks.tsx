@@ -39,7 +39,7 @@ const Tasks = ({ id }: { id: any }) => {
                     : ' bg-white text-primaryColor'
                 }`}
               >
-                New Tasks
+                Pending Tasks
               </button>
               <button
                 onClick={() => setCompletedTask(true)}
@@ -49,7 +49,7 @@ const Tasks = ({ id }: { id: any }) => {
                     : ' bg-primaryColor text-white'
                 }`}
               >
-                Completed Tasks
+                Finished Tasks
               </button>
             </div>
             <div className=" bg-primaryColor h-[65vh] w-[100%] overflow-auto p-5 lg:p-10 scrollBar flex flex-col items-center rounded py-6">
@@ -65,6 +65,7 @@ const Tasks = ({ id }: { id: any }) => {
                           key={todo?.id}
                           content={todo}
                           index={index}
+                          taskId={taskId}
                         />
                       </div>
                     ) : (
@@ -82,6 +83,7 @@ const Tasks = ({ id }: { id: any }) => {
                           key={todo?.id}
                           content={todo}
                           index={index}
+                          taskId={taskId}
                         />
                       </div>
                     ) : (

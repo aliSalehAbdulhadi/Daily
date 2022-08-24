@@ -43,19 +43,6 @@ const User = () => {
                     ref={provided.innerRef}
                     {...provided.droppableProps}
                   >
-                    <div className="">
-                      {todos?.map((todo: SingleTodoInterface, index: number) =>
-                        todo.completed ? (
-                          <SingleTask
-                            key={todo?.id}
-                            content={todo}
-                            index={index}
-                          />
-                        ) : (
-                          false
-                        ),
-                      )}
-                    </div>
                     {provided.placeholder}
                   </div>
                 )}
