@@ -23,14 +23,19 @@ import CardIcon from './CardIcon';
 import useClickOutside from '../../hooks/useClickOutside';
 import moment from 'moment';
 
-const SingleTask = (content: {
+const SingleTask = ({
+  content,
+  index,
+  taskId,
+}: {
   content: SingleTodoInterface;
   index: number;
+  taskId: string;
 }) => {
   const [deleteAnimation, setDeleteAnimation] = useState<boolean>(false);
-  const [CompleteAnimation, setCompleteAnimation] = useState<boolean>(false);
+  const [completeAnimation, setCompleteAnimation] = useState<boolean>(false);
   const [edit, setEdit] = useState<boolean>(false);
-  const [editText, setEditText] = useState<string>(content.content.content);
+  const [editText, setEditText] = useState<string>(content.content);
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const dispatch = useAppDispatch();
   const todos: SingleTodoInterface[] = useAppSelector(
@@ -40,22 +45,21 @@ const SingleTask = (content: {
   useEffect(() => {
     inputRef?.current?.focus();
   }, [edit]);
-
-  const formatDate = moment(content.content.date).format('MMMM Do YYYY');
+  const formatDate = moment(content.date).format('MMMM Do YYYY');
 
   let textareaRef = useClickOutside(() => {
     setEdit(false);
-    setEditText(content.content.content);
+    setEditText(content.content);
   });
 
   const editHanlder = (e: SyntheticEvent) => {
     e.preventDefault();
-    editText?.length === 0
-      ? setEditText(content.content.content)
+    editText?.length === 0 || editText.length > 50
+      ? setEditText(content.content)
       : dispatch(
           editTodo({
             userUid: user,
-            todoId: content.content.id,
+            todoId: content.id,
             allTodos: todos,
             newTodo: editText,
           }),
@@ -71,14 +75,14 @@ const SingleTask = (content: {
     dispatch(
       removeTodo({
         userUid: user,
-        todoId: content.content.id,
+        todoId: content.id,
         allTodos: todos,
       }),
     );
 
     setDeleteAnimation(true);
     setTimeout(() => {
-      dispatch(deleteTodo({ todoId: content.content.id }));
+      dispatch(deleteTodo({ todoId: content.id }));
       setDeleteAnimation(false);
     }, 300);
   };
@@ -87,41 +91,43 @@ const SingleTask = (content: {
     dispatch(
       completedTodo({
         userUid: user,
-        todoId: content.content.id,
+        todoId: content.id,
         allTodos: todos,
       }),
     );
     setCompleteAnimation(true);
 
     setTimeout(() => {
-      dispatch(updateTodo({ todoId: content.content.id }));
+      dispatch(updateTodo({ todoId: content.id }));
       setCompleteAnimation(false);
     }, 300);
   };
 
   const setCardColorByTypeHandler = () => {
-    if (content.content.icon === 'personal') {
+    if (content.icon === 'personal') {
       return 'bg-green-400';
     }
-    if (content.content.icon === 'work') {
+    if (content.icon === 'work') {
       return 'bg-blue-400';
     }
-    if (content.content.icon === 'fun') {
+    if (content.icon === 'fun') {
       return 'bg-purple-400';
     }
   };
 
+  const completedMilestones = content.milestones.filter(
+    (milestone: any) => milestone?.milestoneCompleted === true,
+  );
+
   return (
-    <Draggable
-      key={content.content.id}
-      draggableId={content.content.id}
-      index={content.index}
-    >
+    <Draggable key={content.id} draggableId={content.id} index={index}>
       {(provided) => (
         <div
-          className={`text-textLight hover:scale-[1.01]
-           hover:transition-all hover:ease-in-out hover:duration-300 font-Comfortaa font-semibold my-2 px-5 py-2 min-h-[10rem] relative ${
-             content.content.completed
+          className={`text-textLight hover:scale-[1.01] ${
+            content.id === taskId ? ' border-[2px] border-white' : ''
+          } 
+           hover:transition-transform hover:ease-in-out hover:duration-300 font-Comfortaa font-semibold my-2 px-5 py-2 min-h-[10rem] relative ${
+             content.completed
                ? 'bg-red-400 shadow-2xl'
                : setCardColorByTypeHandler()
            } flex flex-col justify-between lg:flex-row items-center rounded text-sm lg:text-base  ease-in-out
@@ -129,16 +135,13 @@ const SingleTask = (content: {
               deleteAnimation
                 ? 'translate-x-[-35rem] transition-all ease-in-out'
                 : ''
-            } ${CompleteAnimation ? 'animate-bounce' : ''} `}
+            } ${completeAnimation ? 'animate-bounce' : ''} `}
           {...provided.draggableProps}
           {...provided.dragHandleProps}
           ref={provided.innerRef}
         >
           <div className="mb-3 lg:mb-0">
-            <CardIcon
-              icon={content?.content?.icon}
-              completed={content.content.completed}
-            />
+            <CardIcon icon={content?.icon} completed={content.completed} />
           </div>
           {edit ? (
             <form
@@ -161,23 +164,23 @@ const SingleTask = (content: {
                 Submit
               </button>
             </form>
-          ) : content.content.completed ? (
+          ) : content.completed ? (
             <div className="lg:pl-10 mb-3 lg:mb-0 flex flex-col items-center whitespace-pre-wrap">
-              <s className="opacity-60">{content.content.content}</s>
+              <s className="opacity-60">{content.content}</s>
               <div className="text-xs absolute top-3 left-[20px] lg:bottom-2 w-fit whitespace-nowrap select-none">
                 {formatDate}
               </div>
             </div>
           ) : (
             <div className="lg:pl-10 mb-3 lg:mb-0 flex flex-col items-center">
-              <span>{content.content.content}</span>
+              <span>{content.content}</span>
               <div className="text-xs absolute top-5 left-[20px] lg:bottom-2 w-fit whitespace-nowrap  select-none">
                 {formatDate}
               </div>
             </div>
           )}
           <div className="flex lg:flex-col lg:pl-10">
-            {content.content.completed ? (
+            {content.completed ? (
               <IoCloseSharp
                 title="Remove from completed tasks"
                 type="button"
@@ -199,7 +202,7 @@ const SingleTask = (content: {
                 type="submit"
                 onClick={() => setEdit(true)}
                 className={`cursor-pointer mb-3 mr-2 scale-[1.8] md:scale-[1.2] ${
-                  content.content.completed
+                  content.completed
                     ? 'hidden'
                     : 'block hover:text-white hover:scale-150 transition-all ease-in-out ml-2 lg:ml-0'
                 }`}
@@ -209,7 +212,7 @@ const SingleTask = (content: {
                 type="submit"
                 onClick={() => setEdit(false)}
                 className={`cursor-pointer mb-3 mr-2 scale-[1.8] md:scale-[1.2] ${
-                  content.content.completed
+                  content.completed
                     ? 'hidden'
                     : 'block hover:text-white hover:scale-150 transition-all ease-in-out ml-2 lg:ml-0'
                 }`}

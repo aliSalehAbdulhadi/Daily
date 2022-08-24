@@ -24,8 +24,8 @@ const TaskForm = () => {
   const [submitAnimation, setSubmitAnimation] = useState<boolean>(false);
   const [checkInternet, setCheckInternet] = useState<boolean>(true);
   const [uploadData, setUploadData] = useState<boolean>(false);
-
   const [iconValue, setIconValue] = useState<string>('');
+  
   const todos: SingleTodoInterface[] = useAppSelector(
     (state: RootState) => state.getTodoReducer.todos,
   );
@@ -40,7 +40,6 @@ const TaskForm = () => {
       setCheckInternet(true);
       dispatch(reArrangeFirebase({ userUid: user, allTodos: todos }));
       setUploadData(true);
-
       setTimeout(() => {
         setUploadData(false);
       }, 5000);

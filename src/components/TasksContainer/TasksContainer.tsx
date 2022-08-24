@@ -1,4 +1,4 @@
-import { memo, useState } from 'react';
+import { useState } from 'react';
 import { ClapSpinner } from 'react-spinners-kit';
 import {
   RootState,
@@ -26,7 +26,7 @@ const TasksContainer = () => {
     <div
       className={`${
         dark ? 'bg-primaryColor' : 'bg-primaryLight'
-      }  w-[100%] sm:p-10 pt-[3rem] h-[90vh] `}
+      }  w-[100%] pt-[3rem] h-[90vh] `}
     >
       <div>
         {signInStatus === 'pending' ? (
@@ -35,9 +35,9 @@ const TasksContainer = () => {
           </h1>
         ) : todos?.length > 0 ? (
           <div
-            className={`h-[80vh] lg:px-10  ${
+            className={`h-[80vh] sm:px-10 ${
               dark ? 'bg-secondaryColor' : 'bg-secondaryLight'
-            }  flex justify-center rounded transition-all ease-in-out `}
+            }  flex justify-center transition-all ease-in-out `}
           >
             <div className="semiSm:w-[45%] md:w-[40%] w-full ">
               <Tasks id={(e: string) => setTaskId(e)} />

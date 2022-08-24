@@ -12,7 +12,12 @@ import {
   useAppDispatch,
   useAppSelector,
 } from '../../interfaces/interfaces';
-import { getTodo } from '../../redux/slices/features/getTodoSlice';
+import {
+  completeMilestoneLocally,
+  deleteMilestoneLocally,
+  editMilestoneLocally,
+  getTodo,
+} from '../../redux/slices/features/getTodoSlice';
 import {
   completeMilestone,
   deleteMilestone,
@@ -23,10 +28,12 @@ const MilestoneSinglePage = ({
   taskId,
   milestone,
   index,
+  todos,
 }: {
   taskId: string;
   milestone: any;
   index: number;
+  todos: SingleTodoInterface[];
 }) => {
   const [edit, setEdit] = useState<boolean>(false);
   const [editText, setEditText] = useState<string>(milestone?.milestoneContent);
@@ -35,11 +42,7 @@ const MilestoneSinglePage = ({
   const [completeIcon, setCompleteIcon] = useState<boolean>(false);
 
   const editRef = useRef<HTMLTextAreaElement>(null);
-
   const user = useAppSelector((state: RootState) => state.userReducer.userUid);
-  const todos: SingleTodoInterface[] = useAppSelector(
-    (state: RootState) => state.getTodoReducer.todos,
-  );
   const todo = todos?.find((todo) => todo?.id === taskId);
   const dispatch = useAppDispatch();
   const inputRef = useClickOutside(() => {
@@ -49,10 +52,71 @@ const MilestoneSinglePage = ({
   useEffect(() => {
     editRef?.current?.focus();
   });
+
+  const editMilestoneHanlder = () => {
+    editText.length === 0
+      ? setEditText(milestone?.milestoneContent)
+      : dispatch(
+          editMilestone({
+            userUid: user,
+            todoId: todo?.id,
+            milestone: milestone,
+            milestoneEdit: editText,
+            allTodos: todos,
+          }),
+        );
+    dispatch(
+      editMilestoneLocally({
+        todoId: todo?.id,
+        milestoneEdit: editText,
+        milestoneId: milestone?.id,
+      }),
+    ),
+      dispatch(getTodo({ userUid: user })),
+      setTimeout(() => {
+        setEdit(false);
+      }, 500);
+  };
+
+  const completeMilestoneHandler = () => {
+    dispatch(
+      completeMilestone({
+        milestone: milestone,
+        userUid: user,
+        todoId: todo?.id,
+        allTodos: todos,
+      }),
+    );
+    // dispatch(getTodo({ userUid: user })),
+      dispatch(
+        completeMilestoneLocally({
+          milestoneId: milestone?.id,
+          todoId: todo?.id,
+        }),
+      );
+  };
+
+  const deleteMilestoneHanlder = () => {
+    dispatch(
+      deleteMilestone({
+        milestone: milestone,
+        userUid: user,
+        todoId: todo?.id,
+        allTodos: todos,
+      }),
+    );
+    dispatch(getTodo({ userUid: user })),
+      dispatch(
+        deleteMilestoneLocally({
+          milestoneId: milestone?.id,
+          todoId: todo?.id,
+        }),
+      );
+  };
+
   return (
     <div>
-      {' '}
-      <div key={milestone?.id} className="flex justify-between items-center">
+      <div className="flex justify-between items-center my-5">
         <div className="flex justify-between w-full ">
           <div className="w-[90%] cursor-pointer ">
             {edit ? (
@@ -66,22 +130,8 @@ const MilestoneSinglePage = ({
                 />
 
                 <button
-                  className="mb-1 text-sm animate-pulse tracking-wider"
-                  onClick={() => {
-                    dispatch(
-                      editMilestone({
-                        userUid: user,
-                        todoId: todo?.id,
-                        milestone: milestone,
-                        milestoneEdit: editText,
-                        allTodos: todos,
-                      }),
-                    );
-                    setTimeout(() => {
-                      dispatch(getTodo({ userUid: user }));
-                      setEdit(false);
-                    }, 500);
-                  }}
+                  className="mb-1 ml-1 text-sm animate-pulse tracking-wider"
+                  onClick={editMilestoneHanlder}
                 >
                   Submit
                 </button>
@@ -109,20 +159,7 @@ const MilestoneSinglePage = ({
             <button
               onMouseEnter={() => setCompleteIcon(true)}
               onMouseLeave={() => setCompleteIcon(false)}
-              onClick={() => {
-                dispatch(
-                  completeMilestone({
-                    milestone: milestone,
-                    userUid: user,
-                    todoId: todo?.id,
-                    allTodos: todos,
-                  }),
-                );
-
-                setTimeout(() => {
-                  dispatch(getTodo({ userUid: user }));
-                }, 500);
-              }}
+              onClick={completeMilestoneHandler}
               className="container w-fit h-fit mt-2"
             >
               {milestone?.milestoneCompleted ? (
@@ -136,22 +173,7 @@ const MilestoneSinglePage = ({
             <button
               onMouseEnter={() => setDeleteIcon(true)}
               onMouseLeave={() => setDeleteIcon(false)}
-              onClick={() => {
-                dispatch(
-                  deleteMilestone({
-                    milestone: milestone,
-                    userUid: user,
-                    todoId: todo?.id,
-                    allTodos: todos,
-                  }),
-                );
-                setDeleteAnimation(true);
-
-                setTimeout(() => {
-                  dispatch(getTodo({ userUid: user }));
-                  setDeleteAnimation(false);
-                }, 2000);
-              }}
+              onClick={deleteMilestoneHanlder}
               className="container w-fit h-fit mt-2"
             >
               {deleteIcon ? (

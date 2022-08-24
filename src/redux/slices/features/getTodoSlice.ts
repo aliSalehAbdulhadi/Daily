@@ -78,6 +78,64 @@ const getTodosSlice = createSlice({
         return todo;
       });
     },
+    completeMilestoneLocally: (
+      state: any,
+      action: PayloadAction<{
+        todoId: any;
+        milestoneId: string;
+      }>,
+    ) => {
+      state.todos = state.todos?.map((todo: SingleTodoInterface) => {
+        if (todo.id === action.payload.todoId) {
+          todo.milestones = todo.milestones
+            ?.map((milestone: any) => {
+              if (milestone.id === action.payload.milestoneId) {
+                milestone.completed = true;
+              }
+              return milestone;
+            })
+            ?.filter((milestone: any) => !milestone.completed);
+        }
+        return todo;
+      });
+    },
+    deleteMilestoneLocally: (
+      state: any,
+      action: PayloadAction<{
+        todoId: any;
+        milestoneId: string;
+      }>,
+    ) => {
+      state.todos = state.todos?.map((todo: SingleTodoInterface) => {
+        if (todo.id === action.payload.todoId) {
+          todo.milestones = todo.milestones?.filter(
+            (milestone: any) => milestone.id !== action.payload.milestoneId,
+          );
+        }
+        return todo;
+      });
+    },
+
+    editMilestoneLocally: (
+      state: any,
+      action: PayloadAction<{
+        todoId: any;
+        milestoneId: string;
+        milestoneEdit: string;
+      }>,
+    ) => {
+      state.todos = state.todos?.map((todo: SingleTodoInterface) => {
+        if (todo.id === action.payload.todoId) {
+          todo.milestones.map((ms: any) => {
+            if (ms?.id === action.payload.milestoneId) {
+              ms.milestoneContent = action.payload.milestoneEdit;
+            }
+            return ms;
+          });
+        }
+        return todo;
+      });
+    },
   },
   extraReducers(build) {
     build.addCase(getTodo.pending, (state) => {
@@ -102,4 +160,7 @@ export const {
   updateTodo,
   reArrangeTodos,
   setMilestones,
+  completeMilestoneLocally,
+  deleteMilestoneLocally,
+  editMilestoneLocally,
 } = getTodosSlice.actions;
