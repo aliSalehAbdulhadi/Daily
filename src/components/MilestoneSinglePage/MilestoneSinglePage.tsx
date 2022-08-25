@@ -72,13 +72,19 @@ const MilestoneSinglePage = ({
         milestoneId: milestone?.id,
       }),
     ),
-      dispatch(getTodo({ userUid: user })),
       setTimeout(() => {
         setEdit(false);
       }, 500);
   };
 
   const completeMilestoneHandler = () => {
+    dispatch(
+      completeMilestoneLocally({
+        milestoneId: milestone?.id,
+        todoId: todo?.id,
+      }),
+    );
+
     dispatch(
       completeMilestone({
         milestone: milestone,
@@ -87,13 +93,6 @@ const MilestoneSinglePage = ({
         allTodos: todos,
       }),
     );
-    // dispatch(getTodo({ userUid: user })),
-      dispatch(
-        completeMilestoneLocally({
-          milestoneId: milestone?.id,
-          todoId: todo?.id,
-        }),
-      );
   };
 
   const deleteMilestoneHanlder = () => {
@@ -105,13 +104,12 @@ const MilestoneSinglePage = ({
         allTodos: todos,
       }),
     );
-    dispatch(getTodo({ userUid: user })),
-      dispatch(
-        deleteMilestoneLocally({
-          milestoneId: milestone?.id,
-          todoId: todo?.id,
-        }),
-      );
+    dispatch(
+      deleteMilestoneLocally({
+        milestoneId: milestone?.id,
+        todoId: todo?.id,
+      }),
+    );
   };
 
   return (

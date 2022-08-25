@@ -21,7 +21,6 @@ const MileStone = ({ taskId }: { taskId: string }) => {
   const milestoneRef = useClickOutside(() => {
     setAddMilestone(false);
   });
-  console.log(todo);
   const plusRef = useClickOutside(() => {
     setPlusIcon(false);
   });

@@ -5,6 +5,7 @@ import { MdModeEditOutline, MdEditOff } from 'react-icons/md';
 import { IoCloseSharp } from 'react-icons/io5';
 import { useState, useEffect, useRef } from 'react';
 import { Draggable } from 'react-beautiful-dnd';
+import moment from 'moment';
 import {
   RootState,
   useAppDispatch,
@@ -21,7 +22,6 @@ import {
 import { editTodo } from '../../redux/slices/features/editTodo';
 import CardIcon from './CardIcon';
 import useClickOutside from '../../hooks/useClickOutside';
-import moment from 'moment';
 
 const SingleTask = ({
   content,

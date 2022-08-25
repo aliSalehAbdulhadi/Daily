@@ -87,14 +87,12 @@ const getTodosSlice = createSlice({
     ) => {
       state.todos = state.todos?.map((todo: SingleTodoInterface) => {
         if (todo.id === action.payload.todoId) {
-          todo.milestones = todo.milestones
-            ?.map((milestone: any) => {
-              if (milestone.id === action.payload.milestoneId) {
-                milestone.completed = true;
-              }
-              return milestone;
-            })
-            ?.filter((milestone: any) => !milestone.completed);
+          todo.milestones = todo.milestones?.map((milestone: any) => {
+            if (milestone.id === action.payload.milestoneId) {
+              milestone.milestoneCompleted = !milestone.milestoneCompleted;
+            }
+            return milestone;
+          });
         }
         return todo;
       });
