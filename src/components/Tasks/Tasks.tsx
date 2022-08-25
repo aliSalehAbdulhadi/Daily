@@ -6,6 +6,7 @@ import {
 } from '../../interfaces/interfaces';
 import { RootState } from '../../interfaces/interfaces';
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
 
 const Tasks = ({ id }: { id: any }) => {
   const [completedTask, setCompletedTask] = useState<boolean>(false);
@@ -26,7 +27,7 @@ const Tasks = ({ id }: { id: any }) => {
       <Droppable droppableId="NewTodos">
         {(provided) => (
           <div
-            className="m-5 sm:m-10 flex flex-col items-center font-Comfortaa font-bold  w-full"
+            className="my-5  sm:m-10 flex flex-col items-center font-Comfortaa font-bold  w-full"
             ref={provided.innerRef}
             {...provided.droppableProps}
           >
@@ -52,17 +53,22 @@ const Tasks = ({ id }: { id: any }) => {
                 Finished Tasks
               </button>
             </div>
-            <div className=" bg-primaryColor h-[65vh] w-[100%] overflow-auto p-5 lg:p-10 scrollBar flex flex-col items-center rounded py-6">
+            <div
+              className={`${
+                dark
+                  ? 'bg-primaryColor'
+                  : 'bg-secondaryLight semiSm:bg-primaryColor'
+              } semiSm:h-[65vh] min-h-[80vh] semiSm:min-h-[65vh] w-[100%] semiSm:overflow-auto p-5 lg:p-10 scrollBar flex flex-col items-center semiSm:rounded py-6`}
+            >
               {completedTask
                 ? todos?.map((todo: SingleTodoInterface, index: number) =>
                     todo.completed ? (
                       <div
-                        className="w-full"
                         key={todo?.id}
+                        className="w-full"
                         onClick={() => setTaskId(todo.id)}
                       >
                         <SingleTask
-                          key={todo?.id}
                           content={todo}
                           index={index}
                           taskId={taskId}
@@ -75,12 +81,11 @@ const Tasks = ({ id }: { id: any }) => {
                 : todos?.map((todo: SingleTodoInterface, index: number) =>
                     !todo.completed ? (
                       <div
-                        className="w-full"
                         key={todo?.id}
+                        className="w-full"
                         onClick={() => setTaskId(todo.id)}
                       >
                         <SingleTask
-                          key={todo?.id}
                           content={todo}
                           index={index}
                           taskId={taskId}

@@ -1,7 +1,11 @@
 import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
+import { RootState, useAppSelector } from '../../interfaces/interfaces';
 
 const ProgressBar = ({ percentage }: { percentage: number }) => {
+  const dark = useAppSelector(
+    (state: RootState) => state.darkModeReducer.darkMode,
+  );
   return (
     <div>
       <CircularProgressbar
@@ -10,7 +14,7 @@ const ProgressBar = ({ percentage }: { percentage: number }) => {
           root: {},
           path: {
             // Path color
-            stroke: `#56a691`,
+            stroke: `${dark ? '#56a691' : '#2c5252'}`,
             // Whether to use rounded or flat corners on the ends - can use 'butt' or 'round'
             strokeLinecap: 'round',
           },
