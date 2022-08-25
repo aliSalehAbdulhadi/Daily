@@ -49,6 +49,7 @@ const MilestoneSinglePage = ({
     setEdit(false);
   });
 
+
   useEffect(() => {
     editRef?.current?.focus();
   });
@@ -72,13 +73,19 @@ const MilestoneSinglePage = ({
         milestoneId: milestone?.id,
       }),
     ),
-      dispatch(getTodo({ userUid: user })),
       setTimeout(() => {
         setEdit(false);
       }, 500);
   };
 
   const completeMilestoneHandler = () => {
+    dispatch(
+      completeMilestoneLocally({
+        milestoneId: milestone?.id,
+        todoId: todo?.id,
+      }),
+    );
+
     dispatch(
       completeMilestone({
         milestone: milestone,
@@ -87,31 +94,27 @@ const MilestoneSinglePage = ({
         allTodos: todos,
       }),
     );
-    // dispatch(getTodo({ userUid: user })),
-      dispatch(
-        completeMilestoneLocally({
-          milestoneId: milestone?.id,
-          todoId: todo?.id,
-        }),
-      );
   };
 
   const deleteMilestoneHanlder = () => {
-    dispatch(
-      deleteMilestone({
-        milestone: milestone,
-        userUid: user,
-        todoId: todo?.id,
-        allTodos: todos,
-      }),
-    );
-    dispatch(getTodo({ userUid: user })),
+    setDeleteAnimation(true);
+    setTimeout(() => {
+      setDeleteAnimation(false);
+      dispatch(
+        deleteMilestone({
+          milestone: milestone,
+          userUid: user,
+          todoId: todo?.id,
+          allTodos: todos,
+        }),
+      );
       dispatch(
         deleteMilestoneLocally({
           milestoneId: milestone?.id,
           todoId: todo?.id,
         }),
       );
+    }, 300);
   };
 
   return (
@@ -139,19 +142,22 @@ const MilestoneSinglePage = ({
             ) : (
               <div
                 onClick={() => setEdit(true)}
-                className={`font-Comfortaa font-bold flex py-2 border-b-[1px] transition-all ${
-                  deleteAnimation ? 'deleteAnimation' : ''
-                }`}
+                className={`font-Comfortaa font-bold flex flex-col py-2    transition-all  `}
               >
-                {milestone?.milestoneCompleted ? (
-                  <s className="ml-1 opacity-60">
-                    {index + 1}- {milestone?.milestoneContent}
-                  </s>
-                ) : (
-                  <h1 className="ml-1">
-                    {index + 1}- {milestone?.milestoneContent}
-                  </h1>
-                )}
+                <h1
+                  className={`ml-1 transition-all  ${
+                    milestone?.milestoneCompleted ? 'strike opacity-60' : ''
+                  }`}
+                >
+                  {index + 1}- {milestone?.milestoneContent}
+                </h1>
+                <div
+                  className={`${
+                    deleteAnimation
+                      ? 'deleteUnderline'
+                      : 'singleMilestoneUnderline w-full'
+                  } `}
+                ></div>
               </div>
             )}
           </div>

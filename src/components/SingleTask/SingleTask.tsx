@@ -5,6 +5,7 @@ import { MdModeEditOutline, MdEditOff } from 'react-icons/md';
 import { IoCloseSharp } from 'react-icons/io5';
 import { useState, useEffect, useRef } from 'react';
 import { Draggable } from 'react-beautiful-dnd';
+import moment from 'moment';
 import {
   RootState,
   useAppDispatch,
@@ -21,7 +22,6 @@ import {
 import { editTodo } from '../../redux/slices/features/editTodo';
 import CardIcon from './CardIcon';
 import useClickOutside from '../../hooks/useClickOutside';
-import moment from 'moment';
 
 const SingleTask = ({
   content,
@@ -123,8 +123,10 @@ const SingleTask = ({
     <Draggable key={content.id} draggableId={content.id} index={index}>
       {(provided) => (
         <div
-          className={`text-textLight hover:scale-[1.01] ${
-            content.id === taskId ? ' border-[2px] border-white' : ''
+          className={`text-textLight ${
+            content.id === taskId
+              ? 'borderTop borderLeft borderRight borderBottom'
+              : ''
           } 
            hover:transition-transform hover:ease-in-out hover:duration-300 font-Comfortaa font-semibold my-2 px-5 py-2 min-h-[10rem] relative ${
              content.completed

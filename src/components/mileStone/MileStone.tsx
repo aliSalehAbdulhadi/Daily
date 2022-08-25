@@ -21,7 +21,6 @@ const MileStone = ({ taskId }: { taskId: string }) => {
   const milestoneRef = useClickOutside(() => {
     setAddMilestone(false);
   });
-  console.log(todo);
   const plusRef = useClickOutside(() => {
     setPlusIcon(false);
   });
@@ -44,10 +43,12 @@ const MileStone = ({ taskId }: { taskId: string }) => {
         <div className="bg-primaryColor  rounded overflow-auto scrollBar  text-white h-[65vh]">
           <div className=" flex flex-col m-10">
             <div className="mb-7 flex items-center justify-center  w-full">
-              <div className="w-[95%] text-secondaryLight text-base">
-                Task:
-                <h1 className="text-textDark text-xl ">{todo?.content}</h1>
-              </div>
+              {taskId ? (
+                <div className="w-[95%] ">
+                  <span className="text-secondaryLight text-base">Task:</span>
+                  <h1 className="text-textDark text-xl">{todo?.content}</h1>
+                </div>
+              ) : null}
               <div>
                 <div className="h-[3rem] w-[3rem] lg:h-[4rem] lg:w-[4rem]">
                   {taskId && todo && todo?.milestones.length > 0 ? (
@@ -69,11 +70,14 @@ const MileStone = ({ taskId }: { taskId: string }) => {
                 );
               })}
             </div>
-            {addMilestone ? (
-              <div ref={milestoneRef}>
-                <MileStoneForm taskId={taskId} />
-              </div>
-            ) : taskId ? (
+
+            <div
+              className={`${addMilestone ? 'block' : 'hidden'}`}
+              ref={milestoneRef}
+            >
+              <MileStoneForm taskId={taskId} />
+            </div>
+            {taskId ? (
               <div
                 ref={plusRef}
                 onMouseEnter={() => setPlusIcon(true)}

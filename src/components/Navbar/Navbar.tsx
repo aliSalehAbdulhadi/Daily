@@ -17,6 +17,7 @@ import { toggleDarkMode } from '../../redux/slices/features/darkMode';
 import ResetPassword from '../modals/resetPassword/ResetPassword';
 import Link from 'next/link';
 import TaskForm from '../Forms/TaskForm/TaskForm';
+import CheckInternet from '../checkInternet/CheckInternet';
 const Navbar = () => {
   const darkModeFunction = (): any => {
     if (typeof window !== 'undefined') {
@@ -53,7 +54,7 @@ const Navbar = () => {
         dark ? 'text-textDark' : 'text-textLight'
       } w-full h-[10vh]  flex items-center justify-between px-5 whitespace-nowrap text-sm md:text-base md:px-10 font-Comfortaa`}
     >
-      <div className="px-3 flex select-none">
+      <div className="px-3 flex select-none relative">
         <div className={`${dark ? 'hidden' : 'block'} cursor-pointer`}>
           <Link href="/">
             <div>
@@ -80,9 +81,12 @@ const Navbar = () => {
             </div>
           </Link>
         </div>
+        <div className="absolute top-[.40rem] left-32">
+          <CheckInternet />
+        </div>
       </div>
 
-      <div className="hidden sm:block">
+      <div className="hidden sm:block w-[30%]">
         <TaskForm />
       </div>
 
