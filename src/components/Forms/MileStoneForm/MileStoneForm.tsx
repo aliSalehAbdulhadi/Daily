@@ -74,7 +74,7 @@ const MileStoneForm = ({ taskId }: { taskId: string }) => {
     >
       {({}) => (
         <Form
-          className={` text-textLight flex items-center justify-center select-none`}
+          className={` text-textLight flex items-center justify-center select-none underlineAnimation`}
         >
           {user ? (
             <div className="w-full pb-10 md:pb-0">
@@ -87,7 +87,7 @@ const MileStoneForm = ({ taskId }: { taskId: string }) => {
                   autoComplete="form"
                   placeholder="Enter a Milestone"
                   className={` py-4 px-4 rounded outline-none w-[70%] md:w-[70%] md:text-base text-xs text-textDark autoFillText`}
-                  classNameField={`my-1 p-5 outline-none block w-full shadow-sm sm:text-sm border-gray-300 border-b-[1px] bg-primaryColor placeholder-white py-3 mt-3 font-Comfortaa text-sm md:text-base text-white autoFillBg`}
+                  classNameField={`my-1 p-5 outline-none block w-full shadow-sm sm:text-sm  bg-primaryColor placeholder-white py-3 mt-3 font-Comfortaa text-sm md:text-base text-white autoFillBg`}
                 />
 
                 <button

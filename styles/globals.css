@@ -98,6 +98,188 @@ input::-webkit-input-placeholder {
   -webkit-text-fill-color: white;
 }
 
-.deleteAnimation {
-  animation: deleteAnimation 0.5s;
+@keyframes strike {
+  from {
+    text-decoration-color: transparent;
+  }
+  to {
+    text-decoration-color: auto;
+  }
 }
+.strike {
+  text-decoration: line-through;
+  animation: strike 1s linear;
+}
+
+@keyframes deleteAnimation {
+  from {
+    transform: scale(1);
+    opacity: 1;
+  }
+  to {
+    transform: scale(0.6);
+    opacity: 0.6;
+  }
+}
+.deleteMilestone {
+  animation: deleteAnimation 0.3s linear;
+}
+
+.underlineAnimation {
+  position: relative;
+}
+
+.underlineAnimation::after {
+  content: '';
+  border-bottom: 1px solid white;
+  height: 5px;
+  position: absolute;
+  top: 72px;
+  transition: 0.3s ease-in-out;
+  animation: borderBottomAnimation 0.3s linear;
+  width: 65%;
+}
+
+@keyframes borderBottomAnimation {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 65%;
+  }
+}
+
+.singleMilestoneUnderline {
+  position: relative;
+}
+
+.singleMilestoneUnderline::after {
+  content: '';
+  border-bottom: 1px solid white;
+  height: 5px;
+  position: absolute;
+  top: 5px;
+  transition: 0.3s ease-in-out;
+  animation: borderBottomAnimation 0.3s linear;
+  width: 100%;
+}
+
+@keyframes singleMilestoneAnimation {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+.deleteUnderline {
+  position: relative;
+}
+
+.deleteUnderline::after {
+  content: '';
+  border-bottom: 1px solid white;
+  height: 5px;
+  position: absolute;
+  top: 5px;
+  transition: 0.3s ease-in-out;
+  animation: borderBottomAnimation 0.3s linear;
+  width: 0%;
+}
+
+@keyframes deleteUnderlineAnimation {
+  from {
+    width: 100%;
+  }
+  to {
+    width: 0%;
+  }
+}
+
+.borderTop {
+  position: relative;
+}
+
+.borderTop::before {
+  content: '';
+  border-bottom: 2px solid white;
+  border-radius: 0.25rem;
+  height: 0px;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  transition: 0.3s ease-in-out;
+  animation: borderAnimation 0.3s linear;
+  width: 100%;
+}
+
+.borderBottom {
+  position: relative;
+}
+
+.borderBottom::after {
+  content: '';
+  border: 1px solid white;
+  border-radius: 0.25rem;
+  height: 0px;
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  transition: 0.3s ease-in-out;
+  animation: borderAnimation 0.3s linear;
+  width: 100%;
+}
+
+@keyframes borderAnimation {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+/*.borderLeft {
+  position: relative;
+}
+
+.borderLeft::after {
+  content: '';
+  height: 0px;
+  border-left: 2px solid white;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  transition: 0.3s ease-in-out;
+  animation: borderSideAnimation 0.3s linear;
+  height: 100%;
+  z-index: 15;
+}
+
+.borderRight {
+  position: relative;
+}
+
+.borderRight::after {
+  content: '';
+  height: 0px;
+  border-right: 2px solid white;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  transition: 0.3s ease-in-out;
+  animation: borderSideAnimation 0.3s linear;
+  height: 100%;
+  z-index: 15;
+}
+
+@keyframes borderSideAnimation {
+  from {
+    height: 0%;
+  }
+  to {
+    height: 100%;
+  }
+}
+*/
