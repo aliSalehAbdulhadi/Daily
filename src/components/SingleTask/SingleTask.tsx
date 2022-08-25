@@ -22,6 +22,7 @@ import {
 import { editTodo } from '../../redux/slices/features/editTodo';
 import CardIcon from './CardIcon';
 import useClickOutside from '../../hooks/useClickOutside';
+import Link from 'next/link';
 
 const SingleTask = ({
   content,
@@ -124,9 +125,7 @@ const SingleTask = ({
       {(provided) => (
         <div
           className={`text-textLight ${
-            content.id === taskId
-              ? 'borderTop borderLeft borderRight borderBottom'
-              : ''
+            content.id === taskId ? 'semiSm:borderTop semiSm:borderBottom' : ''
           } 
            hover:transition-transform hover:ease-in-out hover:duration-300 font-Comfortaa font-semibold my-2 px-5 py-2 min-h-[10rem] relative ${
              content.completed
@@ -152,7 +151,7 @@ const SingleTask = ({
               className="flex flex-col"
             >
               <textarea
-                className={`my-1 p-1 lg:ml-5 lg:p-2 outline-none w-full text-sm shadow-sm sm:text-base border-gray-300 rounded-md placeholder-slate-400`}
+                className={`my-1 p-1 pb-5 semiSm:pb-0 lg:ml-5 lg:p-2 outline-none w-full text-sm shadow-sm sm:text-base border-gray-300 rounded-md placeholder-slate-400`}
                 onChange={(e) => setEditText(e.target.value)}
                 value={editText}
                 ref={inputRef}
@@ -162,26 +161,46 @@ const SingleTask = ({
                     : editText.length / 10
                 }
               />
-              <button className="lg:ml-10 mb-5 mt-1 lg:mb-0 bg-primaryColor py-2 text-xs rounded w-[50%] self-center text-white transition-all ease-in-out whitespace-nowrap">
+              <button className="text-sm rounded ml-6 mt-1 animate-pulse tracking-wider font-semibold w-fit transition-all ease-in-out whitespace-nowrap ">
                 Submit
               </button>
             </form>
-          ) : content.completed ? (
-            <div className="lg:pl-10 mb-3 lg:mb-0 flex flex-col items-center whitespace-pre-wrap">
-              <s className="opacity-60">{content.content}</s>
-              <div className="text-xs absolute top-3 left-[20px] lg:bottom-2 w-fit whitespace-nowrap select-none">
-                {formatDate}
-              </div>
-            </div>
           ) : (
-            <div className="lg:pl-10 mb-3 lg:mb-0 flex flex-col items-center">
-              <span>{content.content}</span>
-              <div className="text-xs absolute top-5 left-[20px] lg:bottom-2 w-fit whitespace-nowrap  select-none">
-                {formatDate}
+            <div className="w-full">
+              <div
+                className={`lg:pl-10 mb-3 lg:mb-0  flex-col items-center hidden semiSm:flex ${
+                  content.completed ? 'strike opacity-60' : ''
+                }`}
+              >
+                <div>
+                  <span>{content.content}</span>
+                  <div className="text-xs absolute top-5 left-[20px] lg:bottom-2 w-fit whitespace-nowrap  select-none">
+                    {formatDate}
+                  </div>
+                </div>
               </div>
+
+              <Link href={`/tasks/${content?.id}`}>
+                <div
+                  className={`lg:pl-10  lg:mb-0 flex  w-full h-full semiSm:hidden flex-col items-center ${
+                    content.completed ? 'strike opacity-60' : ''
+                  }`}
+                >
+                  <div>
+                    <span>{content.content}</span>
+                    <div className="text-xs absolute top-5 left-[20px] lg:bottom-2 w-fit whitespace-nowrap  select-none">
+                      {formatDate}
+                    </div>
+                  </div>
+                </div>
+              </Link>
             </div>
           )}
-          <div className="flex lg:flex-col lg:pl-10">
+          <div
+            className={`${
+              edit ? 'hidden semiSm:flex' : 'flex'
+            } flex lg:flex-col lg:pl-10`}
+          >
             {content.completed ? (
               <IoCloseSharp
                 title="Remove from completed tasks"

@@ -16,7 +16,6 @@ import {
   completeMilestoneLocally,
   deleteMilestoneLocally,
   editMilestoneLocally,
-  getTodo,
 } from '../../redux/slices/features/getTodoSlice';
 import {
   completeMilestone,
@@ -30,7 +29,7 @@ const MilestoneSinglePage = ({
   index,
   todos,
 }: {
-  taskId: string;
+  taskId: any;
   milestone: any;
   index: number;
   todos: SingleTodoInterface[];
@@ -48,7 +47,6 @@ const MilestoneSinglePage = ({
   const inputRef = useClickOutside(() => {
     setEdit(false);
   });
-
 
   useEffect(() => {
     editRef?.current?.focus();
@@ -119,9 +117,9 @@ const MilestoneSinglePage = ({
 
   return (
     <div>
-      <div className="flex justify-between items-center my-5">
-        <div className="flex justify-between w-full ">
-          <div className="w-[90%] cursor-pointer ">
+      <div className="flex justify-between my-5">
+        <div className="flex justify-between items-end w-full">
+          <div className="w-[90%]  cursor-pointer ">
             {edit ? (
               <div className="border-b-[1px]" ref={inputRef}>
                 <textarea
@@ -142,10 +140,10 @@ const MilestoneSinglePage = ({
             ) : (
               <div
                 onClick={() => setEdit(true)}
-                className={`font-Comfortaa font-bold flex flex-col py-2    transition-all  `}
+                className={`font-Comfortaa font-bold flex flex-col py-2 transition-all`}
               >
                 <h1
-                  className={`ml-1 transition-all  ${
+                  className={`ml-1 transition-all pb-4 semiSm:pb-0   ${
                     milestone?.milestoneCompleted ? 'strike opacity-60' : ''
                   }`}
                 >
@@ -161,12 +159,12 @@ const MilestoneSinglePage = ({
               </div>
             )}
           </div>
-          <div className="flex items-center ml-2 md:ml-5 h-full">
+          <div className="flex flex-col semiSm:flex-row items-end ml-2 md:ml-5 h-full">
             <button
               onMouseEnter={() => setCompleteIcon(true)}
               onMouseLeave={() => setCompleteIcon(false)}
               onClick={completeMilestoneHandler}
-              className="container w-fit h-fit mt-2"
+              className="container w-fit h-fit semiSm:mt-2"
             >
               {milestone?.milestoneCompleted ? (
                 <BsFillXCircleFill className=" h-[1.15rem]" />
@@ -180,7 +178,7 @@ const MilestoneSinglePage = ({
               onMouseEnter={() => setDeleteIcon(true)}
               onMouseLeave={() => setDeleteIcon(false)}
               onClick={deleteMilestoneHanlder}
-              className="container w-fit h-fit mt-2"
+              className="container w-fit h-fit semiSm:mt-2"
             >
               {deleteIcon ? (
                 <AiFillDelete className="h-5" />

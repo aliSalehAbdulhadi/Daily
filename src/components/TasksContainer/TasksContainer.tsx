@@ -26,7 +26,7 @@ const TasksContainer = () => {
     <div
       className={`${
         dark ? 'bg-primaryColor' : 'bg-primaryLight'
-      }  w-[100%] pt-[3rem] h-[90vh] `}
+      }  w-[100%] semiSm:pt-[3rem] min-h-[70vh] semiSm:h-[90vh] `}
     >
       <div>
         {signInStatus === 'pending' ? (
@@ -35,11 +35,11 @@ const TasksContainer = () => {
           </h1>
         ) : todos?.length > 0 ? (
           <div
-            className={`h-[80vh] sm:px-10 ${
+            className={` sm:px-10 ${
               dark ? 'bg-secondaryColor' : 'bg-secondaryLight'
             }  flex justify-center transition-all ease-in-out `}
           >
-            <div className="semiSm:w-[45%] md:w-[40%] w-full ">
+            <div className=" semiSm:w-[45%] md:w-[40%] w-full ">
               <Tasks id={(e: string) => setTaskId(e)} />
             </div>
 

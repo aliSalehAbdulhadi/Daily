@@ -19,12 +19,14 @@ import { addMilestones } from '../../../redux/slices/features/MilestonesSlice';
 const formSchema = Yup.object().shape({
   Form: Yup.string(),
 });
-const MileStoneForm = ({ taskId }: { taskId: string }) => {
+const MileStoneForm = ({ taskId }: { taskId: any }) => {
   const [submitAnimation, setSubmitAnimation] = useState<boolean>(false);
   const todos: SingleTodoInterface[] = useAppSelector(
     (state: RootState) => state.getTodoReducer.todos,
   );
-
+  const dark = useAppSelector(
+    (state: RootState) => state.darkModeReducer.darkMode,
+  );
   const dispatch = useAppDispatch();
   const user = useAppSelector((state: RootState) => state.userReducer.userUid);
 
@@ -77,7 +79,7 @@ const MileStoneForm = ({ taskId }: { taskId: string }) => {
           className={` text-textLight flex items-center justify-center select-none underlineAnimation`}
         >
           {user ? (
-            <div className="w-full pb-10 md:pb-0">
+            <div className="w-full semiSm:pb-10 md:pb-0">
               <div className="flex items-center justify-center ">
                 <FormField
                   type="text"
@@ -85,9 +87,13 @@ const MileStoneForm = ({ taskId }: { taskId: string }) => {
                   name="Form"
                   value="form"
                   autoComplete="form"
-                  placeholder="Enter a Milestone"
-                  className={` py-4 px-4 rounded outline-none w-[70%] md:w-[70%] md:text-base text-xs text-textDark autoFillText`}
-                  classNameField={`my-1 p-5 outline-none block w-full shadow-sm sm:text-sm  bg-primaryColor placeholder-white py-3 mt-3 font-Comfortaa text-sm md:text-base text-white autoFillBg`}
+                  placeholder="Enter Milestone"
+                  className={` py-4 px-4 rounded outline-none w-[85%] md:w-[70%] md:text-base  text-textDark autoFillText`}
+                  classNameField={`my-1 p-5 outline-none block w-full shadow-sm sm:text-sm  ${
+                    dark
+                      ? 'bg-primaryColor'
+                      : 'sm:bg-primaryColor bg-secondaryLight'
+                  } placeholder-white py-3 mt-3 font-Comfortaa text-sm md:text-base text-white autoFillBg`}
                 />
 
                 <button
