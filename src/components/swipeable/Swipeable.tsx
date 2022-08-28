@@ -31,7 +31,7 @@ const Swipeable = ({
   const todo = todos?.find((todo) => todo?.id === taskId);
   const user = useAppSelector((state: RootState) => state.userReducer.userUid);
   const handlers = useSwipeable({
-    delta: { left: 500 },
+    delta: { left: 300 },
     swipeDuration: 3000,
     onSwipedLeft: () => {
       dispatch(
