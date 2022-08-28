@@ -233,6 +233,19 @@ input::-webkit-input-placeholder {
   }
 }
 
+.taskEnter {
+  animation: taskEnterAnimation 0.2s linear;
+}
+
+@keyframes taskEnterAnimation {
+  from {
+    transform: translateX(25rem);
+  }
+  to {
+    transform: translateX(0rem);
+  }
+}
+
 .swiper {
   background-color: red;
   position: relative;
@@ -252,4 +265,60 @@ input::-webkit-input-placeholder {
 }
 
 .swiper-slide-active {
+}
+
+.G1 {
+  transform: translate(20px, 85px) rotate(-30deg);
+}
+
+.e1 {
+  transform: translate(13px, 60px) rotate(-25deg);
+}
+
+.e2 {
+  transform: translate(6px, 40px) rotate(-20deg);
+}
+
+.k1 {
+  transform: translate(3px, 23px) rotate(-15deg);
+}
+
+.s1 {
+  transform: translate(2px, 14px) rotate(-10deg);
+}
+
+.f {
+  transform: translate(1px, 8px) rotate(-5deg);
+}
+
+.o {
+  transform: translate(0px, 5px) rotate(0deg);
+}
+
+.r {
+  transform: translate(-1px, 8px) rotate(5deg);
+}
+
+.G2 {
+  transform: translate(-2px, 14px) rotate(10deg);
+}
+
+.e3 {
+  transform: translate(-3px, 25px) rotate(15deg);
+}
+
+.e4 {
+  transform: translate(-6px, 40px) rotate(20deg);
+}
+
+.k2 {
+  transform: translate(-14px, 60px) rotate(25deg);
+}
+
+.s2 {
+  transform: translate(-20px, 80px) rotate(30deg);
+}
+
+.curvedTextContainer {
+  display: inline-block;
 }

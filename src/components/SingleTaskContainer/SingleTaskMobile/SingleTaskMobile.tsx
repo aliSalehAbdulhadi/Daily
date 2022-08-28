@@ -23,6 +23,7 @@ import {
 import { editTodo } from '../../../redux/slices/features/editTodo';
 import TaskCardIcons from '../TaskCardIcons/TaskCardIcons';
 import useClickOutside from '../../../hooks/useClickOutside';
+import ProgressBar from '../../progressBar/ProgressBar';
 
 const SingleTaskMobile = ({
   content,
@@ -48,6 +49,15 @@ const SingleTaskMobile = ({
     (state: RootState) => state.darkModeReducer.darkMode,
   );
   const formatDate = moment(content.date).format('MMM/D/YYYY');
+
+  const todo = todos.find((todo) => todo?.id === content.id);
+  const milestoneCompleted = todo?.milestones?.filter(
+    (ms: any) => ms?.milestoneCompleted === true,
+  ).length;
+  const percentage =
+    milestoneCompleted && todo.milestones.length > 0
+      ? Math.round((milestoneCompleted / todo?.milestones?.length) * 100)
+      : 0;
 
   let textareaRef = useClickOutside(() => {
     setEdit(false);
@@ -121,12 +131,12 @@ const SingleTaskMobile = ({
     <Draggable key={content.id} draggableId={content.id} index={index}>
       {(provided) => (
         <div
-          className={`text-textLight 
-          font-Comfortaa font-semibold my-2 px-5 py-2 min-h-[10rem] relative ${
+          className={`flex mb-2 text-textLight
+          font-Comfortaa font-semibold  relative ${
             content.completed
               ? 'bg-red-400 shadow-2xl'
               : setCardColorByTypeHandler()
-          } flex flex-col justify-between items-center rounded text-sm ease-in-out
+          }  rounded text-sm ease-in-out
             ${
               deleteAnimation
                 ? 'translate-x-[-35rem] transition-all ease-in-out'
@@ -136,95 +146,90 @@ const SingleTaskMobile = ({
           {...provided.dragHandleProps}
           ref={provided.innerRef}
         >
-          <div className="mb-3 ">
-            <TaskCardIcons icon={content?.icon} completed={content.completed} />
-          </div>
-          {edit ? (
-            <form
-              ref={textareaRef}
-              onSubmit={editHanlder}
-              className="flex flex-col"
-            >
-              <textarea
-                className={`my-1 p-1 pb-5 outline-none w-full text-sm shadow-sm sm:text-base border-gray-300 rounded-md placeholder-slate-400`}
-                onChange={(e) => setEditText(e.target.value)}
-                value={editText}
-                ref={inputRef}
-                rows={
-                  editText.length >= 100
-                    ? editText.length / 50
-                    : editText.length / 15
-                }
+          <div className="flex flex-col justify-between my-0 px-5 py-2 min-h-[10rem] w-[75%]">
+            <div className="mb-3 ">
+              <TaskCardIcons
+                icon={content?.icon}
+                completed={content.completed}
               />
-              <button className="text-sm rounded ml-6 mt-1 animate-pulse tracking-wider font-semibold w-fit transition-all ease-in-out whitespace-nowrap ">
-                Submit
-              </button>
-            </form>
-          ) : (
-            <div className="w-full">
-              <Link href={`/tasks/${content?.id}`}>
+            </div>
+            {edit ? (
+              <form
+                ref={textareaRef}
+                onSubmit={editHanlder}
+                className="flex flex-col"
+              >
+                <textarea
+                  className={`my-1 p-1 pb-5 outline-none w-full text-sm shadow-sm sm:text-base border-gray-300 rounded-md placeholder-slate-400`}
+                  onChange={(e) => setEditText(e.target.value)}
+                  value={editText}
+                  ref={inputRef}
+                  rows={
+                    editText.length >= 100
+                      ? editText.length / 50
+                      : editText.length / 15
+                  }
+                />
+                <button className="text-sm rounded ml-6 mt-1 animate-pulse tracking-wider font-semibold w-fit transition-all ease-in-out whitespace-nowrap ">
+                  Submit
+                </button>
+              </form>
+            ) : (
+              <div className="w-full ">
                 <div
-                  className={`flex w-full h-full flex-col items-center ${
+                  className={`flex w-full  h-full flex-col items-center ${
                     content.completed ? 'strike opacity-60' : ''
                   }`}
                 >
-                  <div>
-                    <span>{content.content}</span>
-                    <div className="text-xs absolute top-5 left-[20px] w-fit whitespace-nowrap select-none">
+                  <div className="self-start w-full">
+                    <span
+                      onClick={() => (content.completed ? null : setEdit(true))}
+                    >
+                      {content.content}
+                    </span>
+                    <div className="text-[.65rem] absolute top-[1.15rem] left-[60px] w-fit whitespace-nowrap select-none">
                       {formatDate}
                     </div>
                   </div>
                 </div>
-              </Link>
+              </div>
+            )}
+            <div className={`${edit ? 'hidden' : 'flex'}`}>
+              {content.completed ? (
+                <IoCloseSharp
+                  title="Remove from completed tasks"
+                  type="button"
+                  onClick={completionHandler}
+                  className="cursor-pointer mb-3 mr-3 scale-[1.8] transition-all ease-in-out"
+                />
+              ) : (
+                <GoCheck
+                  title="Complete task"
+                  type="button"
+                  onClick={completionHandler}
+                  className="cursor-pointer mb-3 mr-3 scale-[1.8] transition-all ease-in-out"
+                />
+              )}
+
+              <AiFillDelete
+                title="Delete"
+                type="submit"
+                onClick={deletionHandler}
+                className="cursor-pointer  scale-[1.8] transition-all ease-in-out ml-3 "
+              />
             </div>
-          )}
-          <div className={`${edit ? 'hidden' : 'flex'} flex`}>
-            {content.completed ? (
-              <IoCloseSharp
-                title="Remove from completed tasks"
-                type="button"
-                onClick={completionHandler}
-                className="cursor-pointer mb-3 mr-2 scale-[1.8] transition-all ease-in-out"
-              />
-            ) : (
-              <GoCheck
-                title="Complete task"
-                type="button"
-                onClick={completionHandler}
-                className="cursor-pointer mb-3 mr-2 scale-[1.8] transition-all ease-in-out"
-              />
-            )}
-
-            {!edit ? (
-              <MdModeEditOutline
-                title="Edit"
-                type="submit"
-                onClick={() => setEdit(true)}
-                className={`cursor-pointer mb-3 mr-2 scale-[1.8] ${
-                  content.completed
-                    ? 'hidden'
-                    : 'block transition-all ease-in-out ml-2'
-                }`}
-              />
-            ) : (
-              <MdEditOff
-                type="submit"
-                onClick={() => setEdit(false)}
-                className={`cursor-pointer mb-3 mr-2 scale-[1.8] ${
-                  content.completed
-                    ? 'hidden'
-                    : 'block transition-all ease-in-out ml-2'
-                }`}
-              />
-            )}
-
-            <AiFillDelete
-              title="Delete"
-              type="submit"
-              onClick={deletionHandler}
-              className="cursor-pointer  scale-[1.8] transition-all ease-in-out ml-3 "
-            />
           </div>
+          <Link href={`/tasks/${content?.id}`}>
+            <div className=" w-[25%] flex flex-col items-center justify-center">
+              <div className="scale-[.8]">
+                <ProgressBar percentage={percentage} />
+              </div>
+              <div className="flex items-center">
+                <h1 className="font-bold text-[.65rem]">Milestones:</h1>
+                <span className="ml-1">{content.milestones.length}</span>
+              </div>
+            </div>
+          </Link>
         </div>
       )}
     </Draggable>

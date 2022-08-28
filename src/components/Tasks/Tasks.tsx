@@ -95,7 +95,6 @@ const Tasks = ({ id }: { id: any }) => {
                     ),
                   )}
             </div>
-            {provided.placeholder}
           </div>
         )}
       </Droppable>

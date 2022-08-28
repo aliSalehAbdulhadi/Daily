@@ -116,7 +116,7 @@ const MileStone = () => {
                 ) : (
                   <BsPlusCircle
                     fill="white"
-                    className={`h-8 w-8  transition-all ${
+                    className={`h-8 w-8   transition-all ${
                       addMilestone ? 'hidden' : 'block'
                     }`}
                   />

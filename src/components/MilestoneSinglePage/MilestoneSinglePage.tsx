@@ -193,7 +193,7 @@ const MilestoneSinglePage = ({
               )}
             </button>
           </div>
-          <div className="flex items-center justify-center h-full ml-3 semiSm:hidden">
+          <div className="flex items-center justify-center h-full ml-3 mr-1 semiSm:hidden">
             <button
               onMouseEnter={() => setCompleteIcon(true)}
               onMouseLeave={() => setCompleteIcon(false)}
