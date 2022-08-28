@@ -91,7 +91,6 @@ const TaskForm = () => {
                 </div>
                 <FormField
                   type="text"
-                  // label="What are you up to today?"
                   label=""
                   name="Form"
                   value="form"
@@ -121,7 +120,7 @@ const TaskForm = () => {
                   />
                 </button>
               </div>
-              <h1 className="text-sm self-start ml-1 font-Comfortaa">
+              <h1 className="text-xs semiSm:text-sm self-start ml-1 font-Comfortaa">
                 What are you up to today?
               </h1>
             </div>

@@ -72,7 +72,7 @@ const MileStone = ({ taskId }: { taskId: string }) => {
             </div>
 
             <div
-              className={`${addMilestone ? 'block' : 'hidden'}`}
+              className={`${addMilestone ? 'block' : 'hidden'} `}
               ref={milestoneRef}
             >
               <MileStoneForm taskId={taskId} />
@@ -96,7 +96,9 @@ const MileStone = ({ taskId }: { taskId: string }) => {
                 ) : (
                   <BsPlusCircle
                     fill="white"
-                    className="h-8 w-8 transition-all"
+                    className={`h-8 w-8 transition-all ${
+                      addMilestone ? 'hidden' : ''
+                    }`}
                   />
                 )}
               </div>

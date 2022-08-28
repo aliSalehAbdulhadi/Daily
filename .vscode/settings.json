@@ -5,6 +5,7 @@
     "firestore",
     "formik",
     "headlessui",
-    "persistor"
+    "persistor",
+    "Swipeable"
   ]
 }
