@@ -28,8 +28,10 @@
     "react-icons": "^4.4.0",
     "react-redux": "^8.0.2",
     "react-spinners-kit": "^1.9.1",
+    "react-swipeable": "^7.0.0",
     "redux": "^4.2.0",
     "redux-persist": "^6.0.0",
+    "swiper": "^8.3.2",
     "uuid": "^8.3.2",
     "yup": "^0.32.11"
   },

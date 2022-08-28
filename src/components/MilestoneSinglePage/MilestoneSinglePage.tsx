@@ -44,8 +44,10 @@ const MilestoneSinglePage = ({
   const user = useAppSelector((state: RootState) => state.userReducer.userUid);
   const todo = todos?.find((todo) => todo?.id === taskId);
   const dispatch = useAppDispatch();
+
   const inputRef = useClickOutside(() => {
     setEdit(false);
+    setEditText(milestone?.milestoneContent);
   });
 
   useEffect(() => {
@@ -126,7 +128,11 @@ const MilestoneSinglePage = ({
                   ref={editRef}
                   className="w-[100%] py-2 mt-2 rounded outline-none text-black px-2"
                   onChange={(e: any) => setEditText(e?.target?.value)}
-                  rows={editText.length / 30}
+                  rows={
+                    editText.length >= 100
+                      ? editText.length / 50
+                      : editText.length / 15
+                  }
                   value={editText}
                 />
 
@@ -159,12 +165,12 @@ const MilestoneSinglePage = ({
               </div>
             )}
           </div>
-          <div className="flex flex-col semiSm:flex-row items-end ml-2 md:ml-5 h-full">
+          <div className="flex-col items-end ml-2 md:ml-5 h-full hidden semiSm:flex">
             <button
               onMouseEnter={() => setCompleteIcon(true)}
               onMouseLeave={() => setCompleteIcon(false)}
               onClick={completeMilestoneHandler}
-              className="container w-fit h-fit semiSm:mt-2"
+              className="container w-fit h-fit mt-2"
             >
               {milestone?.milestoneCompleted ? (
                 <BsFillXCircleFill className=" h-[1.15rem]" />
@@ -178,12 +184,25 @@ const MilestoneSinglePage = ({
               onMouseEnter={() => setDeleteIcon(true)}
               onMouseLeave={() => setDeleteIcon(false)}
               onClick={deleteMilestoneHanlder}
-              className="container w-fit h-fit semiSm:mt-2"
+              className="container w-fit h-fit mt-2"
             >
               {deleteIcon ? (
                 <AiFillDelete className="h-5" />
               ) : (
                 <AiOutlineDelete className="h-5 " />
+              )}
+            </button>
+          </div>
+          <div className="flex items-center justify-center h-full ml-3 semiSm:hidden">
+            <button
+              onMouseEnter={() => setCompleteIcon(true)}
+              onMouseLeave={() => setCompleteIcon(false)}
+              onClick={completeMilestoneHandler}
+            >
+              {milestone?.milestoneCompleted ? (
+                <BsFillXCircleFill className=" h-[1.8rem] w-[1.8rem]" />
+              ) : (
+                <BsCheckCircle className="h-[1.8rem] w-[1.8rem]" />
               )}
             </button>
           </div>

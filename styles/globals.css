@@ -21,6 +21,10 @@ a {
 }
 
 .bg-icon {
+  background-image: url('/sun3.svg');
+}
+
+input:checked + .bg-icon {
   background-image: url('/moon3.svg');
 }
 
@@ -43,10 +47,6 @@ a {
 .scrollBar::-webkit-scrollbar-thumb {
   background: white;
   border-radius: 3px;
-}
-
-input:checked + .bg-icon {
-  background-image: url('/sun3.svg');
 }
 
 textarea::-webkit-scrollbar {
@@ -80,13 +80,6 @@ input::-webkit-input-placeholder {
 
 .container input:checked {
   background-color: #e6e6e6;
-}
-
-.autoFillBg:-webkit-autofill,
-.autoFillBg:-webkit-autofill:hover,
-.autoFillBg:-webkit-autofill:focus,
-.autoFillBg:-webkit-autofill:active {
-  -webkit-box-shadow: 0 0 0 30px #427676 inset !important;
 }
 
 .autoFillText input:-webkit-autofill {
@@ -240,46 +233,23 @@ input::-webkit-input-placeholder {
   }
 }
 
-/*.borderLeft {
+.swiper {
+  background-color: red;
   position: relative;
+  border: 8px solid;
+  overflow: hidden;
 }
 
-.borderLeft::after {
+.swiper::after {
   content: '';
-  height: 0px;
-  border-left: 2px solid white;
+  background-image: url('/svg/delete.svg');
+  background-repeat: no-repeat;
   position: absolute;
-  top: 0px;
-  left: 0px;
-  transition: 0.3s ease-in-out;
-  animation: borderSideAnimation 0.3s linear;
+  left: 250px;
+  top: 50px;
   height: 100%;
-  z-index: 15;
+  width: 100%;
 }
 
-.borderRight {
-  position: relative;
+.swiper-slide-active {
 }
-
-.borderRight::after {
-  content: '';
-  height: 0px;
-  border-right: 2px solid white;
-  position: absolute;
-  top: 0px;
-  right: 0px;
-  transition: 0.3s ease-in-out;
-  animation: borderSideAnimation 0.3s linear;
-  height: 100%;
-  z-index: 15;
-}
-
-@keyframes borderSideAnimation {
-  from {
-    height: 0%;
-  }
-  to {
-    height: 100%;
-  }
-}
-*/

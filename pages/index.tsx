@@ -3,6 +3,7 @@ import type { NextPage } from 'next';
 import TaskForm from '../src/components/Forms/TaskForm/TaskForm';
 import TasksContainer from '../src/components/TasksContainer/TasksContainer';
 import CheckInternet from '../src/components/checkInternet/CheckInternet';
+import Swipeable from '../src/components/swipeable/Swipeable';
 
 const Home: NextPage = () => {
   return (

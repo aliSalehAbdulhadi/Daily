@@ -4,6 +4,7 @@ import { BsPlusCircle, BsPlusCircleFill } from 'react-icons/bs';
 import MileStoneForm from '../../src/components/Forms/MileStoneForm/MileStoneForm';
 import MilestoneSinglePage from '../../src/components/MilestoneSinglePage/MilestoneSinglePage';
 import ProgressBar from '../../src/components/progressBar/ProgressBar';
+import Swipeable from '../../src/components/swipeable/Swipeable';
 import useClickOutside from '../../src/hooks/useClickOutside';
 import {
   RootState,
@@ -72,13 +73,19 @@ const MileStone = () => {
               <div className="w-full">
                 {todo?.milestones.map((milestone: any, i) => {
                   return (
-                    <MilestoneSinglePage
+                    <Swipeable
                       key={milestone.id}
                       taskId={id}
                       milestone={milestone}
-                      index={i}
                       todos={todos}
-                    />
+                    >
+                      <MilestoneSinglePage
+                        taskId={id}
+                        milestone={milestone}
+                        index={i}
+                        todos={todos}
+                      />
+                    </Swipeable>
                   );
                 })}
               </div>
@@ -102,12 +109,16 @@ const MileStone = () => {
                 {plusIcon ? (
                   <BsPlusCircleFill
                     fill="white"
-                    className="h-8 w-8  transition-all"
+                    className={`h-8 w-8  transition-all ${
+                      addMilestone ? 'hidden' : 'block'
+                    }`}
                   />
                 ) : (
                   <BsPlusCircle
                     fill="white"
-                    className="h-8 w-8 transition-all"
+                    className={`h-8 w-8  transition-all ${
+                      addMilestone ? 'hidden' : 'block'
+                    }`}
                   />
                 )}
               </div>

@@ -14,7 +14,7 @@ const ProgressBar = ({ percentage }: { percentage: number }) => {
           root: {},
           path: {
             // Path color
-            stroke: `${dark ? '#56a691' : '#2c5252'}`,
+            stroke: '#56a691',
             // Whether to use rounded or flat corners on the ends - can use 'butt' or 'round'
             strokeLinecap: 'round',
           },

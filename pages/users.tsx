@@ -9,7 +9,7 @@ import {
 import ChangeUserName from '../src/components/modals/changeUserName/changeUserName';
 import ConfirmLogOut from '../src/components/modals/confirmLogOut/ConfirmLogOut';
 import ResetPassword from '../src/components/modals/resetPassword/ResetPassword';
-import SingleTask from '../src/components/SingleTask/SingleTask';
+import SingleTask from '../src/components/SingleTaskContainer/SingleTaskContainer';
 
 const User = () => {
   const [openModal, setOpenModal] = useState<boolean>(false);

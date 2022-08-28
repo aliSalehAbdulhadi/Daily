@@ -1,8 +1,8 @@
-import { BsFillPersonFill } from "react-icons/bs";
-import { MdWork } from "react-icons/md";
-import { IoGameController } from "react-icons/io5";
+import { BsFillPersonFill } from 'react-icons/bs';
+import { MdWork } from 'react-icons/md';
+import { IoGameController } from 'react-icons/io5';
 
-const CardIcon = ({
+const TaskCardIcons = ({
   icon,
   completed,
 }: {
@@ -10,30 +10,30 @@ const CardIcon = ({
   completed: boolean;
 }) => {
   const dynamicIconHandler = () => {
-    if (icon === "work") {
+    if (icon === 'work') {
       return (
         <MdWork
           className={`scale-[1.8] md:scale-[1.5] mt-2 md:mt-0 ${
-            completed ? "fill-blue-500" : ""
+            completed ? 'fill-blue-500' : ''
           }`}
         />
       );
     }
 
-    if (icon === "personal") {
+    if (icon === 'personal') {
       return (
         <BsFillPersonFill
           className={`scale-[1.8] md:scale-[1.5] mt-2 md:mt-0 ${
-            completed ? "fill-green-500" : ""
+            completed ? 'fill-green-500' : ''
           }`}
         />
       );
     }
-    if (icon === "fun") {
+    if (icon === 'fun') {
       return (
         <IoGameController
           className={`scale-[1.8] md:scale-[1.5] mt-2 md:mt-0 ${
-            completed ? "fill-purple-500" : ""
+            completed ? 'fill-purple-500' : ''
           }`}
         />
       );
@@ -42,4 +42,4 @@ const CardIcon = ({
   return <div>{dynamicIconHandler()}</div>;
 };
 
-export default CardIcon;
+export default TaskCardIcons;

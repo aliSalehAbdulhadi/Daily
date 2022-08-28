@@ -1,12 +1,11 @@
+import { useEffect, useState } from 'react';
 import { Droppable } from 'react-beautiful-dnd';
-import SingleTask from '../SingleTask/SingleTask';
 import {
   useAppSelector,
   SingleTodoInterface,
 } from '../../interfaces/interfaces';
 import { RootState } from '../../interfaces/interfaces';
-import { useEffect, useState } from 'react';
-import Link from 'next/link';
+import SingleTaskContainer from '../SingleTaskContainer/SingleTaskContainer';
 
 const Tasks = ({ id }: { id: any }) => {
   const [completedTask, setCompletedTask] = useState<boolean>(false);
@@ -68,7 +67,7 @@ const Tasks = ({ id }: { id: any }) => {
                         className="w-full"
                         onClick={() => setTaskId(todo.id)}
                       >
-                        <SingleTask
+                        <SingleTaskContainer
                           content={todo}
                           index={index}
                           taskId={taskId}
@@ -85,7 +84,7 @@ const Tasks = ({ id }: { id: any }) => {
                         className="w-full"
                         onClick={() => setTaskId(todo.id)}
                       >
-                        <SingleTask
+                        <SingleTaskContainer
                           content={todo}
                           index={index}
                           taskId={taskId}
@@ -96,6 +95,7 @@ const Tasks = ({ id }: { id: any }) => {
                     ),
                   )}
             </div>
+            {provided.placeholder}
           </div>
         )}
       </Droppable>
