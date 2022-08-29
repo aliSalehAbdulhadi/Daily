@@ -34,17 +34,17 @@ const MileStoneForm = ({ taskId }: { taskId: any }) => {
 
   return (
     <Formik
-      initialValues={{ Form: '' }}
+      initialValues={{ milestoneForm: '' }}
       validationSchema={formSchema}
       onSubmit={(values, { resetForm }) => {
-        values.Form.length === 0
+        values.milestoneForm.length === 0
           ? false
           : dispatch(
               addMilestones({
                 userUid: user,
                 milestone: {
                   id: uuidv4(),
-                  milestoneContent: values.Form,
+                  milestoneContent: values.milestoneForm,
                   milestoneCompleted: false,
                 },
                 allTodos: todos,
@@ -52,14 +52,14 @@ const MileStoneForm = ({ taskId }: { taskId: any }) => {
               }),
             );
 
-        values.Form.length === 0
+        values.milestoneForm.length === 0
           ? false
           : setTimeout(() => {
               dispatch(
                 setMilestones({
                   milestone: {
                     id: uuidv4(),
-                    milestoneContent: values.Form,
+                    milestoneContent: values.milestoneForm,
                   },
                   todoId: taskId,
                 }),
@@ -85,8 +85,8 @@ const MileStoneForm = ({ taskId }: { taskId: any }) => {
                 <FormField
                   type="text"
                   label=""
-                  name="Form"
-                  value="form"
+                  name="milestoneForm"
+                  value="milestoneForm"
                   autoComplete="form"
                   placeholder="Enter Milestone"
                   className={` py-4 px-4 rounded outline-none w-[85%] md:w-[70%] md:text-base  text-textDark autoFillText`}

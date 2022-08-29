@@ -73,9 +73,7 @@ const Tasks = ({ id }: { id: any }) => {
                           taskId={taskId}
                         />
                       </div>
-                    ) : (
-                      false
-                    ),
+                    ) : null,
                   )
                 : todos?.map((todo: SingleTodoInterface, index: number) =>
                     !todo.completed ? (
@@ -90,11 +88,10 @@ const Tasks = ({ id }: { id: any }) => {
                           taskId={taskId}
                         />
                       </div>
-                    ) : (
-                      false
-                    ),
+                    ) : null,
                   )}
             </div>
+            <div className="semiSm:hidden">{provided.placeholder}</div>
           </div>
         )}
       </Droppable>

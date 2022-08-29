@@ -37,6 +37,7 @@ const MilestoneSinglePage = ({
   const [edit, setEdit] = useState<boolean>(false);
   const [editText, setEditText] = useState<string>(milestone?.milestoneContent);
   const [deleteAnimation, setDeleteAnimation] = useState<boolean>(false);
+  const [initialAnimation, setInitialAnimation] = useState<boolean>(false);
   const [deleteIcon, setDeleteIcon] = useState<boolean>(false);
   const [completeIcon, setCompleteIcon] = useState<boolean>(false);
 
@@ -117,6 +118,13 @@ const MilestoneSinglePage = ({
     }, 300);
   };
 
+  useEffect(() => {
+    setInitialAnimation(true);
+    return () => {
+      setInitialAnimation(false);
+    };
+  }, []);
+
   return (
     <div>
       <div className="flex justify-between my-5">
@@ -157,10 +165,8 @@ const MilestoneSinglePage = ({
                 </h1>
                 <div
                   className={`${
-                    deleteAnimation
-                      ? 'deleteUnderline'
-                      : 'singleMilestoneUnderline w-full'
-                  } `}
+                    initialAnimation ? 'singleMilestoneUnderline' : ''
+                  } w-full ${deleteAnimation ? 'deleteUnderline' : ''} `}
                 ></div>
               </div>
             )}

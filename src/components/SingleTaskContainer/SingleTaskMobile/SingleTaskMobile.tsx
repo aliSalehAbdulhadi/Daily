@@ -1,7 +1,8 @@
 import { SyntheticEvent } from 'react';
 import { AiFillDelete } from 'react-icons/ai';
 import { GoCheck } from 'react-icons/go';
-import { MdModeEditOutline, MdEditOff } from 'react-icons/md';
+import { CountdownCircleTimer } from 'react-countdown-circle-timer';
+import { BiX } from 'react-icons/bi';
 import { IoCloseSharp } from 'react-icons/io5';
 import { useState, useEffect, useRef } from 'react';
 import { Draggable } from 'react-beautiful-dnd';
@@ -24,6 +25,7 @@ import { editTodo } from '../../../redux/slices/features/editTodo';
 import TaskCardIcons from '../TaskCardIcons/TaskCardIcons';
 import useClickOutside from '../../../hooks/useClickOutside';
 import ProgressBar from '../../progressBar/ProgressBar';
+import { MdOutlineRemoveDone } from 'react-icons/md';
 
 const SingleTaskMobile = ({
   content,
@@ -33,6 +35,7 @@ const SingleTaskMobile = ({
   index: number;
 }) => {
   const [deleteAnimation, setDeleteAnimation] = useState<boolean>(false);
+  const [deleteTimer, setDeleteTimer] = useState<boolean>(false);
   const [completeAnimation, setCompleteAnimation] = useState<boolean>(false);
   const [edit, setEdit] = useState<boolean>(false);
   const [editText, setEditText] = useState<string>(content.content);
@@ -194,29 +197,55 @@ const SingleTaskMobile = ({
                 </div>
               </div>
             )}
-            <div className={`${edit ? 'hidden' : 'flex'}`}>
+            <div
+              className={` h-[2rem] w-fit flex items-center ${
+                edit ? 'hidden' : 'flex'
+              }`}
+            >
               {content.completed ? (
-                <IoCloseSharp
-                  title="Remove from completed tasks"
+                <MdOutlineRemoveDone
+                  title="Incomplete"
                   type="button"
                   onClick={completionHandler}
-                  className="cursor-pointer mb-3 mr-3 scale-[1.8] transition-all ease-in-out"
+                  className="cursor-pointer mr-5 scale-[1.8] transition-all ease-in-out"
                 />
               ) : (
                 <GoCheck
                   title="Complete task"
                   type="button"
                   onClick={completionHandler}
-                  className="cursor-pointer mb-3 mr-3 scale-[1.8] transition-all ease-in-out"
+                  className="cursor-pointer  mr-5 scale-[1.8] transition-all ease-in-out"
                 />
               )}
 
-              <AiFillDelete
-                title="Delete"
-                type="submit"
-                onClick={deletionHandler}
-                className="cursor-pointer  scale-[1.8] transition-all ease-in-out ml-3 "
-              />
+              {deleteTimer ? (
+                <div
+                  className="relative cursor-pointer w-fit h-fit"
+                  onClick={() => setDeleteTimer(false)}
+                >
+                  <BiX className="absolute h-4 w-4 top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]" />
+                  <CountdownCircleTimer
+                    size={30}
+                    strokeWidth={3}
+                    isPlaying
+                    duration={2}
+                    trailColor={content.completed ? '#f87171' : '#4ade80'}
+                    colors="#ffff"
+                    onComplete={() => {
+                      setDeleteTimer(false);
+                      deletionHandler();
+                      return { shouldRepeat: true };
+                    }}
+                  />
+                </div>
+              ) : (
+                <AiFillDelete
+                  title="Delete"
+                  type="submit"
+                  onClick={() => setDeleteTimer(true)}
+                  className="cursor-pointer scale-[1.8] hover:text-white hover:scale-150 transition-all ease-in-out"
+                />
+              )}
             </div>
           </div>
           <Link href={`/tasks/${content?.id}`}>

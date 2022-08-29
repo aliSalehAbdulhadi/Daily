@@ -16,7 +16,7 @@ const SingleTaskContainer = ({
   return (
     <div>
       {width >= 840 ? (
-        <div className="hidden semiSm:block overflow-hidden">
+        <div className="hidden semiSm:block">
           <SingleTaskPc content={content} index={index} taskId={taskId} />
         </div>
       ) : (

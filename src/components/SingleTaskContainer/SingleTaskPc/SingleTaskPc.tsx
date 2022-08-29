@@ -1,11 +1,16 @@
 import { SyntheticEvent } from 'react';
 import { AiFillDelete } from 'react-icons/ai';
 import { GoCheck } from 'react-icons/go';
-import { MdModeEditOutline, MdEditOff } from 'react-icons/md';
-import { IoCloseSharp } from 'react-icons/io5';
+import {
+  MdModeEditOutline,
+  MdEditOff,
+  MdOutlineRemoveDone,
+} from 'react-icons/md';
+import { BiX } from 'react-icons/bi';
 import { useState, useEffect, useRef } from 'react';
 import { Draggable } from 'react-beautiful-dnd';
 import moment from 'moment';
+import { CountdownCircleTimer } from 'react-countdown-circle-timer';
 import {
   RootState,
   useAppDispatch,
@@ -33,6 +38,7 @@ const SingleTaskPc = ({
   taskId: string;
 }) => {
   const [deleteAnimation, setDeleteAnimation] = useState<boolean>(false);
+  const [deleteTimer, setDeleteTimer] = useState<boolean>(false);
   const [completeAnimation, setCompleteAnimation] = useState<boolean>(false);
   const [edit, setEdit] = useState<boolean>(false);
   const [editText, setEditText] = useState<string>(content.content);
@@ -87,7 +93,7 @@ const SingleTaskPc = ({
     setTimeout(() => {
       dispatch(deleteTodo({ todoId: content.id }));
       setDeleteAnimation(false);
-    }, 300);
+    }, 150);
   };
 
   const completionHandler = () => {
@@ -122,7 +128,7 @@ const SingleTaskPc = ({
     <Draggable key={content.id} draggableId={content.id} index={index}>
       {(provided) => (
         <div
-          className={`text-textLight ${
+          className={`text-textLight  ${
             content.id === taskId ? 'borderTop borderBottom' : ''
           } 
            hover:transition-transform hover:ease-in-out hover:duration-300 font-Comfortaa font-semibold my-2 px-5 py-2 min-h-[10rem] relative ${
@@ -181,8 +187,8 @@ const SingleTaskPc = ({
           )}
           <div className={` flex flex-col pl-10`}>
             {content.completed ? (
-              <IoCloseSharp
-                title="Remove from completed tasks"
+              <MdOutlineRemoveDone
+                title="Incomplete"
                 type="button"
                 onClick={completionHandler}
                 className="cursor-pointer mb-3 mr-2 scale-[1.3] hover:text-white hover:scale-150 transition-all ease-in-out"
@@ -219,12 +225,34 @@ const SingleTaskPc = ({
               />
             )}
 
-            <AiFillDelete
-              title="Delete"
-              type="submit"
-              onClick={deletionHandler}
-              className="cursor-pointer scale-[1.2] hover:text-white hover:scale-150 transition-all ease-in-out"
-            />
+            {deleteTimer ? (
+              <div
+                className="relative cursor-pointer w-fit h-fit"
+                onClick={() => setDeleteTimer(false)}
+              >
+                <BiX className="absolute h-4 w-4 top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]" />
+                <CountdownCircleTimer
+                  size={22}
+                  strokeWidth={3}
+                  isPlaying
+                  duration={1.5}
+                  trailColor={content.completed ? '#f87171' : '#4ade80'}
+                  colors="#ffff"
+                  onComplete={() => {
+                    setDeleteTimer(false);
+                    deletionHandler();
+                    return { shouldRepeat: true };
+                  }}
+                />
+              </div>
+            ) : (
+              <AiFillDelete
+                title="Delete"
+                type="submit"
+                onClick={() => setDeleteTimer(true)}
+                className="cursor-pointer scale-[1.3]  h-[1.3rem] hover:text-white hover:scale-150 transition-all ease-in-out"
+              />
+            )}
           </div>
         </div>
       )}

@@ -1,4 +1,5 @@
 import { ErrorMessage, Field } from 'formik';
+import { useEffect } from 'react';
 import {
   FieldPropsInterface,
   RootState,
@@ -18,6 +19,9 @@ function FormField({
   const dark = useAppSelector(
     (state: RootState) => state.darkModeReducer.darkMode,
   );
+  useEffect(() => {
+    document.getElementsByName('milestoneForm')[0]?.focus();
+  });
 
   if (type === 'textarea') {
     return (
@@ -43,6 +47,7 @@ function FormField({
       </div>
     );
   }
+
   return (
     <div className={className}>
       <label
@@ -52,7 +57,7 @@ function FormField({
         {label}
       </label>
       <Field
-        autoComplete={autoComplete}
+        autoComplete="off"
         className={classNameField}
         id={name}
         name={name}

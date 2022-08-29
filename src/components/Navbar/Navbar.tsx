@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
 import Image from 'next/image';
 import { IoPersonCircleSharp } from 'react-icons/io5';
+import Link from 'next/link';
 import SignIn from '../modals/SignIn/SignIn';
 import SignUp from '../modals/SignUp/SignUp';
 import { auth } from '../../container/firebase';
@@ -15,7 +16,6 @@ import {
 import { getTodo } from '../../redux/slices/features/getTodoSlice';
 import { toggleDarkMode } from '../../redux/slices/features/darkMode';
 import ResetPassword from '../modals/resetPassword/ResetPassword';
-import Link from 'next/link';
 import TaskForm from '../Forms/TaskForm/TaskForm';
 import CheckInternet from '../checkInternet/CheckInternet';
 const Navbar = () => {
