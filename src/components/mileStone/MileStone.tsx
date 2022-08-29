@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { BsPlusCircle, BsPlusCircleFill } from 'react-icons/bs';
 import useClickOutside from '../../hooks/useClickOutside';
 import {
@@ -13,7 +13,7 @@ import ProgressBar from '../progressBar/ProgressBar';
 const MileStone = ({ taskId }: { taskId: string }) => {
   const [addMilestone, setAddMilestone] = useState<boolean>(false);
   const [plusIcon, setPlusIcon] = useState<boolean>(false);
-
+  const [scroll, setScroll] = useState<boolean>(false);
   const todos: SingleTodoInterface[] = useAppSelector(
     (state: RootState) => state.getTodoReducer.todos,
   );
@@ -32,6 +32,19 @@ const MileStone = ({ taskId }: { taskId: string }) => {
     milestoneCompleted && todo.milestones.length > 0
       ? Math.round((milestoneCompleted / todo?.milestones?.length) * 100)
       : 0;
+
+  const scrollRefBottom = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    setScroll(false);
+  }, [taskId]);
+
+  useEffect(() => {
+    if (scroll) {
+      scrollRefBottom?.current?.scrollIntoView({ behavior: 'smooth' });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [todo?.milestones]);
 
   return (
     <div className="m-10 font-Comfortaa transition-all ">
@@ -60,13 +73,15 @@ const MileStone = ({ taskId }: { taskId: string }) => {
             <div>
               {todo?.milestones.map((milestone: any, i) => {
                 return (
-                  <MilestoneSinglePage
-                    key={milestone.id}
-                    taskId={taskId}
-                    milestone={milestone}
-                    index={i}
-                    todos={todos}
-                  />
+                  <div key={milestone.id}>
+                    <MilestoneSinglePage
+                      taskId={taskId}
+                      milestone={milestone}
+                      index={i}
+                      todos={todos}
+                    />
+                    <div ref={scrollRefBottom}></div>
+                  </div>
                 );
               })}
             </div>
@@ -92,6 +107,7 @@ const MileStone = ({ taskId }: { taskId: string }) => {
                   <BsPlusCircleFill
                     fill="white"
                     className="h-8 w-8  transition-all"
+                    onClick={() => setScroll(true)}
                   />
                 ) : (
                   <BsPlusCircle
@@ -99,6 +115,7 @@ const MileStone = ({ taskId }: { taskId: string }) => {
                     className={`h-8 w-8 transition-all ${
                       addMilestone ? 'hidden' : ''
                     }`}
+                    onClick={() => setScroll(true)}
                   />
                 )}
               </div>

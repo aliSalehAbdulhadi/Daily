@@ -2,15 +2,12 @@ import * as Yup from 'yup';
 import { Formik, Form } from 'formik';
 import { v4 as uuidv4 } from 'uuid';
 import { BsPlusCircleDotted } from 'react-icons/bs';
-import { useEffect, useState } from 'react';
-import { MdWifiOff } from 'react-icons/md';
-import { ClapSpinner } from 'react-spinners-kit';
+import {  useState } from 'react';
 import FormField from '../../FormField/FormField';
 import { addTodo } from '../../../redux/slices/features/addTodoSlice';
 import { setTodos } from '../../../redux/slices/features/getTodoSlice';
 import {
   RootState,
-  SingleTodoInterface,
   useAppDispatch,
   useAppSelector,
 } from '../../../interfaces/interfaces';
