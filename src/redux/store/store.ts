@@ -8,6 +8,8 @@ import addTodoSlice from '../slices/features/addTodoSlice';
 import getTodoSlice from '../slices/features/getTodoSlice';
 import darkMode from '../slices/features/darkMode';
 import resetPasswordSlice from '../slices/authentication/resetPasswordSlice';
+import disableSwiper from '../slices/features/disableSwiper';
+import disableDragDnd from '../slices/features/disableDragDnd';
 
 const rootReducer = combineReducers({
   signUpReducer: signUpSlice,
@@ -17,6 +19,8 @@ const rootReducer = combineReducers({
   getTodoReducer: getTodoSlice,
   darkModeReducer: darkMode,
   resetPasswordReducer: resetPasswordSlice,
+  disableSwiperReducer: disableSwiper,
+  disableDragReducer: disableDragDnd,
 });
 
 const persistConfig = {

@@ -13,6 +13,8 @@ import {
   SingleTodoInterface,
 } from '../../interfaces/interfaces';
 import Navbar from '../Navbar/Navbar';
+import { toggleDisableSwiper } from '../../redux/slices/features/disableSwiper';
+
 const OverLay = ({ children }: { children: ReactChild }) => {
   const dispatch = useAppDispatch();
 
@@ -20,7 +22,9 @@ const OverLay = ({ children }: { children: ReactChild }) => {
     (state: RootState) => state.getTodoReducer.todos,
   );
   const user = useAppSelector((state: RootState) => state.userReducer.userUid);
+
   const onDragEndHandler = (result: DropResult) => {
+    dispatch(toggleDisableSwiper(true));
     const { destination, source } = result;
     if (!destination) return;
 
@@ -48,7 +52,10 @@ const OverLay = ({ children }: { children: ReactChild }) => {
   };
 
   return (
-    <DragDropContext onDragEnd={onDragEndHandler}>
+    <DragDropContext
+      onDragEnd={onDragEndHandler}
+      onDragStart={() => dispatch(toggleDisableSwiper(false))}
+    >
       <Navbar />
       {children}
     </DragDropContext>

@@ -26,11 +26,11 @@ const Tasks = ({ id }: { id: any }) => {
       <Droppable droppableId="NewTodos">
         {(provided) => (
           <div
-            className="my-5  sm:m-10 flex flex-col items-center font-Comfortaa font-bold  w-full"
+            className="sm:m-10 flex flex-col items-center font-Comfortaa font-bold  w-full"
             ref={provided.innerRef}
             {...provided.droppableProps}
           >
-            <div className="flex items-center justify-center cursor-pointer">
+            <div className="items-center justify-center cursor-pointer hidden semiSm:flex">
               <button
                 onClick={() => setCompletedTask(false)}
                 className={`text-textDark mb-5 select-none py-3 px-7 rounded-tl rounded-bl text-sm semiSm:text-base whitespace-nowrap ${
@@ -90,6 +90,30 @@ const Tasks = ({ id }: { id: any }) => {
                       </div>
                     ) : null,
                   )}
+            </div>
+            <div className="flex items-center justify-center cursor-pointer sticky bottom-0 z-50 bg-secondaryColor w-full p-5 semiSm:hidden">
+              <div>
+                <button
+                  onClick={() => setCompletedTask(false)}
+                  className={`text-textDark  select-none py-3 px-7 rounded-tl rounded-bl text-sm semiSm:text-base whitespace-nowrap ${
+                    completedTask
+                      ? 'bg-primaryColor text-white'
+                      : ' bg-white text-primaryColor'
+                  }`}
+                >
+                  Pending Tasks
+                </button>
+                <button
+                  onClick={() => setCompletedTask(true)}
+                  className={`text-textDark  select-none py-3 px-5 rounded-tr rounded-br text-sm semiSm:text-base whitespace-nowrap ${
+                    completedTask
+                      ? 'bg-white text-primaryColor'
+                      : ' bg-primaryColor text-white'
+                  }`}
+                >
+                  Finished Tasks
+                </button>
+              </div>
             </div>
             <div className="semiSm:hidden">{provided.placeholder}</div>
           </div>

@@ -22,6 +22,6 @@
     "src/assets/svgExport/arrow.js,",
     "src/redux/store/store.ts",
     "src/components/Navbar/Navbar.tsx"
-, "src/components/swipeable/Swipeable.jsx"  ],
+, "src/components/swipeable/Swipeable.jsx", "src/redux/slices/features/disableDrag.js"  ],
   "exclude": ["node_modules"]
 }
