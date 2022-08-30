@@ -2,7 +2,7 @@ import * as Yup from 'yup';
 import { Formik, Form } from 'formik';
 import { v4 as uuidv4 } from 'uuid';
 import { BsPlusCircleDotted } from 'react-icons/bs';
-import {  useState } from 'react';
+import { useState } from 'react';
 import FormField from '../../FormField/FormField';
 import { addTodo } from '../../../redux/slices/features/addTodoSlice';
 import { setTodos } from '../../../redux/slices/features/getTodoSlice';
@@ -74,15 +74,13 @@ const TaskForm = () => {
     >
       {({}) => (
         <Form
-          className={`${
-            dark ? 'bg-primaryColor' : 'bg-primaryLight'
-          } w-full  px-10 pt-3 ${
+          className={` ${dark ? 'bg-primaryColor' : 'bg-primaryLight'} pt-3 ${
             dark ? 'text-textDark' : 'text-textLight'
           } flex items-center justify-center select-none h-fit`}
         >
           {user ? (
-            <div className="w-full   flex flex-col mb-5 sm:mb-0 ml-7">
-              <div className="flex items-center justify-center  w-full relative">
+            <div className=" flex flex-col mb-5 sm:mb-0 ml-7 semiSm:ml-0 xl:w-[40%] md:w-[50%] w-[70%]">
+              <div className="flex items-center justify-center relative w-full">
                 <div className="absolute top-7 left-[-115px]">
                   <DropDownMenu iconValue={(e: string) => setIconValue(e)} />
                 </div>
@@ -95,8 +93,8 @@ const TaskForm = () => {
                   placeholder="Enter Your Task"
                   className={`${
                     dark ? 'bg-primaryColor' : 'bg-primaryLight'
-                  } rounded outline-none w-full md:text-base text-xs mr-5`}
-                  classNameField={`my-1  p-5 outline-none block w-full shadow-sm sm:text-sm border-gray-300 rounded py-3  mt-3 font-Comfortaa w-full  ${
+                  } rounded outline-none md:text-base text-xs mr-5 w-full`}
+                  classNameField={`my-1  p-5 outline-none block shadow-sm sm:text-sm border-gray-300 rounded py-3  mt-3 font-Comfortaa w-full ${
                     dark ? 'bg-textDark' : 'bg-secondaryLight'
                   } ${
                     dark ? 'text-textLight' : 'text-textDark'

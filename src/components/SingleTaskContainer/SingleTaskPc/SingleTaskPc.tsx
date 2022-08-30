@@ -93,7 +93,7 @@ const SingleTaskPc = ({
     setTimeout(() => {
       dispatch(deleteTodo({ todoId: content.id }));
       setDeleteAnimation(false);
-    }, 150);
+    }, 250);
   };
 
   const completionHandler = () => {
@@ -112,15 +112,15 @@ const SingleTaskPc = ({
     }, 300);
   };
 
-  const setCardColorByTypeHandler = () => {
+  const setCardColorByTypeHandler = (isTaskCard: boolean) => {
     if (content.icon === 'personal') {
-      return 'bg-green-400';
+      return isTaskCard ? 'bg-green-400' : '#4ade80';
     }
     if (content.icon === 'work') {
-      return 'bg-blue-400';
+      return isTaskCard ? 'bg-blue-400' : '#60a5fa';
     }
     if (content.icon === 'fun') {
-      return 'bg-purple-400';
+      return isTaskCard ? 'bg-purple-400' : '#c084fc';
     }
   };
 
@@ -134,7 +134,7 @@ const SingleTaskPc = ({
            hover:transition-transform hover:ease-in-out hover:duration-300 font-Comfortaa font-semibold my-2 px-5 py-2 min-h-[10rem] relative ${
              content.completed
                ? 'bg-red-400 shadow-2xl'
-               : setCardColorByTypeHandler()
+               : setCardColorByTypeHandler(true)
            } flex justify-between flex-row items-center rounded ease-in-out
             ${
               deleteAnimation
@@ -233,15 +233,19 @@ const SingleTaskPc = ({
                 <BiX className="absolute h-4 w-4 top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]" />
                 <CountdownCircleTimer
                   size={22}
-                  strokeWidth={3}
+                  strokeWidth={2}
                   isPlaying
                   duration={1.5}
-                  trailColor={content.completed ? '#f87171' : '#4ade80'}
+                  // @ts-ignore
+                  trailColor={
+                    content.completed
+                      ? '#f87171'
+                      : setCardColorByTypeHandler(false)
+                  }
                   colors="#ffff"
                   onComplete={() => {
                     setDeleteTimer(false);
                     deletionHandler();
-                    return { shouldRepeat: true };
                   }}
                 />
               </div>

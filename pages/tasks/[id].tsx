@@ -10,14 +10,26 @@ import {
   RootState,
   SingleTodoInterface,
   useAppSelector,
+  useAppDispatch,
 } from '../../src/interfaces/interfaces';
+import { deleteMilestoneLocally } from '../../src/redux/slices/features/getTodoSlice';
+import { deleteMilestone } from '../../src/redux/slices/features/MilestonesSlice';
 
 const MileStone = () => {
   const router = useRouter();
   const { id } = router.query;
   const [addMilestone, setAddMilestone] = useState<boolean>(false);
-  const [plusIcon, setPlusIcon] = useState<boolean>(false);
+  const [deleteAnimation, setDeleteAnimation] = useState<{
+    animation: boolean;
+    deletedMilestoneId: string;
+  }>({
+    animation: false,
+    deletedMilestoneId: '',
+  });
 
+  const [plusIcon, setPlusIcon] = useState<boolean>(false);
+  const dispatch = useAppDispatch();
+  const user = useAppSelector((state: RootState) => state.userReducer.userUid);
   const todos: SingleTodoInterface[] = useAppSelector(
     (state: RootState) => state.getTodoReducer.todos,
   );
@@ -39,6 +51,33 @@ const MileStone = () => {
   const dark = useAppSelector(
     (state: RootState) => state.darkModeReducer.darkMode,
   );
+
+  const deleteMilestoneHandler = (milestone: any) => {
+    setDeleteAnimation({
+      animation: true,
+      deletedMilestoneId: milestone.id,
+    });
+    setTimeout(() => {
+      setDeleteAnimation({
+        animation: false,
+        deletedMilestoneId: milestone.id,
+      });
+      dispatch(
+        deleteMilestone({
+          milestone: milestone,
+          userUid: user,
+          todoId: todo?.id,
+          allTodos: todos,
+        }),
+      );
+      dispatch(
+        deleteMilestoneLocally({
+          milestoneId: milestone?.id,
+          todoId: todo?.id,
+        }),
+      );
+    }, 500);
+  };
 
   return (
     <div
@@ -74,16 +113,15 @@ const MileStone = () => {
                 {todo?.milestones.map((milestone: any, i) => {
                   return (
                     <Swipeable
-                      key={milestone.id}
-                      taskId={id}
-                      milestone={milestone}
-                      todos={todos}
+                      key={milestone?.id}
+                      handler={() => deleteMilestoneHandler(milestone)}
                     >
                       <MilestoneSinglePage
                         taskId={id}
                         milestone={milestone}
                         index={i}
                         todos={todos}
+                        setDeleteAnimationMobile={deleteAnimation}
                       />
                     </Swipeable>
                   );

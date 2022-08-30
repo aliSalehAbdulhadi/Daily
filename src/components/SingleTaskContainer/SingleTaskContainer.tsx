@@ -1,5 +1,6 @@
 import useWindowSize from '../../hooks/useWindowsSize';
 import { SingleTodoInterface } from '../../interfaces/interfaces';
+
 import SingleTaskMobile from './SingleTaskMobile/SingleTaskMobile';
 import SingleTaskPc from './SingleTaskPc/SingleTaskPc';
 
@@ -13,6 +14,7 @@ const SingleTaskContainer = ({
   taskId: string;
 }) => {
   const width = useWindowSize();
+
   return (
     <div>
       {width >= 840 ? (

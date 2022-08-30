@@ -5,9 +5,13 @@ import {
   BsCheckCircleFill,
   BsFillXCircleFill,
 } from 'react-icons/bs';
+import { CountdownCircleTimer } from 'react-countdown-circle-timer';
+import { BiX } from 'react-icons/bi';
+
 import useClickOutside from '../../hooks/useClickOutside';
 import {
   RootState,
+  singleMilestoneInterface,
   SingleTodoInterface,
   useAppDispatch,
   useAppSelector,
@@ -28,15 +32,22 @@ const MilestoneSinglePage = ({
   milestone,
   index,
   todos,
+  setDeleteAnimationMobile,
 }: {
   taskId: any;
-  milestone: any;
+  milestone: singleMilestoneInterface;
   index: number;
   todos: SingleTodoInterface[];
+  setDeleteAnimationMobile?: {
+    animation: boolean;
+    deletedMilestoneId: string;
+  };
 }) => {
   const [edit, setEdit] = useState<boolean>(false);
   const [editText, setEditText] = useState<string>(milestone?.milestoneContent);
   const [deleteAnimation, setDeleteAnimation] = useState<boolean>(false);
+  const [deleteTimer, setDeleteTimer] = useState<boolean>(false);
+
   const [initialAnimation, setInitialAnimation] = useState<boolean>(false);
   const [deleteIcon, setDeleteIcon] = useState<boolean>(false);
   const [completeIcon, setCompleteIcon] = useState<boolean>(false);
@@ -166,7 +177,14 @@ const MilestoneSinglePage = ({
                 <div
                   className={`${
                     initialAnimation ? 'singleMilestoneUnderline' : ''
-                  } w-full ${deleteAnimation ? 'deleteUnderline' : ''} `}
+                  } w-full ${
+                    deleteAnimation ||
+                    (setDeleteAnimationMobile?.animation &&
+                      setDeleteAnimationMobile.deletedMilestoneId ===
+                        milestone?.id)
+                      ? 'deleteUnderline'
+                      : ''
+                  } `}
                 ></div>
               </div>
             )}
@@ -186,18 +204,40 @@ const MilestoneSinglePage = ({
                 <BsCheckCircle className="h-[1.15rem]" />
               )}
             </button>
-            <button
-              onMouseEnter={() => setDeleteIcon(true)}
-              onMouseLeave={() => setDeleteIcon(false)}
-              onClick={deleteMilestoneHanlder}
-              className="container w-fit h-fit mt-2"
-            >
-              {deleteIcon ? (
-                <AiFillDelete className="h-5" />
-              ) : (
-                <AiOutlineDelete className="h-5 " />
-              )}
-            </button>
+
+            {deleteTimer ? (
+              <div
+                className="relative cursor-pointer w-fit h-fit mt-2 mb-3 "
+                onClick={() => setDeleteTimer(false)}
+              >
+                <BiX className="absolute h-4 w-4 top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]" />
+                <CountdownCircleTimer
+                  size={20}
+                  strokeWidth={1}
+                  isPlaying
+                  duration={1.5}
+                  trailColor="#427676"
+                  colors="#ffff"
+                  onComplete={() => {
+                    setDeleteTimer(false);
+                    deleteMilestoneHanlder();
+                  }}
+                />
+              </div>
+            ) : (
+              <button
+                onMouseEnter={() => setDeleteIcon(true)}
+                onMouseLeave={() => setDeleteIcon(false)}
+                className="container w-fit h-fit mt-2"
+                onClick={() => setDeleteTimer(true)}
+              >
+                {deleteIcon ? (
+                  <AiFillDelete className="h-5" />
+                ) : (
+                  <AiOutlineDelete className="h-5 " />
+                )}
+              </button>
+            )}
           </div>
           <div className="flex items-center justify-center h-full ml-3 mr-1 semiSm:hidden">
             <button

@@ -247,9 +247,9 @@ input::-webkit-input-placeholder {
 }
 
 .swiper {
-  background-color: red;
+  background-color: #d70040;
   position: relative;
-  border: 8px solid;
+  border: 5px solid;
   overflow: hidden;
 }
 
@@ -258,8 +258,8 @@ input::-webkit-input-placeholder {
   background-image: url('/svg/delete.svg');
   background-repeat: no-repeat;
   position: absolute;
-  left: 250px;
-  top: 50px;
+  transform: translate(-17%, -65%);
+  left: 100%;
   height: 100%;
   width: 100%;
 }
@@ -267,56 +267,44 @@ input::-webkit-input-placeholder {
 .swiper-slide-active {
 }
 
-.G1 {
+.M {
   transform: translate(20px, 85px) rotate(-30deg);
 }
 
-.e1 {
+.I {
   transform: translate(13px, 60px) rotate(-25deg);
 }
 
-.e2 {
+.L {
   transform: translate(6px, 40px) rotate(-20deg);
 }
 
-.k1 {
+.E1 {
   transform: translate(3px, 23px) rotate(-15deg);
 }
 
-.s1 {
+.S1 {
   transform: translate(2px, 14px) rotate(-10deg);
 }
 
-.f {
+.T {
   transform: translate(1px, 8px) rotate(-5deg);
 }
 
-.o {
+.O {
   transform: translate(0px, 5px) rotate(0deg);
 }
 
-.r {
+.N {
   transform: translate(-1px, 8px) rotate(5deg);
 }
 
-.G2 {
+.E2 {
   transform: translate(-2px, 14px) rotate(10deg);
 }
 
-.e3 {
+.S2 {
   transform: translate(-3px, 25px) rotate(15deg);
-}
-
-.e4 {
-  transform: translate(-6px, 40px) rotate(20deg);
-}
-
-.k2 {
-  transform: translate(-14px, 60px) rotate(25deg);
-}
-
-.s2 {
-  transform: translate(-20px, 80px) rotate(30deg);
 }
 
 .curvedTextContainer {

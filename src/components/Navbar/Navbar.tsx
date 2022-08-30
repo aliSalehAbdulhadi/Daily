@@ -86,7 +86,7 @@ const Navbar = () => {
         </div>
       </div>
 
-      <div className="hidden sm:block w-[30%]">
+      <div className="hidden sm:block w-full  ">
         <TaskForm />
       </div>
 
