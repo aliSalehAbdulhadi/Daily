@@ -141,7 +141,7 @@ const MilestoneSinglePage = ({
       <div className="flex justify-between my-5">
         <div className="flex justify-between items-end w-full">
           <div className="w-[90%]  cursor-pointer ">
-            {edit ? (
+            {edit && !milestone.milestoneCompleted ? (
               <div className="border-b-[1px]" ref={inputRef}>
                 <textarea
                   ref={editRef}

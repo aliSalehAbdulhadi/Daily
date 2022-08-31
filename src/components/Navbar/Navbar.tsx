@@ -3,9 +3,8 @@ import { useEffect, useState } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
 import Image from 'next/image';
 import { IoPersonCircleSharp } from 'react-icons/io5';
+import { BsList } from 'react-icons/bs';
 import Link from 'next/link';
-import SignIn from '../modals/SignIn/SignIn';
-import SignUp from '../modals/SignUp/SignUp';
 import { auth } from '../../container/firebase';
 import { setUserUid } from '../../redux/slices/authentication/userSlice';
 import {
@@ -15,9 +14,11 @@ import {
 } from '../../interfaces/interfaces';
 import { getTodo } from '../../redux/slices/features/getTodoSlice';
 import { toggleDarkMode } from '../../redux/slices/features/darkMode';
-import ResetPassword from '../modals/resetPassword/ResetPassword';
 import TaskForm from '../Forms/TaskForm/TaskForm';
 import CheckInternet from '../checkInternet/CheckInternet';
+import UserModalPc from '../modals/UserModalPc/UserModalPc';
+import UserModalMobile from '../modals/userModalMobile/UserModalMobile';
+
 const Navbar = () => {
   const darkModeFunction = (): any => {
     if (typeof window !== 'undefined') {
@@ -25,17 +26,17 @@ const Navbar = () => {
       return localDarkOption === 'true' ? true : false;
     }
   };
-  const [signIn, setSignIn] = useState<boolean>(false);
-  const [signUp, setSignUp] = useState<boolean>(false);
-  const [resetPassword, setResetPassword] = useState<boolean>(false);
-  const [darkMode, setSetDarkMode] = useState<boolean>(darkModeFunction);
 
+  const [openUserModalPc, setOpenUserModalPc] = useState<boolean>(false);
+  const [openUserModalMobile, setOpenUserModalMobile] =
+    useState<boolean>(false);
+
+  const [darkMode, setSetDarkMode] = useState<boolean>(darkModeFunction);
   const dispatch = useAppDispatch();
   const user = useAppSelector((state: RootState) => state.userReducer.userUid);
   const dark = useAppSelector(
     (state: RootState) => state.darkModeReducer.darkMode,
   );
-
   useEffect(() => {
     onAuthStateChanged(auth, (user) => dispatch(setUserUid(user?.uid)));
     dispatch(getTodo({ userUid: user }));
@@ -48,6 +49,11 @@ const Navbar = () => {
     dispatch(toggleDarkMode(darkMode));
   }, [darkMode, dispatch]);
 
+  useEffect(() => {
+    setOpenUserModalPc(false);
+    setOpenUserModalMobile(false);
+  }, [user]);
+  console.log(openUserModalMobile);
   return (
     <nav
       className={`${dark ? 'bg-primaryColor' : 'bg-primaryLight'} ${
@@ -104,50 +110,30 @@ const Navbar = () => {
           />
           <div className="bg-icon w-8 h-6 bg-no-repeat absolute pointer-events-none top-[-1px] right-[-12px] sm:top-[-1.2px] sm:right-[-14px] sm:w-8 sm:h-6" />
         </div>
-        <div>
-          {!user ? (
-            <div>
-              <button
-                className="transition-all duration-300 ease-in-out hover:translate-x-[-3px]"
-                onClick={() => setSignUp(true)}
-              >
-                Sign Up
-              </button>
-              <span className="px-2">|</span>
-              <button
-                className="transition-all duration-300 ease-in-out hover:translate-x-[3px]"
-                onClick={() => setSignIn(true)}
-              >
-                Sign In
-              </button>
-            </div>
-          ) : (
-            <Link href={`/users `}>
-              <div className="flex border rounded-full py-1 pl-2 pr-1 transition-all ease-in-out duration-200 cursor-pointer hover:shadow-lg relative">
-                <button>
-                  <img
-                    className="h-5 mr-2"
-                    src="/svg/burger.svg"
-                    alt="burger icon"
-                  />
-                </button>
-                <button>
-                  <IoPersonCircleSharp size={35} color="#696969" />
-                </button>
-              </div>
-            </Link>
-          )}
+        <div
+          onClick={() => {
+            setOpenUserModalPc(true);
+            setOpenUserModalMobile(true);
+          }}
+          className="flex items-center justify-center border rounded-full py-1 pl-2 pr-1 transition-all ease-in-out duration-200 cursor-pointer hover:shadow-lg relative"
+        >
+          <BsList
+            className="mr-[.20rem]"
+            size={20}
+            color={dark ? 'white' : 'black'}
+          />
+          <IoPersonCircleSharp size={35} color={dark ? 'white' : '#696969'} />
+          <div className="absolute top-14 right-0 z-50 hidden semiSm:block">
+            <UserModalPc open={openUserModalPc} setOpen={setOpenUserModalPc} />
+          </div>
         </div>
       </div>
-      <div className="absolute top-0 left-0"></div>
-      <SignIn
-        open={signIn}
-        setOpen={setSignIn}
-        setSignUp={setSignUp}
-        setResetPassword={setResetPassword}
-      />
-      <SignUp open={signUp} setOpen={setSignUp} setSignIn={setSignIn} />
-      <ResetPassword open={resetPassword} setOpen={setResetPassword} />
+      <div className="fixed top-0 right-0  z-50 semiSm:hidden">
+        <UserModalMobile
+          open={openUserModalMobile}
+          setOpen={setOpenUserModalMobile}
+        />
+      </div>
     </nav>
   );
 };

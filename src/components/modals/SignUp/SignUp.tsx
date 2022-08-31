@@ -131,7 +131,7 @@ const SignUp = ({ open, setOpen, setSignIn }: SignUpInterface) => {
             <div className="flex justify-between items-center mt-5">
               {pending ? (
                 <button
-                  className="flex items-center justify-center bg-primaryColor py-3 px-3 md:px-7 rounded text-white ml-2 text-xs md:text-sm"
+                  className="flex items-center justify-center bg-primaryColor py-3 px-3 rounded text-white ml-2 text-xs md:text-sm"
                   type="submit"
                 >
                   <FaSpinner className="mr-3 animate-spin" />
@@ -148,7 +148,7 @@ const SignUp = ({ open, setOpen, setSignIn }: SignUpInterface) => {
               <div className="flex flex-col text-xs md:text-sm">
                 <span>Already have an account?</span>
                 <button
-                  className="mt-1 transition-all duration-300 ease-in-out hover:translate-y-[2px]"
+                  className="mt-1 animate-pulse"
                   type="button"
                   onClick={() => {
                     setOpen(false);

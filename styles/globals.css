@@ -246,6 +246,84 @@ input::-webkit-input-placeholder {
   }
 }
 
+.userModalEnterPc {
+  animation: userModalEnterPcAnimation 0.2s linear;
+}
+
+@keyframes userModalEnterPcAnimation {
+  from {
+    transform: translateX(10rem);
+  }
+  to {
+    transform: translateX(0rem);
+  }
+}
+
+.userModalExitPc {
+  animation: userModalExitPcAnimation 0.3s linear;
+}
+
+@keyframes userModalExitPcAnimation {
+  from {
+    transform: translateX(0rem);
+  }
+  to {
+    transform: translateX(-10rem);
+  }
+}
+
+.userModalEnter {
+  animation: userModalEnterAnimation 0.2s linear;
+}
+
+@keyframes userModalEnterAnimation {
+  from {
+    transform: translateY(-10rem);
+  }
+  to {
+    transform: translateY(0rem);
+  }
+}
+
+.userModalExit {
+  animation: userModalExitAnimation 0.21s linear;
+}
+
+@keyframes userModalExitAnimation {
+  from {
+    transform: translateY(0rem);
+  }
+  to {
+    transform: translateY(-10rem);
+  }
+}
+
+.userModalLayoutEnter {
+  animation: userModalLayoutEnterAnimation 0.2s linear;
+}
+
+@keyframes userModalLayoutEnterAnimation {
+  0% {
+    margin-top: 103%;
+  }
+  100% {
+    margin-top: 0;
+  }
+}
+
+.userModalLayoutExit {
+  animation: userModalLayoutExitAnimation 0.2s linear;
+}
+
+@keyframes userModalLayoutExitAnimation {
+  0% {
+    margin-top: 0;
+  }
+  100% {
+    margin-top: 103%;
+  }
+}
+
 .swiper {
   background-color: #d70040;
   position: relative;
