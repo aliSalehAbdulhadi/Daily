@@ -24,7 +24,7 @@ const Swipeable = ({
   const [bgColor, setBgColor] = useState(dark ? '#427676' : '#56a691');
   const dispatch = useAppDispatch();
   const handlers = useSwipeable({
-    delta: { left: 310 },
+    delta: { left: 280 },
     swipeDuration: 3000,
     onSwipedLeft: () => {
       dispatch(toggleDisableDragDnd(true));

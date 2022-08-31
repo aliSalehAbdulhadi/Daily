@@ -111,7 +111,7 @@ const MileStoneForm = ({ taskId }: { taskId: any }) => {
               </div>
             </div>
           ) : (
-            <h1 className="bg-secondaryColor py-4 px-10 rounded-md text-white">
+            <h1 className="bg-secondaryColor py-4 px-10 rounded-md text-white ">
               Please login to add new tasks.
             </h1>
           )}

@@ -46,24 +46,19 @@ const ChangeUserName = ({
         }}
       >
         {({}) => (
-          <Form>
+          <Form className="">
             <FormField
               autoComplete="userName"
               className="mb-3"
               label=""
               name="username"
               type="userName"
-              placeholder="Enter user name"
+              placeholder="Enter new username"
               value="userName"
               classNameField="p-5 outline-none block w-full shadow-sm sm:text-sm border-gray-300 rounded py-3 font-Comfortaa text-textLight"
             />
 
-            <div className="py-4 h-4 w-full flex items-center justify-center">
-              <h1 className="text-sm">
-                After submitting, refresh to see the changes.
-              </h1>
-            </div>
-            <div className="flex justify-center items-center mt-7">
+            <div className="flex justify-center items-center mt-7 px-[5rem] py-5">
               {animation ? (
                 <button
                   className="flex items-center justify-center bg-primaryColor py-3 px-5 md:px-5 rounded text-white  text-xs md:text-sm"

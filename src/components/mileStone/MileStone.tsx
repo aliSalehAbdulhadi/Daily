@@ -44,7 +44,7 @@ const MileStone = ({ taskId }: { taskId: string }) => {
       scrollRefBottom?.current?.scrollIntoView({ behavior: 'smooth' });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [todo?.milestones]);
+  }, [todo?.milestones.length]);
 
   return (
     <div className="m-10 font-Comfortaa transition-all ">

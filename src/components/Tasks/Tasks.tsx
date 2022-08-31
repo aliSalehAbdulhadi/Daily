@@ -115,7 +115,6 @@ const Tasks = ({ id }: { id: any }) => {
                 </button>
               </div>
             </div>
-            <div className="semiSm:hidden">{provided.placeholder}</div>
           </div>
         )}
       </Droppable>
