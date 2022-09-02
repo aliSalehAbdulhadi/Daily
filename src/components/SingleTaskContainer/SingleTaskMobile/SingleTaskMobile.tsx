@@ -1,6 +1,10 @@
 import { SyntheticEvent } from 'react';
 import { GoCheck } from 'react-icons/go';
 import { MdOutlineRemoveDone } from 'react-icons/md';
+import { TbHandClick } from 'react-icons/tb';
+import { CgMoveTask } from 'react-icons/cg';
+import { IoMdArrowDropright } from 'react-icons/io';
+import { BiListPlus, BiListUl } from 'react-icons/bi';
 import { useState, useEffect, useRef } from 'react';
 import { Draggable } from 'react-beautiful-dnd';
 import moment from 'moment';
@@ -146,17 +150,17 @@ const SingleTaskMobile = ({
         >
           <Swipeable handler={deletionHandler}>
             <div
-              className={` flex text-textLight
+              className={`taskMobileEnter flex text-textLight
           font-Comfortaa font-semibold  relative ${
             content.completed ? 'bg-red-400' : setCardColorByTypeHandler()
           }  rounded text-sm ease-in-out
             ${
               deleteAnimation
-                ? 'translate-x-[-35rem] transition-all ease-in-out'
+                ? 'translate-x-[-35rem] transition-all duration-300 ease-in-out'
                 : ''
             } ${completeAnimation ? 'animate-bounce' : ''} `}
             >
-              <div className="flex flex-col justify-between my-0 px-5 py-2 min-h-[10rem] w-[75%]">
+              <div className="flex flex-col justify-between my-0 px-5 py-2 min-h-[10rem] w-[75%] mobileTaskCardBoxShadow">
                 <div className="mb-3 ">
                   <TaskCardIcons
                     icon={content?.icon}
@@ -229,27 +233,27 @@ const SingleTaskMobile = ({
                 </div>
               </div>
               <Link href={`/tasks/${content?.id}`}>
-                <div className=" w-[25%] flex flex-col items-center justify-center mr-1">
-                  <div className="scale-[.8]">
-                    <ProgressBar percentage={percentage} />
+                {todo && todo?.milestones?.length > 0 ? (
+                  <div className=" w-[25%] flex flex-col items-center justify-center  bg-[#64f5c56c] rounded-tr rounded-br">
+                    <div className="scale-[.8]">
+                      <ProgressBar percentage={percentage} />
+                    </div>
+                    <div className="flex items-center">
+                      <h1 className="">{milestoneCompleted}</h1>
+                      <span className="scale-[.80]">/</span>
+                      <span className="">{content.milestones.length}</span>
+                    </div>
                   </div>
-                  <div className="flex items-center">
-                    <h1 className="font-bold text-[.65rem]">Milestones:</h1>
-                    <span className="ml-1">{content.milestones.length}</span>
+                ) : (
+                  <div className="flex items-center justify-end w-[25%] bg-[#64f5c56c] pr-2">
+                    <IoMdArrowDropright
+                      className="absolute right-6 opacity-90"
+                      width="fit"
+                      size={30}
+                    />
+                    <BiListUl className="opacity-80" size={30}></BiListUl>
                   </div>
-                  {/* <div className="curvedTextContainer">
-                <span className="M">M</span>
-                <span className="I">I</span>
-                <span className="L">L</span>
-                <span className="E1">E</span>
-                <span className="S1">S</span>
-                <span className="T">T</span>
-                <span className="O">O</span>
-                <span className="N">N</span>
-                <span className="E2">E</span>
-                <span className="S2">S</span>
-              </div> */}
-                </div>
+                )}
               </Link>
             </div>
           </Swipeable>
