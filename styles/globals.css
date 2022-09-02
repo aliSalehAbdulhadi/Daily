@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -224,6 +225,11 @@ input::-webkit-input-placeholder {
   width: 100%;
 }
 
+.mobileTaskCardBoxShadow {
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.5);
+  clip-path: inset(0px -15px 0px 0px);
+}
+
 @keyframes borderAnimation {
   from {
     width: 0%;
@@ -247,15 +253,18 @@ input::-webkit-input-placeholder {
 }
 
 .userModalEnterPc {
-  animation: userModalEnterPcAnimation 0.2s linear;
+  position: absolute;
+  right: 8px;
+  animation: userModalEnterPcAnimation 0.3s linear;
 }
 
 @keyframes userModalEnterPcAnimation {
-  from {
-    transform: translateX(10rem);
+  0% {
+    right: -100px;
   }
-  to {
-    transform: translateX(0rem);
+
+  100% {
+    right: 8px;
   }
 }
 
@@ -268,12 +277,12 @@ input::-webkit-input-placeholder {
     transform: translateX(0rem);
   }
   to {
-    transform: translateX(-10rem);
+    transform: translateX(10rem);
   }
 }
 
 .userModalEnter {
-  animation: userModalEnterAnimation 0.2s linear;
+  animation: userModalEnterAnimation 0.25s linear;
 }
 
 @keyframes userModalEnterAnimation {
@@ -286,7 +295,7 @@ input::-webkit-input-placeholder {
 }
 
 .userModalExit {
-  animation: userModalExitAnimation 0.21s linear;
+  animation: userModalExitAnimation 0.25s linear;
 }
 
 @keyframes userModalExitAnimation {
@@ -299,7 +308,7 @@ input::-webkit-input-placeholder {
 }
 
 .userModalLayoutEnter {
-  animation: userModalLayoutEnterAnimation 0.2s linear;
+  animation: userModalLayoutEnterAnimation 0.25s linear;
 }
 
 @keyframes userModalLayoutEnterAnimation {
@@ -312,7 +321,7 @@ input::-webkit-input-placeholder {
 }
 
 .userModalLayoutExit {
-  animation: userModalLayoutExitAnimation 0.2s linear;
+  animation: userModalLayoutExitAnimation 0.25s linear;
 }
 
 @keyframes userModalLayoutExitAnimation {
@@ -321,6 +330,19 @@ input::-webkit-input-placeholder {
   }
   100% {
     margin-top: 103%;
+  }
+}
+
+.taskMobileEnter {
+  animation: taskMobileEnter 0.25s linear;
+}
+
+@keyframes taskMobileEnter {
+  from {
+    transform: translateX(35rem);
+  }
+  to {
+    transform: translateX(0rem);
   }
 }
 

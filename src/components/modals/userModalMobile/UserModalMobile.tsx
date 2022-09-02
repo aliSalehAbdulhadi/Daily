@@ -24,20 +24,21 @@ const UserModalMobile = ({
   const userModalRef = useClickOutside(() => {
     setOpen(false);
   });
-
   const userName = useAppSelector(
     (state: RootState) => state.getTodoReducer.userName,
   );
   const user = useAppSelector((state: RootState) => state.userReducer.userUid);
   const bodyNoScroll = document.querySelector('body');
+
   useEffect(() => {
     if (!bodyNoScroll) return;
     open
-      ? (bodyNoScroll.style.overflow = 'hidden')
-      : (bodyNoScroll.style.overflow = 'visible');
+      ? (bodyNoScroll.style.overflowY = 'hidden')
+      : (bodyNoScroll.style.overflowY = 'visible');
   }, [open, bodyNoScroll]);
+
   return (
-    <div ref={userModalRef} className={` ${open ? 'block' : 'hidden'}`}>
+    <div ref={userModalRef} className={` ${open ? 'block' : 'hidden'} `}>
       <div
         className={`userModalEnter ${
           closeAnimation ? 'userModalExit' : ''
@@ -121,7 +122,7 @@ const UserModalMobile = ({
           setTimeout(() => {
             setOpen(false);
             setCloseAnimation(false);
-          }, 200);
+          }, 250);
           setCloseAnimation(true);
         }}
         className={`bg-black blur-sm opacity-30 min-h-[100vh] userModalLayoutEnter ${

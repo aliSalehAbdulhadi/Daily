@@ -18,6 +18,7 @@ import TaskForm from '../Forms/TaskForm/TaskForm';
 import CheckInternet from '../checkInternet/CheckInternet';
 import UserModalPc from '../modals/UserModalPc/UserModalPc';
 import UserModalMobile from '../modals/userModalMobile/UserModalMobile';
+import useClickOutside from '../../hooks/useClickOutside';
 
 const Navbar = () => {
   const darkModeFunction = (): any => {
@@ -30,6 +31,7 @@ const Navbar = () => {
   const [openUserModalPc, setOpenUserModalPc] = useState<boolean>(false);
   const [openUserModalMobile, setOpenUserModalMobile] =
     useState<boolean>(false);
+  const [closeAnimation, setCloseAnimation] = useState<boolean>(false);
 
   const [darkMode, setSetDarkMode] = useState<boolean>(darkModeFunction);
   const dispatch = useAppDispatch();
@@ -53,7 +55,14 @@ const Navbar = () => {
     setOpenUserModalPc(false);
     setOpenUserModalMobile(false);
   }, [user]);
-  console.log(openUserModalMobile);
+
+  const userModalRef = useClickOutside(() => {
+    setCloseAnimation(true);
+    setTimeout(() => {
+      setOpenUserModalPc(false);
+      setCloseAnimation(false);
+    }, 300);
+  });
   return (
     <nav
       className={`${dark ? 'bg-primaryColor' : 'bg-primaryLight'} ${
@@ -111,6 +120,7 @@ const Navbar = () => {
           <div className="bg-icon w-8 h-6 bg-no-repeat absolute pointer-events-none top-[-1px] right-[-12px] sm:top-[-1.2px] sm:right-[-14px] sm:w-8 sm:h-6" />
         </div>
         <div
+          ref={userModalRef}
           onClick={() => {
             setOpenUserModalPc(true);
             setOpenUserModalMobile(true);
@@ -124,7 +134,10 @@ const Navbar = () => {
           />
           <IoPersonCircleSharp size={35} color={dark ? 'white' : '#696969'} />
           <div className="absolute top-14 right-0 z-50 hidden semiSm:block">
-            <UserModalPc open={openUserModalPc} setOpen={setOpenUserModalPc} />
+            <UserModalPc
+              closeAnimation={closeAnimation}
+              open={openUserModalPc}
+            />
           </div>
         </div>
       </div>

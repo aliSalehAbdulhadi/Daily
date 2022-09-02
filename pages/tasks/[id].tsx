@@ -81,11 +81,11 @@ const MileStone = () => {
 
   return (
     <div
-      className={`font-Comfortaa transition-all text-sm ${
+      className={` transition-all text-sm font-Comfortaa ${
         dark ? 'bg-secondaryColor' : 'bg-secondaryLight'
       }`}
     >
-      <div className="flex flex-col font-Comfortaa ">
+      <div className="flex flex-col">
         <div
           className={`${
             dark ? 'bg-primaryColor' : 'bg-secondaryLight'
@@ -97,18 +97,32 @@ const MileStone = () => {
                 dark ? 'bg-secondaryColor' : 'bg-primaryColor'
               }`}
             >
-              <div className=" w-[85%] sm:w-[95%]">
+              <div className=" w-[80%] sm:w-[95%]">
                 <h1 className="text-textDark mr-2 ml-3">{todo?.content}</h1>
               </div>
               <div className="sm:w-[7%]">
                 <div className="h-[3rem] w-[3rem] lg:h-[4rem] lg:w-[4rem]">
                   {todo && todo?.milestones.length > 0 ? (
-                    <ProgressBar percentage={percentage} />
+                    <div className="relative">
+                      <ProgressBar percentage={percentage} />
+                      <div className="absolute top-[46px] right-[43px] text-xs">
+                        <span>{milestoneCompleted}</span>
+                        <span className="text-xs">/</span>
+                        <span>{todo.milestones?.length}</span>
+                      </div>
+                    </div>
                   ) : null}
                 </div>
               </div>
             </div>
             <div className="mx-3 flex flex-col items-center">
+              <h1
+                className={`${
+                  todo?.milestones.length === 0 ? 'block' : 'hidden'
+                }`}
+              >
+                Add milestones
+              </h1>
               <div className="w-full">
                 {todo?.milestones.map((milestone: any, i) => {
                   return (

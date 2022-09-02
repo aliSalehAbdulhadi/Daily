@@ -47,7 +47,7 @@ const MileStone = ({ taskId }: { taskId: string }) => {
   }, [todo?.milestones.length]);
 
   return (
-    <div className="m-10 font-Comfortaa transition-all ">
+    <div className="m-10 font-Comfortaa transition-all">
       <div className="flex flex-col ">
         <h1 className="mb-4 py-3 self-center px-5 bg-white text-primaryColor rounded">
           Milestones
@@ -55,21 +55,24 @@ const MileStone = ({ taskId }: { taskId: string }) => {
 
         <div className="bg-primaryColor  rounded overflow-auto scrollBar  text-white h-[65vh]">
           <div className=" flex flex-col m-10">
-            <div className="mb-7 flex items-center justify-center  w-full">
-              {taskId ? (
-                <div className="w-[95%] ">
+            {taskId && todo && todo?.milestones.length > 0 ? (
+              <div className="flex items-center justify-between w-full mb-7 ">
+                <div className="">
                   <span className="text-secondaryLight text-base">Task:</span>
-                  <h1 className="text-textDark text-xl">{todo?.content}</h1>
+                  <h1 className="text-textDark text-xl font-Handlee">
+                    {todo?.content}
+                  </h1>
                 </div>
-              ) : null}
-              <div>
-                <div className="h-[3rem] w-[3rem] lg:h-[4rem] lg:w-[4rem]">
-                  {taskId && todo && todo?.milestones.length > 0 ? (
-                    <ProgressBar percentage={percentage} />
-                  ) : null}
+                <div className=" w-[4rem] flex items-start justify-end relative mr-4">
+                  <ProgressBar percentage={percentage} />
+                  <div className="absolute top-[58px] right-[-23px] text-sm">
+                    <span>{milestoneCompleted}</span>
+                    <span className="text-xs">/</span>
+                    <span>{todo.milestones?.length}</span>
+                  </div>
                 </div>
               </div>
-            </div>
+            ) : null}
             <div>
               {todo?.milestones.map((milestone: any, i) => {
                 return (

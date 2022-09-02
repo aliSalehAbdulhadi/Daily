@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import useClickOutside from '../../../hooks/useClickOutside';
 import { RootState, useAppSelector } from '../../../interfaces/interfaces';
 import ChangeUserName from '../changeUserName/changeUserName';
@@ -6,30 +6,22 @@ import ResetPassword from '../resetPassword/ResetPassword';
 import SignIn from '../SignIn/SignIn';
 import SignUp from '../SignUp/SignUp';
 import ConfirmLogOut from '../confirmLogOut/ConfirmLogOut';
+import useWindowSize from '../../../hooks/useWindowsSize';
 
 const UserModalPc = ({
   open,
-  setOpen,
+  closeAnimation,
 }: {
   open: boolean;
-  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  closeAnimation: boolean;
 }) => {
   const [openPasswordModal, setOpenPasswordModal] = useState<boolean>(false);
   const [openUsernameModal, setOpenUsernameModal] = useState<boolean>(false);
   const [openSignInModal, setOpenSignInModal] = useState<boolean>(false);
   const [openSignUpModal, setOpenSignUpModal] = useState<boolean>(false);
   const [openLogoutModal, setOpenLogoutModal] = useState<boolean>(false);
-  const [closeAnimation, setCloseAnimation] = useState<boolean>(false);
+  const bodyNoScroll = document.querySelector('body');
 
-  const userModalRef = useClickOutside(() => {
-    setCloseAnimation(true);
-    setTimeout(() => {
-      setOpen(false);
-      setCloseAnimation(false);
-    }, 200);
-  });
-
-  console.log(closeAnimation);
   const userName = useAppSelector(
     (state: RootState) => state.getTodoReducer.userName,
   );
@@ -37,7 +29,6 @@ const UserModalPc = ({
 
   return (
     <div
-      ref={userModalRef}
       className={`userModalEnterPc ${
         closeAnimation ? 'userModalExitPc' : ''
       } flex-col py-1 w-[250px]  shadow-inner rounded-xl bg-white  font-cerealNormal text-sm text-textLight ${

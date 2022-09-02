@@ -189,7 +189,7 @@ const MilestoneSinglePage = ({
               </div>
             )}
           </div>
-          <div className="flex-col items-end ml-2 md:ml-5 h-full hidden semiSm:flex">
+          <div className="flex-col items-end mr-5 md:ml-5 h-full hidden semiSm:flex">
             <button
               onMouseEnter={() => setCompleteIcon(true)}
               onMouseLeave={() => setCompleteIcon(false)}

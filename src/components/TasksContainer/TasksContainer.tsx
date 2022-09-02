@@ -26,7 +26,7 @@ const TasksContainer = () => {
     <div
       className={`${
         dark ? 'bg-primaryColor' : 'bg-primaryLight'
-      }  w-[100%] semiSm:pt-[3rem] min-h-[85vh] semiSm:h-[90vh] `}
+      }  w-[100%] semiSm:pt-[3rem] min-h-[85vh] semiSm:h-[90vh] font-Comfortaa`}
     >
       <div>
         {signInStatus === 'pending' ? (
