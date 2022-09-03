@@ -52,9 +52,7 @@ const SingleTaskPc = ({
   useEffect(() => {
     inputRef?.current?.focus();
   }, [edit]);
-  const dark = useAppSelector(
-    (state: RootState) => state.darkModeReducer.darkMode,
-  );
+
   const formatDate = moment(content.date).format('MMM/D/YYYY');
 
   let textareaRef = useClickOutside(() => {

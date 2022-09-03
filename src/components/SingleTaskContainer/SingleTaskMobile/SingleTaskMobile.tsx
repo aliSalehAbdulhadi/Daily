@@ -246,12 +246,7 @@ const SingleTaskMobile = ({
                   </div>
                 ) : (
                   <div className="flex items-center justify-end w-[25%] bg-[#64f5c56c] pr-2">
-                    <IoMdArrowDropright
-                      className="absolute right-6 opacity-90"
-                      width="fit"
-                      size={30}
-                    />
-                    <BiListUl className="opacity-80" size={30}></BiListUl>
+                    <BiListPlus className="opacity-80" size={30}></BiListPlus>
                   </div>
                 )}
               </Link>

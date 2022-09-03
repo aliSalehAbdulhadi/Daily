@@ -65,7 +65,7 @@ const MileStone = ({ taskId }: { taskId: string }) => {
                 </div>
                 <div className=" w-[4rem] flex items-start justify-end relative mr-4">
                   <ProgressBar percentage={percentage} />
-                  <div className="absolute top-[58px] right-[-23px] text-sm">
+                  <div className="absolute top-[60px] right-[60px] text-sm">
                     <span>{milestoneCompleted}</span>
                     <span className="text-xs">/</span>
                     <span>{todo.milestones?.length}</span>
