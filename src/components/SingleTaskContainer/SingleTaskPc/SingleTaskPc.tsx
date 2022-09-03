@@ -28,6 +28,7 @@ import {
 import { editTodo } from '../../../redux/slices/features/editTodo';
 import TaskCardIcons from '../TaskCardIcons/TaskCardIcons';
 import useClickOutside from '../../../hooks/useClickOutside';
+import DropDownMenu from '../../Forms/TaskForm/DropDownMenu';
 
 const SingleTaskPc = ({
   content,
@@ -42,7 +43,7 @@ const SingleTaskPc = ({
   const [deleteTimer, setDeleteTimer] = useState<boolean>(false);
   const [completeAnimation, setCompleteAnimation] = useState<boolean>(false);
   const [edit, setEdit] = useState<boolean>(false);
-  const [editText, setEditText] = useState<string>(content.content);
+  const [editText, setEditText] = useState<string>(content?.content);
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const dispatch = useAppDispatch();
   const todos: SingleTodoInterface[] = useAppSelector(
@@ -53,21 +54,21 @@ const SingleTaskPc = ({
     inputRef?.current?.focus();
   }, [edit]);
 
-  const formatDate = moment(content.date).format('MMM/D/YYYY');
+  const formatDate = moment(content?.date).format('MMM/D/YYYY');
 
   let textareaRef = useClickOutside(() => {
     setEdit(false);
-    setEditText(content.content);
+    setEditText(content?.content);
   });
 
   const editHanlder = (e: SyntheticEvent) => {
     e.preventDefault();
     editText?.length === 0 || editText.length > 50
-      ? setEditText(content.content)
+      ? setEditText(content?.content)
       : dispatch(
           editTodo({
             userUid: user,
-            todoId: content.id,
+            todoId: content?.id,
             allTodos: todos,
             newTodo: editText,
           }),
@@ -83,14 +84,14 @@ const SingleTaskPc = ({
     dispatch(
       removeTodo({
         userUid: user,
-        todoId: content.id,
+        todoId: content?.id,
         allTodos: todos,
       }),
     );
 
     setDeleteAnimation(true);
     setTimeout(() => {
-      dispatch(deleteTodo({ todoId: content.id }));
+      dispatch(deleteTodo({ todoId: content?.id }));
       setDeleteAnimation(false);
     }, 250);
   };
@@ -99,39 +100,39 @@ const SingleTaskPc = ({
     dispatch(
       completedTodo({
         userUid: user,
-        todoId: content.id,
+        todoId: content?.id,
         allTodos: todos,
       }),
     );
     setCompleteAnimation(true);
 
     setTimeout(() => {
-      dispatch(updateTodo({ todoId: content.id }));
+      dispatch(updateTodo({ todoId: content?.id }));
       setCompleteAnimation(false);
     }, 300);
   };
 
   const setCardColorByTypeHandler = (isTaskCard: boolean) => {
-    if (content.icon === 'personal') {
+    if (content?.taskType === 'personal') {
       return isTaskCard ? 'bg-green-400' : '#4ade80';
     }
-    if (content.icon === 'work') {
+    if (content?.taskType === 'work') {
       return isTaskCard ? 'bg-blue-400' : '#60a5fa';
     }
-    if (content.icon === 'fun') {
+    if (content?.taskType === 'fun') {
       return isTaskCard ? 'bg-purple-400' : '#c084fc';
     }
   };
 
   return (
-    <Draggable key={content.id} draggableId={content.id} index={index}>
+    <Draggable key={content?.id} draggableId={content?.id} index={index}>
       {(provided) => (
         <div
-          className={`text-textLight  ${
-            content.id === taskId ? 'borderTop borderBottom' : ''
+          className={`text-textLight   ${
+            content?.id === taskId ? 'borderTop borderBottom' : ''
           } 
            hover:transition-transform hover:ease-in-out hover:duration-300 font-Comfortaa font-semibold my-2 px-5 py-2 min-h-[10rem] relative ${
-             content.completed
+             content?.completed
                ? 'bg-red-400 shadow-2xl'
                : setCardColorByTypeHandler(true)
            } flex justify-between flex-row items-center rounded ease-in-out
@@ -144,9 +145,10 @@ const SingleTaskPc = ({
           {...provided.dragHandleProps}
           ref={provided.innerRef}
         >
-          <div className="mb-0">
-            <TaskCardIcons icon={content?.icon} completed={content.completed} />
+          <div className="z-50 cursor-pointer mt-5">
+            <DropDownMenu task={content} />
           </div>
+
           {edit ? (
             <form
               ref={textareaRef}
@@ -172,11 +174,11 @@ const SingleTaskPc = ({
             <div className="w-full">
               <div
                 className={`pl-10  flex-col items-center flex ${
-                  content.completed ? 'strike opacity-60' : ''
+                  content?.completed ? 'strike opacity-60' : ''
                 }`}
               >
                 <div>
-                  <span>{content.content}</span>
+                  <span>{content?.content}</span>
                   <div className="text-xs absolute top-5 left-[20px] bottom-2 w-fit whitespace-nowrap  select-none">
                     {formatDate}
                   </div>
@@ -185,7 +187,7 @@ const SingleTaskPc = ({
             </div>
           )}
           <div className={` flex flex-col pl-10`}>
-            {content.completed ? (
+            {content?.completed ? (
               <MdOutlineRemoveDone
                 title="Incomplete"
                 type="button"
@@ -207,7 +209,7 @@ const SingleTaskPc = ({
                 type="submit"
                 onClick={() => setEdit(true)}
                 className={`cursor-pointer mb-3 mr-2 scale-[1.2] ${
-                  content.completed
+                  content?.completed
                     ? 'hidden'
                     : 'block hover:text-white hover:scale-150 transition-all ease-in-ou'
                 }`}
@@ -217,7 +219,7 @@ const SingleTaskPc = ({
                 type="submit"
                 onClick={() => setEdit(false)}
                 className={`cursor-pointer mb-3 mr-2 scale-[1.2] ${
-                  content.completed
+                  content?.completed
                     ? 'hidden'
                     : 'block hover:text-white hover:scale-150 transition-all ease-in-out'
                 }`}
@@ -237,7 +239,7 @@ const SingleTaskPc = ({
                   duration={1.5}
                   // @ts-ignore
                   trailColor={
-                    content.completed
+                    content?.completed
                       ? '#f87171'
                       : setCardColorByTypeHandler(false)
                   }

@@ -76,7 +76,7 @@ const Tasks = ({ id }: { id: any }) => {
                     ) : null,
                   )
                 : todos?.map((todo: SingleTodoInterface, index: number) =>
-                    !todo.completed ? (
+                    !todo?.completed ? (
                       <div
                         key={todo?.id}
                         className="w-full"

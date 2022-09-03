@@ -1,33 +1,54 @@
-import { SyntheticEvent, useState } from 'react';
+import { SyntheticEvent, useEffect, useState } from 'react';
 import { BsFillPersonFill, BsFillArrowDownCircleFill } from 'react-icons/bs';
 import { MdWork } from 'react-icons/md';
 import { IoGameController } from 'react-icons/io5';
 import useClickOutside from '../../../hooks/useClickOutside';
+import {
+  RootState,
+  SingleTodoInterface,
+  useAppDispatch,
+  useAppSelector,
+} from '../../../interfaces/interfaces';
+import { addTaskType } from '../../../redux/slices/features/addTaskType';
+import { addTaskTypeLocally } from '../../../redux/slices/features/getTodoSlice';
 
-const DropDownMenu = ({ iconValue }: { iconValue: Function }) => {
+const DropDownMenu = ({ task }: { task: SingleTodoInterface }) => {
   const [hidden, setHidden] = useState<boolean>(true);
-  const [value, setValue] = useState<string>('');
-
+  const [value, setValue] = useState<string>(task?.taskType);
+  const dispatch = useAppDispatch();
+  const tasks: SingleTodoInterface[] = useAppSelector(
+    (state: RootState) => state.getTodoReducer.todos,
+  );
+  const user = useAppSelector((state: RootState) => state.userReducer.userUid);
   let domNode = useClickOutside(() => {
     setHidden(true);
   });
-
   const iconsHandler = (e: SyntheticEvent) => {
     e.preventDefault();
     const target = e.target as HTMLInputElement;
     setValue(target.value);
-    iconValue(target.value);
     setHidden(true);
   };
 
+  useEffect(() => {
+    dispatch(
+      addTaskType({
+        userUid: user,
+        taskId: task?.id,
+        allTasks: tasks,
+        taskType: value,
+      }),
+    );
+    dispatch(addTaskTypeLocally({ taskId: task?.id, taskType: value }));
+  }, [value]);
+
   const dynamicIconHandler = () => {
-    if (!value) {
+    if (value === 'personal' || !value) {
       return (
-        <BsFillArrowDownCircleFill
-          title="Chose task type"
-          className={`animate-bounce hover:translate-y-[-5px] duration-500 ease-in-out transition-all ${
-            !hidden ? 'hidden' : 'block'
-          }`}
+        <BsFillPersonFill
+          size={22}
+          title="Task Type"
+          className={`${!hidden ? 'hidden' : 'block'} `}
         />
       );
     }
@@ -35,21 +56,9 @@ const DropDownMenu = ({ iconValue }: { iconValue: Function }) => {
     if (value === 'work') {
       return (
         <MdWork
-          title="Work task"
-          className={`animate-bounce hover:translate-y-[-5px] duration-500 ease-in-out transition-all ${
-            !hidden ? 'hidden' : 'block'
-          }`}
-        />
-      );
-    }
-
-    if (value === 'personal') {
-      return (
-        <BsFillPersonFill
-          title="Personal task"
-          className={`animate-bounce hover:translate-y-[-5px] duration-500 ease-in-out transition-all ${
-            !hidden ? 'hidden' : 'block'
-          }`}
+          size={22}
+          title="Task Type"
+          className={`${!hidden ? 'hidden' : 'block'} `}
         />
       );
     }
@@ -57,10 +66,9 @@ const DropDownMenu = ({ iconValue }: { iconValue: Function }) => {
     if (value === 'fun') {
       return (
         <IoGameController
-          title="Fun task"
-          className={`animate-bounce hover:translate-y-[-5px] duration-500 ease-in-out transition-all ${
-            !hidden ? 'hidden' : 'block'
-          }`}
+          size={22}
+          title="Task Type"
+          className={`${!hidden ? 'hidden' : 'block'} `}
         />
       );
     }
@@ -69,73 +77,54 @@ const DropDownMenu = ({ iconValue }: { iconValue: Function }) => {
   return (
     <div
       ref={domNode}
-      className={` w-[5rem] scale-[1.5] flex flex-col mr-[.80rem] mb-1 `}
+      className={` flex semiSm:flex-col items-center justify-center `}
     >
       <button
+        disabled={task?.completed}
         type="button"
-        className="self-end"
-        onClick={() => {
-          setHidden(false);
-        }}
+        className="self-end hover:text-white transition-all ease-in-out"
+        onClick={() => setHidden(false || task?.completed)}
       >
         {dynamicIconHandler()}
       </button>
       <button
         type="button"
-        className="flex justify-end hover:translate-x-[-5px] transition-all ease-in-out duration-500"
+        className="flex justify-end bgp- hover:text-white transition-all ease-in-out"
         value="personal"
         onClick={(e) => iconsHandler(e)}
       >
-        <label
-          className={`text-[.65rem] mr-1 scale-[.80] h-4 pointer-events-none flex items-center justify-center  ${
-            hidden ? 'hidden' : 'block'
-          }`}
-        >
-          Personal
-          <BsFillPersonFill
-            className={`pointer-events-none transition-all scale-150 ease-in-out ml-2 mr-[-1.5px] mb-[.2rem] duration-500 ${
-              hidden ? 'hidden' : 'block'
-            }`}
-          />
-        </label>
+        <BsFillPersonFill
+          size={22}
+          className={`pointer-events-none mr-5 semiSm:mr-0 semiSm:mb-2 ${
+            task?.taskType === 'personal' ? 'fill-white' : 'fill-green-400'
+          } ${hidden ? 'hidden' : 'block'} `}
+        />
       </button>
       <button
         type="button"
-        className="flex justify-end hover:translate-x-[-5px] transition-all ease-in-out duration-500"
+        className="flex justify-end  hover:text-white transition-all ease-in-out"
         value="work"
         onClick={(e) => iconsHandler(e)}
       >
-        <label
-          className={`text-[.65rem] mr-1 scale-[.80] h-4 pointer-events-none flex items-center justify-center  ${
-            hidden ? 'hidden' : 'block'
-          }`}
-        >
-          Work
-          <MdWork
-            className={`pointer-events-none transition-all scale-150 ease-in-out ml-2 mb-[.2rem] duration-500 ${
-              hidden ? 'hidden' : 'block'
-            }`}
-          />
-        </label>
+        <MdWork
+          size={22}
+          className={`pointer-events-none mr-5 semiSm:mr-0 semiSm:mb-2  ${
+            task?.taskType === 'work' ? 'fill-white' : 'fill-blue-400'
+          }   ${hidden ? 'hidden' : 'block'} `}
+        />
       </button>
       <button
         type="button"
-        className="flex justify-end hover:translate-x-[-5px] transition-all ease-in-out duration-500"
+        className="flex justify-end hover:text-white transition-all ease-in-out"
         value="fun"
         onClick={(e) => iconsHandler(e)}
       >
-        <label
-          className={`text-[.65rem] mr-1 scale-[.80] h-4 pointer-events-none flex items-center justify-center  ${
-            hidden ? 'hidden' : 'block'
-          }`}
-        >
-          Fun
-          <IoGameController
-            className={`pointer-events-none transition-all scale-150 ease-in-out ml-2 mb-[.2rem] duration-500 ${
-              hidden ? 'hidden' : 'block'
-            }`}
-          />
-        </label>
+        <IoGameController
+          size={22}
+          className={`pointer-events-none ${
+            task?.taskType === 'fun' ? 'fill-white' : 'fill-purple-400'
+          }   ${hidden ? 'hidden' : 'block'} `}
+        />
       </button>
     </div>
   );

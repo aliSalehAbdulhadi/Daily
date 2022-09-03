@@ -1,7 +1,10 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { getDoc, doc } from 'firebase/firestore';
 import { db } from '../../../container/firebase';
-import { SingleTodoInterface } from '../../../interfaces/interfaces';
+import {
+  singleMilestoneInterface,
+  SingleTodoInterface,
+} from '../../../interfaces/interfaces';
 
 export const getTodo = createAsyncThunk(
   'getTodos',
@@ -53,6 +56,37 @@ const getTodosSlice = createSlice({
         return todo;
       });
     },
+
+    addTaskTypeLocally: (
+      state: {
+        todos: SingleTodoInterface[];
+        error: {}[];
+        status: string;
+      },
+      action: PayloadAction<{ taskId: string; taskType: string }>,
+    ) => {
+      state.todos = state.todos?.map((todo: SingleTodoInterface) => {
+        return todo.id === action.payload.taskId
+          ? { ...todo, taskType: action.payload.taskType }
+          : todo;
+      });
+    },
+
+    changeTaskImportantStateLocally: (
+      state: {
+        todos: SingleTodoInterface[];
+        error: {}[];
+        status: string;
+      },
+      action: PayloadAction<{ taskId: string }>,
+    ) => {
+      state.todos = state.todos?.map((todo: SingleTodoInterface) => {
+        return todo.id === action.payload.taskId
+          ? { ...todo, important: !todo.important }
+          : todo;
+      });
+    },
+
     reArrangeTodos: (
       state: {
         todos: SingleTodoInterface[];
@@ -161,4 +195,6 @@ export const {
   completeMilestoneLocally,
   deleteMilestoneLocally,
   editMilestoneLocally,
+  addTaskTypeLocally,
+  changeTaskImportantStateLocally,
 } = getTodosSlice.actions;
