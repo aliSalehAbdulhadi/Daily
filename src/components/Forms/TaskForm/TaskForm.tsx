@@ -41,8 +41,9 @@ const TaskForm = () => {
                   content: values.Form,
                   completed: false,
                   id: uuidv4(),
-                  icon: iconValue.length === 0 ? 'personal' : iconValue,
+                  taskType: 'personal',
                   date: newDate.toISOString(),
+                  important: false,
                   milestones: [],
                 },
                 userUid: user,
@@ -57,8 +58,9 @@ const TaskForm = () => {
                   content: values.Form,
                   completed: false,
                   id: uuidv4(),
-                  icon: iconValue.length === 0 ? 'personal' : iconValue,
+                  taskType: 'personal',
                   date: newDate.toISOString(),
+                  important: false,
                   milestones: [],
                 }),
               );
@@ -80,10 +82,7 @@ const TaskForm = () => {
         >
           {user ? (
             <div className=" flex flex-col mb-5 sm:mb-0 ml-7 semiSm:ml-0 xl:w-[40%] md:w-[50%] w-[70%]">
-              <div className="flex items-center justify-center relative w-full">
-                <div className="absolute top-7 left-[-115px]">
-                  <DropDownMenu iconValue={(e: string) => setIconValue(e)} />
-                </div>
+              <div className="flex items-center justify-center  w-full">
                 <FormField
                   type="text"
                   label=""

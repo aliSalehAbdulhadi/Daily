@@ -48,8 +48,9 @@ export interface SingleTodoInterface {
   id: string;
   content: string;
   completed: boolean;
-  icon: string;
+  taskType: string;
   date: string;
+  important: boolean;
   milestones: object[];
 }
 
