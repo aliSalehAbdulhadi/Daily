@@ -20,7 +20,7 @@ import useWindowSize from '../../../hooks/useWindowsSize';
 const formSchema = Yup.object().shape({
   Form: Yup.string(),
 });
-const MileStoneForm = ({ taskId }: { taskId: any }) => {
+const MileStoneForm = ({ taskId }: { taskId: string }) => {
   const [submitAnimation, setSubmitAnimation] = useState<boolean>(false);
   const tasks: SingleTaskInterface[] = useAppSelector(
     (state: RootState) => state.getTaskReducer.tasks,

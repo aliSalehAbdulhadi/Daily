@@ -11,15 +11,12 @@ import {
   useAppDispatch,
   useAppSelector,
 } from '../../../interfaces/interfaces';
-import DropDownMenu from './DropDownMenu';
 
 const formSchema = Yup.object().shape({
   Form: Yup.string().max(60, 'Too Long!'),
 });
 const TaskForm = () => {
   const [submitAnimation, setSubmitAnimation] = useState<boolean>(false);
-
-  const [iconValue, setIconValue] = useState<string>('');
 
   const dark = useAppSelector(
     (state: RootState) => state.darkModeReducer.darkMode,

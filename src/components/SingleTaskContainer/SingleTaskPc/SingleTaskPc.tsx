@@ -26,7 +26,6 @@ import {
   updateTask,
 } from '../../../redux/slices/features/getTasksSlice';
 import { editTask } from '../../../redux/slices/features/editTaskSlice';
-import TaskCardIcons from '../TaskCardIcons/TaskCardIcons';
 import useClickOutside from '../../../hooks/useClickOutside';
 import DropDownMenu from '../../Forms/TaskForm/DropDownMenu';
 

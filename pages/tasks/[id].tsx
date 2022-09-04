@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import { BsPlusCircle, BsPlusCircleFill } from 'react-icons/bs';
+import { string } from 'yup';
 import MileStoneForm from '../../src/components/Forms/MileStoneForm/MileStoneForm';
 import MilestoneSinglePage from '../../src/components/MilestoneSinglePage/MilestoneSinglePage';
 import ProgressBar from '../../src/components/progressBar/ProgressBar';
@@ -11,6 +12,7 @@ import {
   SingleTaskInterface,
   useAppSelector,
   useAppDispatch,
+  singleMilestoneInterface,
 } from '../../src/interfaces/interfaces';
 import { deleteMilestoneLocally } from '../../src/redux/slices/features/getTasksSlice';
 import { deleteMilestone } from '../../src/redux/slices/features/MilestonesSlice';
@@ -52,7 +54,7 @@ const MileStone = () => {
     (state: RootState) => state.darkModeReducer.darkMode,
   );
 
-  const deleteMilestoneHandler = (milestone: any) => {
+  const deleteMilestoneHandler = (milestone: singleMilestoneInterface) => {
     setDeleteAnimation({
       animation: true,
       deletedMilestoneId: milestone.id,
@@ -131,7 +133,7 @@ const MileStone = () => {
                       handler={() => deleteMilestoneHandler(milestone)}
                     >
                       <MilestoneSinglePage
-                        taskId={id}
+                        taskId={String(id)}
                         milestone={milestone}
                         index={i}
                         tasks={tasks}
@@ -145,7 +147,7 @@ const MileStone = () => {
                 className={`${addMilestone ? 'block' : 'hidden'}`}
                 ref={milestoneRef}
               >
-                <MileStoneForm taskId={id} />
+                <MileStoneForm taskId={String(id)} />
               </div>
 
               <div

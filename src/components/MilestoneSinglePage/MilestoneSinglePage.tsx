@@ -34,7 +34,7 @@ const MilestoneSinglePage = ({
   tasks,
   setDeleteAnimationMobile,
 }: {
-  taskId: any;
+  taskId: string;
   milestone: singleMilestoneInterface;
   index: number;
   tasks: SingleTaskInterface[];

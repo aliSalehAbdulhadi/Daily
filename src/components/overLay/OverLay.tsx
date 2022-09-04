@@ -1,5 +1,4 @@
 import { DragDropContext, DropResult } from 'react-beautiful-dnd';
-import React, { ReactChild } from 'react';
 import { completedTask } from '../../redux/slices/features/completeTaskSlice';
 import {
   reArrangeTasks,
@@ -15,7 +14,7 @@ import {
 import Navbar from '../Navbar/Navbar';
 import { toggleDisableSwiper } from '../../redux/slices/features/disableSwiperSlice';
 
-const OverLay = ({ children }: { children: ReactChild }) => {
+const OverLay = ({ children }: { children: JSX.Element }) => {
   const dispatch = useAppDispatch();
 
   const tasks: SingleTaskInterface[] = useAppSelector(

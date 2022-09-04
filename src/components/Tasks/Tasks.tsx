@@ -7,7 +7,7 @@ import {
 import { RootState } from '../../interfaces/interfaces';
 import SingleTaskContainer from '../SingleTaskContainer/SingleTaskContainer';
 
-const Tasks = ({ id }: { id: any }) => {
+const Tasks = ({ id }: { id: Function }) => {
   const [completedTask, setCompletedTask] = useState<boolean>(false);
   const [taskId, setTaskId] = useState<string>('');
   const tasks: SingleTaskInterface[] = useAppSelector(

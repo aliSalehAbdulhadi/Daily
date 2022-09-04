@@ -34,7 +34,7 @@ const getTasksSlice = createSlice({
         taskId: string;
       }>,
     ) => {
-      state.Tasks = state.Tasks?.filter(
+      state.tasks = state.tasks?.filter(
         (task: SingleTaskInterface) => task.id !== action.payload.taskId,
       );
     },

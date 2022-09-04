@@ -56,8 +56,8 @@ export interface SingleTaskInterface {
 
 export interface singleMilestoneInterface {
   id: string;
-  milestoneContent: string;
   milestoneCompleted: boolean;
+  milestoneContent: string;
 }
 
 export interface AsyncThunkConfig {
