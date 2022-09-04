@@ -11,28 +11,28 @@ import {
   RootState,
   useAppDispatch,
   useAppSelector,
-  SingleTodoInterface,
+  SingleTaskInterface,
 } from '../../../interfaces/interfaces';
-import { completedTodo } from '../../../redux/slices/features/completeTodo';
+import { completedTask } from '../../../redux/slices/features/completeTaskSlice';
 import {
   changeTaskImportantStateLocally,
-  deleteTodo,
-  getTodo,
-  updateTodo,
-} from '../../../redux/slices/features/getTodoSlice';
-import { editTodo } from '../../../redux/slices/features/editTodo';
+  deleteTask,
+  getTask,
+  updateTask,
+} from '../../../redux/slices/features/getTasksSlice';
+import { editTask } from '../../../redux/slices/features/editTaskSlice';
 import useClickOutside from '../../../hooks/useClickOutside';
 import ProgressBar from '../../progressBar/ProgressBar';
 import Swipeable from '../../swipeable/Swipeable';
-import { removeTodo } from '../../../redux/slices/features/deleteTodoSlice';
+import { removeTask } from '../../../redux/slices/features/deleteTaskSlice';
 import DropDownMenu from '../../Forms/TaskForm/DropDownMenu';
-import { changeTaskImportantState } from '../../../redux/slices/features/changeTaskImportantState';
+import { changeTaskImportantState } from '../../../redux/slices/features/changeTaskImportantStateSlice';
 
 const SingleTaskMobile = ({
   content,
   index,
 }: {
-  content: SingleTodoInterface;
+  content: SingleTaskInterface;
   index: number;
 }) => {
   const [completeAnimation, setCompleteAnimation] = useState<boolean>(false);
@@ -42,8 +42,8 @@ const SingleTaskMobile = ({
   const [editText, setEditText] = useState<string>(content?.content);
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const dispatch = useAppDispatch();
-  const todos: SingleTodoInterface[] = useAppSelector(
-    (state: RootState) => state.getTodoReducer.todos,
+  const tasks: SingleTaskInterface[] = useAppSelector(
+    (state: RootState) => state.getTaskReducer.tasks,
   );
   const user = useAppSelector((state: RootState) => state.userReducer.userUid);
   useEffect(() => {
@@ -57,13 +57,13 @@ const SingleTaskMobile = ({
   const disableDrag = useAppSelector(
     (state: RootState) => state.disableDragReducer.disableDragDnd,
   );
-  const todo = todos.find((todo) => todo?.id === content?.id);
-  const milestoneCompleted = todo?.milestones?.filter(
+  const task = tasks.find((task) => task?.id === content?.id);
+  const milestoneCompleted = task?.milestones?.filter(
     (ms: any) => ms?.milestoneCompleted === true,
   ).length;
   const percentage =
-    milestoneCompleted && todo?.milestones.length > 0
-      ? Math.round((milestoneCompleted / todo?.milestones?.length) * 100)
+    milestoneCompleted && task?.milestones.length > 0
+      ? Math.round((milestoneCompleted / task?.milestones?.length) * 100)
       : 0;
 
   let textareaRef = useClickOutside(() => {
@@ -76,32 +76,32 @@ const SingleTaskMobile = ({
     editText?.length === 0 || editText.length > 50
       ? setEditText(content?.content)
       : dispatch(
-          editTodo({
+          editTask({
             userUid: user,
-            todoId: content?.id,
-            allTodos: todos,
-            newTodo: editText,
+            taskId: content?.id,
+            allTasks: tasks,
+            newTask: editText,
           }),
         );
 
     setEdit(false);
     setTimeout(() => {
-      dispatch(getTodo({ userUid: user }));
+      dispatch(getTask({ userUid: user }));
     }, 150);
   };
 
   const completionHandler = () => {
     dispatch(
-      completedTodo({
+      completedTask({
         userUid: user,
-        todoId: content.id,
-        allTodos: todos,
+        taskId: content.id,
+        allTasks: tasks,
       }),
     );
     setCompleteAnimation(true);
 
     setTimeout(() => {
-      dispatch(updateTodo({ todoId: content?.id }));
+      dispatch(updateTask({ taskId: content?.id }));
       setCompleteAnimation(false);
     }, 300);
   };
@@ -109,16 +109,16 @@ const SingleTaskMobile = ({
   const deletionHandler = () => {
     if (!disableSwiper) return;
     dispatch(
-      removeTodo({
+      removeTask({
         userUid: user,
-        todoId: content?.id,
-        allTodos: todos,
+        taskId: content?.id,
+        allTasks: tasks,
       }),
     );
 
     setDeleteAnimation(true);
     setTimeout(() => {
-      dispatch(deleteTodo({ todoId: content?.id }));
+      dispatch(deleteTask({ taskId: content?.id }));
       setDeleteAnimation(false);
     }, 250);
   };
@@ -126,9 +126,9 @@ const SingleTaskMobile = ({
   const importantStateHandler = () => {
     dispatch(
       changeTaskImportantState({
-        todoId: content?.id,
+        taskId: content?.id,
         userUid: user,
-        allTodos: todos,
+        allTasks: tasks,
       }),
     );
 
@@ -259,7 +259,7 @@ const SingleTaskMobile = ({
                 </div>
               </div>
               <Link href={`/tasks/${content?.id}`}>
-                {todo && todo?.milestones?.length > 0 ? (
+                {task && task?.milestones?.length > 0 ? (
                   <div className=" w-[25%] flex flex-col items-center justify-center  bg-[#64f5c56c] rounded-tr rounded-br">
                     <div className="scale-[.8]">
                       <ProgressBar percentage={percentage} />

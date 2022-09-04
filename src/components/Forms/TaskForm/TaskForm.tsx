@@ -4,22 +4,19 @@ import { v4 as uuidv4 } from 'uuid';
 import { BsPlusCircleDotted } from 'react-icons/bs';
 import { useState } from 'react';
 import FormField from '../../FormField/FormField';
-import { addTodo } from '../../../redux/slices/features/addTodoSlice';
-import { setTodos } from '../../../redux/slices/features/getTodoSlice';
+import { addTask } from '../../../redux/slices/features/addTaskSlice';
+import { setTasks } from '../../../redux/slices/features/getTasksSlice';
 import {
   RootState,
   useAppDispatch,
   useAppSelector,
 } from '../../../interfaces/interfaces';
-import DropDownMenu from './DropDownMenu';
 
 const formSchema = Yup.object().shape({
   Form: Yup.string().max(60, 'Too Long!'),
 });
 const TaskForm = () => {
   const [submitAnimation, setSubmitAnimation] = useState<boolean>(false);
-
-  const [iconValue, setIconValue] = useState<string>('');
 
   const dark = useAppSelector(
     (state: RootState) => state.darkModeReducer.darkMode,
@@ -36,8 +33,8 @@ const TaskForm = () => {
         values.Form.length === 0
           ? false
           : dispatch(
-              addTodo({
-                todo: {
+              addTask({
+                task: {
                   content: values.Form,
                   completed: false,
                   id: uuidv4(),
@@ -54,7 +51,7 @@ const TaskForm = () => {
           ? false
           : setTimeout(() => {
               dispatch(
-                setTodos({
+                setTasks({
                   content: values.Form,
                   completed: false,
                   id: uuidv4(),

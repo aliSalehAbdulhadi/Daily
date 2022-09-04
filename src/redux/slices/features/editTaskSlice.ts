@@ -1,27 +1,26 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { updateDoc, doc } from 'firebase/firestore';
 import { db } from '../../../container/firebase';
-import { SingleTodoInterface } from '../../../interfaces/interfaces';
+import { SingleTaskInterface } from '../../../interfaces/interfaces';
 
-export const addTaskType = createAsyncThunk(
-  'addTaskType/bookmark',
+export const editTask = createAsyncThunk(
+  'editTask/bookmark',
   async ({
     userUid,
     taskId,
     allTasks,
-    taskType,
+    newTask,
   }: {
     userUid: string;
     taskId: string;
-    allTasks: SingleTodoInterface[];
-    taskType: string;
+    allTasks: SingleTaskInterface[];
+    newTask: string;
   }) => {
     const docRef = doc(db, 'userData', userUid);
-
     await updateDoc(docRef, {
       userData: {
-        todos: allTasks.map((task: SingleTodoInterface) =>
-          task.id === taskId ? { ...task, taskType: taskType } : task,
+        tasks: allTasks.map((task: SingleTaskInterface) =>
+          task.id === taskId ? { ...task, content: newTask } : task,
         ),
       },
     });

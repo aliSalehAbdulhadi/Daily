@@ -12,8 +12,8 @@ import {
   useAppDispatch,
   useAppSelector,
 } from '../../interfaces/interfaces';
-import { getTodo } from '../../redux/slices/features/getTodoSlice';
-import { toggleDarkMode } from '../../redux/slices/features/darkMode';
+import { getTask } from '../../redux/slices/features/getTasksSlice';
+import { toggleDarkMode } from '../../redux/slices/features/darkModeSlice';
 import TaskForm from '../Forms/TaskForm/TaskForm';
 import CheckInternet from '../checkInternet/CheckInternet';
 import UserModalPc from '../modals/UserModalPc/UserModalPc';
@@ -41,7 +41,7 @@ const Navbar = () => {
   );
   useEffect(() => {
     onAuthStateChanged(auth, (user) => dispatch(setUserUid(user?.uid)));
-    dispatch(getTodo({ userUid: user }));
+    dispatch(getTask({ userUid: user }));
   }, [dispatch, user]);
 
   if (typeof window !== 'undefined') {

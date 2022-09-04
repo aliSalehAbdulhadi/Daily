@@ -1,35 +1,35 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { updateDoc, doc } from 'firebase/firestore';
 import { db } from '../../../container/firebase';
-import { SingleTodoInterface } from '../../../interfaces/interfaces';
+import { SingleTaskInterface } from '../../../interfaces/interfaces';
 
 export const addMilestones = createAsyncThunk(
   'addMilestones/bookmark',
   async ({
     userUid,
-    todoId,
-    allTodos,
+    taskId,
+    allTasks,
     milestone,
   }: {
     userUid: string;
-    todoId: string;
+    taskId: string;
     milestone: {
       id: string;
       milestoneContent: string;
       milestoneCompleted: boolean;
     };
-    allTodos: SingleTodoInterface[];
+    allTasks: SingleTaskInterface[];
   }) => {
     const docRef = doc(db, 'userData', userUid);
     await updateDoc(docRef, {
       userData: {
-        todos: allTodos.map((todo: SingleTodoInterface) =>
-          todo.id === todoId
+        tasks: allTasks.map((task: SingleTaskInterface) =>
+          task.id === taskId
             ? {
-                ...todo,
-                milestones: [...todo.milestones, milestone],
+                ...task,
+                milestones: [...task.milestones, milestone],
               }
-            : todo,
+            : task,
         ),
       },
     });
@@ -40,27 +40,27 @@ export const completeMilestone = createAsyncThunk(
   'completeMilestone/bookmark',
   async ({
     userUid,
-    todoId,
-    allTodos,
+    taskId,
+    allTasks,
     milestone,
   }: {
     userUid: string;
-    todoId: any;
+    taskId: any;
     milestone: {
       id: string;
       milestoneContent: string;
       milestoneCompleted: boolean;
     };
-    allTodos: SingleTodoInterface[];
+    allTasks: SingleTaskInterface[];
   }) => {
     const docRef = doc(db, 'userData', userUid);
     await updateDoc(docRef, {
       userData: {
-        todos: allTodos.map((todo: SingleTodoInterface) =>
-          todo.id === todoId
+        tasks: allTasks.map((task: SingleTaskInterface) =>
+          task.id === taskId
             ? {
-                ...todo,
-                milestones: todo.milestones.map((ms: any) => {
+                ...task,
+                milestones: task.milestones.map((ms: any) => {
                   if (ms.id === milestone.id) {
                     return {
                       ...ms,
@@ -70,7 +70,7 @@ export const completeMilestone = createAsyncThunk(
                   return ms;
                 }),
               }
-            : todo,
+            : task,
         ),
       },
     });
@@ -81,27 +81,27 @@ export const deleteMilestone = createAsyncThunk(
   'deleteMilestone/bookmark',
   async ({
     userUid,
-    todoId,
-    allTodos,
+    taskId,
+    allTasks,
     milestone,
   }: {
     userUid: string;
-    todoId: any;
+    taskId: any;
     milestone: {
       id: string;
       milestoneContent: string;
       milestoneCompleted: boolean;
     };
-    allTodos: SingleTodoInterface[];
+    allTasks: SingleTaskInterface[];
   }) => {
     const docRef = doc(db, 'userData', userUid);
     await updateDoc(docRef, {
       userData: {
-        todos: allTodos.map((todo: SingleTodoInterface) =>
-          todo.id === todoId
+        tasks: allTasks.map((task: SingleTaskInterface) =>
+          task.id === taskId
             ? {
-                ...todo,
-                milestones: todo.milestones.filter((ms: any) => {
+                ...task,
+                milestones: task.milestones.filter((ms: any) => {
                   if (milestone.id === ms.id) {
                     return false;
                   } else {
@@ -109,7 +109,7 @@ export const deleteMilestone = createAsyncThunk(
                   }
                 }),
               }
-            : todo,
+            : task,
         ),
       },
     });
@@ -120,29 +120,29 @@ export const editMilestone = createAsyncThunk(
   'editMilestone/bookmark',
   async ({
     userUid,
-    todoId,
-    allTodos,
+    taskId,
+    allTasks,
     milestone,
     milestoneEdit,
   }: {
     userUid: string;
-    todoId: any;
+    taskId: any;
     milestone: {
       id: string;
       milestoneContent: string;
       milestoneCompleted: boolean;
     };
     milestoneEdit: string;
-    allTodos: SingleTodoInterface[];
+    allTasks: SingleTaskInterface[];
   }) => {
     const docRef = doc(db, 'userData', userUid);
     await updateDoc(docRef, {
       userData: {
-        todos: allTodos.map((todo: SingleTodoInterface) =>
-          todo.id === todoId
+        tasks: allTasks.map((task: SingleTaskInterface) =>
+          task.id === taskId
             ? {
-                ...todo,
-                milestones: todo.milestones.map((ms: any) => {
+                ...task,
+                milestones: task.milestones.map((ms: any) => {
                   if (ms.id === milestone.id) {
                     return {
                       ...ms,
@@ -152,7 +152,7 @@ export const editMilestone = createAsyncThunk(
                   return ms;
                 }),
               }
-            : todo,
+            : task,
         ),
       },
     });

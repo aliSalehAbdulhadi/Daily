@@ -9,7 +9,7 @@ import {
   useAppSelector,
 } from '../../../interfaces/interfaces';
 import FormField from '../../FormField/FormField';
-import { changeUserName } from '../../../redux/slices/features/changeUserName';
+import { changeUserName } from '../../../redux/slices/features/changeUserNameSlice';
 
 const signInSchema = Yup.object().shape({
   username: Yup.string().min(0).max(15).required(),

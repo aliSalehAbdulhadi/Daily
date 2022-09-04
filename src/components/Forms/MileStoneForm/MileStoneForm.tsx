@@ -5,12 +5,12 @@ import { BsPlusCircleDotted } from 'react-icons/bs';
 import { useState } from 'react';
 import FormField from '../../FormField/FormField';
 import {
-  getTodo,
+  getTask,
   setMilestones,
-} from '../../../redux/slices/features/getTodoSlice';
+} from '../../../redux/slices/features/getTasksSlice';
 import {
   RootState,
-  SingleTodoInterface,
+  SingleTaskInterface,
   useAppDispatch,
   useAppSelector,
 } from '../../../interfaces/interfaces';
@@ -20,10 +20,10 @@ import useWindowSize from '../../../hooks/useWindowsSize';
 const formSchema = Yup.object().shape({
   Form: Yup.string(),
 });
-const MileStoneForm = ({ taskId }: { taskId: any }) => {
+const MileStoneForm = ({ taskId }: { taskId: string }) => {
   const [submitAnimation, setSubmitAnimation] = useState<boolean>(false);
-  const todos: SingleTodoInterface[] = useAppSelector(
-    (state: RootState) => state.getTodoReducer.todos,
+  const tasks: SingleTaskInterface[] = useAppSelector(
+    (state: RootState) => state.getTaskReducer.tasks,
   );
   const dark = useAppSelector(
     (state: RootState) => state.darkModeReducer.darkMode,
@@ -47,8 +47,8 @@ const MileStoneForm = ({ taskId }: { taskId: any }) => {
                   milestoneContent: values.milestoneForm,
                   milestoneCompleted: false,
                 },
-                allTodos: todos,
-                todoId: taskId,
+                allTasks: tasks,
+                taskId: taskId,
               }),
             );
 
@@ -61,7 +61,7 @@ const MileStoneForm = ({ taskId }: { taskId: any }) => {
                     id: uuidv4(),
                     milestoneContent: values.milestoneForm,
                   },
-                  todoId: taskId,
+                  taskId: taskId,
                 }),
               );
             }, 200);
@@ -69,7 +69,7 @@ const MileStoneForm = ({ taskId }: { taskId: any }) => {
         setSubmitAnimation(true);
         setTimeout(() => {
           setSubmitAnimation(false);
-          dispatch(getTodo({ userUid: user }));
+          dispatch(getTask({ userUid: user }));
         }, 1000);
 
         resetForm();

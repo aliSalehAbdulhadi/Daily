@@ -44,7 +44,7 @@ export interface initialState {
   state: string;
 }
 
-export interface SingleTodoInterface {
+export interface SingleTaskInterface {
   id: string;
   content: string;
   completed: boolean;
@@ -56,8 +56,8 @@ export interface SingleTodoInterface {
 
 export interface singleMilestoneInterface {
   id: string;
-  milestoneContent: string;
   milestoneCompleted: boolean;
+  milestoneContent: string;
 }
 
 export interface AsyncThunkConfig {

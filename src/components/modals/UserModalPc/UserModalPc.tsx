@@ -1,12 +1,10 @@
-import { useEffect, useState } from 'react';
-import useClickOutside from '../../../hooks/useClickOutside';
+import { useState } from 'react';
 import { RootState, useAppSelector } from '../../../interfaces/interfaces';
 import ChangeUserName from '../changeUserName/changeUserName';
 import ResetPassword from '../resetPassword/ResetPassword';
 import SignIn from '../SignIn/SignIn';
 import SignUp from '../SignUp/SignUp';
 import ConfirmLogOut from '../confirmLogOut/ConfirmLogOut';
-import useWindowSize from '../../../hooks/useWindowsSize';
 
 const UserModalPc = ({
   open,
@@ -20,10 +18,9 @@ const UserModalPc = ({
   const [openSignInModal, setOpenSignInModal] = useState<boolean>(false);
   const [openSignUpModal, setOpenSignUpModal] = useState<boolean>(false);
   const [openLogoutModal, setOpenLogoutModal] = useState<boolean>(false);
-  const bodyNoScroll = document.querySelector('body');
 
   const userName = useAppSelector(
-    (state: RootState) => state.getTodoReducer.userName,
+    (state: RootState) => state.getTaskReducer.userName,
   );
   const user = useAppSelector((state: RootState) => state.userReducer.userUid);
 

@@ -3,14 +3,14 @@ import { createSlice } from '@reduxjs/toolkit';
 import { db } from '../../../container/firebase';
 import { doc, setDoc, arrayUnion } from 'firebase/firestore';
 import { initialState } from '../../../interfaces/interfaces';
-import { SingleTodoInterface } from '../../../interfaces/interfaces';
+import { SingleTaskInterface } from '../../../interfaces/interfaces';
 
-export const addTodo = createAsyncThunk(
-  'addTodo/bookmark',
-  async ({ todo, userUid }: { todo: SingleTodoInterface; userUid: string }) => {
+export const addTask = createAsyncThunk(
+  'addTask/bookmark',
+  async ({ task, userUid }: { task: SingleTaskInterface; userUid: string }) => {
     await setDoc(
       doc(db, 'userData', userUid),
-      { userData: { todos: arrayUnion(todo) } },
+      { userData: { tasks: arrayUnion(task) } },
       { merge: true },
     );
   },
@@ -21,22 +21,22 @@ const initialState: initialState = {
   state: '',
 };
 
-const AddTodoSlice = createSlice({
-  name: 'AddTodoSlice',
+const AddTaskSlice = createSlice({
+  name: 'AddTaskSlice',
   initialState,
   reducers: {},
   extraReducers(build) {
-    build.addCase(addTodo.pending, (state: { error: {}[]; state: string }) => {
+    build.addCase(addTask.pending, (state: { error: {}[]; state: string }) => {
       state.state = 'pending';
     }),
       build.addCase(
-        addTodo.fulfilled,
+        addTask.fulfilled,
         (state: { error: {}[]; state: string }) => {
           state.state = 'fulfilled';
         },
       ),
       build.addCase(
-        addTodo.rejected,
+        addTask.rejected,
         (state: { error: {}[]; state: string }, action: any) => {
           state.error = action.error.message;
           state.state = 'rejected';
@@ -45,4 +45,4 @@ const AddTodoSlice = createSlice({
   },
 });
 
-export default AddTodoSlice.reducer;
+export default AddTaskSlice.reducer;

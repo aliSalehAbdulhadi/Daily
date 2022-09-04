@@ -1,13 +1,10 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { getDoc, doc } from 'firebase/firestore';
 import { db } from '../../../container/firebase';
-import {
-  singleMilestoneInterface,
-  SingleTodoInterface,
-} from '../../../interfaces/interfaces';
+import { SingleTaskInterface } from '../../../interfaces/interfaces';
 
-export const getTodo = createAsyncThunk(
-  'getTodos',
+export const getTask = createAsyncThunk(
+  'getTasks',
   async ({ userUid }: { userUid: string }) => {
     try {
       const docRef = doc(db, 'userData', userUid);
@@ -19,182 +16,182 @@ export const getTodo = createAsyncThunk(
   },
 );
 
-const getTodosSlice = createSlice({
-  name: 'getTodos',
+const getTasksSlice = createSlice({
+  name: 'getTasks',
   initialState: {
     userName: '',
-    todos: [],
+    tasks: [],
     error: [],
     status: '',
   },
   reducers: {
-    setTodos: (state: any, action: PayloadAction<SingleTodoInterface>) => {
-      state.todos?.unshift(action.payload);
+    setTasks: (state: any, action: PayloadAction<SingleTaskInterface>) => {
+      state.tasks?.unshift(action.payload);
     },
-    deleteTodo: (
+    deleteTask: (
       state: any,
       action: PayloadAction<{
-        todoId: string;
+        taskId: string;
       }>,
     ) => {
-      state.todos = state.todos?.filter(
-        (todo: SingleTodoInterface) => todo.id !== action.payload.todoId,
+      state.tasks = state.tasks?.filter(
+        (task: SingleTaskInterface) => task.id !== action.payload.taskId,
       );
     },
-    updateTodo: (
+    updateTask: (
       state: {
-        todos: SingleTodoInterface[];
-        error: {}[];
-        status: string;
-      },
-      action: PayloadAction<{ todoId: string }>,
-    ) => {
-      state.todos = state.todos?.map((todo: SingleTodoInterface) => {
-        if (todo.id === action.payload.todoId) {
-          todo.completed = !todo.completed;
-        }
-        return todo;
-      });
-    },
-
-    addTaskTypeLocally: (
-      state: {
-        todos: SingleTodoInterface[];
-        error: {}[];
-        status: string;
-      },
-      action: PayloadAction<{ taskId: string; taskType: string }>,
-    ) => {
-      state.todos = state.todos?.map((todo: SingleTodoInterface) => {
-        return todo.id === action.payload.taskId
-          ? { ...todo, taskType: action.payload.taskType }
-          : todo;
-      });
-    },
-
-    changeTaskImportantStateLocally: (
-      state: {
-        todos: SingleTodoInterface[];
+        tasks: SingleTaskInterface[];
         error: {}[];
         status: string;
       },
       action: PayloadAction<{ taskId: string }>,
     ) => {
-      state.todos = state.todos?.map((todo: SingleTodoInterface) => {
-        return todo.id === action.payload.taskId
-          ? { ...todo, important: !todo.important }
-          : todo;
+      state.tasks = state.tasks?.map((task: SingleTaskInterface) => {
+        if (task.id === action.payload.taskId) {
+          task.completed = !task.completed;
+        }
+        return task;
       });
     },
 
-    reArrangeTodos: (
+    addTaskTypeLocally: (
       state: {
-        todos: SingleTodoInterface[];
+        tasks: SingleTaskInterface[];
         error: {}[];
         status: string;
       },
-      action: PayloadAction<SingleTodoInterface[]>,
+      action: PayloadAction<{ taskId: string; taskType: string }>,
     ) => {
-      state.todos = action.payload;
+      state.tasks = state.tasks?.map((task: SingleTaskInterface) => {
+        return task.id === action.payload.taskId
+          ? { ...task, taskType: action.payload.taskType }
+          : task;
+      });
+    },
+
+    changeTaskImportantStateLocally: (
+      state: {
+        tasks: SingleTaskInterface[];
+        error: {}[];
+        status: string;
+      },
+      action: PayloadAction<{ taskId: string }>,
+    ) => {
+      state.tasks = state.tasks?.map((task: SingleTaskInterface) => {
+        return task.id === action.payload.taskId
+          ? { ...task, important: !task.important }
+          : task;
+      });
+    },
+
+    reArrangeTasks: (
+      state: {
+        tasks: SingleTaskInterface[];
+        error: {}[];
+        status: string;
+      },
+      action: PayloadAction<SingleTaskInterface[]>,
+    ) => {
+      state.tasks = action.payload;
     },
 
     setMilestones: (
       state: any,
       action: PayloadAction<{
-        todoId: string;
+        taskId: string;
         milestone: any;
       }>,
     ) => {
-      state.todos = state.todos?.map((todo: SingleTodoInterface) => {
-        if (todo.id === action.payload.todoId) {
-          todo.milestones = [...todo.milestones, action.payload.milestone];
+      state.tasks = state.tasks?.map((task: SingleTaskInterface) => {
+        if (task.id === action.payload.taskId) {
+          task.milestones = [...task.milestones, action.payload.milestone];
         }
-        return todo;
+        return task;
       });
     },
     completeMilestoneLocally: (
       state: any,
       action: PayloadAction<{
-        todoId: any;
+        taskId: any;
         milestoneId: string;
       }>,
     ) => {
-      state.todos = state.todos?.map((todo: SingleTodoInterface) => {
-        if (todo.id === action.payload.todoId) {
-          todo.milestones = todo.milestones?.map((milestone: any) => {
+      state.tasks = state.tasks?.map((task: SingleTaskInterface) => {
+        if (task.id === action.payload.taskId) {
+          task.milestones = task.milestones?.map((milestone: any) => {
             if (milestone.id === action.payload.milestoneId) {
               milestone.milestoneCompleted = !milestone.milestoneCompleted;
             }
             return milestone;
           });
         }
-        return todo;
+        return task;
       });
     },
     deleteMilestoneLocally: (
       state: any,
       action: PayloadAction<{
-        todoId: any;
+        taskId: any;
         milestoneId: string;
       }>,
     ) => {
-      state.todos = state.todos?.map((todo: SingleTodoInterface) => {
-        if (todo.id === action.payload.todoId) {
-          todo.milestones = todo.milestones?.filter(
+      state.tasks = state.tasks?.map((task: SingleTaskInterface) => {
+        if (task.id === action.payload.taskId) {
+          task.milestones = task.milestones?.filter(
             (milestone: any) => milestone.id !== action.payload.milestoneId,
           );
         }
-        return todo;
+        return task;
       });
     },
 
     editMilestoneLocally: (
       state: any,
       action: PayloadAction<{
-        todoId: any;
+        taskId: any;
         milestoneId: string;
         milestoneEdit: string;
       }>,
     ) => {
-      state.todos = state.todos?.map((todo: SingleTodoInterface) => {
-        if (todo.id === action.payload.todoId) {
-          todo.milestones.map((ms: any) => {
+      state.tasks = state.tasks?.map((task: SingleTaskInterface) => {
+        if (task.id === action.payload.taskId) {
+          task.milestones.map((ms: any) => {
             if (ms?.id === action.payload.milestoneId) {
               ms.milestoneContent = action.payload.milestoneEdit;
             }
             return ms;
           });
         }
-        return todo;
+        return task;
       });
     },
   },
   extraReducers(build) {
-    build.addCase(getTodo.pending, (state) => {
+    build.addCase(getTask.pending, (state) => {
       state.status = 'pending';
     }),
-      build.addCase(getTodo.fulfilled, (state, action: any) => {
+      build.addCase(getTask.fulfilled, (state, action: any) => {
         state.status = 'fulfilled';
-        state.todos = action.payload?.userData?.todos;
+        state.tasks = action.payload?.userData?.tasks;
         state.userName = action.payload?.userName;
       }),
-      build.addCase(getTodo.rejected, (state, action: any) => {
+      build.addCase(getTask.rejected, (state, action: any) => {
         state.error = action.error.message;
         state.status = 'rejected';
       });
   },
 });
 
-export default getTodosSlice.reducer;
+export default getTasksSlice.reducer;
 export const {
-  setTodos,
-  deleteTodo,
-  updateTodo,
-  reArrangeTodos,
+  setTasks,
+  deleteTask,
+  updateTask,
+  reArrangeTasks,
   setMilestones,
   completeMilestoneLocally,
   deleteMilestoneLocally,
   editMilestoneLocally,
   addTaskTypeLocally,
   changeTaskImportantStateLocally,
-} = getTodosSlice.actions;
+} = getTasksSlice.actions;

@@ -5,19 +5,19 @@ import { IoGameController } from 'react-icons/io5';
 import useClickOutside from '../../../hooks/useClickOutside';
 import {
   RootState,
-  SingleTodoInterface,
+  SingleTaskInterface,
   useAppDispatch,
   useAppSelector,
 } from '../../../interfaces/interfaces';
-import { addTaskType } from '../../../redux/slices/features/addTaskType';
-import { addTaskTypeLocally } from '../../../redux/slices/features/getTodoSlice';
+import { addTaskType } from '../../../redux/slices/features/addTaskTypeSlice';
+import { addTaskTypeLocally } from '../../../redux/slices/features/getTasksSlice';
 
-const DropDownMenu = ({ task }: { task: SingleTodoInterface }) => {
+const DropDownMenu = ({ task }: { task: SingleTaskInterface }) => {
   const [hidden, setHidden] = useState<boolean>(true);
   const [value, setValue] = useState<string>(task?.taskType);
   const dispatch = useAppDispatch();
-  const tasks: SingleTodoInterface[] = useAppSelector(
-    (state: RootState) => state.getTodoReducer.todos,
+  const tasks: SingleTaskInterface[] = useAppSelector(
+    (state: RootState) => state.getTaskReducer.tasks,
   );
   const user = useAppSelector((state: RootState) => state.userReducer.userUid);
   let domNode = useClickOutside(() => {

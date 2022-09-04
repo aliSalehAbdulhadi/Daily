@@ -3,15 +3,15 @@ import { ClapSpinner } from 'react-spinners-kit';
 import {
   RootState,
   useAppSelector,
-  SingleTodoInterface,
+  SingleTaskInterface,
 } from '../../interfaces/interfaces';
 import MileStone from '../mileStone/MileStone';
 import Tasks from '../Tasks/Tasks';
 
 const TasksContainer = () => {
   const [taskId, setTaskId] = useState<string>('');
-  const todos: SingleTodoInterface[] = useAppSelector(
-    (state: RootState) => state.getTodoReducer.todos,
+  const tasks: SingleTaskInterface[] = useAppSelector(
+    (state: RootState) => state.getTaskReducer.tasks,
   );
   const user = useAppSelector((state: RootState) => state.userReducer.userUid);
   const dark = useAppSelector(
@@ -33,7 +33,7 @@ const TasksContainer = () => {
           <h1 className="font-bold">
             Loading <ClapSpinner />
           </h1>
-        ) : todos?.length > 0 ? (
+        ) : tasks?.length > 0 ? (
           <div
             className={` sm:px-10 ${
               dark ? 'bg-secondaryColor' : 'bg-secondaryLight'

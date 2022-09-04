@@ -1,6 +1,5 @@
 import useWindowSize from '../../hooks/useWindowsSize';
-import { SingleTodoInterface } from '../../interfaces/interfaces';
-
+import { SingleTaskInterface } from '../../interfaces/interfaces';
 import SingleTaskMobile from './SingleTaskMobile/SingleTaskMobile';
 import SingleTaskPc from './SingleTaskPc/SingleTaskPc';
 
@@ -9,7 +8,7 @@ const SingleTaskContainer = ({
   index,
   taskId,
 }: {
-  content: SingleTodoInterface;
+  content: SingleTaskInterface;
   index: number;
   taskId: string;
 }) => {

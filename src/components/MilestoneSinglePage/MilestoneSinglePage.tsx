@@ -12,7 +12,7 @@ import useClickOutside from '../../hooks/useClickOutside';
 import {
   RootState,
   singleMilestoneInterface,
-  SingleTodoInterface,
+  SingleTaskInterface,
   useAppDispatch,
   useAppSelector,
 } from '../../interfaces/interfaces';
@@ -20,7 +20,7 @@ import {
   completeMilestoneLocally,
   deleteMilestoneLocally,
   editMilestoneLocally,
-} from '../../redux/slices/features/getTodoSlice';
+} from '../../redux/slices/features/getTasksSlice';
 import {
   completeMilestone,
   deleteMilestone,
@@ -31,13 +31,13 @@ const MilestoneSinglePage = ({
   taskId,
   milestone,
   index,
-  todos,
+  tasks,
   setDeleteAnimationMobile,
 }: {
-  taskId: any;
+  taskId: string;
   milestone: singleMilestoneInterface;
   index: number;
-  todos: SingleTodoInterface[];
+  tasks: SingleTaskInterface[];
   setDeleteAnimationMobile?: {
     animation: boolean;
     deletedMilestoneId: string;
@@ -54,7 +54,7 @@ const MilestoneSinglePage = ({
 
   const editRef = useRef<HTMLTextAreaElement>(null);
   const user = useAppSelector((state: RootState) => state.userReducer.userUid);
-  const todo = todos?.find((todo) => todo?.id === taskId);
+  const task = tasks?.find((task) => task?.id === taskId);
   const dispatch = useAppDispatch();
 
   const inputRef = useClickOutside(() => {
@@ -72,15 +72,15 @@ const MilestoneSinglePage = ({
       : dispatch(
           editMilestone({
             userUid: user,
-            todoId: todo?.id,
+            taskId: task?.id,
             milestone: milestone,
             milestoneEdit: editText,
-            allTodos: todos,
+            allTasks: tasks,
           }),
         );
     dispatch(
       editMilestoneLocally({
-        todoId: todo?.id,
+        taskId: task?.id,
         milestoneEdit: editText,
         milestoneId: milestone?.id,
       }),
@@ -94,7 +94,7 @@ const MilestoneSinglePage = ({
     dispatch(
       completeMilestoneLocally({
         milestoneId: milestone?.id,
-        todoId: todo?.id,
+        taskId: task?.id,
       }),
     );
 
@@ -102,8 +102,8 @@ const MilestoneSinglePage = ({
       completeMilestone({
         milestone: milestone,
         userUid: user,
-        todoId: todo?.id,
-        allTodos: todos,
+        taskId: task?.id,
+        allTasks: tasks,
       }),
     );
   };
@@ -116,14 +116,14 @@ const MilestoneSinglePage = ({
         deleteMilestone({
           milestone: milestone,
           userUid: user,
-          todoId: todo?.id,
-          allTodos: todos,
+          taskId: task?.id,
+          allTasks: tasks,
         }),
       );
       dispatch(
         deleteMilestoneLocally({
           milestoneId: milestone?.id,
-          todoId: todo?.id,
+          taskId: task?.id,
         }),
       );
     }, 300);

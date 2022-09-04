@@ -10,7 +10,7 @@ import {
   RootState,
 } from '../../../interfaces/interfaces';
 import { signUpThunk } from '../../../redux/slices/authentication/signUpSlice';
-import { addUsername } from '../../../redux/slices/features/addUsername';
+import { addUsername } from '../../../redux/slices/features/addUsernameSlice';
 import useCheckStatus from '../../../hooks/useCheckStatus';
 import { FaSpinner } from 'react-icons/fa';
 
@@ -39,7 +39,7 @@ const SignUp = ({ open, setOpen, setSignIn }: SignUpInterface) => {
   });
 
   const userName = useAppSelector(
-    (state: RootState) => state.getTodoReducer.userName,
+    (state: RootState) => state.getTaskReducer.userName,
   );
 
   const [fullName, setFullName] = useState<string>(userName);
