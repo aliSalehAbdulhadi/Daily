@@ -4,19 +4,19 @@ import storage from 'redux-persist/lib/storage';
 import signUpSlice from '../slices/authentication/signUpSlice';
 import signInSlice from '../slices/authentication/signInSlice';
 import userSlice from '../slices/authentication/userSlice';
-import addTodoSlice from '../slices/features/addTodoSlice';
-import getTodoSlice from '../slices/features/getTodoSlice';
-import darkMode from '../slices/features/darkMode';
+import addTaskSlice from '../slices/features/addTaskSlice';
+import getTaskSlice from '../slices/features/getTasksSlice';
+import darkMode from '../slices/features/darkModeSlice';
 import resetPasswordSlice from '../slices/authentication/resetPasswordSlice';
-import disableSwiper from '../slices/features/disableSwiper';
-import disableDragDnd from '../slices/features/disableDragDnd';
+import disableSwiper from '../slices/features/disableSwiperSlice';
+import disableDragDnd from '../slices/features/disableDragDndSlice';
 
 const rootReducer = combineReducers({
   signUpReducer: signUpSlice,
   signInReducer: signInSlice,
   userReducer: userSlice,
-  addTodoReducer: addTodoSlice,
-  getTodoReducer: getTodoSlice,
+  addTaskReducer: addTaskSlice,
+  getTaskReducer: getTaskSlice,
   darkModeReducer: darkMode,
   resetPasswordReducer: resetPasswordSlice,
   disableSwiperReducer: disableSwiper,

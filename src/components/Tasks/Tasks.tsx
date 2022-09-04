@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Droppable } from 'react-beautiful-dnd';
 import {
   useAppSelector,
-  SingleTodoInterface,
+  SingleTaskInterface,
 } from '../../interfaces/interfaces';
 import { RootState } from '../../interfaces/interfaces';
 import SingleTaskContainer from '../SingleTaskContainer/SingleTaskContainer';
@@ -10,8 +10,8 @@ import SingleTaskContainer from '../SingleTaskContainer/SingleTaskContainer';
 const Tasks = ({ id }: { id: any }) => {
   const [completedTask, setCompletedTask] = useState<boolean>(false);
   const [taskId, setTaskId] = useState<string>('');
-  const todos: SingleTodoInterface[] = useAppSelector(
-    (state: RootState) => state.getTodoReducer.todos,
+  const tasks: SingleTaskInterface[] = useAppSelector(
+    (state: RootState) => state.getTaskReducer.tasks,
   );
   const dark = useAppSelector(
     (state: RootState) => state.darkModeReducer.darkMode,
@@ -23,7 +23,7 @@ const Tasks = ({ id }: { id: any }) => {
 
   return (
     <div className="flex justify-center">
-      <Droppable droppableId="NewTodos">
+      <Droppable droppableId="NewTasks">
         {(provided) => (
           <div
             className="sm:m-10 flex flex-col items-center font-Comfortaa font-bold  w-full"
@@ -60,30 +60,30 @@ const Tasks = ({ id }: { id: any }) => {
               } semiSm:h-[65vh] min-h-[80vh] semiSm:min-h-[65vh] w-[100%] semiSm:overflow-auto p-5 lg:p-10 scrollBar flex flex-col items-center semiSm:rounded py-6`}
             >
               {completedTask
-                ? todos?.map((todo: SingleTodoInterface, index: number) =>
-                    todo.completed ? (
+                ? tasks?.map((task: SingleTaskInterface, index: number) =>
+                    task.completed ? (
                       <div
-                        key={todo?.id}
+                        key={task?.id}
                         className="w-full"
-                        onClick={() => setTaskId(todo.id)}
+                        onClick={() => setTaskId(task.id)}
                       >
                         <SingleTaskContainer
-                          content={todo}
+                          content={task}
                           index={index}
                           taskId={taskId}
                         />
                       </div>
                     ) : null,
                   )
-                : todos?.map((todo: SingleTodoInterface, index: number) =>
-                    !todo?.completed ? (
+                : tasks?.map((task: SingleTaskInterface, index: number) =>
+                    !task?.completed ? (
                       <div
-                        key={todo?.id}
+                        key={task?.id}
                         className="w-full"
-                        onClick={() => setTaskId(todo.id)}
+                        onClick={() => setTaskId(task.id)}
                       >
                         <SingleTaskContainer
-                          content={todo}
+                          content={task}
                           index={index}
                           taskId={taskId}
                         />

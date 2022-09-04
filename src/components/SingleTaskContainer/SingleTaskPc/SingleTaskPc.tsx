@@ -16,16 +16,16 @@ import {
   RootState,
   useAppDispatch,
   useAppSelector,
-  SingleTodoInterface,
+  SingleTaskInterface,
 } from '../../../interfaces/interfaces';
-import { completedTodo } from '../../../redux/slices/features/completeTodo';
-import { removeTodo } from '../../../redux/slices/features/deleteTodoSlice';
+import { completedTask } from '../../../redux/slices/features/completeTaskSlice';
+import { removeTask } from '../../../redux/slices/features/deleteTaskSlice';
 import {
-  deleteTodo,
-  getTodo,
-  updateTodo,
-} from '../../../redux/slices/features/getTodoSlice';
-import { editTodo } from '../../../redux/slices/features/editTodo';
+  deleteTask,
+  getTask,
+  updateTask,
+} from '../../../redux/slices/features/getTasksSlice';
+import { editTask } from '../../../redux/slices/features/editTaskSlice';
 import TaskCardIcons from '../TaskCardIcons/TaskCardIcons';
 import useClickOutside from '../../../hooks/useClickOutside';
 import DropDownMenu from '../../Forms/TaskForm/DropDownMenu';
@@ -35,7 +35,7 @@ const SingleTaskPc = ({
   index,
   taskId,
 }: {
-  content: SingleTodoInterface;
+  content: SingleTaskInterface;
   index: number;
   taskId: string;
 }) => {
@@ -46,8 +46,8 @@ const SingleTaskPc = ({
   const [editText, setEditText] = useState<string>(content?.content);
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const dispatch = useAppDispatch();
-  const todos: SingleTodoInterface[] = useAppSelector(
-    (state: RootState) => state.getTodoReducer.todos,
+  const tasks: SingleTaskInterface[] = useAppSelector(
+    (state: RootState) => state.getTaskReducer.tasks,
   );
   const user = useAppSelector((state: RootState) => state.userReducer.userUid);
   useEffect(() => {
@@ -66,48 +66,48 @@ const SingleTaskPc = ({
     editText?.length === 0 || editText.length > 50
       ? setEditText(content?.content)
       : dispatch(
-          editTodo({
+          editTask({
             userUid: user,
-            todoId: content?.id,
-            allTodos: todos,
-            newTodo: editText,
+            taskId: content?.id,
+            allTasks: tasks,
+            newTask: editText,
           }),
         );
 
     setEdit(false);
     setTimeout(() => {
-      dispatch(getTodo({ userUid: user }));
+      dispatch(getTask({ userUid: user }));
     }, 150);
   };
 
   const deletionHandler = () => {
     dispatch(
-      removeTodo({
+      removeTask({
         userUid: user,
-        todoId: content?.id,
-        allTodos: todos,
+        taskId: content?.id,
+        allTasks: tasks,
       }),
     );
 
     setDeleteAnimation(true);
     setTimeout(() => {
-      dispatch(deleteTodo({ todoId: content?.id }));
+      dispatch(deleteTask({ taskId: content?.id }));
       setDeleteAnimation(false);
     }, 250);
   };
 
   const completionHandler = () => {
     dispatch(
-      completedTodo({
+      completedTask({
         userUid: user,
-        todoId: content?.id,
-        allTodos: todos,
+        taskId: content?.id,
+        allTasks: tasks,
       }),
     );
     setCompleteAnimation(true);
 
     setTimeout(() => {
-      dispatch(updateTodo({ todoId: content?.id }));
+      dispatch(updateTask({ taskId: content?.id }));
       setCompleteAnimation(false);
     }, 300);
   };

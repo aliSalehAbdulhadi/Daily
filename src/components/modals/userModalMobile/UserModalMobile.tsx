@@ -25,7 +25,7 @@ const UserModalMobile = ({
     setOpen(false);
   });
   const userName = useAppSelector(
-    (state: RootState) => state.getTodoReducer.userName,
+    (state: RootState) => state.getTaskReducer.userName,
   );
   const user = useAppSelector((state: RootState) => state.userReducer.userUid);
   const bodyNoScroll = document.querySelector('body');

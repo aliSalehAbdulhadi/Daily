@@ -23,7 +23,7 @@ const UserModalPc = ({
   const bodyNoScroll = document.querySelector('body');
 
   const userName = useAppSelector(
-    (state: RootState) => state.getTodoReducer.userName,
+    (state: RootState) => state.getTaskReducer.userName,
   );
   const user = useAppSelector((state: RootState) => state.userReducer.userUid);
 

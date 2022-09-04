@@ -44,7 +44,7 @@ export interface initialState {
   state: string;
 }
 
-export interface SingleTodoInterface {
+export interface SingleTaskInterface {
   id: string;
   content: string;
   completed: boolean;

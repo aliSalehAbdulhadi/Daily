@@ -3,7 +3,7 @@ import { BsPlusCircle, BsPlusCircleFill } from 'react-icons/bs';
 import useClickOutside from '../../hooks/useClickOutside';
 import {
   RootState,
-  SingleTodoInterface,
+  SingleTaskInterface,
   useAppSelector,
 } from '../../interfaces/interfaces';
 import MileStoneForm from '../Forms/MileStoneForm/MileStoneForm';
@@ -14,10 +14,10 @@ const MileStone = ({ taskId }: { taskId: string }) => {
   const [addMilestone, setAddMilestone] = useState<boolean>(false);
   const [plusIcon, setPlusIcon] = useState<boolean>(false);
   const [scroll, setScroll] = useState<boolean>(false);
-  const todos: SingleTodoInterface[] = useAppSelector(
-    (state: RootState) => state.getTodoReducer.todos,
+  const tasks: SingleTaskInterface[] = useAppSelector(
+    (state: RootState) => state.getTaskReducer.tasks,
   );
-  const todo = todos.find((todo) => todo?.id === taskId);
+  const task = tasks.find((task) => task?.id === taskId);
   const milestoneRef = useClickOutside(() => {
     setAddMilestone(false);
   });
@@ -25,12 +25,12 @@ const MileStone = ({ taskId }: { taskId: string }) => {
     setPlusIcon(false);
   });
 
-  const milestoneCompleted = todo?.milestones?.filter(
+  const milestoneCompleted = task?.milestones?.filter(
     (ms: any) => ms?.milestoneCompleted === true,
   ).length;
   const percentage =
-    milestoneCompleted && todo.milestones.length > 0
-      ? Math.round((milestoneCompleted / todo?.milestones?.length) * 100)
+    milestoneCompleted && task.milestones.length > 0
+      ? Math.round((milestoneCompleted / task?.milestones?.length) * 100)
       : 0;
 
   const scrollRefBottom = useRef<HTMLDivElement>(null);
@@ -44,7 +44,7 @@ const MileStone = ({ taskId }: { taskId: string }) => {
       scrollRefBottom?.current?.scrollIntoView({ behavior: 'smooth' });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [todo?.milestones.length]);
+  }, [task?.milestones.length]);
 
   return (
     <div className="m-10 font-Comfortaa transition-all">
@@ -55,12 +55,12 @@ const MileStone = ({ taskId }: { taskId: string }) => {
 
         <div className="bg-primaryColor  rounded overflow-auto scrollBar  text-white h-[65vh]">
           <div className=" flex flex-col m-10">
-            {taskId && todo && todo?.milestones.length > 0 ? (
+            {taskId && task && task?.milestones.length > 0 ? (
               <div className="flex items-center justify-between w-full mb-7 ">
                 <div className="">
                   <span className="text-secondaryLight text-base">Task:</span>
                   <h1 className="text-textDark text-xl font-Handlee">
-                    {todo?.content}
+                    {task?.content}
                   </h1>
                 </div>
                 <div className=" w-[4rem] flex items-start justify-end relative mr-4">
@@ -68,20 +68,20 @@ const MileStone = ({ taskId }: { taskId: string }) => {
                   <div className="absolute top-[60px] right-[60px] text-sm">
                     <span>{milestoneCompleted}</span>
                     <span className="text-xs">/</span>
-                    <span>{todo.milestones?.length}</span>
+                    <span>{task.milestones?.length}</span>
                   </div>
                 </div>
               </div>
             ) : null}
             <div>
-              {todo?.milestones.map((milestone: any, i) => {
+              {task?.milestones.map((milestone: any, i) => {
                 return (
                   <div key={milestone.id}>
                     <MilestoneSinglePage
                       taskId={taskId}
                       milestone={milestone}
                       index={i}
-                      todos={todos}
+                      tasks={tasks}
                     />
                     <div ref={scrollRefBottom}></div>
                   </div>

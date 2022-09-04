@@ -3,17 +3,17 @@ import { MdWifiOff } from 'react-icons/md';
 import { ClapSpinner } from 'react-spinners-kit';
 import {
   RootState,
-  SingleTodoInterface,
+  SingleTaskInterface,
   useAppDispatch,
   useAppSelector,
 } from '../../interfaces/interfaces';
-import { reArrangeFirebase } from '../../redux/slices/features/reArrangeTodos';
+import { reArrangeFirebase } from '../../redux/slices/features/reArrangeTasksSlice';
 
 const CheckInternet = () => {
   const [checkInternet, setCheckInternet] = useState<boolean>(true);
   const [uploadData, setUploadData] = useState<boolean>(false);
-  const todos: SingleTodoInterface[] = useAppSelector(
-    (state: RootState) => state.getTodoReducer.todos,
+  const tasks: SingleTaskInterface[] = useAppSelector(
+    (state: RootState) => state.getTaskReducer.tasks,
   );
   const user = useAppSelector((state: RootState) => state.userReducer.userUid);
   const dispatch = useAppDispatch();
@@ -21,7 +21,7 @@ const CheckInternet = () => {
   useEffect((): void => {
     window.ononline = () => {
       setCheckInternet(true);
-      dispatch(reArrangeFirebase({ userUid: user, allTodos: todos }));
+      dispatch(reArrangeFirebase({ userUid: user, allTasks: tasks }));
       setUploadData(true);
       setTimeout(() => {
         setUploadData(false);
@@ -31,7 +31,7 @@ const CheckInternet = () => {
     window.onoffline = () => {
       setCheckInternet(false);
     };
-  }, [dispatch, todos, user]);
+  }, [dispatch, tasks, user]);
 
   return (
     <div>

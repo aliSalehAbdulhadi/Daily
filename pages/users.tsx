@@ -3,7 +3,7 @@ import { Droppable } from 'react-beautiful-dnd';
 import { IoMdLogOut } from 'react-icons/io';
 import {
   RootState,
-  SingleTodoInterface,
+  SingleTaskInterface,
   useAppSelector,
 } from '../src/interfaces/interfaces';
 import ChangeUserName from '../src/components/modals/changeUserName/changeUserName';
@@ -18,14 +18,14 @@ const User = () => {
     useState<boolean>(false);
 
   const userName = useAppSelector(
-    (state: RootState) => state.getTodoReducer.userName,
+    (state: RootState) => state.getTaskReducer.userName,
   );
   const dark = useAppSelector(
     (state: RootState) => state.darkModeReducer.darkMode,
   );
 
-  const todos: SingleTodoInterface[] = useAppSelector(
-    (state: RootState) => state.getTodoReducer.todos,
+  const tasks: SingleTaskInterface[] = useAppSelector(
+    (state: RootState) => state.getTaskReducer.tasks,
   );
 
   return (

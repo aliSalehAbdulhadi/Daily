@@ -8,7 +8,7 @@ import {
   useAppDispatch,
   useAppSelector,
 } from '../../interfaces/interfaces';
-import { toggleDisableDragDnd } from '../../redux/slices/features/disableDragDnd';
+import { toggleDisableDragDnd } from '../../redux/slices/features/disableDragDndSlice';
 
 const Swipeable = ({
   children,

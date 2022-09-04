@@ -8,11 +8,11 @@ import Swipeable from '../../src/components/swipeable/Swipeable';
 import useClickOutside from '../../src/hooks/useClickOutside';
 import {
   RootState,
-  SingleTodoInterface,
+  SingleTaskInterface,
   useAppSelector,
   useAppDispatch,
 } from '../../src/interfaces/interfaces';
-import { deleteMilestoneLocally } from '../../src/redux/slices/features/getTodoSlice';
+import { deleteMilestoneLocally } from '../../src/redux/slices/features/getTasksSlice';
 import { deleteMilestone } from '../../src/redux/slices/features/MilestonesSlice';
 
 const MileStone = () => {
@@ -30,10 +30,10 @@ const MileStone = () => {
   const [plusIcon, setPlusIcon] = useState<boolean>(false);
   const dispatch = useAppDispatch();
   const user = useAppSelector((state: RootState) => state.userReducer.userUid);
-  const todos: SingleTodoInterface[] = useAppSelector(
-    (state: RootState) => state.getTodoReducer.todos,
+  const tasks: SingleTaskInterface[] = useAppSelector(
+    (state: RootState) => state.getTaskReducer.tasks,
   );
-  const todo = todos?.find((todo) => todo?.id === id);
+  const task = tasks?.find((task) => task?.id === id);
   const milestoneRef = useClickOutside(() => {
     setAddMilestone(false);
   });
@@ -41,12 +41,12 @@ const MileStone = () => {
     setPlusIcon(false);
   });
 
-  const milestoneCompleted = todo?.milestones?.filter(
+  const milestoneCompleted = task?.milestones?.filter(
     (ms: any) => ms?.milestoneCompleted === true,
   ).length;
   const percentage =
-    milestoneCompleted && todo.milestones.length > 0
-      ? Math.round((milestoneCompleted / todo?.milestones?.length) * 100)
+    milestoneCompleted && task.milestones.length > 0
+      ? Math.round((milestoneCompleted / task?.milestones?.length) * 100)
       : 0;
   const dark = useAppSelector(
     (state: RootState) => state.darkModeReducer.darkMode,
@@ -66,14 +66,14 @@ const MileStone = () => {
         deleteMilestone({
           milestone: milestone,
           userUid: user,
-          todoId: todo?.id,
-          allTodos: todos,
+          taskId: task?.id,
+          allTasks: tasks,
         }),
       );
       dispatch(
         deleteMilestoneLocally({
           milestoneId: milestone?.id,
-          todoId: todo?.id,
+          taskId: task?.id,
         }),
       );
     }, 500);
@@ -98,17 +98,17 @@ const MileStone = () => {
               }`}
             >
               <div className=" w-[80%] sm:w-[95%]">
-                <h1 className="text-textDark mr-2 ml-3">{todo?.content}</h1>
+                <h1 className="text-textDark mr-2 ml-3">{task?.content}</h1>
               </div>
               <div className="sm:w-[7%]">
                 <div className="h-[3rem] w-[3rem] lg:h-[4rem] lg:w-[4rem]">
-                  {todo && todo?.milestones.length > 0 ? (
+                  {task && task?.milestones.length > 0 ? (
                     <div className="relative">
                       <ProgressBar percentage={percentage} />
                       <div className="absolute top-[46px] right-[43px] text-xs">
                         <span>{milestoneCompleted}</span>
                         <span className="text-xs">/</span>
-                        <span>{todo.milestones?.length}</span>
+                        <span>{task.milestones?.length}</span>
                       </div>
                     </div>
                   ) : null}
@@ -118,13 +118,13 @@ const MileStone = () => {
             <div className="mx-3 flex flex-col items-center">
               <h1
                 className={`${
-                  todo?.milestones.length === 0 ? 'block' : 'hidden'
+                  task?.milestones.length === 0 ? 'block' : 'hidden'
                 }`}
               >
                 Add milestones
               </h1>
               <div className="w-full">
-                {todo?.milestones.map((milestone: any, i) => {
+                {task?.milestones.map((milestone: any, i) => {
                   return (
                     <Swipeable
                       key={milestone?.id}
@@ -134,7 +134,7 @@ const MileStone = () => {
                         taskId={id}
                         milestone={milestone}
                         index={i}
-                        todos={todos}
+                        tasks={tasks}
                         setDeleteAnimationMobile={deleteAnimation}
                       />
                     </Swipeable>
