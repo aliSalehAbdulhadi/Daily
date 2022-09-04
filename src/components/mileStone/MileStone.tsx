@@ -25,8 +25,6 @@ const MileStone = ({ taskId }: { taskId: string }) => {
     setPlusIcon(false);
   });
 
-  console.log(task?.milestones?.filter((ms) => console.log(ms)));
-
   const milestoneCompleted = task?.milestones?.filter(
     (ms: any) => ms?.milestoneCompleted === true,
   ).length;
