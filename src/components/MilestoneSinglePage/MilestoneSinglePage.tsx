@@ -26,6 +26,7 @@ import {
   deleteMilestone,
   editMilestone,
 } from '../../redux/slices/features/MilestonesSlice';
+import { MdOutlineRemoveDone } from 'react-icons/md';
 
 const MilestoneSinglePage = ({
   taskId,
@@ -197,7 +198,7 @@ const MilestoneSinglePage = ({
               className="container w-fit h-fit mt-2"
             >
               {milestone?.milestoneCompleted ? (
-                <BsFillXCircleFill className=" h-[1.15rem]" />
+                <MdOutlineRemoveDone className=" h-[1.15rem]" />
               ) : completeIcon ? (
                 <BsCheckCircleFill className="h-[1.15rem]" />
               ) : (
@@ -246,7 +247,7 @@ const MilestoneSinglePage = ({
               onClick={completeMilestoneHandler}
             >
               {milestone?.milestoneCompleted ? (
-                <BsFillXCircleFill className=" h-[1.8rem] w-[1.8rem]" />
+                <MdOutlineRemoveDone className=" h-[1.8rem] w-[1.8rem]" />
               ) : (
                 <BsCheckCircle className="h-[1.8rem] w-[1.8rem]" />
               )}

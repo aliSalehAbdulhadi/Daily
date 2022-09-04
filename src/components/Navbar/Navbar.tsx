@@ -12,7 +12,7 @@ import {
   useAppDispatch,
   useAppSelector,
 } from '../../interfaces/interfaces';
-import { getTask } from '../../redux/slices/features/getTasksSlice';
+import { getTasks } from '../../redux/slices/features/getTasksSlice';
 import { toggleDarkMode } from '../../redux/slices/features/darkModeSlice';
 import TaskForm from '../Forms/TaskForm/TaskForm';
 import CheckInternet from '../checkInternet/CheckInternet';
@@ -41,7 +41,7 @@ const Navbar = () => {
   );
   useEffect(() => {
     onAuthStateChanged(auth, (user) => dispatch(setUserUid(user?.uid)));
-    dispatch(getTask({ userUid: user }));
+    dispatch(getTasks({ userUid: user }));
   }, [dispatch, user]);
 
   if (typeof window !== 'undefined') {

@@ -3,8 +3,11 @@ import { Droppable } from 'react-beautiful-dnd';
 import {
   useAppSelector,
   SingleTaskInterface,
+  useAppDispatch,
 } from '../../interfaces/interfaces';
 import { RootState } from '../../interfaces/interfaces';
+import { reArrangeTasks } from '../../redux/slices/features/getTasksSlice';
+import { reArrangeFirebase } from '../../redux/slices/features/reArrangeTasksSlice';
 import SingleTaskContainer from '../SingleTaskContainer/SingleTaskContainer';
 
 const Tasks = ({ id }: { id: Function }) => {
@@ -17,9 +20,26 @@ const Tasks = ({ id }: { id: Function }) => {
     (state: RootState) => state.darkModeReducer.darkMode,
   );
 
+  const user = useAppSelector((state: RootState) => state.userReducer.userUid);
+  const dispatch = useAppDispatch();
+
   useEffect(() => {
     id(taskId);
   }, [taskId, id]);
+
+  const sortByImportantHandler = () => {
+    const copyTasks = [...tasks];
+    const sorted = copyTasks?.sort(
+      (a: any, b: any) => Number(b?.important) - Number(a?.important),
+    );
+    dispatch(
+      reArrangeFirebase({
+        userUid: user,
+        allTasks: sorted,
+      }),
+    );
+    dispatch(reArrangeTasks(sorted));
+  };
 
   return (
     <div className="flex justify-center">
@@ -30,6 +50,7 @@ const Tasks = ({ id }: { id: Function }) => {
             ref={provided.innerRef}
             {...provided.droppableProps}
           >
+            <button onClick={sortByImportantHandler}>sort</button>
             <div className="items-center justify-center cursor-pointer hidden semiSm:flex">
               <button
                 onClick={() => setCompletedTask(false)}

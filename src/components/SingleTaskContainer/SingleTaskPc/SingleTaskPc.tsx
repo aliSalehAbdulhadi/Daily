@@ -21,13 +21,16 @@ import {
 import { completedTask } from '../../../redux/slices/features/completeTaskSlice';
 import { removeTask } from '../../../redux/slices/features/deleteTaskSlice';
 import {
+  changeTaskImportantStateLocally,
   deleteTask,
-  getTask,
-  updateTask,
+  getTasks,
+  completeTaskLocally,
 } from '../../../redux/slices/features/getTasksSlice';
 import { editTask } from '../../../redux/slices/features/editTaskSlice';
 import useClickOutside from '../../../hooks/useClickOutside';
 import DropDownMenu from '../../Forms/TaskForm/DropDownMenu';
+import { changeTaskImportantState } from '../../../redux/slices/features/changeTaskImportantStateSlice';
+import { HiOutlineStar } from 'react-icons/hi';
 
 const SingleTaskPc = ({
   content,
@@ -75,7 +78,7 @@ const SingleTaskPc = ({
 
     setEdit(false);
     setTimeout(() => {
-      dispatch(getTask({ userUid: user }));
+      dispatch(getTasks({ userUid: user }));
     }, 150);
   };
 
@@ -106,9 +109,21 @@ const SingleTaskPc = ({
     setCompleteAnimation(true);
 
     setTimeout(() => {
-      dispatch(updateTask({ taskId: content?.id }));
+      dispatch(completeTaskLocally({ taskId: content?.id }));
       setCompleteAnimation(false);
     }, 300);
+  };
+
+  const importantStateHandler = () => {
+    dispatch(
+      changeTaskImportantState({
+        taskId: content?.id,
+        userUid: user,
+        allTasks: tasks,
+      }),
+    );
+
+    dispatch(changeTaskImportantStateLocally({ taskId: content.id }));
   };
 
   const setCardColorByTypeHandler = (isTaskCard: boolean) => {
@@ -127,14 +142,14 @@ const SingleTaskPc = ({
     <Draggable key={content?.id} draggableId={content?.id} index={index}>
       {(provided) => (
         <div
-          className={`text-textLight   ${
-            content?.id === taskId ? 'borderTop borderBottom' : ''
-          } 
+          className={`text-textLight  outline-[1px] ${
+            content.important ? 'outline-[1px] outline outline-yellow-400' : ''
+          }
            hover:transition-transform hover:ease-in-out hover:duration-300 font-Comfortaa font-semibold my-2 px-5 py-2 min-h-[10rem] relative ${
              content?.completed
                ? 'bg-red-400 shadow-2xl'
                : setCardColorByTypeHandler(true)
-           } flex justify-between flex-row items-center rounded ease-in-out
+           } flex flex-col justify-center items-center rounded ease-in-out
             ${
               deleteAnimation
                 ? 'translate-x-[-35rem] transition-all ease-in-out'
@@ -144,120 +159,149 @@ const SingleTaskPc = ({
           {...provided.dragHandleProps}
           ref={provided.innerRef}
         >
-          <div className="z-50 cursor-pointer mt-5">
-            <DropDownMenu task={content} />
-          </div>
-
-          {edit ? (
-            <form
-              ref={textareaRef}
-              onSubmit={editHanlder}
-              className="flex flex-col"
-            >
-              <textarea
-                className={`my-1 pb-0 ml-5 p-2 outline-none w-full shadow-sm border-gray-300 rounded-md placeholder-slate-400`}
-                onChange={(e) => setEditText(e.target.value)}
-                value={editText}
-                ref={inputRef}
-                rows={
-                  editText.length >= 100
-                    ? editText.length / 50
-                    : editText.length / 15
-                }
+          <div className="flex items-center justify-between   w-full mb-2 ">
+            <div className="text-xs w-fit whitespace-nowrap  select-none">
+              {formatDate}
+            </div>
+            <div className={`${content.completed ? 'hidden' : 'block'}`}>
+              <HiOutlineStar
+                onClick={importantStateHandler}
+                size={20}
+                fill={content.important ? '#e8b923' : 'none'}
+                className={`${
+                  content.important ? 'text-yellow-300' : ''
+                } mr-[.6rem] cursor-pointer`}
               />
-              <button className="text-sm rounded ml-6 mt-1 animate-pulse tracking-wider font-semibold w-fit transition-all ease-in-out whitespace-nowrap ">
-                Submit
-              </button>
-            </form>
-          ) : (
-            <div className="w-full">
-              <div
-                className={`pl-10  flex-col items-center flex ${
-                  content?.completed ? 'strike opacity-60' : ''
-                }`}
+            </div>
+          </div>
+          <div className="flex items-center w-full ">
+            <div className="z-50 cursor-pointer">
+              <DropDownMenu task={content} />
+            </div>
+
+            {edit ? (
+              <form
+                ref={textareaRef}
+                onSubmit={editHanlder}
+                className="flex flex-col"
               >
-                <div>
-                  <span>{content?.content}</span>
-                  <div className="text-xs absolute top-5 left-[20px] bottom-2 w-fit whitespace-nowrap  select-none">
-                    {formatDate}
+                <textarea
+                  className={`my-1 pb-0 ml-5 p-2 outline-none w-full shadow-sm border-gray-300 rounded-md placeholder-slate-400`}
+                  onChange={(e) => setEditText(e.target.value)}
+                  value={editText}
+                  ref={inputRef}
+                  rows={
+                    editText.length >= 100
+                      ? editText.length / 50
+                      : editText.length / 15
+                  }
+                />
+                <button className="text-sm rounded ml-6 mt-1 animate-pulse tracking-wider font-semibold w-fit transition-all ease-in-out whitespace-nowrap ">
+                  Submit
+                </button>
+              </form>
+            ) : (
+              <div className="w-full ">
+                <div
+                  className={`pl-10  flex-col items-center flex ${
+                    content?.completed ? 'strike opacity-60' : ''
+                  }`}
+                >
+                  <div>
+                    <span>{content?.content}</span>
                   </div>
                 </div>
               </div>
-            </div>
-          )}
-          <div className={` flex flex-col pl-10`}>
-            {content?.completed ? (
-              <MdOutlineRemoveDone
-                title="Incomplete"
-                type="button"
-                onClick={completionHandler}
-                className="cursor-pointer mb-3 mr-2 scale-[1.3] hover:text-white hover:scale-150 transition-all ease-in-out"
-              />
-            ) : (
-              <GoCheck
-                title="Complete task"
-                type="button"
-                onClick={completionHandler}
-                className="cursor-pointer mb-3 mr-2 scale-[1.2] hover:text-white hover:scale-150 transition-all ease-in-out"
-              />
             )}
 
-            {!edit ? (
-              <MdModeEditOutline
-                title="Edit"
-                type="submit"
-                onClick={() => setEdit(true)}
-                className={`cursor-pointer mb-3 mr-2 scale-[1.2] ${
-                  content?.completed
-                    ? 'hidden'
-                    : 'block hover:text-white hover:scale-150 transition-all ease-in-ou'
-                }`}
-              />
-            ) : (
-              <MdEditOff
-                type="submit"
-                onClick={() => setEdit(false)}
-                className={`cursor-pointer mb-3 mr-2 scale-[1.2] ${
-                  content?.completed
-                    ? 'hidden'
-                    : 'block hover:text-white hover:scale-150 transition-all ease-in-out'
-                }`}
-              />
-            )}
-
-            {deleteTimer ? (
-              <div
-                className="relative cursor-pointer w-fit h-fit"
-                onClick={() => setDeleteTimer(false)}
-              >
-                <BiX className="absolute h-4 w-4 top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]" />
-                <CountdownCircleTimer
-                  size={22}
-                  strokeWidth={2}
-                  isPlaying
-                  duration={1.5}
-                  // @ts-ignore
-                  trailColor={
-                    content?.completed
-                      ? '#f87171'
-                      : setCardColorByTypeHandler(false)
-                  }
-                  colors="#ffff"
-                  onComplete={() => {
-                    setDeleteTimer(false);
-                    deletionHandler();
-                  }}
+            <div className={` flex flex-col pl-10 mt-2`}>
+              {content?.completed ? (
+                <MdOutlineRemoveDone
+                  title="Incomplete"
+                  type="button"
+                  onClick={completionHandler}
+                  size={20}
+                  className="cursor-pointer mb-2 mr-2 hover:text-white transition-all ease-in-out"
                 />
-              </div>
-            ) : (
-              <AiFillDelete
-                title="Delete"
-                type="submit"
-                onClick={() => setDeleteTimer(true)}
-                className="cursor-pointer scale-[1.3]  h-[1.3rem] hover:text-white hover:scale-150 transition-all ease-in-out"
-              />
-            )}
+              ) : (
+                <GoCheck
+                  title="Complete task"
+                  type="button"
+                  onClick={completionHandler}
+                  size={21}
+                  className="cursor-pointer mb-2 mr-2 hover:text-white transition-all ease-in-out"
+                />
+              )}
+
+              {!edit ? (
+                <MdModeEditOutline
+                  title="Edit"
+                  type="submit"
+                  onClick={() => setEdit(true)}
+                  size={20}
+                  className={`cursor-pointer mb-2 mr-2 ${
+                    content?.completed
+                      ? 'hidden'
+                      : 'block hover:text-white transition-all ease-in-ou'
+                  }`}
+                />
+              ) : (
+                <MdEditOff
+                  type="submit"
+                  onClick={() => setEdit(false)}
+                  size={20}
+                  className={`cursor-pointer mb-2 mr-2 ${
+                    content?.completed
+                      ? 'hidden'
+                      : 'block hover:text-white transition-all ease-in-out'
+                  }`}
+                />
+              )}
+
+              {deleteTimer ? (
+                <div
+                  className="relative cursor-pointer w-fit h-fit "
+                  onClick={() => setDeleteTimer(false)}
+                >
+                  <BiX className="absolute h-4 w-4 top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]" />
+                  <CountdownCircleTimer
+                    size={22}
+                    strokeWidth={2}
+                    isPlaying
+                    duration={1.5}
+                    // @ts-ignore
+                    trailColor={
+                      content?.completed
+                        ? '#f87171'
+                        : setCardColorByTypeHandler(false)
+                    }
+                    colors="#ffff"
+                    onComplete={() => {
+                      setDeleteTimer(false);
+                      deletionHandler();
+                    }}
+                  />
+                </div>
+              ) : (
+                <AiFillDelete
+                  title="Delete"
+                  type="submit"
+                  onClick={() => setDeleteTimer(true)}
+                  className="cursor-pointer scale-[1.3]  h-[1.35rem] hover:text-white hover:scale-150 transition-all ease-in-out"
+                />
+              )}
+            </div>
           </div>
+
+          {content?.id === taskId ? (
+            <div>
+              <div className="selectedTask pointer-events-none bg-white h-[7rem] w-[1px] text-transparent  absolute top-[50%] translate-y-[-50%] left-[-15px]">
+                .
+              </div>
+            </div>
+          ) : (
+            ''
+          )}
         </div>
       )}
     </Draggable>

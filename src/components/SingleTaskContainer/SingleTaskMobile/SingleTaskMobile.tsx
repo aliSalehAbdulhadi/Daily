@@ -17,8 +17,8 @@ import { completedTask } from '../../../redux/slices/features/completeTaskSlice'
 import {
   changeTaskImportantStateLocally,
   deleteTask,
-  getTask,
-  updateTask,
+  getTasks,
+  completeTaskLocally,
 } from '../../../redux/slices/features/getTasksSlice';
 import { editTask } from '../../../redux/slices/features/editTaskSlice';
 import useClickOutside from '../../../hooks/useClickOutside';
@@ -37,7 +37,6 @@ const SingleTaskMobile = ({
 }) => {
   const [completeAnimation, setCompleteAnimation] = useState<boolean>(false);
   const [deleteAnimation, setDeleteAnimation] = useState<boolean>(false);
-
   const [edit, setEdit] = useState<boolean>(false);
   const [editText, setEditText] = useState<string>(content?.content);
   const inputRef = useRef<HTMLTextAreaElement>(null);
@@ -86,7 +85,7 @@ const SingleTaskMobile = ({
 
     setEdit(false);
     setTimeout(() => {
-      dispatch(getTask({ userUid: user }));
+      dispatch(getTasks({ userUid: user }));
     }, 150);
   };
 
@@ -101,7 +100,7 @@ const SingleTaskMobile = ({
     setCompleteAnimation(true);
 
     setTimeout(() => {
-      dispatch(updateTask({ taskId: content?.id }));
+      dispatch(completeTaskLocally({ taskId: content?.id }));
       setCompleteAnimation(false);
     }, 300);
   };
@@ -135,15 +134,15 @@ const SingleTaskMobile = ({
     dispatch(changeTaskImportantStateLocally({ taskId: content.id }));
   };
 
-  const setCardColorByTypeHandler = () => {
+  const setCardColorByTypeHandler = (isBg: boolean) => {
     if (content?.taskType === 'personal') {
-      return 'bg-green-400';
+      return isBg ? 'bg-green-400' : 'border-green-400';
     }
     if (content?.taskType === 'work') {
-      return 'bg-blue-400';
+      return isBg ? 'bg-blue-400' : 'border-blue-400';
     }
     if (content?.taskType === 'fun') {
-      return 'bg-purple-400';
+      return isBg ? 'bg-purple-400' : 'border-purple-400';
     }
   };
 
@@ -162,12 +161,20 @@ const SingleTaskMobile = ({
         >
           <Swipeable handler={deletionHandler}>
             <div
-              className={`taskMobileEnter flex text-textLight
+              className={`taskMobileEnter  flex text-textLight
           font-Comfortaa font-semibold ${
-            content.important ? 'border-[1px] border-yellow-400' : ''
-          } ${
-                content?.completed ? 'bg-red-400' : setCardColorByTypeHandler()
-              }  rounded text-sm ease-in-out
+            content.important && !content.completed
+              ? 'border-[1px] border-yellow-400'
+              : content.completed
+              ? ''
+              : `border-[1px] ${setCardColorByTypeHandler(false)}`
+          }
+
+
+          
+          ${
+            content?.completed ? 'bg-red-400' : setCardColorByTypeHandler(true)
+          }  rounded text-sm ease-in-out 
             ${
               deleteAnimation
                 ? 'translate-x-[-35rem] transition-all duration-300 ease-in-out'
@@ -175,7 +182,11 @@ const SingleTaskMobile = ({
             } ${completeAnimation ? 'animate-bounce' : ''} `}
             >
               <div className="flex flex-col justify-between my-0 px-5 py-2 min-h-[10rem] w-[75%] mobileTaskCardBoxShadow">
-                <div className="flex items-center justify-between mt-1">
+                <div
+                  className={`items-center justify-between mt-1 ${
+                    content.completed ? 'hidden' : 'flex'
+                  }`}
+                >
                   <HiOutlineStar
                     onClick={importantStateHandler}
                     size={20}
