@@ -1,18 +1,16 @@
-import { Droppable } from "react-beautiful-dnd";
-import SingleTask from "./../SingleTask/SingleTask";
+import { Droppable } from 'react-beautiful-dnd';
+import SingleTask from './../SingleTask/SingleTask';
 import {
   useAppSelector,
   SingleTodoInterface,
-} from "../../interfaces/interfaces";
-import { RootState } from "../../interfaces/interfaces";
+} from '../../interfaces/interfaces';
+import { RootState } from '../../interfaces/interfaces';
 
 const NewTasks = () => {
   const todos: SingleTodoInterface[] = useAppSelector(
     (state: RootState) => state.getTodoReducer.todos,
   );
-  const dark = useAppSelector(
-    (state: RootState) => state.darkModeReducer.darkMode,
-  );
+
   return (
     <div className="md:flex">
       <Droppable droppableId="NewTodos">
