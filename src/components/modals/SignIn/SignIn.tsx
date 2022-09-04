@@ -1,15 +1,15 @@
-import * as Yup from "yup";
-import { Formik, Form } from "formik";
-import { FaSpinner } from "react-icons/fa";
-import Modal from "../Modal/Modal";
+import * as Yup from 'yup';
+import { Formik, Form } from 'formik';
+import { FaSpinner } from 'react-icons/fa';
+import Modal from '../Modal/Modal';
 import {
   SignInInterface,
   useAppDispatch,
   useAppSelector,
-} from "../../../interfaces/interfaces";
-import FormField from "../../FormField/FormField";
-import { signInThunk } from "../../../redux/slices/authentication/signInSlice";
-import useCheckStatus from "../../../hooks/useCheckStatus";
+} from '../../../interfaces/interfaces';
+import FormField from '../../FormField/FormField';
+import { signInThunk } from '../../../redux/slices/authentication/signInSlice';
+import useCheckStatus from '../../../hooks/useCheckStatus';
 
 const signInSchema = Yup.object().shape({
   Email: Yup.string().min(3).max(24).required(),
@@ -38,7 +38,7 @@ const SignIn = ({
   return (
     <Modal label="Sign In" setOpen={setOpen} open={open}>
       <Formik
-        initialValues={{ Email: "", Password: "" }}
+        initialValues={{ Email: '', Password: '' }}
         validationSchema={signInSchema}
         onSubmit={(values) => {
           dispatch(
@@ -56,6 +56,7 @@ const SignIn = ({
               type="email"
               placeholder="Enter Your Email"
               value="email"
+              classNameField="p-5 outline-none block w-full shadow-sm sm:text-sm border-gray-300 rounded py-3 font-Comfortaa text-textLight mt-1"
             />
             <FormField
               autoComplete="password"
@@ -65,6 +66,7 @@ const SignIn = ({
               type="password"
               placeholder="Enter Your Password"
               value="password"
+              classNameField="p-5 outline-none block w-full shadow-sm sm:text-sm border-gray-300 rounded py-3 font-Comfortaa text-textLight mt-1 "
             />
             <button
               type="button"
@@ -72,7 +74,7 @@ const SignIn = ({
                 setResetPassword(true);
                 setOpen(false);
               }}
-              className="text-xs self-end mr-1 mt-1 transition-all duration-300 ease-in-out hover:translate-x-[-2px]"
+              className="text-xs self-end mr-1 mt-1"
             >
               Forgot Password?
             </button>
@@ -87,7 +89,7 @@ const SignIn = ({
             <div className="flex justify-between items-center mt-7">
               {pending ? (
                 <button
-                  className="flex items-center justify-center bg-primaryColor py-3 px-5 md:px-7 rounded text-white ml-2 text-xs md:text-sm"
+                  className="flex items-center justify-center bg-primaryColor py-3 px-5 rounded text-white ml-2 text-xs md:text-sm"
                   type="submit"
                 >
                   <FaSpinner className="mr-4 animate-spin" />
@@ -104,7 +106,7 @@ const SignIn = ({
               <div className="flex flex-col text-xs md:text-sm ">
                 <span>Dont have an account?</span>
                 <button
-                  className="mt-1 transition-all duration-300 ease-in-out hover:translate-y-[2px]"
+                  className="mt-1 animate-pulse"
                   type="button"
                   onClick={() => {
                     setOpen(false);

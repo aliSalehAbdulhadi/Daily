@@ -1,83 +1,112 @@
-import { useEffect, useState } from "react";
-import { onAuthStateChanged } from "firebase/auth";
-import Image from "next/image";
-import SignIn from "../modals/SignIn/SignIn";
-import SignUp from "../modals/SignUp/SignUp";
-import { auth } from "../../container/firebase";
-import { setUserUid } from "../../redux/slices/authentication/userSlice";
+/* eslint-disable @next/next/no-img-element */
+import { useEffect, useState } from 'react';
+import { onAuthStateChanged } from 'firebase/auth';
+import Image from 'next/image';
+import { IoPersonCircleSharp } from 'react-icons/io5';
+import { BsList } from 'react-icons/bs';
+import Link from 'next/link';
+import { auth } from '../../container/firebase';
+import { setUserUid } from '../../redux/slices/authentication/userSlice';
 import {
   RootState,
   useAppDispatch,
   useAppSelector,
-} from "../../interfaces/interfaces";
-import { getTodo } from "../../redux/slices/features/getTodoSlice";
-import { toggleDarkMode } from "../../redux/slices/features/darkMode";
-import User from "../userSection/User";
-import ResetPassword from "../modals/resetPassword/ResetPassword";
+} from '../../interfaces/interfaces';
+import { getTask } from '../../redux/slices/features/getTasksSlice';
+import { toggleDarkMode } from '../../redux/slices/features/darkModeSlice';
+import TaskForm from '../Forms/TaskForm/TaskForm';
+import CheckInternet from '../checkInternet/CheckInternet';
+import UserModalPc from '../modals/UserModalPc/UserModalPc';
+import UserModalMobile from '../modals/userModalMobile/UserModalMobile';
+import useClickOutside from '../../hooks/useClickOutside';
 
 const Navbar = () => {
   const darkModeFunction = (): any => {
-    if (typeof window !== "undefined") {
-      const localDarkOption = localStorage.getItem("darkMode");
-      return localDarkOption === "true" ? true : false;
+    if (typeof window !== 'undefined') {
+      const localDarkOption = localStorage.getItem('darkMode');
+      return localDarkOption === 'true' ? true : false;
     }
   };
-  const [signIn, setSignIn] = useState<boolean>(false);
-  const [signUp, setSignUp] = useState<boolean>(false);
-  const [resetPassword, setResetPassword] = useState<boolean>(false);
-  const [darkMode, setSetDarkMode] = useState<boolean>(darkModeFunction);
 
+  const [openUserModalPc, setOpenUserModalPc] = useState<boolean>(false);
+  const [openUserModalMobile, setOpenUserModalMobile] =
+    useState<boolean>(false);
+  const [closeAnimation, setCloseAnimation] = useState<boolean>(false);
+
+  const [darkMode, setSetDarkMode] = useState<boolean>(darkModeFunction);
   const dispatch = useAppDispatch();
   const user = useAppSelector((state: RootState) => state.userReducer.userUid);
   const dark = useAppSelector(
     (state: RootState) => state.darkModeReducer.darkMode,
   );
-
   useEffect(() => {
     onAuthStateChanged(auth, (user) => dispatch(setUserUid(user?.uid)));
-    dispatch(getTodo({ userUid: user }));
+    dispatch(getTask({ userUid: user }));
   }, [dispatch, user]);
 
-  if (typeof window !== "undefined") {
-    localStorage?.setItem("darkMode", JSON.stringify(darkMode));
+  if (typeof window !== 'undefined') {
+    localStorage?.setItem('darkMode', JSON.stringify(darkMode));
   }
   useEffect(() => {
     dispatch(toggleDarkMode(darkMode));
   }, [darkMode, dispatch]);
 
+  useEffect(() => {
+    setOpenUserModalPc(false);
+    setOpenUserModalMobile(false);
+  }, [user]);
+
+  const userModalRef = useClickOutside(() => {
+    setCloseAnimation(true);
+    setTimeout(() => {
+      setOpenUserModalPc(false);
+      setCloseAnimation(false);
+    }, 300);
+  });
   return (
-    <div
-      className={`${dark ? "bg-primaryColor" : "bg-primaryLight"} ${
-        dark ? "text-textDark" : "text-textLight"
+    <nav
+      className={`${dark ? 'bg-primaryColor' : 'bg-primaryLight'} ${
+        dark ? 'text-textDark' : 'text-textLight'
       } w-full h-[10vh]  flex items-center justify-between px-5 whitespace-nowrap text-sm md:text-base md:px-10 font-Comfortaa`}
     >
-      <div className="px-3 flex select-none">
-        <div className={`${dark ? "hidden" : "block"}`}>
-          <Image
-            className="transition-all duration-300 ease-in-out hover:rotate-[360deg]"
-            src="/logoBlack.svg"
-            width="45"
-            height="45"
-            alt="Daily-logo"
-          />
+      <div className="px-3 flex select-none relative">
+        <div className={`${dark ? 'hidden' : 'block'} cursor-pointer`}>
+          <Link href="/">
+            <div>
+              <Image
+                className="transition-all duration-300 ease-in-out hover:rotate-[360deg]"
+                src="/logoBlack.svg"
+                width="45"
+                height="45"
+                alt="Daily-logo"
+              />
+            </div>
+          </Link>
         </div>
-        <div className={`${dark ? "block" : "hidden"}`}>
-          <Image
-            className="transition-all duration-300 ease-in-out hover:rotate-[360deg]"
-            src="/logo.svg"
-            width="45"
-            height="45"
-            alt="Daily-logo"
-          />
+        <div className={`${dark ? 'block' : 'hidden'} cursor-pointer`}>
+          <Link href="/">
+            <div>
+              <Image
+                className="transition-all duration-300 ease-in-out hover:rotate-[360deg]"
+                src="/logo.svg"
+                width="45"
+                height="45"
+                alt="Daily-logo"
+              />
+            </div>
+          </Link>
+        </div>
+        <div className="absolute top-[.40rem] left-32">
+          <CheckInternet />
         </div>
       </div>
 
-      <div className="flex items-center justify-center relative">
-        <div
-          className={`absolute  ${
-            user ? "right-[160px]" : "right-[150px]"
-          } sm:right-[180px]`}
-        >
+      <div className="hidden sm:block w-full  ">
+        <TaskForm />
+      </div>
+
+      <div className="flex items-center justify-center relative pl-[2rem]">
+        <div className={`absolute mr-36`}>
           <input
             title="Dark and Light mode"
             type="checkbox"
@@ -88,40 +117,37 @@ const Navbar = () => {
               setSetDarkMode(!darkMode);
             }}
           />
-          <div className="bg-icon w-8 h-6 bg-no-repeat absolute pointer-events-none top-[-1px] right-[-12px] sm:top-[-0px] sm:right-[-14px] sm:w-8 sm:h-6" />
+          <div className="bg-icon w-8 h-6 bg-no-repeat absolute pointer-events-none top-[-1px] right-[-12px] sm:top-[-1.2px] sm:right-[-14px] sm:w-8 sm:h-6" />
         </div>
-        <div>
-          {!user ? (
-            <div>
-              <button
-                className="transition-all duration-300 ease-in-out hover:translate-x-[-3px]"
-                onClick={() => setSignUp(true)}
-              >
-                Sign Up
-              </button>
-              <span className="px-2">|</span>
-              <button
-                className="transition-all duration-300 ease-in-out hover:translate-x-[3px]"
-                onClick={() => setSignIn(true)}
-              >
-                Sign In
-              </button>
-            </div>
-          ) : (
-            <User />
-          )}
+        <div
+          ref={userModalRef}
+          onClick={() => {
+            setOpenUserModalPc(true);
+            setOpenUserModalMobile(true);
+          }}
+          className="flex items-center justify-center border rounded-full py-1 pl-2 pr-1 transition-all ease-in-out duration-200 cursor-pointer hover:shadow-lg relative"
+        >
+          <BsList
+            className="mr-[.20rem]"
+            size={20}
+            color={dark ? 'white' : 'black'}
+          />
+          <IoPersonCircleSharp size={35} color={dark ? 'white' : '#696969'} />
+          <div className="absolute top-14 right-0 z-50 hidden semiSm:block">
+            <UserModalPc
+              closeAnimation={closeAnimation}
+              open={openUserModalPc}
+            />
+          </div>
         </div>
       </div>
-
-      <SignIn
-        open={signIn}
-        setOpen={setSignIn}
-        setSignUp={setSignUp}
-        setResetPassword={setResetPassword}
-      />
-      <SignUp open={signUp} setOpen={setSignUp} setSignIn={setSignIn} />
-      <ResetPassword open={resetPassword} setOpen={setResetPassword} />
-    </div>
+      <div className="fixed top-0 right-0  z-50 semiSm:hidden">
+        <UserModalMobile
+          open={openUserModalMobile}
+          setOpen={setOpenUserModalMobile}
+        />
+      </div>
+    </nav>
   );
 };
 

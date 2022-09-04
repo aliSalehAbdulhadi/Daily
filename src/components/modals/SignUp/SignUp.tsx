@@ -1,26 +1,26 @@
-import { useEffect, useState } from "react";
-import * as Yup from "yup";
-import { Formik, Form } from "formik";
-import Modal from "../Modal/Modal";
-import { SignUpInterface } from "../../../interfaces/interfaces";
-import FormField from "../../FormField/FormField";
+import { useEffect, useState } from 'react';
+import * as Yup from 'yup';
+import { Formik, Form } from 'formik';
+import Modal from '../Modal/Modal';
+import { SignUpInterface } from '../../../interfaces/interfaces';
+import FormField from '../../FormField/FormField';
 import {
   useAppDispatch,
   useAppSelector,
   RootState,
-} from "../../../interfaces/interfaces";
-import { signUpThunk } from "../../../redux/slices/authentication/signUpSlice";
-import { addUsername } from "../../../redux/slices/features/addUsername";
-import useCheckStatus from "../../../hooks/useCheckStatus";
-import { FaSpinner } from "react-icons/fa";
+} from '../../../interfaces/interfaces';
+import { signUpThunk } from '../../../redux/slices/authentication/signUpSlice';
+import { addUsername } from '../../../redux/slices/features/addUsernameSlice';
+import useCheckStatus from '../../../hooks/useCheckStatus';
+import { FaSpinner } from 'react-icons/fa';
 
 const signUpSchema = Yup.object().shape({
-  UserName: Yup.string().min(3).max(15).required("User name is required"),
-  Email: Yup.string().min(3).max(24).required("Email is required"),
-  Password: Yup.string().min(6).required("Password is required"),
+  UserName: Yup.string().min(3).max(15).required('User name is required'),
+  Email: Yup.string().min(3).max(24).required('Email is required'),
+  Password: Yup.string().min(6).required('Password is required'),
   PasswordConfirmation: Yup.string()
-    .required("Password is required")
-    .oneOf([Yup.ref("Password"), null], "Password must match"),
+    .required('Password is required')
+    .oneOf([Yup.ref('Password'), null], 'Password must match'),
 });
 
 const SignUp = ({ open, setOpen, setSignIn }: SignUpInterface) => {
@@ -39,7 +39,7 @@ const SignUp = ({ open, setOpen, setSignIn }: SignUpInterface) => {
   });
 
   const userName = useAppSelector(
-    (state: RootState) => state.getTodoReducer.userName,
+    (state: RootState) => state.getTaskReducer.userName,
   );
 
   const [fullName, setFullName] = useState<string>(userName);
@@ -59,10 +59,10 @@ const SignUp = ({ open, setOpen, setSignIn }: SignUpInterface) => {
     <Modal label="Sign Up" setOpen={setOpen} open={open}>
       <Formik
         initialValues={{
-          UserName: "",
-          Email: "",
-          Password: "",
-          PasswordConfirmation: "",
+          UserName: '',
+          Email: '',
+          Password: '',
+          PasswordConfirmation: '',
         }}
         validationSchema={signUpSchema}
         onSubmit={(values) => {
@@ -87,6 +87,7 @@ const SignUp = ({ open, setOpen, setSignIn }: SignUpInterface) => {
               type="text"
               placeholder="Enter Your User Name"
               value="username"
+              classNameField="p-5 outline-none block w-full shadow-sm sm:text-sm border-gray-300 rounded py-3 font-Comfortaa text-textLight mt-1"
             />
             <FormField
               autoComplete="email"
@@ -96,6 +97,7 @@ const SignUp = ({ open, setOpen, setSignIn }: SignUpInterface) => {
               type="email"
               placeholder="Enter Your Email"
               value="email"
+              classNameField="p-5 outline-none block w-full shadow-sm sm:text-sm border-gray-300 rounded py-3 font-Comfortaa text-textLight mt-1"
             />
             <FormField
               autoComplete="password"
@@ -105,6 +107,7 @@ const SignUp = ({ open, setOpen, setSignIn }: SignUpInterface) => {
               type="password"
               placeholder="Enter Your Password"
               value="password"
+              classNameField="p-5 outline-none block w-full shadow-sm sm:text-sm border-gray-300 rounded py-3 font-Comfortaa text-textLight mt-1"
             />
 
             <FormField
@@ -115,6 +118,7 @@ const SignUp = ({ open, setOpen, setSignIn }: SignUpInterface) => {
               type="password"
               placeholder="Enter Your Password Again"
               value="password"
+              classNameField="p-5 outline-none block w-full shadow-sm sm:text-sm border-gray-300 rounded py-3 font-Comfortaa text-textLight mt-1"
             />
             <div className="py-4 h-4 w-full flex items-center justify-center">
               {rejected ? (
@@ -127,7 +131,7 @@ const SignUp = ({ open, setOpen, setSignIn }: SignUpInterface) => {
             <div className="flex justify-between items-center mt-5">
               {pending ? (
                 <button
-                  className="flex items-center justify-center bg-primaryColor py-3 px-3 md:px-7 rounded text-white ml-2 text-xs md:text-sm"
+                  className="flex items-center justify-center bg-primaryColor py-3 px-3 rounded text-white ml-2 text-xs md:text-sm"
                   type="submit"
                 >
                   <FaSpinner className="mr-3 animate-spin" />
@@ -144,7 +148,7 @@ const SignUp = ({ open, setOpen, setSignIn }: SignUpInterface) => {
               <div className="flex flex-col text-xs md:text-sm">
                 <span>Already have an account?</span>
                 <button
-                  className="mt-1 transition-all duration-300 ease-in-out hover:translate-y-[2px]"
+                  className="mt-1 animate-pulse"
                   type="button"
                   onClick={() => {
                     setOpen(false);

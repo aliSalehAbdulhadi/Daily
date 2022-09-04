@@ -1,6 +1,6 @@
-import { useSelector } from "react-redux";
-import { TypedUseSelectorHook, useDispatch } from "react-redux";
-import store from "../redux/store/store";
+import { useSelector } from 'react-redux';
+import { TypedUseSelectorHook, useDispatch } from 'react-redux';
+import store from '../redux/store/store';
 
 export interface ModalInterface {
   label: string;
@@ -17,6 +17,7 @@ export interface FieldPropsInterface {
   placeholder: string;
   autoComplete: string;
   className: string;
+  classNameField?: string;
 }
 
 export interface SignInInterface {
@@ -43,13 +44,22 @@ export interface initialState {
   state: string;
 }
 
-export interface SingleTodoInterface {
+export interface SingleTaskInterface {
   id: string;
   content: string;
   completed: boolean;
-  icon: string;
+  taskType: string;
   date: string;
+  important: boolean;
+  milestones: object[];
 }
+
+export interface singleMilestoneInterface {
+  id: string;
+  milestoneCompleted: boolean;
+  milestoneContent: string;
+}
+
 export interface AsyncThunkConfig {
   /** return type for `thunkApi.getState` */
   state?: unknown;

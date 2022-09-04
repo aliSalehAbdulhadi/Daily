@@ -1,6 +1,6 @@
-import { Fragment, useRef } from "react";
-import { Dialog, Transition } from "@headlessui/react";
-import { ModalInterface } from "../../../interfaces/interfaces";
+import { Fragment, useRef } from 'react';
+import { Dialog, Transition } from '@headlessui/react';
+import { ModalInterface } from '../../../interfaces/interfaces';
 
 function Modal({
   children,
@@ -18,7 +18,7 @@ function Modal({
         initialFocus={cancelButtonRef}
         onClose={setOpen}
       >
-        <div className="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+        <div className="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0 font-Comfortaa">
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
@@ -47,12 +47,12 @@ function Modal({
             leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
           >
             <div
-              className={`relative inline-block align-bottom bg-primaryDark rounded text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-sm sm:w-full 
+              className={`relative inline-block align-bottom bg-primaryDark rounded text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle 
               }`}
             >
               <div className={`p-4 sm:p-6 sm:pb-4 w-full bg-secondaryColor`}>
                 <div className="flex  justify-between mb-5">
-                  <h2 className="  w-max font-semibold text-[1.2rem] md:text-2xl lg:text-[1.5rem]  mb-1">
+                  <h2 className="  w-max font-semibold text-[1.2rem] mb-1">
                     {label}
                   </h2>
                   <button

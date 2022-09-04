@@ -4,6 +4,8 @@
     "firebaseapp",
     "firestore",
     "formik",
-    "headlessui"
+    "headlessui",
+    "persistor",
+    "Swipeable"
   ]
 }
