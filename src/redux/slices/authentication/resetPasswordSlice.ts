@@ -1,9 +1,9 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { sendPasswordResetEmail } from "firebase/auth";
-import { auth } from "../../../container/firebase";
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { sendPasswordResetEmail } from 'firebase/auth';
+import { auth } from '../../../container/firebase';
 
 export const resetPasswordThunk = createAsyncThunk(
-  "user/resetPassword",
+  'user/resetPassword',
   async ({ email }: { email: string }, { rejectWithValue }) => {
     try {
       await sendPasswordResetEmail(auth, email);
@@ -15,28 +15,28 @@ export const resetPasswordThunk = createAsyncThunk(
 
 const initialState = {
   error: [],
-  state: "",
+  state: '',
 };
 
 const resetPasswordSlice = createSlice({
-  name: "resetPassword",
+  name: 'resetPassword',
   initialState,
   reducers: {
     clearPasswordState: (state: any) => {
       state.error = [];
-      state.state = "";
+      state.state = '';
     },
   },
   extraReducers(build) {
     build.addCase(resetPasswordThunk.pending, (state) => {
-      state.state = "pending";
+      state.state = 'pending';
     }),
       build.addCase(resetPasswordThunk.fulfilled, (state) => {
-        state.state = "fulfilled";
+        state.state = 'fulfilled';
       }),
       build.addCase(resetPasswordThunk.rejected, (state, action: any) => {
         state.error = action.payload?.code;
-        state.state = "rejected";
+        state.state = 'rejected';
       });
   },
 });

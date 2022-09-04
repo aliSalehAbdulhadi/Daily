@@ -1,13 +1,15 @@
-import { ErrorMessage, Field } from "formik";
+import { ErrorMessage, Field } from 'formik';
+import { useEffect } from 'react';
 import {
   FieldPropsInterface,
   RootState,
   useAppSelector,
-} from "../../interfaces/interfaces";
+} from '../../interfaces/interfaces';
 
 function FormField({
-  autoComplete = "",
-  className = "",
+  autoComplete = '',
+  className = '',
+  classNameField = '',
   label,
   name,
   type,
@@ -17,8 +19,11 @@ function FormField({
   const dark = useAppSelector(
     (state: RootState) => state.darkModeReducer.darkMode,
   );
+  useEffect(() => {
+    document.getElementsByName('milestoneForm')[0]?.focus();
+  });
 
-  if (type === "textarea") {
+  if (type === 'textarea') {
     return (
       <div className={className}>
         <label htmlFor={name} className={`text-sm font-medium`}>
@@ -28,7 +33,7 @@ function FormField({
           as="textarea"
           autoComplete={autoComplete}
           className={`my-1 w-full shadow-sm sm:text-sm border-gray-300 rounded-md  ${
-            dark ? "text-textLight" : "text-textDark"
+            dark ? 'text-textLight' : 'text-textDark'
           }`}
           name={name}
           placeholder={placeholder}
@@ -42,6 +47,7 @@ function FormField({
       </div>
     );
   }
+
   return (
     <div className={className}>
       <label
@@ -51,12 +57,8 @@ function FormField({
         {label}
       </label>
       <Field
-        autoComplete={autoComplete}
-        className={`my-1  p-5 outline-none block w-full shadow-sm sm:text-sm border-gray-300 rounded py-3  mt-3 font-Comfortaa ${
-          dark ? "bg-textDark" : "bg-secondaryLight"
-        } ${dark ? "text-textLight" : "text-textDark"} text-sm md:text-base ${
-          dark ? "" : "placeholder-textDark"
-        }`}
+        autoComplete="off"
+        className={classNameField}
         id={name}
         name={name}
         type={type}

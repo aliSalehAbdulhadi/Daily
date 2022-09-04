@@ -1,4 +1,5 @@
-@import url("https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -21,7 +22,11 @@ a {
 }
 
 .bg-icon {
-  background-image: url("/moon3.svg");
+  background-image: url('/sun3.svg');
+}
+
+input:checked + .bg-icon {
+  background-image: url('/moon3.svg');
 }
 
 .card-animation {
@@ -34,8 +39,15 @@ a {
   transform: scale(1.05);
 }
 
-input:checked + .bg-icon {
-  background-image: url("/sun3.svg");
+.scrollBar::-webkit-scrollbar {
+  width: 4px;
+  color: red;
+  direction: ltr;
+}
+
+.scrollBar::-webkit-scrollbar-thumb {
+  background: white;
+  border-radius: 3px;
 }
 
 textarea::-webkit-scrollbar {
@@ -52,4 +64,349 @@ textarea::-webkit-scrollbar-thumb {
 
 input::-webkit-input-placeholder {
   font-size: 13px;
+}
+
+.container {
+  display: block;
+  position: relative;
+  padding-left: 5px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.container input:checked {
+  background-color: #e6e6e6;
+}
+
+.autoFillText input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 50px white inset;
+  -webkit-text-fill-color: white;
+}
+.autoFillText input:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0 50px white inset;
+  -webkit-text-fill-color: white;
+}
+
+@keyframes strike {
+  from {
+    text-decoration-color: transparent;
+  }
+  to {
+    text-decoration-color: auto;
+  }
+}
+.strike {
+  text-decoration: line-through;
+  animation: strike 1s linear;
+}
+
+@keyframes deleteAnimation {
+  from {
+    transform: scale(1);
+    opacity: 1;
+  }
+  to {
+    transform: scale(0.6);
+    opacity: 0.6;
+  }
+}
+.deleteMilestone {
+  animation: deleteAnimation 0.3s linear;
+}
+
+.underlineAnimation {
+  position: relative;
+}
+
+.underlineAnimation::after {
+  content: '';
+  border-bottom: 1px solid white;
+  height: 5px;
+  position: absolute;
+  top: 72px;
+  transition: 0.3s ease-in-out;
+  animation: borderBottomAnimation 0.3s linear;
+  width: 65%;
+}
+
+@keyframes borderBottomAnimation {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 65%;
+  }
+}
+
+.singleMilestoneUnderline {
+  position: relative;
+}
+
+.singleMilestoneUnderline::after {
+  content: '';
+  border-bottom: 1px solid white;
+  height: 5px;
+  position: absolute;
+  top: 5px;
+  transition: 0.3s ease-in-out;
+  animation: borderBottomAnimation 0.3s linear;
+  width: 100%;
+}
+
+@keyframes singleMilestoneAnimation {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+.deleteUnderline {
+  position: relative;
+}
+
+.deleteUnderline::after {
+  content: '';
+  border-bottom: 1px solid white;
+  height: 5px;
+  position: absolute;
+  top: 5px;
+  transition: 0.3s ease-in-out;
+  animation: borderBottomAnimation 0.3s linear;
+  width: 0%;
+}
+
+@keyframes deleteUnderlineAnimation {
+  from {
+    width: 100%;
+  }
+  to {
+    width: 0%;
+  }
+}
+
+.borderTop {
+  position: relative;
+}
+
+.borderTop::before {
+  content: '';
+  border-bottom: 2px solid white;
+  border-radius: 0.25rem;
+  height: 0px;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  transition: 0.3s ease-in-out;
+  animation: borderAnimation 0.3s linear;
+  width: 100%;
+}
+
+.borderBottom {
+  position: relative;
+}
+
+.borderBottom::after {
+  content: '';
+  border: 1px solid white;
+  border-radius: 0.25rem;
+  height: 0px;
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  transition: 0.3s ease-in-out;
+  animation: borderAnimation 0.3s linear;
+  width: 100%;
+}
+
+.mobileTaskCardBoxShadow {
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.5);
+  clip-path: inset(0px -15px 0px 0px);
+}
+
+@keyframes borderAnimation {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+.taskEnter {
+  animation: taskEnterAnimation 0.2s linear;
+}
+
+@keyframes taskEnterAnimation {
+  from {
+    transform: translateX(25rem);
+  }
+  to {
+    transform: translateX(0rem);
+  }
+}
+
+.userModalEnterPc {
+  position: absolute;
+  right: 8px;
+  animation: userModalEnterPcAnimation 0.3s linear;
+}
+
+@keyframes userModalEnterPcAnimation {
+  0% {
+    right: -100px;
+  }
+
+  100% {
+    right: 8px;
+  }
+}
+
+.userModalExitPc {
+  animation: userModalExitPcAnimation 0.3s linear;
+}
+
+@keyframes userModalExitPcAnimation {
+  from {
+    transform: translateX(0rem);
+  }
+  to {
+    transform: translateX(10rem);
+  }
+}
+
+.userModalEnter {
+  animation: userModalEnterAnimation 0.25s linear;
+}
+
+@keyframes userModalEnterAnimation {
+  from {
+    transform: translateY(-10rem);
+  }
+  to {
+    transform: translateY(0rem);
+  }
+}
+
+.userModalExit {
+  animation: userModalExitAnimation 0.25s linear;
+}
+
+@keyframes userModalExitAnimation {
+  from {
+    transform: translateY(0rem);
+  }
+  to {
+    transform: translateY(-10rem);
+  }
+}
+
+.userModalLayoutEnter {
+  animation: userModalLayoutEnterAnimation 0.25s linear;
+}
+
+@keyframes userModalLayoutEnterAnimation {
+  0% {
+    margin-top: 103%;
+  }
+  100% {
+    margin-top: 0;
+  }
+}
+
+.userModalLayoutExit {
+  animation: userModalLayoutExitAnimation 0.25s linear;
+}
+
+@keyframes userModalLayoutExitAnimation {
+  0% {
+    margin-top: 0;
+  }
+  100% {
+    margin-top: 103%;
+  }
+}
+
+.taskMobileEnter {
+  animation: taskMobileEnter 0.25s linear;
+}
+
+@keyframes taskMobileEnter {
+  from {
+    transform: translateX(35rem);
+  }
+  to {
+    transform: translateX(0rem);
+  }
+}
+
+.swiper {
+  background-color: #d70040;
+  position: relative;
+  border: 5px solid;
+  overflow: hidden;
+}
+
+.swiper::after {
+  content: '';
+  background-image: url('/svg/delete.svg');
+  background-repeat: no-repeat;
+  position: absolute;
+  transform: translate(-17%, -65%);
+  left: 100%;
+  height: 100%;
+  width: 100%;
+}
+
+.swiper-slide-active {
+}
+
+.M {
+  transform: translate(20px, 85px) rotate(-30deg);
+}
+
+.I {
+  transform: translate(13px, 60px) rotate(-25deg);
+}
+
+.L {
+  transform: translate(6px, 40px) rotate(-20deg);
+}
+
+.E1 {
+  transform: translate(3px, 23px) rotate(-15deg);
+}
+
+.S1 {
+  transform: translate(2px, 14px) rotate(-10deg);
+}
+
+.T {
+  transform: translate(1px, 8px) rotate(-5deg);
+}
+
+.O {
+  transform: translate(0px, 5px) rotate(0deg);
+}
+
+.N {
+  transform: translate(-1px, 8px) rotate(5deg);
+}
+
+.E2 {
+  transform: translate(-2px, 14px) rotate(10deg);
+}
+
+.S2 {
+  transform: translate(-3px, 25px) rotate(15deg);
+}
+
+.curvedTextContainer {
+  display: inline-block;
 }
