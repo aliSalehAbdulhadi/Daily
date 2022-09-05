@@ -37,7 +37,7 @@ const Tasks = ({ id }: { id: Function }) => {
     if (tasks.length <= 0) {
       setTaskId('');
     }
-  });
+  }, [tasks]);
   const copyTasks = [...tasks];
   const completedTasks = tasks.filter((task) => task.completed);
   const pendingTasks = tasks.filter((task) => !task.completed);
