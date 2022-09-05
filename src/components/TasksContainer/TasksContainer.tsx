@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ClapSpinner } from 'react-spinners-kit';
 import {
   RootState,
@@ -33,7 +33,7 @@ const TasksContainer = () => {
           <h1 className="font-bold">
             Loading <ClapSpinner />
           </h1>
-        ) : tasks?.length > 0 ? (
+        ) : (
           <div
             className={` sm:px-10 ${
               dark ? 'bg-secondaryColor' : 'bg-secondaryLight'
@@ -46,16 +46,6 @@ const TasksContainer = () => {
             <div className="w-[55%] md:w-[60%] hidden semiSm:block">
               <MileStone taskId={taskId} />
             </div>
-          </div>
-        ) : (
-          <div
-            className={`${
-              dark ? 'text-textDark' : 'text-textLight'
-            } font-Comfortaa mt-10 md:mt-0 self-center p-10 rounded-md text-center mx-10 ${
-              user ? 'block' : 'hidden'
-            }`}
-          >
-            There are no tasks to display.
           </div>
         )}
       </div>
