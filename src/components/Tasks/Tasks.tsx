@@ -1,3 +1,4 @@
+import { spawn } from 'child_process';
 import { useEffect, useState } from 'react';
 import { Droppable } from 'react-beautiful-dnd';
 import { BiSortAlt2 } from 'react-icons/bi';
@@ -32,6 +33,11 @@ const Tasks = ({ id }: { id: Function }) => {
     id(taskId);
   }, [taskId, id]);
 
+  useEffect(() => {
+    if (tasks.length <= 0) {
+      setTaskId('');
+    }
+  }, [tasks]);
   const copyTasks = [...tasks];
   const completedTasks = tasks.filter((task) => task.completed);
   const pendingTasks = tasks.filter((task) => !task.completed);
@@ -106,7 +112,11 @@ const Tasks = ({ id }: { id: Function }) => {
                   : 'bg-secondaryLight semiSm:bg-primaryColor'
               } semiSm:h-[65vh] min-h-[80vh] semiSm:min-h-[65vh] w-[100%] semiSm:overflow-auto p-5 semiSm:px-10 semiSm:py-8  scrollBar flex flex-col items-center semiSm:rounded py-6 `}
             >
-              <div className="flex items-center justify-between w-full">
+              <div
+                className={`${
+                  tasks.length > 0 ? 'flex' : 'hidden'
+                }  items-center justify-between w-full`}
+              >
                 <div
                   className="relative self-start select-none cursor-pointer "
                   ref={sortModalRef}
@@ -133,8 +143,9 @@ const Tasks = ({ id }: { id: Function }) => {
                   )}
                 </div>
               </div>
-              {completedTask
-                ? taskSortHandler()?.map(
+              {tasks.length > 0 ? (
+                completedTask ? (
+                  taskSortHandler()?.map(
                     (task: SingleTaskInterface, index: number) =>
                       task.completed ? (
                         <div
@@ -150,7 +161,8 @@ const Tasks = ({ id }: { id: Function }) => {
                         </div>
                       ) : null,
                   )
-                : taskSortHandler()?.map(
+                ) : (
+                  taskSortHandler()?.map(
                     (task: SingleTaskInterface, index: number) =>
                       !task?.completed ? (
                         <div
@@ -165,7 +177,13 @@ const Tasks = ({ id }: { id: Function }) => {
                           />
                         </div>
                       ) : null,
-                  )}
+                  )
+                )
+              ) : (
+                <span className="text-white mt-[5rem]">
+                  There are no tasks to display
+                </span>
+              )}
             </div>
             <div className="flex items-center justify-center cursor-pointer sticky bottom-0 z-50 bg-secondaryColor w-full p-5 semiSm:hidden">
               <div>
