@@ -2,7 +2,7 @@ import { DragDropContext, DropResult } from 'react-beautiful-dnd';
 import { completedTask } from '../../redux/slices/features/completeTaskSlice';
 import {
   reArrangeTasks,
-  updateTask,
+  completeTaskLocally,
 } from '../../redux/slices/features/getTasksSlice';
 import { reArrangeFirebase } from '../../redux/slices/features/reArrangeTasksSlice';
 import {
@@ -13,6 +13,7 @@ import {
 } from '../../interfaces/interfaces';
 import Navbar from '../Navbar/Navbar';
 import { toggleDisableSwiper } from '../../redux/slices/features/disableSwiperSlice';
+import { sortTaskBy } from '../../redux/slices/features/sortTasksSlice';
 
 const OverLay = ({ children }: { children: JSX.Element }) => {
   const dispatch = useAppDispatch();
@@ -45,7 +46,7 @@ const OverLay = ({ children }: { children: JSX.Element }) => {
             allTasks: tasks,
           }),
         );
-        dispatch(updateTask({ taskId: result.draggableId }));
+        dispatch(completeTaskLocally({ taskId: result.draggableId }));
       }
     }
   };
@@ -53,7 +54,10 @@ const OverLay = ({ children }: { children: JSX.Element }) => {
   return (
     <DragDropContext
       onDragEnd={onDragEndHandler}
-      onDragStart={() => dispatch(toggleDisableSwiper(false))}
+      onDragStart={() => {
+        dispatch(toggleDisableSwiper(false));
+        dispatch(sortTaskBy(''));
+      }}
     >
       <Navbar />
       {children}

@@ -19,7 +19,9 @@ export const completedTask = createAsyncThunk(
     await updateDoc(docRef, {
       userData: {
         tasks: allTasks.map((task: SingleTaskInterface) =>
-          task.id === taskId ? { ...task, completed: !task.completed } : task,
+          task.id === taskId
+            ? { ...task, completed: !task.completed, important: false }
+            : task,
         ),
       },
     });

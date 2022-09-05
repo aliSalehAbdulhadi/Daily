@@ -346,6 +346,20 @@ input::-webkit-input-placeholder {
   }
 }
 
+.selectedTask {
+  animation: selectedTaskAnimation 0.3s linear;
+  height: 7rem;
+}
+
+@keyframes selectedTaskAnimation {
+  from {
+    height: 0rem;
+  }
+  to {
+    height: 7rem;
+  }
+}
+
 .swiper {
   background-color: #d70040;
   position: relative;
