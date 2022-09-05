@@ -72,6 +72,10 @@ const MileStone = ({ taskId }: { taskId: string }) => {
                   </div>
                 </div>
               </div>
+            ) : taskId ? (
+              <span className="self-center mt-[5rem]">
+                Click to add milestones
+              </span>
             ) : null}
             <div>
               {task?.milestones.map((milestone: any, i) => {
@@ -95,7 +99,7 @@ const MileStone = ({ taskId }: { taskId: string }) => {
             >
               <MileStoneForm taskId={taskId} />
             </div>
-            {taskId ? (
+            {taskId && !task?.completed ? (
               <div
                 ref={plusRef}
                 onMouseEnter={() => setPlusIcon(true)}
@@ -123,7 +127,15 @@ const MileStone = ({ taskId }: { taskId: string }) => {
                 )}
               </div>
             ) : (
-              <div className="self-center">Select a task to add milestones</div>
+              <div className="self-center mt-[5rem]">
+                {task?.completed ? (
+                  <span className="">
+                    Cant add milestone to completed tasks
+                  </span>
+                ) : (
+                  <span>Select task to add milestones</span>
+                )}
+              </div>
             )}
           </div>
         </div>
