@@ -230,6 +230,10 @@ input::-webkit-input-placeholder {
   clip-path: inset(0px -15px 0px 0px);
 }
 
+.textAreaNoResize {
+  resize: none;
+}
+
 @keyframes borderAnimation {
   from {
     width: 0%;
@@ -255,16 +259,17 @@ input::-webkit-input-placeholder {
 .userModalEnterPc {
   position: absolute;
   right: 8px;
+  transform: translateY(0rem);
+
   animation: userModalEnterPcAnimation 0.3s linear;
 }
 
 @keyframes userModalEnterPcAnimation {
-  0% {
-    right: -100px;
+  from {
+    transform: translateY(-10rem);
   }
-
-  100% {
-    right: 8px;
+  to {
+    transform: translateY(0rem);
   }
 }
 
@@ -274,15 +279,15 @@ input::-webkit-input-placeholder {
 
 @keyframes userModalExitPcAnimation {
   from {
-    transform: translateX(0rem);
+    transform: translateY(0rem);
   }
   to {
-    transform: translateX(10rem);
+    transform: translateY(-10rem);
   }
 }
 
 .userModalEnter {
-  animation: userModalEnterAnimation 0.25s linear;
+  animation: userModalEnterAnimation 0.3s linear;
 }
 
 @keyframes userModalEnterAnimation {
@@ -308,7 +313,7 @@ input::-webkit-input-placeholder {
 }
 
 .userModalLayoutEnter {
-  animation: userModalLayoutEnterAnimation 0.25s linear;
+  animation: userModalLayoutEnterAnimation 0.3s linear;
 }
 
 @keyframes userModalLayoutEnterAnimation {
@@ -334,7 +339,7 @@ input::-webkit-input-placeholder {
 }
 
 .taskMobileEnter {
-  animation: taskMobileEnter 0.25s linear;
+  animation: taskMobileEnter 0.3s linear;
 }
 
 @keyframes taskMobileEnter {

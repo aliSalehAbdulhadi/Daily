@@ -37,6 +37,7 @@ const MileStoneForm = ({ taskId }: { taskId: string }) => {
       initialValues={{ milestoneForm: '' }}
       validationSchema={formSchema}
       onSubmit={(values, { resetForm }) => {
+        const newDate = new Date();
         values.milestoneForm.length === 0
           ? false
           : dispatch(
@@ -46,6 +47,7 @@ const MileStoneForm = ({ taskId }: { taskId: string }) => {
                   id: uuidv4(),
                   milestoneContent: values.milestoneForm,
                   milestoneCompleted: false,
+                  milestoneDate: newDate.toISOString(),
                 },
                 allTasks: tasks,
                 taskId: taskId,
@@ -60,6 +62,8 @@ const MileStoneForm = ({ taskId }: { taskId: string }) => {
                   milestone: {
                     id: uuidv4(),
                     milestoneContent: values.milestoneForm,
+                    milestoneCompleted: false,
+                    milestoneDate: newDate.toISOString(),
                   },
                   taskId: taskId,
                 }),

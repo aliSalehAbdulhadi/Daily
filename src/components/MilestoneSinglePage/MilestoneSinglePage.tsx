@@ -68,27 +68,29 @@ const MilestoneSinglePage = ({
   });
 
   const editMilestoneHanlder = () => {
-    editText.length === 0
-      ? setEditText(milestone?.milestoneContent)
-      : dispatch(
-          editMilestone({
-            userUid: user,
-            taskId: task?.id,
-            milestone: milestone,
-            milestoneEdit: editText,
-            allTasks: tasks,
-          }),
-        );
-    dispatch(
-      editMilestoneLocally({
-        taskId: task?.id,
-        milestoneEdit: editText,
-        milestoneId: milestone?.id,
-      }),
-    ),
-      setTimeout(() => {
-        setEdit(false);
-      }, 500);
+    if (editText.length === 0) {
+      setEditText(milestone?.milestoneContent);
+    } else {
+      dispatch(
+        editMilestone({
+          userUid: user,
+          taskId: task?.id,
+          milestone: milestone,
+          milestoneEdit: editText,
+          allTasks: tasks,
+        }),
+      );
+      dispatch(
+        editMilestoneLocally({
+          taskId: task?.id,
+          milestoneEdit: editText,
+          milestoneId: milestone?.id,
+        }),
+      ),
+        setTimeout(() => {
+          setEdit(false);
+        }, 500);
+    }
   };
 
   const completeMilestoneHandler = () => {
@@ -143,21 +145,17 @@ const MilestoneSinglePage = ({
         <div className="flex justify-between items-end w-full">
           <div className="w-[90%]  cursor-pointer ">
             {edit && !milestone.milestoneCompleted ? (
-              <div className="border-b-[1px]" ref={inputRef}>
+              <div className="border-b-[1px] flex flex-col" ref={inputRef}>
                 <textarea
                   ref={editRef}
                   className="w-[100%] py-2 mt-2 rounded outline-none text-black px-2"
                   onChange={(e: any) => setEditText(e?.target?.value)}
-                  rows={
-                    editText.length >= 100
-                      ? editText.length / 50
-                      : editText.length / 15
-                  }
+                  rows={editText.length >= 100 ? 5 : 3}
                   value={editText}
                 />
 
                 <button
-                  className="mb-1 ml-1 text-sm animate-pulse tracking-wider"
+                  className=" self-center semiSm:self-start semiSm:ml-1 text-xs bg-opacity-30 text-white bg-black border-[1px] py-1 px-3  rounded my-2 tracking-wider font-semibold w-fit transition-all ease-in-out whitespace-nowrap"
                   onClick={editMilestoneHanlder}
                 >
                   Submit
@@ -168,13 +166,13 @@ const MilestoneSinglePage = ({
                 onClick={() => setEdit(true)}
                 className={`font-Comfortaa font-bold flex flex-col py-2 transition-all`}
               >
-                <h1
-                  className={`ml-1 transition-all pb-4 semiSm:pb-0   ${
+                <pre
+                  className={`ml-1 transition-all pb-4 semiSm:pb-0 whitespace-pre-line  ${
                     milestone?.milestoneCompleted ? 'strike opacity-60' : ''
                   }`}
                 >
                   {index + 1}- {milestone?.milestoneContent}
-                </h1>
+                </pre>
                 <div
                   className={`${
                     initialAnimation ? 'singleMilestoneUnderline' : ''

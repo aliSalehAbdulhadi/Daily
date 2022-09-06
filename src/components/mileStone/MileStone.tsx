@@ -7,6 +7,7 @@ import {
   useAppSelector,
 } from '../../interfaces/interfaces';
 import MileStoneForm from '../Forms/MileStoneForm/MileStoneForm';
+import MilestoneControlSection from '../milestoneControlSection/MilestoneControlSection';
 import MilestoneSinglePage from '../MilestoneSinglePage/MilestoneSinglePage';
 import ProgressBar from '../progressBar/ProgressBar';
 
@@ -14,6 +15,7 @@ const MileStone = ({ taskId }: { taskId: string }) => {
   const [addMilestone, setAddMilestone] = useState<boolean>(false);
   const [plusIcon, setPlusIcon] = useState<boolean>(false);
   const [scroll, setScroll] = useState<boolean>(false);
+
   const tasks: SingleTaskInterface[] = useAppSelector(
     (state: RootState) => state.getTaskReducer.tasks,
   );
@@ -35,6 +37,10 @@ const MileStone = ({ taskId }: { taskId: string }) => {
 
   const scrollRefBottom = useRef<HTMLDivElement>(null);
 
+  const sortMilestonesBy = useAppSelector(
+    (state: RootState) => state.sortMilestonesReducer.sortMilestones,
+  );
+
   useEffect(() => {
     setScroll(false);
   }, [taskId]);
@@ -46,29 +52,54 @@ const MileStone = ({ taskId }: { taskId: string }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [task?.milestones.length]);
 
+  const copyMilestones = task ? [...task?.milestones] : [];
+  const milestonesSortHandler = () => {
+    if (sortMilestonesBy === 'newMilestones') {
+      const sortedMilestones = copyMilestones.sort(
+        (a: any, b: any) =>
+          +new Date(b.milestoneDate) - +new Date(a.milestoneDate),
+      );
+
+      return sortedMilestones;
+    } else if (sortMilestonesBy === 'oldMilestones') {
+      const sortedMilestones = copyMilestones.sort(
+        (a: any, b: any) =>
+          +new Date(a.milestoneDate) - +new Date(b.milestoneDate),
+      );
+
+      return sortedMilestones;
+    } else if (sortMilestonesBy === 'completedMilestones') {
+      const sortedMilestones = copyMilestones.sort(
+        (a: any, b: any) =>
+          Number(b?.milestoneCompleted) - Number(a?.milestoneCompleted),
+      );
+
+      return sortedMilestones;
+    } else return task?.milestones;
+  };
+
   return (
     <div className="m-10 font-Comfortaa transition-all">
       <div className="flex flex-col ">
-        <h1 className="mb-4 py-3 self-center px-5 bg-white text-primaryColor rounded">
+        <h1 className="mb-[1.3rem] py-3 self-center px-5 bg-white text-primaryColor rounded">
           Milestones
         </h1>
 
         <div className="bg-primaryColor  rounded overflow-auto scrollBar  text-white h-[65vh]">
-          <div className=" flex flex-col m-10">
+          <div className=" flex flex-col m-10 ">
             {taskId && task && task?.milestones.length > 0 ? (
-              <div className="flex items-center justify-between w-full mb-7 ">
-                <div className="">
-                  <span className="text-secondaryLight text-base">Task:</span>
-                  <h1 className="text-textDark text-xl font-Handlee">
-                    {task?.content}
-                  </h1>
-                </div>
-                <div className=" w-[4rem] flex items-start justify-end relative mr-4">
-                  <ProgressBar percentage={percentage} />
-                  <div className="absolute top-[60px] right-[60px] text-sm">
-                    <span>{milestoneCompleted}</span>
-                    <span className="text-xs">/</span>
-                    <span>{task.milestones?.length}</span>
+              <div className=" w-full ">
+                <div className="flex items-center justify-between">
+                  <div className="">
+                    <span className="text-secondaryLight text-base">Task:</span>
+                    <h1 className="text-textDark text-xl font-Handlee">
+                      {task?.content}
+                    </h1>
+                  </div>
+                  <div className=" w-[30%]  flex items-start justify-end relative mr-2">
+                    <div className="w-[4rem]">
+                      <ProgressBar percentage={percentage} />
+                    </div>
                   </div>
                 </div>
               </div>
@@ -77,8 +108,17 @@ const MileStone = ({ taskId }: { taskId: string }) => {
                 Click to add milestones
               </span>
             ) : null}
+
+            <div
+              className={`${
+                task && task?.milestones.length > 0 ? 'block ' : 'hidden'
+              }`}
+            >
+              <MilestoneControlSection taskId={task?.id} />
+            </div>
+
             <div>
-              {task?.milestones.map((milestone: any, i) => {
+              {milestonesSortHandler()?.map((milestone: any, i) => {
                 return (
                   <div key={milestone.id}>
                     <MilestoneSinglePage

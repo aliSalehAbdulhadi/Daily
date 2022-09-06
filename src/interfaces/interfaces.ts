@@ -58,6 +58,7 @@ export interface singleMilestoneInterface {
   id: string;
   milestoneCompleted: boolean;
   milestoneContent: string;
+  milestoneDate: string;
 }
 
 export interface AsyncThunkConfig {

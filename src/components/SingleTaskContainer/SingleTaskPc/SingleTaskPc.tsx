@@ -159,23 +159,27 @@ const SingleTaskPc = ({
           {...provided.dragHandleProps}
           ref={provided.innerRef}
         >
-          <div className="flex items-center justify-between   w-full mb-2 ">
+          <div
+            className={`${
+              edit ? 'hidden' : 'flex'
+            } items-center justify-between   w-full mb-2 `}
+          >
             <div className="text-xs w-fit whitespace-nowrap  select-none">
               {formatDate}
             </div>
-            <div className={`${content.completed ? 'hidden' : 'block'}`}>
+            <div className={`${content.completed ? 'hidden' : 'block'} `}>
               <HiOutlineStar
                 onClick={importantStateHandler}
                 size={20}
                 fill={content.important ? '#e8b923' : 'none'}
-                className={`${
+                className={`transition-all hover:fill-[#e8b923] hover:text-yellow-300 ${
                   content.important ? 'text-yellow-300' : ''
                 } mr-[.6rem] cursor-pointer`}
               />
             </div>
           </div>
           <div className="flex items-center w-full ">
-            <div className="z-50 cursor-pointer">
+            <div className={`${edit ? 'hidden' : 'block'} z-50 cursor-pointer`}>
               <DropDownMenu task={content} />
             </div>
 
@@ -183,22 +187,25 @@ const SingleTaskPc = ({
               <form
                 ref={textareaRef}
                 onSubmit={editHanlder}
-                className="flex flex-col"
+                className="flex flex-col items-center justify-center w-full relative"
               >
                 <textarea
-                  className={`my-1 pb-0 ml-5 p-2 outline-none w-full shadow-sm border-gray-300 rounded-md placeholder-slate-400`}
+                  className={`textAreaNoResize my-1 pb-0 ml-5 p-2 outline-none w-[60%] shadow-sm border-gray-300 rounded-md placeholder-slate-400`}
                   onChange={(e) => setEditText(e.target.value)}
                   value={editText}
                   ref={inputRef}
-                  rows={
-                    editText.length >= 100
-                      ? editText.length / 50
-                      : editText.length / 15
-                  }
+                  rows={3}
                 />
-                <button className="text-sm rounded ml-6 mt-1 animate-pulse tracking-wider font-semibold w-fit transition-all ease-in-out whitespace-nowrap ">
+                <button className="text-xs bg-opacity-30 text-white bg-black self-start  border-[1px] py-1 px-3  rounded ml-[7.4rem] mt-1 tracking-wider font-semibold w-fit transition-all ease-in-out whitespace-nowrap ">
                   Submit
                 </button>
+                <span
+                  className={`absolute top-16 right-28 text-[.65rem] ${
+                    editText.length > 50 ? 'text-red-500' : ''
+                  }`}
+                >
+                  {editText.length}/50
+                </span>
               </form>
             ) : (
               <div className="w-full ">
@@ -214,7 +221,7 @@ const SingleTaskPc = ({
               </div>
             )}
 
-            <div className={` flex flex-col pl-10 mt-2`}>
+            <div className={` ${edit ? 'hidden' : 'flex'} flex-col pl-10 mt-2`}>
               {content?.completed ? (
                 <MdOutlineRemoveDone
                   title="Incomplete"
