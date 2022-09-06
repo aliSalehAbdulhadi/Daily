@@ -122,7 +122,7 @@ const UserModalMobile = ({
           setTimeout(() => {
             setOpen(false);
             setCloseAnimation(false);
-          }, 250);
+          }, 230);
           setCloseAnimation(true);
         }}
         className={`bg-black blur-sm opacity-30 min-h-[100vh] userModalLayoutEnter ${

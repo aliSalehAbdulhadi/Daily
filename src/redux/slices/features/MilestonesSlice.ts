@@ -1,7 +1,10 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { updateDoc, doc } from 'firebase/firestore';
 import { db } from '../../../container/firebase';
-import { SingleTaskInterface } from '../../../interfaces/interfaces';
+import {
+  singleMilestoneInterface,
+  SingleTaskInterface,
+} from '../../../interfaces/interfaces';
 
 export const addMilestones = createAsyncThunk(
   'addMilestones/bookmark',
@@ -13,11 +16,7 @@ export const addMilestones = createAsyncThunk(
   }: {
     userUid: string;
     taskId: string;
-    milestone: {
-      id: string;
-      milestoneContent: string;
-      milestoneCompleted: boolean;
-    };
+    milestone: singleMilestoneInterface;
     allTasks: SingleTaskInterface[];
   }) => {
     const docRef = doc(db, 'userData', userUid);
@@ -46,11 +45,7 @@ export const completeMilestone = createAsyncThunk(
   }: {
     userUid: string;
     taskId: any;
-    milestone: {
-      id: string;
-      milestoneContent: string;
-      milestoneCompleted: boolean;
-    };
+    milestone: singleMilestoneInterface;
     allTasks: SingleTaskInterface[];
   }) => {
     const docRef = doc(db, 'userData', userUid);
@@ -87,11 +82,7 @@ export const deleteMilestone = createAsyncThunk(
   }: {
     userUid: string;
     taskId: any;
-    milestone: {
-      id: string;
-      milestoneContent: string;
-      milestoneCompleted: boolean;
-    };
+    milestone: singleMilestoneInterface;
     allTasks: SingleTaskInterface[];
   }) => {
     const docRef = doc(db, 'userData', userUid);
@@ -127,11 +118,7 @@ export const editMilestone = createAsyncThunk(
   }: {
     userUid: string;
     taskId: any;
-    milestone: {
-      id: string;
-      milestoneContent: string;
-      milestoneCompleted: boolean;
-    };
+    milestone: singleMilestoneInterface;
     milestoneEdit: string;
     allTasks: SingleTaskInterface[];
   }) => {
@@ -151,6 +138,35 @@ export const editMilestone = createAsyncThunk(
                   }
                   return ms;
                 }),
+              }
+            : task,
+        ),
+      },
+    });
+  },
+);
+
+export const deleteAllFinishedMilestone = createAsyncThunk(
+  'deleteMilestone/bookmark',
+  async ({
+    userUid,
+    taskId,
+    allTasks,
+  }: {
+    userUid: string;
+    taskId: any;
+    allTasks: SingleTaskInterface[];
+  }) => {
+    const docRef = doc(db, 'userData', userUid);
+    await updateDoc(docRef, {
+      userData: {
+        tasks: allTasks.map((task: SingleTaskInterface) =>
+          task.id === taskId
+            ? {
+                ...task,
+                milestones: task.milestones.filter(
+                  (ms: any) => !ms.milestoneCompleted,
+                ),
               }
             : task,
         ),

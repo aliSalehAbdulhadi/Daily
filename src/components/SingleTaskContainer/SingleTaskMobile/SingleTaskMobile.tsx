@@ -183,7 +183,9 @@ const SingleTaskMobile = ({
             >
               <div className="flex flex-col justify-between my-0 px-5 py-2 min-h-[10rem] w-[75%] mobileTaskCardBoxShadow">
                 <div
-                  className={`items-center justify-between mt-1 ${
+                  className={`${
+                    edit ? 'hidden' : 'block'
+                  } items-center justify-between mt-1 ${
                     content.completed ? 'hidden' : 'flex'
                   }`}
                 >
@@ -202,20 +204,20 @@ const SingleTaskMobile = ({
                     <form
                       ref={textareaRef}
                       onSubmit={editHanlder}
-                      className="flex flex-col"
+                      className="flex flex-col  mt-2"
                     >
                       <textarea
-                        className={`my-1 p-1 pb-5 outline-none w-full text-sm shadow-sm sm:text-base border-gray-300 rounded-md placeholder-slate-400`}
+                        className={`textAreaNoResize my-1 p-1 pb-5 outline-none w-full text-sm shadow-sm sm:text-base border-gray-300 rounded-md placeholder-slate-400`}
                         onChange={(e) => setEditText(e.target.value)}
                         value={editText}
                         ref={inputRef}
                         rows={3}
                       />
-                      <button className="text-sm rounded ml-6 mt-1 animate-pulse tracking-wider font-semibold w-fit transition-all ease-in-out whitespace-nowrap ">
+                      <button className="text-xs bg-opacity-30 text-white bg-black border-[1px] py-2 px-4  rounded self-center mt-2 tracking-wider font-semibold w-fit transition-all ease-in-out whitespace-nowrap">
                         Submit
                       </button>
                       <span
-                        className={`absolute top-16 right-2 text-[.65rem] ${
+                        className={`absolute top-[4.5rem] right-2 text-[.65rem] ${
                           editText.length > 50 ? 'text-red-500' : ''
                         }`}
                       >
@@ -229,7 +231,7 @@ const SingleTaskMobile = ({
                           content?.completed ? 'strike opacity-60' : ''
                         }`}
                       >
-                        <div className="self-start w-full">
+                        <div className="self-start w-full ">
                           <span
                             onClick={() =>
                               content.completed ? null : setEdit(true)

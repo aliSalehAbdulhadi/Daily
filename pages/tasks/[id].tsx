@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { BsPlusCircle, BsPlusCircleFill } from 'react-icons/bs';
 import { string } from 'yup';
 import MileStoneForm from '../../src/components/Forms/MileStoneForm/MileStoneForm';
+import MilestoneControlSection from '../../src/components/milestoneControlSection/MilestoneControlSection';
 import MilestoneSinglePage from '../../src/components/MilestoneSinglePage/MilestoneSinglePage';
 import ProgressBar from '../../src/components/progressBar/ProgressBar';
 import Swipeable from '../../src/components/swipeable/Swipeable';
@@ -125,6 +126,14 @@ const MileStone = () => {
               >
                 Add milestones
               </h1>
+
+              <div
+                className={`z-50 w-full mb-3 ${
+                  task && task?.milestones.length > 0 ? 'block ' : 'hidden'
+                }`}
+              >
+                <MilestoneControlSection taskId={task?.id} />
+              </div>
               <div className="w-full">
                 {task?.milestones.map((milestone: any, i) => {
                   return (

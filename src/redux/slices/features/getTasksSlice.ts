@@ -168,6 +168,22 @@ const getTasksSlice = createSlice({
         return task;
       });
     },
+
+    deleteAllFinishedMilestoneLocally: (
+      state: any,
+      action: PayloadAction<{
+        taskId: any;
+      }>,
+    ) => {
+      state.tasks = state.tasks?.map((task: SingleTaskInterface) => {
+        if (task.id === action.payload.taskId) {
+          task.milestones = task.milestones?.filter(
+            (milestone: any) => !milestone.milestoneCompleted,
+          );
+        }
+        return task;
+      });
+    },
   },
   extraReducers(build) {
     build.addCase(getTasks.pending, (state) => {
@@ -197,4 +213,5 @@ export const {
   editMilestoneLocally,
   addTaskTypeLocally,
   changeTaskImportantStateLocally,
+  deleteAllFinishedMilestoneLocally,
 } = getTasksSlice.actions;
