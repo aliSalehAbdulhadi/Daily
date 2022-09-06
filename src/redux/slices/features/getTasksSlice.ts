@@ -3,7 +3,7 @@ import { getDoc, doc } from 'firebase/firestore';
 import { db } from '../../../container/firebase';
 import { SingleTaskInterface } from '../../../interfaces/interfaces';
 
-export const getTask = createAsyncThunk(
+export const getTasks = createAsyncThunk(
   'getTasks',
   async ({ userUid }: { userUid: string }) => {
     try {
@@ -12,7 +12,9 @@ export const getTask = createAsyncThunk(
         ...doc.data(),
       }));
       return docData;
-    } catch (err) {}
+    } catch (err) {
+      return err;
+    }
   },
 );
 
@@ -38,7 +40,7 @@ const getTasksSlice = createSlice({
         (task: SingleTaskInterface) => task.id !== action.payload.taskId,
       );
     },
-    updateTask: (
+    completeTaskLocally: (
       state: {
         tasks: SingleTaskInterface[];
         error: {}[];
@@ -49,6 +51,7 @@ const getTasksSlice = createSlice({
       state.tasks = state.tasks?.map((task: SingleTaskInterface) => {
         if (task.id === action.payload.taskId) {
           task.completed = !task.completed;
+          task.important = false;
         }
         return task;
       });
@@ -167,15 +170,15 @@ const getTasksSlice = createSlice({
     },
   },
   extraReducers(build) {
-    build.addCase(getTask.pending, (state) => {
+    build.addCase(getTasks.pending, (state) => {
       state.status = 'pending';
     }),
-      build.addCase(getTask.fulfilled, (state, action: any) => {
+      build.addCase(getTasks.fulfilled, (state, action: any) => {
         state.status = 'fulfilled';
         state.tasks = action.payload?.userData?.tasks;
         state.userName = action.payload?.userName;
       }),
-      build.addCase(getTask.rejected, (state, action: any) => {
+      build.addCase(getTasks.rejected, (state, action: any) => {
         state.error = action.error.message;
         state.status = 'rejected';
       });
@@ -186,7 +189,7 @@ export default getTasksSlice.reducer;
 export const {
   setTasks,
   deleteTask,
-  updateTask,
+  completeTaskLocally,
   reArrangeTasks,
   setMilestones,
   completeMilestoneLocally,

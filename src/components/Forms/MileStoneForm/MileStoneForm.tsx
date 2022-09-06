@@ -5,7 +5,7 @@ import { BsPlusCircleDotted } from 'react-icons/bs';
 import { useState } from 'react';
 import FormField from '../../FormField/FormField';
 import {
-  getTask,
+  getTasks,
   setMilestones,
 } from '../../../redux/slices/features/getTasksSlice';
 import {
@@ -69,7 +69,7 @@ const MileStoneForm = ({ taskId }: { taskId: string }) => {
         setSubmitAnimation(true);
         setTimeout(() => {
           setSubmitAnimation(false);
-          dispatch(getTask({ userUid: user }));
+          dispatch(getTasks({ userUid: user }));
         }, 1000);
 
         resetForm();
