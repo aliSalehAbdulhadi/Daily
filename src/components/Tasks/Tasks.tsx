@@ -34,13 +34,13 @@ const Tasks = ({ id }: { id: Function }) => {
   }, [taskId, id]);
 
   useEffect(() => {
-    if (tasks.length <= 0) {
+    if (tasks?.length <= 0) {
       setTaskId('');
     }
   }, [tasks]);
-  const copyTasks = [...tasks];
-  const completedTasks = tasks.filter((task) => task.completed);
-  const pendingTasks = tasks.filter((task) => !task.completed);
+  const copyTasks = tasks ? [...tasks] : [];
+  const completedTasks = tasks ? tasks?.filter((task) => task.completed) : [];
+  const pendingTasks = tasks ? tasks?.filter((task) => !task.completed) : [];
 
   const taskSortHandler = () => {
     if (sortBy === 'newTasks') {
@@ -114,7 +114,7 @@ const Tasks = ({ id }: { id: Function }) => {
             >
               <div
                 className={`${
-                  tasks.length > 0 ? 'flex' : 'hidden'
+                  tasks?.length > 0 ? 'flex' : 'hidden'
                 }  items-center justify-between w-full`}
               >
                 <div
@@ -137,13 +137,13 @@ const Tasks = ({ id }: { id: Function }) => {
                 </div>
                 <div className="text-white self-center mb-5 semiSm:mb-0 text-xs mr-1 semiSm:mr-0">
                   {completedTask ? (
-                    <span>Total tasks: {completedTasks.length}</span>
+                    <span>Total tasks: {completedTasks?.length}</span>
                   ) : (
-                    <span>Total tasks: {pendingTasks.length}</span>
+                    <span>Total tasks: {pendingTasks?.length}</span>
                   )}
                 </div>
               </div>
-              {tasks.length > 0 ? (
+              {tasks?.length > 0 ? (
                 completedTask ? (
                   taskSortHandler()?.map(
                     (task: SingleTaskInterface, index: number) =>
