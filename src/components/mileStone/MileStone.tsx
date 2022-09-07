@@ -71,7 +71,7 @@ const MileStone = ({ taskId }: { taskId: string }) => {
     } else if (sortMilestonesBy === 'completedMilestones') {
       const sortedMilestones = copyMilestones.sort(
         (a: any, b: any) =>
-          Number(b?.milestoneCompleted) - Number(a?.milestoneCompleted),
+          Number(a?.milestoneCompleted) - Number(b?.milestoneCompleted),
       );
 
       return sortedMilestones;
