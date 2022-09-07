@@ -28,7 +28,9 @@ const MilestoneControlSection = ({ taskId }: { taskId: any }) => {
   const tasks: SingleTaskInterface[] = useAppSelector(
     (state: RootState) => state.getTaskReducer.tasks,
   );
+
   const task = tasks?.find((task) => task?.id === taskId);
+
 
   const milestoneCompleted = task?.milestones?.filter(
     (ms: any) => ms?.milestoneCompleted === true,
