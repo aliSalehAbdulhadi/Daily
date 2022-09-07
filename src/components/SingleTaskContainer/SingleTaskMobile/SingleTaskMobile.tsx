@@ -25,8 +25,9 @@ import useClickOutside from '../../../hooks/useClickOutside';
 import ProgressBar from '../../progressBar/ProgressBar';
 import Swipeable from '../../swipeable/Swipeable';
 import { removeTask } from '../../../redux/slices/features/deleteTaskSlice';
-import DropDownMenu from '../../Forms/TaskForm/DropDownMenu';
+import TaskTypeMenu from '../../Forms/TaskForm/TaskTypeMenu';
 import { changeTaskImportantState } from '../../../redux/slices/features/changeTaskImportantStateSlice';
+import { setCardColorByTypeHandler } from '../../../utilities/setColorByTypeHandler';
 
 const SingleTaskMobile = ({
   content,
@@ -134,18 +135,6 @@ const SingleTaskMobile = ({
     dispatch(changeTaskImportantStateLocally({ taskId: content.id }));
   };
 
-  const setCardColorByTypeHandler = (isBg: boolean) => {
-    if (content?.taskType === 'personal') {
-      return isBg ? 'bg-green-400' : 'border-green-400';
-    }
-    if (content?.taskType === 'work') {
-      return isBg ? 'bg-blue-400' : 'border-blue-400';
-    }
-    if (content?.taskType === 'fun') {
-      return isBg ? 'bg-purple-400' : 'border-purple-400';
-    }
-  };
-
   return (
     <Draggable
       key={content?.id}
@@ -158,22 +147,25 @@ const SingleTaskMobile = ({
           {...provided.draggableProps}
           {...provided.dragHandleProps}
           ref={provided.innerRef}
+          className="pb-3"
         >
           <Swipeable handler={deletionHandler}>
             <div
-              className={`taskMobileEnter  flex text-textLight
+              className={` taskMobileEnter  flex text-textLight
           font-Comfortaa font-semibold ${
             content.important && !content.completed
               ? 'border-[1px] border-yellow-400'
               : content.completed
               ? ''
-              : `border-[1px] ${setCardColorByTypeHandler(false)}`
+              : `border-[1px] ${setCardColorByTypeHandler(false, content)}`
           }
 
 
           
           ${
-            content?.completed ? 'bg-red-400' : setCardColorByTypeHandler(true)
+            content?.completed
+              ? 'bg-red-400'
+              : setCardColorByTypeHandler(true, content)
           }  rounded text-sm ease-in-out 
             ${
               deleteAnimation
@@ -267,7 +259,7 @@ const SingleTaskMobile = ({
                     )}
                   </div>
                   <div className={edit ? 'hidden' : ''}>
-                    <DropDownMenu task={content} />
+                    <TaskTypeMenu isVertical={false} task={content} />
                   </div>
                 </div>
               </div>

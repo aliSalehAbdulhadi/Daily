@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { CountdownCircleTimer } from 'react-countdown-circle-timer';
 import { BiSortAlt2, BiX } from 'react-icons/bi';
 import { RiDeleteBin5Fill } from 'react-icons/ri';
+import { CgPlayListRemove } from 'react-icons/cg';
 import useClickOutside from '../../hooks/useClickOutside';
 import {
   RootState,
@@ -57,7 +58,7 @@ const MilestoneControlSection = ({ taskId }: { taskId: any }) => {
   };
   return (
     <div className="text-[.6rem] semiSm:text-xs  semiSm:scale-[1] w-full ">
-      <div className="flex items-center justify-between semiSm:flex-col semiSm:justify-between  md:flex-row md:items-center w-full semiSm:mt-[4rem]">
+      <div className="flex items-center justify-between semiSm:flex-col semiSm:justify-between  md:flex-row md:items-center w-full semiSm:mt-5 semiSm:mb-5">
         <div className="flex  semiSm:mb-4 md:mb-0 items-center justify-between md:w-[50%] ">
           <div
             className="relative select-none cursor-pointer w-fit"
@@ -91,17 +92,16 @@ const MilestoneControlSection = ({ taskId }: { taskId: any }) => {
         <button
           onClick={() => setDeleteTimer(!deleteTimer)}
           title="Delete all finished tasks"
-          className=" bg-red-500 text-white border-[1px] px-3 py-2 rounded  flex items-center transition-all semiSm:hover:bg-white semiSm:hover:text-secondaryColor opacity-[.75] "
+          className=" bg-white text-secondaryColor semiSm:hover:text-white border-[1px] px-2 py-1 rounded semiSm:mr-3 flex items-center transition-all semiSm:hover:bg-red-500  "
         >
-          Delete Finished
           {deleteTimer ? (
             <div
-              className="relative cursor-pointer w-fit h-fit self-center ml-1 semiSm:ml-2"
+              className="relative cursor-pointer w-fit h-fit self-center"
               onClick={() => setDeleteTimer(false)}
             >
               <BiX className="absolute h-4 w-4 top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]" />
               <CountdownCircleTimer
-                size={21}
+                size={25}
                 strokeWidth={1.5}
                 isPlaying
                 duration={3}
@@ -115,7 +115,7 @@ const MilestoneControlSection = ({ taskId }: { taskId: any }) => {
             </div>
           ) : (
             <div>
-              <RiDeleteBin5Fill size={17} className="ml-2 semiSm:ml-3 mb-1 " />
+              <CgPlayListRemove fill="" size={25} className="" />
             </div>
           )}
         </button>

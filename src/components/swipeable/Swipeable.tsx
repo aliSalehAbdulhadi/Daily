@@ -9,6 +9,7 @@ import {
   useAppSelector,
 } from '../../interfaces/interfaces';
 import { toggleDisableDragDnd } from '../../redux/slices/features/disableDragDndSlice';
+import { useRouter } from 'next/router';
 
 const Swipeable = ({
   children,
@@ -20,6 +21,8 @@ const Swipeable = ({
   const dark = useAppSelector(
     (state: RootState) => state.darkModeReducer.darkMode,
   );
+  const router = useRouter();
+  const { id } = router.query;
 
   const [bgColor, setBgColor] = useState(dark ? '#427676' : '#56a691');
   const dispatch = useAppDispatch();
@@ -63,7 +66,7 @@ const Swipeable = ({
           <div>{children}</div>
         </SwiperSlide>
         <style>{`.swiper-slide-active{background-color:${
-          dark ? '#427676' : '#56a691'
+          !id ? ' ' : dark ? '#427676' : '#56a691'
         }
           `}</style>
         <style>{`.swiper{border-color:${dark ? '#427676' : '#56a691'}`}</style>

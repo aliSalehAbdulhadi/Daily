@@ -1,7 +1,8 @@
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import { BsPlusCircle, BsPlusCircleFill } from 'react-icons/bs';
-import { string } from 'yup';
+import { TiArrowBack } from 'react-icons/ti';
 import MileStoneForm from '../../src/components/Forms/MileStoneForm/MileStoneForm';
 import MilestoneControlSection from '../../src/components/milestoneControlSection/MilestoneControlSection';
 import MilestoneSinglePage from '../../src/components/MilestoneSinglePage/MilestoneSinglePage';
@@ -96,14 +97,19 @@ const MileStone = () => {
         >
           <div className=" flex flex-col">
             <div
-              className={`mb-7 flex items-center justify-center py-4 w-full ${
+              className={`mb-5 flex items-center justify-center py-4 w-full ${
                 dark ? 'bg-secondaryColor' : 'bg-primaryColor'
               }`}
             >
-              <div className=" w-[80%] sm:w-[95%]">
+              <Link href="/">
+                <button className="border-[1px] bg-white  px-2 mx-3 rounded">
+                  <TiArrowBack fill="#2c5252" size={20} />
+                </button>
+              </Link>
+              <div className=" w-[70%] sm:w-[95%]">
                 <h1 className="text-textDark mr-2 ml-3">{task?.content}</h1>
               </div>
-              <div className="sm:w-[7%]">
+              <div className="sm:w-[7%] mr-4">
                 <div className="h-[3rem] w-[3rem] lg:h-[4rem] lg:w-[4rem]">
                   {task && task?.milestones.length > 0 ? (
                     <div className="relative">
@@ -118,6 +124,7 @@ const MileStone = () => {
                 </div>
               </div>
             </div>
+
             <div className="mx-3 flex flex-col items-center">
               <h1
                 className={`${

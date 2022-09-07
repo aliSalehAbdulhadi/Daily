@@ -28,9 +28,10 @@ import {
 } from '../../../redux/slices/features/getTasksSlice';
 import { editTask } from '../../../redux/slices/features/editTaskSlice';
 import useClickOutside from '../../../hooks/useClickOutside';
-import DropDownMenu from '../../Forms/TaskForm/DropDownMenu';
+import TaskTypeMenu from '../../Forms/TaskForm/TaskTypeMenu';
 import { changeTaskImportantState } from '../../../redux/slices/features/changeTaskImportantStateSlice';
 import { HiOutlineStar } from 'react-icons/hi';
+import { setCardColorByTypeHandler } from '../../../utilities/setColorByTypeHandler';
 
 const SingleTaskPc = ({
   content,
@@ -126,18 +127,6 @@ const SingleTaskPc = ({
     dispatch(changeTaskImportantStateLocally({ taskId: content.id }));
   };
 
-  const setCardColorByTypeHandler = (isTaskCard: boolean) => {
-    if (content?.taskType === 'personal') {
-      return isTaskCard ? 'bg-green-400' : '#4ade80';
-    }
-    if (content?.taskType === 'work') {
-      return isTaskCard ? 'bg-blue-400' : '#60a5fa';
-    }
-    if (content?.taskType === 'fun') {
-      return isTaskCard ? 'bg-purple-400' : '#c084fc';
-    }
-  };
-
   return (
     <Draggable key={content?.id} draggableId={content?.id} index={index}>
       {(provided) => (
@@ -148,7 +137,7 @@ const SingleTaskPc = ({
            hover:transition-transform hover:ease-in-out hover:duration-300 font-Comfortaa font-semibold my-2 px-5 py-2 min-h-[10rem] relative ${
              content?.completed
                ? 'bg-red-400 shadow-2xl'
-               : setCardColorByTypeHandler(true)
+               : setCardColorByTypeHandler(true, content)
            } flex flex-col justify-center items-center rounded ease-in-out
             ${
               deleteAnimation
@@ -179,8 +168,12 @@ const SingleTaskPc = ({
             </div>
           </div>
           <div className="flex items-center w-full ">
-            <div className={`${edit ? 'hidden' : 'block'} z-50 cursor-pointer`}>
-              <DropDownMenu task={content} />
+            <div
+              className={`${
+                edit ? 'hidden' : 'block'
+              } w-[5%] z-50 cursor-pointer`}
+            >
+              <TaskTypeMenu isVertical={true} task={content} />
             </div>
 
             {edit ? (
@@ -196,7 +189,7 @@ const SingleTaskPc = ({
                   ref={inputRef}
                   rows={3}
                 />
-                <button className="text-xs bg-opacity-30 text-white bg-black self-start  border-[1px] py-1 px-3  rounded ml-[7.4rem] mt-1 tracking-wider font-semibold w-fit transition-all ease-in-out whitespace-nowrap ">
+                <button className="text-xs bg-opacity-30 text-white bg-black self-start  border-[1px] py-1 px-3  rounded ml-[6.2rem] mt-1 tracking-wider font-semibold w-fit transition-all ease-in-out whitespace-nowrap ">
                   Submit
                 </button>
                 <span
@@ -208,9 +201,9 @@ const SingleTaskPc = ({
                 </span>
               </form>
             ) : (
-              <div className="w-full ">
+              <div className="w-full ml-5">
                 <div
-                  className={`pl-10  flex-col items-center flex ${
+                  className={` flex-col items-center flex ${
                     content?.completed ? 'strike opacity-60' : ''
                   }`}
                 >
@@ -280,7 +273,7 @@ const SingleTaskPc = ({
                     trailColor={
                       content?.completed
                         ? '#f87171'
-                        : setCardColorByTypeHandler(false)
+                        : setCardColorByTypeHandler(false, content)
                     }
                     colors="#ffff"
                     onComplete={() => {
