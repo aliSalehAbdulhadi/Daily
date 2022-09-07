@@ -56,7 +56,7 @@ const MilestoneControlSection = ({ taskId }: { taskId: any }) => {
   };
   return (
     <div className="text-[.6rem] semiSm:text-xs  semiSm:scale-[1] w-full ">
-      <div className="flex items-center justify-between semiSm:flex-col semiSm:justify-between  md:flex-row md:items-center w-full semiSm:mt-[4rem]">
+      <div className="flex items-center justify-between semiSm:flex-col semiSm:justify-between  md:flex-row md:items-center w-full semiSm:mt-5 semiSm:mb-5">
         <div className="flex  semiSm:mb-4 md:mb-0 items-center justify-between md:w-[50%] ">
           <div
             className="relative select-none cursor-pointer w-fit"

@@ -366,9 +366,8 @@ input::-webkit-input-placeholder {
 }
 
 .swiper {
-  background-color: #d70040;
   position: relative;
-  border: 5px solid;
+
   overflow: hidden;
 }
 
@@ -381,9 +380,6 @@ input::-webkit-input-placeholder {
   left: 100%;
   height: 100%;
   width: 100%;
-}
-
-.swiper-slide-active {
 }
 
 .M {
