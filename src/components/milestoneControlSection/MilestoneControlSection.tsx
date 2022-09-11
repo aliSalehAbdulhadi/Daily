@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { CountdownCircleTimer } from 'react-countdown-circle-timer';
 import { BiSortAlt2, BiX } from 'react-icons/bi';
-import { RiDeleteBin5Fill } from 'react-icons/ri';
 import { CgPlayListRemove } from 'react-icons/cg';
+import { Checkbox } from 'pretty-checkbox-react';
 import useClickOutside from '../../hooks/useClickOutside';
 import {
   RootState,
@@ -13,6 +13,8 @@ import {
 import { deleteAllFinishedMilestoneLocally } from '../../redux/slices/features/getTasksSlice';
 import { deleteAllFinishedMilestone } from '../../redux/slices/features/MilestonesSlice';
 import SortMilestoneModal from '../modals/sortMilestoneModal/SortMilestoneModal';
+import { punctCheckboxAction } from '../../redux/slices/features/milestonePunctCheckboxSlice';
+import '@djthoms/pretty-checkbox';
 
 const MilestoneControlSection = ({ taskId }: { taskId: any }) => {
   const [sortModal, setSortModal] = useState<boolean>(false);
@@ -32,10 +34,13 @@ const MilestoneControlSection = ({ taskId }: { taskId: any }) => {
 
   const task = tasks?.find((task) => task?.id === taskId);
 
-
   const milestoneCompleted = task?.milestones?.filter(
     (ms: any) => ms?.milestoneCompleted === true,
   ).length;
+
+  const punctCheckbox = useAppSelector(
+    (state) => state.milestonePunctCheckboxReducer.milestonePunctCheckbox,
+  );
 
   const deleteAllFinishedMilestonesHandler = () => {
     dispatch(
@@ -59,40 +64,59 @@ const MilestoneControlSection = ({ taskId }: { taskId: any }) => {
   return (
     <div className="text-[.6rem] semiSm:text-xs  semiSm:scale-[1] w-full ">
       <div className="flex items-center justify-between semiSm:flex-col semiSm:justify-between  md:flex-row md:items-center w-full semiSm:mt-5 semiSm:mb-5">
-        <div className="flex  semiSm:mb-4 md:mb-0 items-center justify-between md:w-[50%] ">
-          <div
-            className="relative select-none cursor-pointer w-fit"
-            ref={sortModalRef}
-          >
+        <div className="flex  semiSm:mb-4 md:mb-0 items-center w-full ">
+          <div className="flex items-center justify-between w-[50%]">
             <div
-              className="semiSm:ml-0 text-white mr-4  border-[1px] px-2 md:px-3 py-2 rounded  flex items-center transition-all semiSm:hover:bg-white semiSm:hover:text-secondaryColor"
-              onClick={() => setSortModal(!sortModal)}
+              className="relative select-none cursor-pointer w-fit"
+              ref={sortModalRef}
             >
-              <BiSortAlt2 className="mb-1 mr-1" size={18} />
-              <h1 className="block semiSm:hidden">Sort by </h1>
-              <h1 className="hidden semiSm:block">
-                Sorted by {milestonesSortTitleHandler()}{' '}
-              </h1>
+              <div
+                className="semiSm:ml-0 text-white mr-4  border-[1px] px-2 md:px-3 py-2 rounded  flex items-center transition-all semiSm:hover:bg-white semiSm:hover:text-secondaryColor"
+                onClick={() => setSortModal(!sortModal)}
+              >
+                <BiSortAlt2 className="mb-1 mr-1" size={18} />
+
+                <h1 className=" ">Sorted by {milestonesSortTitleHandler()} </h1>
+              </div>
+              <div className={`absolute z-[100] top-12 left-0 `}>
+                <SortMilestoneModal open={sortModal} setOpen={setSortModal} />
+              </div>
             </div>
-            <div className={`absolute z-[100] top-12 left-0 `}>
-              <SortMilestoneModal open={sortModal} setOpen={setSortModal} />
+
+            <div className="items-center justify-center hidden semiSm:flex">
+              <h1 className="mr-2 ">Milestones Progress:</h1>
+              <div>
+                <span>{milestoneCompleted}</span>
+                <span>/</span>
+                <span>{task?.milestones?.length}</span>
+              </div>
             </div>
           </div>
 
-          <div className="items-center justify-center hidden semiSm:flex">
-            <h1 className="mr-2 ">Milestones Progress:</h1>
-            <div>
-              <span>{milestoneCompleted}</span>
-              <span>/</span>
-              <span>{task?.milestones?.length}</span>
-            </div>
+          <div className="ml-10 flex flex-row-reverse items-center justify-center mb-1">
+            <label className="mt-1" htmlFor="punct">
+              Punct
+            </label>
+
+            <Checkbox
+              bigger
+              checked={punctCheckbox}
+              onChange={(e) => dispatch(punctCheckboxAction(e?.target.checked))}
+              shape="curve"
+              variant="thick"
+            />
           </div>
         </div>
 
         <button
           onClick={() => setDeleteTimer(!deleteTimer)}
           title="Delete all finished tasks"
-          className=" bg-white text-secondaryColor semiSm:hover:text-white border-[1px] px-2 py-1 rounded semiSm:mr-3 flex items-center transition-all semiSm:hover:bg-red-500  "
+          disabled={milestoneCompleted === 0}
+          className={`bg-white text-secondaryColor  border-[1px] px-2 py-1 rounded semiSm:mr-3 flex items-center transition-all ${
+            milestoneCompleted == 0
+              ? ''
+              : 'semiSm:hover:bg-red-500 semiSm:hover:text-white '
+          }`}
         >
           {deleteTimer ? (
             <div
