@@ -63,6 +63,10 @@ const MilestoneSinglePage = ({
     setEditText(milestone?.milestoneContent);
   });
 
+  const punctCheckbox = useAppSelector(
+    (state) => state.milestonePunctCheckboxReducer.milestonePunctCheckbox,
+  );
+
   useEffect(() => {
     editRef?.current?.focus();
   });
@@ -140,7 +144,9 @@ const MilestoneSinglePage = ({
   }, []);
 
   return (
-    <div className="flex justify-between my-5 ">
+
+    <div className="flex justify-between my-5 font-Comfortaa">
+
       <div className="flex justify-between items-end w-full">
         <div className="w-[90%]  cursor-pointer ">
           {edit && !milestone.milestoneCompleted ? (
@@ -166,11 +172,14 @@ const MilestoneSinglePage = ({
               className={`font-Comfortaa font-bold flex flex-col py-2 transition-all`}
             >
               <pre
-                className={`ml-1 transition-all pb-4 semiSm:pb-0 whitespace-pre-line  ${
+
+                className={`ml-1 transition-all pb-4 semiSm:pb-0 whitespace-pre-line font-Comfortaa  ${
                   milestone?.milestoneCompleted ? 'strike opacity-60' : ''
                 }`}
               >
-                {index + 1}- {milestone?.milestoneContent}
+                {punctCheckbox ? `${index + 1}-` : null}{' '}
+                {milestone?.milestoneContent}
+
               </pre>
               <div
                 className={`${

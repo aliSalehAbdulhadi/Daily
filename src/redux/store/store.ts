@@ -12,6 +12,7 @@ import disableSwiper from '../slices/features/disableSwiperSlice';
 import disableDragDnd from '../slices/features/disableDragDndSlice';
 import sortTasksSlice from '../slices/features/sortTasksSlice';
 import sortMilestonesSlice from '../slices/features/sortMilestonesSlice';
+import milestonePunctCheckboxSlice from '../slices/features/milestonePunctCheckboxSlice';
 
 const rootReducer = combineReducers({
   signUpReducer: signUpSlice,
@@ -25,6 +26,7 @@ const rootReducer = combineReducers({
   disableDragReducer: disableDragDnd,
   sortTaskReducer: sortTasksSlice,
   sortMilestonesReducer: sortMilestonesSlice,
+  milestonePunctCheckboxReducer: milestonePunctCheckboxSlice,
 });
 
 const persistConfig = {
