@@ -93,7 +93,7 @@ const MilestoneControlSection = ({ taskId }: { taskId: any }) => {
             </div>
           </div>
 
-          <div className="ml-10 flex flex-row-reverse items-center justify-center mb-1">
+          <div className="ml-10 flex flex-row-reverse items-center justify-center mb-1 text-xs">
             <label className="mt-1" htmlFor="punct">
               Punct
             </label>
@@ -112,7 +112,7 @@ const MilestoneControlSection = ({ taskId }: { taskId: any }) => {
           onClick={() => setDeleteTimer(!deleteTimer)}
           title="Delete all finished tasks"
           disabled={milestoneCompleted === 0}
-          className={`bg-white text-secondaryColor  border-[1px] px-2 py-1 rounded semiSm:mr-3 flex items-center transition-all ${
+          className={`bg-white text-secondaryColor border-[1px] mb-1 semiSm:mb-0 px-2 py-1 rounded semiSm:mr-3 flex items-center transition-all ${
             milestoneCompleted == 0
               ? ''
               : 'semiSm:hover:bg-red-500 semiSm:hover:text-white '
@@ -139,7 +139,7 @@ const MilestoneControlSection = ({ taskId }: { taskId: any }) => {
             </div>
           ) : (
             <div>
-              <CgPlayListRemove fill="" size={25} className="" />
+              <CgPlayListRemove size={25} />
             </div>
           )}
         </button>

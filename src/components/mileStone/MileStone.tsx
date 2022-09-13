@@ -10,6 +10,7 @@ import MileStoneForm from '../Forms/MileStoneForm/MileStoneForm';
 import MilestoneControlSection from '../milestoneControlSection/MilestoneControlSection';
 import MilestoneSinglePage from '../MilestoneSinglePage/MilestoneSinglePage';
 import ProgressBar from '../progressBar/ProgressBar';
+import AdvancedForm from '../Forms/advancedForm/AdvancedForm';
 
 const MileStone = ({ taskId }: { taskId: string }) => {
   const [addMilestone, setAddMilestone] = useState<boolean>(false);
@@ -79,13 +80,13 @@ const MileStone = ({ taskId }: { taskId: string }) => {
   };
 
   return (
-    <div className="m-10 font-Comfortaa transition-all">
+    <div className="m-10 font-Comfortaa transition-all text-white relative">
       <div className="flex flex-col ">
         <h1 className="mb-[1.3rem] py-3 self-center px-5 bg-white text-primaryColor rounded">
           Milestones
         </h1>
 
-        <div className="bg-primaryColor  rounded overflow-auto scrollBar  text-white h-[65vh]">
+        <div className="bg-primaryColor  rounded overflow-auto scrollBar   h-[65vh]">
           <div className=" flex flex-col m-10 ">
             {taskId && task && task?.milestones.length > 0 ? (
               <div className=" w-full pb-7">
@@ -110,7 +111,7 @@ const MileStone = ({ taskId }: { taskId: string }) => {
             ) : null}
 
             <div
-              className={`border-b-[1px] mr-[.4rem] ${
+              className={`border-b-[1px]  ${
                 task && task?.milestones.length > 0 ? 'block ' : 'hidden'
               }`}
             >
@@ -134,11 +135,15 @@ const MileStone = ({ taskId }: { taskId: string }) => {
             </div>
 
             <div
-              className={`${addMilestone ? 'block' : 'hidden'} `}
+              className={`quillFormEnterAnimation w-[75%] absolute   ${
+                addMilestone ? 'block' : 'hidden'
+              } `}
               ref={milestoneRef}
             >
-              <MileStoneForm taskId={taskId} />
+              {/* <MileStoneForm taskId={String(taskId)} /> */}
+              <AdvancedForm setAddMilestone={setAddMilestone} taskId={taskId} />
             </div>
+
             {taskId && !task?.completed ? (
               <div
                 ref={plusRef}
@@ -159,7 +164,7 @@ const MileStone = ({ taskId }: { taskId: string }) => {
                 ) : (
                   <BsPlusCircle
                     fill="white"
-                    className={`h-8 w-8 transition-all ${
+                    className={`h-8 w-8 transition-all  ${
                       addMilestone ? 'hidden' : ''
                     }`}
                     onClick={() => setScroll(true)}
@@ -169,9 +174,7 @@ const MileStone = ({ taskId }: { taskId: string }) => {
             ) : (
               <div className="self-center mt-[5rem]">
                 {task?.completed ? (
-                  <span className="">
-                    Cant add milestone to completed tasks
-                  </span>
+                  <span>Cant add milestone to completed tasks</span>
                 ) : (
                   <span>Select task to add milestones</span>
                 )}

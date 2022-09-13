@@ -160,7 +160,7 @@ const MileStone = () => {
                 })}
               </div>
               <div
-                className={`${addMilestone ? 'block' : 'hidden'}`}
+                className={`w-full ${addMilestone ? 'block' : 'hidden'}`}
                 ref={milestoneRef}
               >
                 <MileStoneForm taskId={String(id)} />

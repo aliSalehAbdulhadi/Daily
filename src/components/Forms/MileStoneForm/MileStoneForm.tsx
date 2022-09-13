@@ -93,7 +93,7 @@ const MileStoneForm = ({ taskId }: { taskId: string }) => {
                   value="milestoneForm"
                   autoComplete="form"
                   placeholder="Enter Milestone"
-                  className={` py-4 px-4 rounded outline-none w-[85%] md:w-[70%] md:text-base  text-textDark autoFillText`}
+                  className={` py-4 px-4 rounded outline-none w-[77%] md:w-[70%] md:text-base  text-textDark autoFillText`}
                   classNameField={`my-1 p-5 outline-none block w-full sm:text-sm  ${
                     dark
                       ? 'bg-primaryColor'

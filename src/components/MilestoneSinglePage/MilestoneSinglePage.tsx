@@ -1,12 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react';
+import dynamic from 'next/dynamic';
+const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
 import { AiFillDelete, AiOutlineDelete } from 'react-icons/ai';
-import {
-  BsCheckCircle,
-  BsCheckCircleFill,
-  BsFillXCircleFill,
-} from 'react-icons/bs';
+import { BsCheckCircle, BsCheckCircleFill } from 'react-icons/bs';
 import { CountdownCircleTimer } from 'react-countdown-circle-timer';
 import { BiX } from 'react-icons/bi';
+import { MdOutlineRemoveDone } from 'react-icons/md';
 
 import useClickOutside from '../../hooks/useClickOutside';
 import {
@@ -26,7 +25,10 @@ import {
   deleteMilestone,
   editMilestone,
 } from '../../redux/slices/features/MilestonesSlice';
-import { MdOutlineRemoveDone } from 'react-icons/md';
+import { modules } from '../../utilities/quillToolBar';
+
+import 'react-quill/dist/quill.bubble.css';
+import 'react-quill/dist/quill.snow.css';
 
 const MilestoneSinglePage = ({
   taskId,
@@ -149,16 +151,16 @@ const MilestoneSinglePage = ({
         <div className="w-[90%]  cursor-pointer ">
           {edit && !milestone.milestoneCompleted ? (
             <div className="border-b-[1px] flex flex-col" ref={inputRef}>
-              <textarea
-                ref={editRef}
-                className="w-[100%] py-2 mt-2 rounded outline-none text-black px-2"
-                onChange={(e: any) => setEditText(e?.target?.value)}
-                rows={editText.length >= 100 ? 5 : 3}
+              <ReactQuill
+                theme="snow"
+                id="quill-edit"
+                modules={modules}
                 value={editText}
+                onChange={setEditText}
               />
 
               <button
-                className=" self-center semiSm:self-start semiSm:ml-1 text-xs bg-opacity-30 text-white bg-black border-[1px] py-1 px-3  rounded my-2 tracking-wider font-semibold w-fit transition-all ease-in-out whitespace-nowrap"
+                className="w-full py-2 bg-[#ebebeb] text-black mt-5 rounded-b mb-5"
                 onClick={editMilestoneHanlder}
               >
                 Submit
@@ -170,12 +172,16 @@ const MilestoneSinglePage = ({
               className={`font-Comfortaa font-bold flex flex-col py-2 transition-all`}
             >
               <pre
-                className={`ml-1 transition-all pb-4 semiSm:pb-0 whitespace-pre-line font-Comfortaa  ${
+                className={`flex items-center transition-all pb-4 semiSm:pb-0 whitespace-pre-line font-Comfortaa  ${
                   milestone?.milestoneCompleted ? 'strike opacity-60' : ''
                 }`}
               >
                 {punctCheckbox ? `${index + 1}-` : null}{' '}
-                {milestone?.milestoneContent}
+                <ReactQuill
+                  readOnly
+                  theme="bubble"
+                  value={milestone?.milestoneContent}
+                />
               </pre>
               <div
                 className={`${

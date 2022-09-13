@@ -4,6 +4,11 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: 'Comfortaa';
+  src: url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600&display=swap');
+}
+
 html,
 body {
   padding: 0;
@@ -365,6 +370,23 @@ input::-webkit-input-placeholder {
   }
 }
 
+.quillFormEnterAnimation {
+  animation: quillFormAnimation 0.3s linear;
+  top: 55%;
+  left: 13%;
+  transform: translateX(50%);
+  transform: translateY(-50%);
+}
+
+@keyframes quillFormAnimation {
+  from {
+    transform: translateY(45rem);
+  }
+  to {
+    transform: translateY(-50%);
+  }
+}
+
 .swiper {
   position: relative;
 
@@ -382,46 +404,28 @@ input::-webkit-input-placeholder {
   width: 100%;
 }
 
-.M {
-  transform: translate(20px, 85px) rotate(-30deg);
+#quill {
+  height: 400px;
+  border-radius: 0.25rem;
+  overflow: hidden;
+  font-family: Comfortaa;
+}
+#quill-edit {
+  min-height: 200px;
+  border-radius: 0.25rem;
+  overflow: hidden;
+  font-family: Comfortaa;
 }
 
-.I {
-  transform: translate(13px, 60px) rotate(-25deg);
+.ql-toolbar {
+  background-color: #ebebeb;
+  border: none !important;
 }
 
-.L {
-  transform: translate(6px, 40px) rotate(-20deg);
+.ql-editor {
+  font-family: Comfortaa;
 }
 
-.E1 {
-  transform: translate(3px, 23px) rotate(-15deg);
-}
-
-.S1 {
-  transform: translate(2px, 14px) rotate(-10deg);
-}
-
-.T {
-  transform: translate(1px, 8px) rotate(-5deg);
-}
-
-.O {
-  transform: translate(0px, 5px) rotate(0deg);
-}
-
-.N {
-  transform: translate(-1px, 8px) rotate(5deg);
-}
-
-.E2 {
-  transform: translate(-2px, 14px) rotate(10deg);
-}
-
-.S2 {
-  transform: translate(-3px, 25px) rotate(15deg);
-}
-
-.curvedTextContainer {
-  display: inline-block;
+.ql-container.ql-snow {
+  border: none !important;
 }
