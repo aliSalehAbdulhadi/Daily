@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import { BsPlusCircle, BsPlusCircleFill } from 'react-icons/bs';
 import { TiArrowBack } from 'react-icons/ti';
+import AdvancedForm from '../../src/components/Forms/advancedForm/AdvancedForm';
 import MileStoneForm from '../../src/components/Forms/MileStoneForm/MileStoneForm';
 import MilestoneControlSection from '../../src/components/milestoneControlSection/MilestoneControlSection';
 import MilestoneSinglePage from '../../src/components/MilestoneSinglePage/MilestoneSinglePage';
@@ -89,20 +90,20 @@ const MileStone = () => {
         dark ? 'bg-secondaryColor' : 'bg-secondaryLight'
       }`}
     >
-      <div className="flex flex-col">
+      <div className="flex flex-col ">
         <div
           className={`${
             dark ? 'bg-primaryColor' : 'bg-secondaryLight'
-          } scrollBar text-white min-h-[90vh] transition-all`}
+          } scrollBar text-white  transition-all`}
         >
           <div className=" flex flex-col">
             <div
-              className={`mb-5 flex items-center justify-center py-4 w-full ${
+              className={`flex pt-4 pb-5 items-center justify-center w-full ${
                 dark ? 'bg-secondaryColor' : 'bg-primaryColor'
               }`}
             >
               <Link href="/">
-                <button className="border-[1px] bg-white  px-2 mx-3 rounded">
+                <button className=" bg-white px-2 mx-3 rounded">
                   <TiArrowBack fill="#2c5252" size={20} />
                 </button>
               </Link>
@@ -125,7 +126,7 @@ const MileStone = () => {
               </div>
             </div>
 
-            <div className="mx-3 flex flex-col items-center">
+            <div className=" flex flex-col items-center  ">
               <h1
                 className={`${
                   task?.milestones.length === 0 ? 'block' : 'hidden'
@@ -135,62 +136,76 @@ const MileStone = () => {
               </h1>
 
               <div
-                className={`z-50 w-full mb-3 ${
+                className={`z-50 w-full pt-4 pb-5 mx-3 border-b-[1px] shadow-lg  ${
                   task && task?.milestones.length > 0 ? 'block ' : 'hidden'
                 }`}
               >
-                <MilestoneControlSection taskId={task?.id} />
-              </div>
-              <div className="w-full">
-                {task?.milestones.map((milestone: any, i) => {
-                  return (
-                    <Swipeable
-                      key={milestone?.id}
-                      handler={() => deleteMilestoneHandler(milestone)}
-                    >
-                      <MilestoneSinglePage
-                        taskId={String(id)}
-                        milestone={milestone}
-                        index={i}
-                        tasks={tasks}
-                        setDeleteAnimationMobile={deleteAnimation}
-                      />
-                    </Swipeable>
-                  );
-                })}
-              </div>
-              <div
-                className={`w-full ${addMilestone ? 'block' : 'hidden'}`}
-                ref={milestoneRef}
-              >
-                <MileStoneForm taskId={String(id)} />
+                <div className="mx-3">
+                  <MilestoneControlSection taskId={task?.id} />
+                </div>
               </div>
 
-              <div
-                ref={plusRef}
-                onMouseEnter={() => setPlusIcon(true)}
-                onMouseLeave={() => setPlusIcon(false)}
-                onClick={() => {
-                  setAddMilestone(true);
-                  setPlusIcon(false);
-                }}
-                className={`self-center cursor-pointer my-10 `}
-              >
-                {plusIcon ? (
-                  <BsPlusCircleFill
-                    fill="white"
-                    className={`h-8 w-8  transition-all ${
-                      addMilestone ? 'hidden' : 'block'
-                    }`}
-                  />
-                ) : (
-                  <BsPlusCircle
-                    fill="white"
-                    className={`h-8 w-8   transition-all ${
-                      addMilestone ? 'hidden' : 'block'
-                    }`}
-                  />
-                )}
+              <div className="flex flex-col items-center justify-center w-full ">
+                <div className="h-[70vh] overflow-auto w-full">
+                  {task?.milestones.map((milestone: any, i) => {
+                    return (
+                      <div className="mx-3" key={milestone?.id}>
+                        <Swipeable
+                          handler={() => deleteMilestoneHandler(milestone)}
+                        >
+                          <MilestoneSinglePage
+                            taskId={String(id)}
+                            milestone={milestone}
+                            index={i}
+                            tasks={tasks}
+                            setDeleteAnimationMobile={deleteAnimation}
+                          />
+                        </Swipeable>
+                      </div>
+                    );
+                  })}
+
+                  <div
+                    className={`sticky bottom-2 mt-5 py-3 z-50 flex items-center justify-center `}
+                  >
+                    <div
+                      className={`h-fit ${addMilestone ? 'block' : 'hidden'}`}
+                      ref={milestoneRef}
+                    >
+                      <AdvancedForm
+                        taskId={String(task?.id)}
+                        setAddMilestone={setAddMilestone}
+                      />
+                    </div>
+
+                    <div
+                      ref={plusRef}
+                      onMouseEnter={() => setPlusIcon(true)}
+                      onMouseLeave={() => setPlusIcon(false)}
+                      onClick={() => {
+                        setAddMilestone(true);
+                        setPlusIcon(false);
+                      }}
+                      className={`self-center cursor-pointer`}
+                    >
+                      {plusIcon ? (
+                        <BsPlusCircleFill
+                          fill="white"
+                          className={`h-8 w-8  transition-all ${
+                            addMilestone ? 'hidden' : 'block'
+                          }`}
+                        />
+                      ) : (
+                        <BsPlusCircle
+                          fill="white"
+                          className={`h-8 w-8   transition-all ${
+                            addMilestone ? 'hidden' : 'block'
+                          }`}
+                        />
+                      )}
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

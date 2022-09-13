@@ -1,4 +1,3 @@
-import { spawn } from 'child_process';
 import { useEffect, useState } from 'react';
 import { Droppable } from 'react-beautiful-dnd';
 import { BiSortAlt2 } from 'react-icons/bi';
@@ -34,7 +33,6 @@ const Tasks = ({ id }: { id: Function }) => {
   }, [taskId, id]);
 
   useEffect(() => {
-
     if (tasks?.length <= 0) {
       setTaskId('');
     }
@@ -42,7 +40,6 @@ const Tasks = ({ id }: { id: Function }) => {
   const copyTasks = tasks ? [...tasks] : [];
   const completedTasks = tasks ? tasks?.filter((task) => task.completed) : [];
   const pendingTasks = tasks ? tasks?.filter((task) => !task.completed) : [];
-
 
   const taskSortHandler = () => {
     if (sortBy === 'newTasks') {
@@ -112,13 +109,11 @@ const Tasks = ({ id }: { id: Function }) => {
                 dark
                   ? 'bg-primaryColor'
                   : 'bg-secondaryLight semiSm:bg-primaryColor'
-              } semiSm:h-[65vh] min-h-[80vh] semiSm:min-h-[65vh] w-[100%] semiSm:overflow-auto p-5 semiSm:px-10 semiSm:py-8  scrollBar flex flex-col items-center semiSm:rounded py-6 `}
+              } h-[65vh] min-h-[65vh] w-[100%] overflow-auto p-5 semiSm:px-10 semiSm:py-8  scrollBar flex flex-col items-center semiSm:rounded py-6 `}
             >
               <div
                 className={`${
-
                   tasks?.length > 0 ? 'flex' : 'hidden'
-
                 }  items-center justify-between w-full`}
               >
                 <div
@@ -149,7 +144,6 @@ const Tasks = ({ id }: { id: Function }) => {
               </div>
 
               {tasks?.length > 0 ? (
-
                 completedTask ? (
                   taskSortHandler()?.map(
                     (task: SingleTaskInterface, index: number) =>

@@ -29,6 +29,7 @@ import { modules } from '../../utilities/quillToolBar';
 
 import 'react-quill/dist/quill.bubble.css';
 import 'react-quill/dist/quill.snow.css';
+import { FaWindowClose } from 'react-icons/fa';
 
 const MilestoneSinglePage = ({
   taskId,
@@ -146,13 +147,18 @@ const MilestoneSinglePage = ({
   }, []);
 
   return (
-
     <div className="flex justify-between my-5 font-Comfortaa">
-
       <div className="flex justify-between items-end w-full">
-        <div className="w-[90%]  cursor-pointer ">
+        <div className={`${edit ? '' : 'w-[90%]'}  cursor-pointer `}>
           {edit && !milestone.milestoneCompleted ? (
-            <div className="border-b-[1px] flex flex-col" ref={inputRef}>
+            <div className="border-b-[1px] w-full relative mt-3" ref={inputRef}>
+              <button
+                type="button"
+                onClick={() => setEdit(false)}
+                className="absolute text-black right-2  top-[.60rem] "
+              >
+                <FaWindowClose size={20} />
+              </button>
               <ReactQuill
                 theme="snow"
                 id="quill-edit"
@@ -174,7 +180,7 @@ const MilestoneSinglePage = ({
               className={`font-Comfortaa font-bold flex flex-col py-2 transition-all`}
             >
               <pre
-                className={`flex items-center transition-all pb-4 semiSm:pb-0 whitespace-pre-line font-Comfortaa  ${
+                className={`flex items-center transition-all  semiSm:pb-0 whitespace-pre-line font-Comfortaa  ${
                   milestone?.milestoneCompleted ? 'strike opacity-60' : ''
                 }`}
               >
@@ -250,7 +256,11 @@ const MilestoneSinglePage = ({
             </button>
           )}
         </div>
-        <div className="flex items-center justify-center h-full ml-3 mr-1 semiSm:hidden">
+        <div
+          className={`flex items-center justify-center h-full ml-3 mr-1 semiSm:hidden ${
+            edit ? 'hidden' : ''
+          }`}
+        >
           <button
             onMouseEnter={() => setCompleteIcon(true)}
             onMouseLeave={() => setCompleteIcon(false)}

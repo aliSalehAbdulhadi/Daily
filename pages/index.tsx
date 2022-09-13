@@ -3,7 +3,6 @@ import type { NextPage } from 'next';
 import TaskForm from '../src/components/Forms/TaskForm/TaskForm';
 import TasksContainer from '../src/components/TasksContainer/TasksContainer';
 
-
 const Home: NextPage = () => {
   return (
     <>
@@ -39,7 +38,7 @@ const Home: NextPage = () => {
         <meta name="msapplication-TileColor" content="#da532c" />
         <meta name="theme-color" content="#d58989" />
       </Head>
-      <div className="flex flex-col items-center justify-center">
+      <div className="flex flex-col items-center justify-center semiSm:overflow-hidden">
         <div className="w-full sm:hidden">
           <TaskForm />
         </div>

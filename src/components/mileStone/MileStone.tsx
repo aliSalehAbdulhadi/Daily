@@ -86,12 +86,10 @@ const MileStone = ({ taskId }: { taskId: string }) => {
           Milestones
         </h1>
 
-        <div className="bg-primaryColor  rounded overflow-auto scrollBar   h-[65vh]">
+        <div className="bg-primaryColor  rounded overflow-auto scrollBar h-[65vh]">
           <div className=" flex flex-col m-10 ">
             {taskId && task && task?.milestones.length > 0 ? (
-
               <div className=" w-full pb-7">
-
                 <div className="flex items-center justify-between">
                   <div className="">
                     <span className="text-secondaryLight text-base">Task:</span>
@@ -137,7 +135,7 @@ const MileStone = ({ taskId }: { taskId: string }) => {
             </div>
 
             <div
-              className={`quillFormEnterAnimation w-[75%] absolute   ${
+              className={`quillFormEnterAnimation w-[75%] absolute  ${
                 addMilestone ? 'block' : 'hidden'
               } `}
               ref={milestoneRef}
@@ -155,7 +153,7 @@ const MileStone = ({ taskId }: { taskId: string }) => {
                   setAddMilestone(true);
                   setPlusIcon(false);
                 }}
-                className={`self-center cursor-pointer mt-10`}
+                className={`self-center cursor-pointer mt-10 sticky bottom-0 py-3 `}
               >
                 {plusIcon ? (
                   <BsPlusCircleFill
