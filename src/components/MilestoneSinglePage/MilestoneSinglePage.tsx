@@ -146,7 +146,9 @@ const MilestoneSinglePage = ({
   }, []);
 
   return (
+
     <div className="flex justify-between my-5 font-Comfortaa">
+
       <div className="flex justify-between items-end w-full">
         <div className="w-[90%]  cursor-pointer ">
           {edit && !milestone.milestoneCompleted ? (

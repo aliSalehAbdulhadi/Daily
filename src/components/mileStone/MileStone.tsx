@@ -89,7 +89,9 @@ const MileStone = ({ taskId }: { taskId: string }) => {
         <div className="bg-primaryColor  rounded overflow-auto scrollBar   h-[65vh]">
           <div className=" flex flex-col m-10 ">
             {taskId && task && task?.milestones.length > 0 ? (
+
               <div className=" w-full pb-7">
+
                 <div className="flex items-center justify-between">
                   <div className="">
                     <span className="text-secondaryLight text-base">Task:</span>
