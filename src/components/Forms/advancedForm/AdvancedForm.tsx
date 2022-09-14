@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
 const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
 import { v4 as uuidv4 } from 'uuid';
@@ -17,13 +17,14 @@ import {
 import { addMilestones } from '../../../redux/slices/features/MilestonesSlice';
 import { modules } from '../../../utilities/quillToolBar';
 import { FaWindowClose } from 'react-icons/fa';
+import { AiFillCloseSquare } from 'react-icons/ai';
 
 const AdvancedForm = ({
   taskId,
-  setAddMilestone,
+  setOpenAdvancedForm,
 }: {
   taskId: string;
-  setAddMilestone: React.Dispatch<React.SetStateAction<boolean>>;
+  setOpenAdvancedForm: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
   const [value, setValue] = useState('');
   const [submitAnimation, setSubmitAnimation] = useState<boolean>(false);
@@ -33,7 +34,9 @@ const AdvancedForm = ({
   const tasks: SingleTaskInterface[] = useAppSelector(
     (state: RootState) => state.getTaskReducer.tasks,
   );
-
+  const dark = useAppSelector(
+    (state: RootState) => state.darkModeReducer.darkMode,
+  );
   const formats = [
     'header',
     'bold',
@@ -97,25 +100,28 @@ const AdvancedForm = ({
   return (
     <form
       onSubmit={(e) => formSubmitHandler(e)}
-      className="border-[1px] rounded relative bg-primaryColor "
+      className="border-[1px] w-full rounded relative "
     >
       <button
         type="button"
-        onClick={() => setAddMilestone(false)}
+        onClick={() => {
+          setOpenAdvancedForm(false);
+          setValue('');
+        }}
         className="absolute text-black right-2 top-[.60rem] "
       >
-        <FaWindowClose size={20} />
+        <AiFillCloseSquare className="rounded-lg opacity-[.75]" size={20} />
       </button>
       <ReactQuill
         id="quill"
-        className=""
         modules={modules}
+        className={`${dark ? 'bg-secondaryColor' : 'bg-primaryColor'}}`}
         theme="snow"
         value={value}
         onChange={setValue}
       />
-      <button className="w-full py-2 bg-[#ebebeb] text-black" type="submit">
-        submit
+      <button className="w-full py-2 bg-primaryLight text-black" type="submit">
+        Submit
       </button>
     </form>
   );

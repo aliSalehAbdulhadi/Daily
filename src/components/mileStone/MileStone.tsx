@@ -13,17 +13,19 @@ import ProgressBar from '../progressBar/ProgressBar';
 import AdvancedForm from '../Forms/advancedForm/AdvancedForm';
 
 const MileStone = ({ taskId }: { taskId: string }) => {
-  const [addMilestone, setAddMilestone] = useState<boolean>(false);
   const [plusIcon, setPlusIcon] = useState<boolean>(false);
   const [scroll, setScroll] = useState<boolean>(false);
+  const [openAdvancedForm, setOpenAdvancedForm] = useState<boolean>(false);
 
   const tasks: SingleTaskInterface[] = useAppSelector(
     (state: RootState) => state.getTaskReducer.tasks,
   );
   const task = tasks?.find((task) => task?.id === taskId);
-  const milestoneRef = useClickOutside(() => {
-    setAddMilestone(false);
+
+  const milestoneAdvancedFormRef = useClickOutside(() => {
+    setOpenAdvancedForm(false);
   });
+
   const plusRef = useClickOutside(() => {
     setPlusIcon(false);
   });
@@ -51,7 +53,7 @@ const MileStone = ({ taskId }: { taskId: string }) => {
       scrollRefBottom?.current?.scrollIntoView({ behavior: 'smooth' });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [task?.milestones.length]);
+  }, [AdvancedForm]);
 
   const copyMilestones = task ? [...task?.milestones] : [];
   const milestonesSortHandler = () => {
@@ -86,10 +88,10 @@ const MileStone = ({ taskId }: { taskId: string }) => {
           Milestones
         </h1>
 
-        <div className="bg-primaryColor  rounded overflow-auto scrollBar h-[65vh]">
-          <div className=" flex flex-col m-10 ">
+        <div className="bg-primaryColor overflow-hidden rounded scrollBar  h-[65vh] w-full">
+          <div className=" flex flex-col mt-5 mx-10 ">
             {taskId && task && task?.milestones.length > 0 ? (
-              <div className=" w-full pb-7">
+              <div className=" w-full">
                 <div className="flex items-center justify-between">
                   <div className="">
                     <span className="text-secondaryLight text-base">Task:</span>
@@ -111,37 +113,41 @@ const MileStone = ({ taskId }: { taskId: string }) => {
             ) : null}
 
             <div
-              className={`border-b-[1px]  ${
+              className={`border-b-[1px] z-50 ${
                 task && task?.milestones.length > 0 ? 'block ' : 'hidden'
               }`}
             >
               <MilestoneControlSection taskId={task?.id} />
             </div>
+          </div>
 
-            <div>
+          <div className="flex flex-col items-center h-[50vh] overflow-auto scrollBar">
+            <div className="w-full">
               {milestonesSortHandler()?.map((milestone: any, i) => {
                 return (
-                  <div key={milestone.id}>
+                  <div className="mx-10" key={milestone.id}>
                     <MilestoneSinglePage
                       taskId={taskId}
                       milestone={milestone}
                       index={i}
                       tasks={tasks}
                     />
-                    <div ref={scrollRefBottom}></div>
+                    <div></div>
                   </div>
                 );
               })}
             </div>
 
             <div
-              className={`quillFormEnterAnimation w-[75%] absolute  ${
-                addMilestone ? 'block' : 'hidden'
+              className={`quillFormEnterAnimation mt-10 ${
+                openAdvancedForm ? 'block' : 'hidden'
               } `}
-              ref={milestoneRef}
+              ref={milestoneAdvancedFormRef}
             >
-              {/* <MileStoneForm taskId={String(taskId)} /> */}
-              <AdvancedForm setAddMilestone={setAddMilestone} taskId={taskId} />
+              <AdvancedForm
+                setOpenAdvancedForm={setOpenAdvancedForm}
+                taskId={taskId}
+              />
             </div>
 
             {taskId && !task?.completed ? (
@@ -150,10 +156,10 @@ const MileStone = ({ taskId }: { taskId: string }) => {
                 onMouseEnter={() => setPlusIcon(true)}
                 onMouseLeave={() => setPlusIcon(false)}
                 onClick={() => {
-                  setAddMilestone(true);
+                  setOpenAdvancedForm(true);
                   setPlusIcon(false);
                 }}
-                className={`self-center cursor-pointer mt-10 sticky bottom-0 py-3 `}
+                className={`cursor-pointer sticky bottom-3 py-5 `}
               >
                 {plusIcon ? (
                   <BsPlusCircleFill
@@ -165,7 +171,7 @@ const MileStone = ({ taskId }: { taskId: string }) => {
                   <BsPlusCircle
                     fill="white"
                     className={`h-8 w-8 transition-all  ${
-                      addMilestone ? 'hidden' : ''
+                      openAdvancedForm ? 'hidden' : ''
                     }`}
                     onClick={() => setScroll(true)}
                   />
@@ -180,6 +186,7 @@ const MileStone = ({ taskId }: { taskId: string }) => {
                 )}
               </div>
             )}
+            <div ref={scrollRefBottom}></div>
           </div>
         </div>
       </div>

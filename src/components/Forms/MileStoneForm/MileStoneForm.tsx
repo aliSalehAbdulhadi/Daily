@@ -16,11 +16,18 @@ import {
 } from '../../../interfaces/interfaces';
 import { addMilestones } from '../../../redux/slices/features/MilestonesSlice';
 import useWindowSize from '../../../hooks/useWindowsSize';
+import { BiWindowOpen } from 'react-icons/bi';
 
 const formSchema = Yup.object().shape({
   Form: Yup.string(),
 });
-const MileStoneForm = ({ taskId }: { taskId: string }) => {
+const MileStoneForm = ({
+  taskId,
+  setOpenAdvancedForm,
+}: {
+  taskId: string;
+  setOpenAdvancedForm: React.Dispatch<React.SetStateAction<boolean>>;
+}) => {
   const [submitAnimation, setSubmitAnimation] = useState<boolean>(false);
   const tasks: SingleTaskInterface[] = useAppSelector(
     (state: RootState) => state.getTaskReducer.tasks,
@@ -93,7 +100,7 @@ const MileStoneForm = ({ taskId }: { taskId: string }) => {
                   value="milestoneForm"
                   autoComplete="form"
                   placeholder="Enter Milestone"
-                  className={`  rounded outline-none w-[77%] md:w-[70%] md:text-base  text-textDark autoFillText`}
+                  className={`  rounded outline-none w-[70%] md:w-[70%] md:text-base  text-textDark autoFillText`}
                   classNameField={`my-1 p-5 outline-none block w-full sm:text-sm  ${
                     dark
                       ? 'bg-primaryColor'
@@ -101,17 +108,26 @@ const MileStoneForm = ({ taskId }: { taskId: string }) => {
                   } placeholder-white placeholder-opacity-[.7] py-3  font-Comfortaa text-sm md:text-base text-white autoFillBg`}
                 />
 
-                <button
-                  title="Submit"
-                  type="submit"
-                  className={`text-textDark scale-[1.6] mt-2 rounded-br-md `}
-                >
-                  <BsPlusCircleDotted
-                    className={` hover:rotate-[360deg] transition-all ease-in-out duration-500 ${
-                      submitAnimation ? 'rotate-[360deg]' : ''
-                    }`}
+                <div className="flex items-center justify-center  mr-[1.5rem] semiSm:w-[6rem] semiSm:mr-8">
+                  <BiWindowOpen
+                    className="mt-2 mr-6 semiSm:mr-8 cursor-pointer"
+                    fill="white"
+                    size={25}
+                    onClick={() => setOpenAdvancedForm(true)}
                   />
-                </button>
+
+                  <button
+                    title="Submit"
+                    type="submit"
+                    className={`text-textDark scale-[1.6] mt-2 rounded-br-md`}
+                  >
+                    <BsPlusCircleDotted
+                      className={` hover:rotate-[360deg] transition-all ease-in-out duration-500 ${
+                        submitAnimation ? 'rotate-[360deg]' : ''
+                      }`}
+                    />
+                  </button>
+                </div>
               </div>
             </div>
           ) : (

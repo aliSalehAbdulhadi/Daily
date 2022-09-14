@@ -74,11 +74,11 @@ const Tasks = ({ id }: { id: Function }) => {
   };
 
   return (
-    <div className="flex justify-center">
+    <div className="flex flex-col justify-center semiSm:w-[90%]  ">
       <Droppable droppableId="NewTasks">
         {(provided) => (
           <div
-            className="sm:m-10 flex flex-col items-center font-Comfortaa font-bold  w-full"
+            className="sm:m-10 flex flex-col items-center font-Comfortaa font-bold w-full "
             ref={provided.innerRef}
             {...provided.droppableProps}
           >
@@ -104,37 +104,36 @@ const Tasks = ({ id }: { id: Function }) => {
                 Finished Tasks
               </button>
             </div>
+
             <div
-              className={`${
+              className={`flex-col-reverse items-center justify-center px-3  semiSm:px-6  semiSm semiSm:rounded-t  ${
                 dark
                   ? 'bg-primaryColor'
                   : 'bg-secondaryLight semiSm:bg-primaryColor'
-              } h-[65vh] min-h-[65vh] w-[100%] overflow-auto p-5 semiSm:px-10 semiSm:py-8  scrollBar flex flex-col items-center semiSm:rounded py-6 `}
+              } pt-1 ${
+                tasks?.length > 0 ? 'flex' : 'hidden'
+              }  items-center justify-between w-full`}
             >
-              <div
-                className={`${
-                  tasks?.length > 0 ? 'flex' : 'hidden'
-                }  items-center justify-between w-full`}
-              >
+              <div className="border-b-[1px] shadow-xl w-full"></div>
+              <div className="flex item-center justify-between w-full semiSm:px-6">
                 <div
-                  className="relative self-start select-none cursor-pointer "
+                  className="relative self-start select-none cursor-pointer mt-3 semiSm:mt-5"
                   ref={sortModalRef}
                 >
                   <div
-                    className="mb-5 ml-1 semiSm:ml-0 text-white border-[1px] px-3 py-2 rounded  flex items-center transition-all semiSm:hover:bg-white semiSm:hover:text-secondaryColor"
+                    className="mb-5  ml-1 semiSm:ml-1 text-white border-[1px] px-3 py-2 rounded  flex items-center transition-all semiSm:hover:bg-white semiSm:hover:text-secondaryColor"
                     onClick={() => setSortModal(!sortModal)}
                   >
-                    <BiSortAlt2 className="mb-1" size={18} />
+                    <BiSortAlt2 className="mb-1 mr-1" size={18} />
                     <h1 className="text-[.70rem] semiSm:text-xs">
-                      {sortBy ? 'Sorted by' : 'Sort by'}{' '}
-                      {taskSortTitleHandler()}
+                      {sortBy ? 'By' : 'Sort by'} {taskSortTitleHandler()}
                     </h1>
                   </div>
                   <div className={`absolute z-[100] top-12 left-0 `}>
                     <SortModal open={sortModal} setOpen={setSortModal} />
                   </div>
                 </div>
-                <div className="text-white self-center mb-5 semiSm:mb-0 text-xs mr-1 semiSm:mr-0">
+                <div className="text-white self-center mb-5  semiSm:mb-0 text-xs mr-1 semiSm:mr-2">
                   {completedTask ? (
                     <span>Total tasks: {completedTasks?.length}</span>
                   ) : (
@@ -142,7 +141,14 @@ const Tasks = ({ id }: { id: Function }) => {
                   )}
                 </div>
               </div>
-
+            </div>
+            <div
+              className={`${
+                dark
+                  ? 'bg-primaryColor'
+                  : 'bg-secondaryLight semiSm:bg-primaryColor'
+              } h-[60vh] semiSm:h-[57vh] w-[100%] overflow-auto p-5 semiSm:px-10 semiSm:py-4 scrollBar flex flex-col items-center semiSm:rounded-b py-6 `}
+            >
               {tasks?.length > 0 ? (
                 completedTask ? (
                   taskSortHandler()?.map(
@@ -185,33 +191,31 @@ const Tasks = ({ id }: { id: Function }) => {
                 </span>
               )}
             </div>
-            <div className="flex items-center justify-center cursor-pointer sticky bottom-0 z-50 bg-secondaryColor w-full p-5 semiSm:hidden">
-              <div>
-                <button
-                  onClick={() => setCompletedTask(false)}
-                  className={`text-textDark  select-none py-3 px-7 rounded-tl rounded-bl text-sm semiSm:text-base whitespace-nowrap ${
-                    completedTask
-                      ? 'bg-primaryColor text-white'
-                      : ' bg-white text-primaryColor'
-                  }`}
-                >
-                  Pending Tasks
-                </button>
-                <button
-                  onClick={() => setCompletedTask(true)}
-                  className={`text-textDark  select-none py-3 px-5 rounded-tr rounded-br text-sm semiSm:text-base whitespace-nowrap ${
-                    completedTask
-                      ? 'bg-white text-primaryColor'
-                      : ' bg-primaryColor text-white'
-                  }`}
-                >
-                  Finished Tasks
-                </button>
-              </div>
-            </div>
           </div>
         )}
       </Droppable>
+      <div className="flex items-center justify-center cursor-pointer sticky bottom-0 z-50 bg-secondaryColor w-full p-5 semiSm:hidden">
+        <button
+          onClick={() => setCompletedTask(false)}
+          className={`text-textDark  select-none py-3 px-7 rounded-tl rounded-bl text-sm semiSm:text-base whitespace-nowrap ${
+            completedTask
+              ? 'bg-primaryColor text-white'
+              : ' bg-white text-primaryColor'
+          }`}
+        >
+          Pending Tasks
+        </button>
+        <button
+          onClick={() => setCompletedTask(true)}
+          className={`text-textDark  select-none py-3 px-5 rounded-tr rounded-br text-sm semiSm:text-base whitespace-nowrap ${
+            completedTask
+              ? 'bg-white text-primaryColor'
+              : ' bg-primaryColor text-white'
+          }`}
+        >
+          Finished Tasks
+        </button>
+      </div>
     </div>
   );
 };

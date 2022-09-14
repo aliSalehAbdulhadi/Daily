@@ -4,15 +4,15 @@ import '../styles/globals.css';
 import type { AppProps } from 'next/app';
 import store from '../src/redux/store/store';
 import { persistor } from '../src/redux/store/store';
-import OverLay from '../src/components/overLay/OverLay';
+import Wrapper from '../src/components/wrapper/wrapper';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
-        <OverLay>
+        <Wrapper>
           <Component {...pageProps} />
-        </OverLay>
+        </Wrapper>
       </PersistGate>
     </Provider>
   );

@@ -15,7 +15,7 @@ import Navbar from '../Navbar/Navbar';
 import { toggleDisableSwiper } from '../../redux/slices/features/disableSwiperSlice';
 import { sortTaskBy } from '../../redux/slices/features/sortTasksSlice';
 
-const OverLay = ({ children }: { children: JSX.Element }) => {
+const Wrapper = ({ children }: { children: JSX.Element }) => {
   const dispatch = useAppDispatch();
 
   const tasks: SingleTaskInterface[] = useAppSelector(
@@ -65,4 +65,4 @@ const OverLay = ({ children }: { children: JSX.Element }) => {
   );
 };
 
-export default OverLay;
+export default Wrapper;

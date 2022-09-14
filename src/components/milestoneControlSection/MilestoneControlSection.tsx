@@ -36,7 +36,6 @@ const MilestoneControlSection = ({ taskId }: { taskId: any }) => {
 
   const task = tasks?.find((task) => task?.id === taskId);
 
-
   const milestoneCompleted = task?.milestones?.filter(
     (ms: any) => ms?.milestoneCompleted === true,
   ).length;
@@ -67,10 +66,8 @@ const MilestoneControlSection = ({ taskId }: { taskId: any }) => {
   return (
     <div className="text-[.6rem] semiSm:text-xs  semiSm:scale-[1] w-full ">
       <div className="flex items-center justify-between semiSm:flex-col semiSm:justify-between  md:flex-row md:items-center w-full semiSm:mt-5 semiSm:mb-5">
-
         <div className="flex  semiSm:mb-4 md:mb-0 items-center w-full ">
           <div className="flex items-center justify-between w-[50%]">
-
             <div
               className="relative select-none cursor-pointer w-fit"
               ref={sortModalRef}
@@ -81,7 +78,9 @@ const MilestoneControlSection = ({ taskId }: { taskId: any }) => {
               >
                 <BiSortAlt2 className="mb-1 mr-1" size={18} />
 
-                <h1 className=" ">Sorted by {milestonesSortTitleHandler()} </h1>
+                <h1 className=" w-[8rem] semiSm:w-fit ">
+                  By {milestonesSortTitleHandler()}{' '}
+                </h1>
               </div>
               <div className={`absolute z-[100] top-12 left-0 `}>
                 <SortMilestoneModal open={sortModal} setOpen={setSortModal} />
@@ -116,14 +115,12 @@ const MilestoneControlSection = ({ taskId }: { taskId: any }) => {
         <button
           onClick={() => setDeleteTimer(!deleteTimer)}
           title="Delete all finished tasks"
-
           disabled={milestoneCompleted === 0}
           className={`bg-white text-secondaryColor border-[1px] mb-1 semiSm:mb-0 px-2 py-1 rounded semiSm:mr-3 flex items-center transition-all ${
             milestoneCompleted == 0
               ? ''
               : 'semiSm:hover:bg-red-500 semiSm:hover:text-white '
           }`}
-
         >
           {deleteTimer ? (
             <div

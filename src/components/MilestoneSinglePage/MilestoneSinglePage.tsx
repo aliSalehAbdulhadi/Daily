@@ -6,7 +6,7 @@ import { BsCheckCircle, BsCheckCircleFill } from 'react-icons/bs';
 import { CountdownCircleTimer } from 'react-countdown-circle-timer';
 import { BiX } from 'react-icons/bi';
 import { MdOutlineRemoveDone } from 'react-icons/md';
-
+import { FaWindowClose } from 'react-icons/fa';
 import useClickOutside from '../../hooks/useClickOutside';
 import {
   RootState,
@@ -26,10 +26,8 @@ import {
   editMilestone,
 } from '../../redux/slices/features/MilestonesSlice';
 import { modules } from '../../utilities/quillToolBar';
-
 import 'react-quill/dist/quill.bubble.css';
 import 'react-quill/dist/quill.snow.css';
-import { FaWindowClose } from 'react-icons/fa';
 
 const MilestoneSinglePage = ({
   taskId,
@@ -149,7 +147,7 @@ const MilestoneSinglePage = ({
   return (
     <div className="flex justify-between my-5 font-Comfortaa">
       <div className="flex justify-between items-end w-full">
-        <div className={`${edit ? '' : 'w-[90%]'}  cursor-pointer `}>
+        <div className={`${edit ? 'w-full' : 'w-[90%]'}  cursor-pointer `}>
           {edit && !milestone.milestoneCompleted ? (
             <div className="border-b-[1px] w-full relative mt-3" ref={inputRef}>
               <button
@@ -177,10 +175,10 @@ const MilestoneSinglePage = ({
           ) : (
             <div
               onClick={() => setEdit(true)}
-              className={`font-Comfortaa font-bold flex flex-col py-2 transition-all`}
+              className={`font-Comfortaa font-bold flex flex-col py-2 transition-all  ml-2 semiSm:ml-0`}
             >
               <pre
-                className={`flex items-center transition-all  semiSm:pb-0 whitespace-pre-line font-Comfortaa  ${
+                className={`flex items-center transition-all semiSm:pb-0 whitespace-pre-line font-Comfortaa  ${
                   milestone?.milestoneCompleted ? 'strike opacity-60' : ''
                 }`}
               >
@@ -257,7 +255,7 @@ const MilestoneSinglePage = ({
           )}
         </div>
         <div
-          className={`flex items-center justify-center h-full ml-3 mr-1 semiSm:hidden ${
+          className={`flex items-center justify-center h-full ml-3 mr-4 semiSm:hidden ${
             edit ? 'hidden' : ''
           }`}
         >
