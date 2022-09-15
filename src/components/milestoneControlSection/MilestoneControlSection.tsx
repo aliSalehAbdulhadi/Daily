@@ -4,7 +4,7 @@ import { BiSortAlt2, BiX } from 'react-icons/bi';
 
 import { CgPlayListRemove } from 'react-icons/cg';
 import { Checkbox } from 'pretty-checkbox-react';
-
+import { TbListCheck } from 'react-icons/tb';
 import useClickOutside from '../../hooks/useClickOutside';
 import {
   RootState,
@@ -13,10 +13,14 @@ import {
   useAppSelector,
 } from '../../interfaces/interfaces';
 import { deleteAllFinishedMilestoneLocally } from '../../redux/slices/features/getTasksSlice';
-import { deleteAllFinishedMilestone } from '../../redux/slices/features/MilestonesSlice';
+import {
+  completeMilestone,
+  deleteAllFinishedMilestone,
+} from '../../redux/slices/features/MilestonesSlice';
 import SortMilestoneModal from '../modals/sortMilestoneModal/SortMilestoneModal';
 import { punctCheckboxAction } from '../../redux/slices/features/milestonePunctCheckboxSlice';
 import '@djthoms/pretty-checkbox';
+import { MdChecklist, MdDelete, MdOutlineDelete } from 'react-icons/md';
 
 const MilestoneControlSection = ({ taskId }: { taskId: any }) => {
   const [sortModal, setSortModal] = useState<boolean>(false);
@@ -64,12 +68,12 @@ const MilestoneControlSection = ({ taskId }: { taskId: any }) => {
     } else return '';
   };
   return (
-    <div className="text-[.6rem] semiSm:text-xs  semiSm:scale-[1] w-full ">
-      <div className="flex items-center justify-between semiSm:flex-col semiSm:justify-between  md:flex-row md:items-center w-full semiSm:mt-5 semiSm:mb-5">
+    <div className="text-[.6rem] semiSm:text-xs  semiSm:scale-[1] w-full  ">
+      <div className="flex items-center justify-between   md:flex-row md:items-center w-full semiSm:mt-4 semiSm:mb-4">
         <div className="flex  semiSm:mb-4 md:mb-0 items-center w-full ">
-          <div className="flex items-center justify-between w-[50%]">
+          <div className="flex items-center justify-between w-[45%]">
             <div
-              className="relative select-none cursor-pointer w-fit"
+              className="relative select-none cursor-pointer w-fit "
               ref={sortModalRef}
             >
               <div
@@ -78,7 +82,7 @@ const MilestoneControlSection = ({ taskId }: { taskId: any }) => {
               >
                 <BiSortAlt2 className="mb-1 mr-1" size={18} />
 
-                <h1 className=" w-[8rem] semiSm:w-fit ">
+                <h1 className=" w-[8rem]  semiSm:w-fit ">
                   By {milestonesSortTitleHandler()}{' '}
                 </h1>
               </div>
@@ -87,9 +91,9 @@ const MilestoneControlSection = ({ taskId }: { taskId: any }) => {
               </div>
             </div>
 
-            <div className="items-center justify-center hidden semiSm:flex">
-              <h1 className="mr-2 ">Milestones Progress:</h1>
-              <div>
+            <div className="items-center justify-center hidden semiSm:flex ">
+              <h1 className="mr-2">Milestones Progress:</h1>
+              <div className="min-w-[1.5rem]">
                 <span>{milestoneCompleted}</span>
                 <span>/</span>
                 <span>{task?.milestones?.length}</span>
@@ -115,8 +119,9 @@ const MilestoneControlSection = ({ taskId }: { taskId: any }) => {
         <button
           onClick={() => setDeleteTimer(!deleteTimer)}
           title="Delete all finished tasks"
-          disabled={milestoneCompleted === 0}
-          className={`bg-white text-secondaryColor border-[1px] mb-1 semiSm:mb-0 px-2 py-1 rounded semiSm:mr-3 flex items-center transition-all ${
+          className={`bg-white text-secondaryColor border-[1px]  semiSm:mb-0 px-2 py-1 rounded semiSm:mr-4 flex items-center transition-all opacity-90 ${
+            task && milestoneCompleted === 0 ? 'invisible ' : 'visible'
+          } ${
             milestoneCompleted == 0
               ? ''
               : 'semiSm:hover:bg-red-500 semiSm:hover:text-white '
@@ -142,8 +147,12 @@ const MilestoneControlSection = ({ taskId }: { taskId: any }) => {
               />
             </div>
           ) : (
-            <div>
-              <CgPlayListRemove size={25} />
+            <div className={`relative `}>
+              <TbListCheck size={20} />
+              <MdOutlineDelete
+                fill="white"
+                className="absolute top-3 right-[-15px] rounded-full bg-red-500 h-5 w-5 p-1 opacity-90"
+              />
             </div>
           )}
         </button>

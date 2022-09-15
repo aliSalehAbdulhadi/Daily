@@ -47,12 +47,11 @@ input:checked + .bg-icon {
 
 .scrollBar::-webkit-scrollbar {
   width: 4px;
-  color: red;
   direction: ltr;
 }
 
 .scrollBar::-webkit-scrollbar-thumb {
-  background: white;
+  background: #f2f2f2;
   border-radius: 3px;
 }
 
@@ -96,6 +95,17 @@ input::-webkit-input-placeholder {
 .autoFillText input:-webkit-autofill:focus {
   -webkit-box-shadow: 0 0 0 50px white inset;
   -webkit-text-fill-color: white;
+}
+
+.wrapWord {
+  white-space: -moz-pre-wrap !important;
+  white-space: -webkit-pre-wrap;
+  white-space: -pre-wrap;
+  white-space: -o-pre-wrap;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  word-break: break-all;
+  white-space: normal;
 }
 
 @keyframes strike {
@@ -405,8 +415,8 @@ input::-webkit-input-placeholder {
 
 .swiper {
   position: relative;
-
   overflow: hidden;
+  border-radius: 0.25rem;
 }
 
 .swiper::after {

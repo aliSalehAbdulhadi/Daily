@@ -146,7 +146,9 @@ const MileStone = () => {
             </button>
           </Link>
           <div className=" mt-1 w-[95%]">
-            <h1 className="text-textDark mr-2 ml-3">{task?.content}</h1>
+            <h1 className="text-textDark mr-2 ml-3 wrapWord">
+              {task?.content}
+            </h1>
           </div>
           <div className="sm:w-[7%] ">
             <div className="h-[3rem] w-[3rem]">
@@ -223,17 +225,30 @@ const MileStone = () => {
         >
           <h1
             className={`self-center mb-5 ${
-              task?.milestones.length === 0 ? 'block' : 'hidden'
+              task?.milestones.length === 0 && !task?.completed
+                ? 'block'
+                : 'hidden'
             }`}
           >
             Add milestones
           </h1>
-          <BsPlusCircleFill
-            fill="white"
-            className={`h-8 w-8  transition-all ${
-              addMilestone ? 'hidden' : 'block'
-            }`}
-          />
+
+          {task?.id && !task?.completed ? (
+            <BsPlusCircleFill
+              fill="white"
+              className={`h-8 w-8  transition-all ${
+                addMilestone ? 'hidden' : 'block'
+              }`}
+            />
+          ) : (
+            <div className="mt-[5rem]">
+              {task?.completed ? (
+                <span>Cant add milestones to finished tasks</span>
+              ) : (
+                <span>Select task to add milestones</span>
+              )}
+            </div>
+          )}
         </div>
         <div className="mt-10" ref={scrollRefBottom}></div>
       </div>

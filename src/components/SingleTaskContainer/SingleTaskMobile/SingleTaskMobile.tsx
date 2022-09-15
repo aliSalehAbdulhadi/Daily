@@ -153,9 +153,9 @@ const SingleTaskMobile = ({
             <div
               className={` taskMobileEnter  flex text-textLight
           font-Comfortaa font-semibold ${
-            content.important && !content.completed
+            content?.important && !content.completed
               ? 'border-[1px] border-yellow-400'
-              : content.completed
+              : content?.completed
               ? ''
               : `border-[1px] ${setCardColorByTypeHandler(false, content)}`
           }
@@ -173,19 +173,25 @@ const SingleTaskMobile = ({
                 : ''
             } ${completeAnimation ? 'animate-bounce' : ''} `}
             >
-              <div className="flex flex-col justify-between my-0 px-5 py-2 min-h-[10rem] w-[75%] mobileTaskCardBoxShadow">
+              <div
+                className={`flex flex-col justify-between my-0 px-5 py-2 min-h-[10rem]  ${
+                  task && task?.milestones.length <= 0 && task?.completed
+                    ? 'w-full'
+                    : 'w-[75%] mobileTaskCardBoxShadow'
+                }`}
+              >
                 <div
                   className={`${
                     edit ? 'hidden' : 'block'
-                  } items-center justify-between mt-1 ${
-                    content.completed ? 'hidden' : 'flex'
-                  }`}
+                  } items-center justify-between mt-1 flex `}
                 >
                   <HiOutlineStar
                     onClick={importantStateHandler}
                     size={20}
-                    fill={content.important ? '#e8b923' : 'none'}
-                    className={`${content.important ? 'text-yellow-300' : ''}`}
+                    fill={content?.important ? '#e8b923' : 'none'}
+                    className={` ${
+                      content?.important ? 'text-yellow-300' : ''
+                    } ${task?.completed ? 'invisible' : 'visible'}`}
                   />
                   <div className="text-[.65rem]  w-fit whitespace-nowrap select-none">
                     {formatDate}
@@ -210,10 +216,10 @@ const SingleTaskMobile = ({
                       </button>
                       <span
                         className={`absolute top-[4.5rem] right-2 text-[.65rem] ${
-                          editText.length > 50 ? 'text-red-500' : ''
+                          editText?.length > 50 ? 'text-red-500' : ''
                         }`}
                       >
-                        {editText.length}/50
+                        {editText?.length}/50
                       </span>
                     </form>
                   ) : (
@@ -226,8 +232,9 @@ const SingleTaskMobile = ({
                         <div className="self-start w-full ">
                           <span
                             onClick={() =>
-                              content.completed ? null : setEdit(true)
+                              content?.completed ? null : setEdit(true)
                             }
+                            className="wrapWord"
                           >
                             {content?.content}
                           </span>
@@ -263,7 +270,7 @@ const SingleTaskMobile = ({
                   </div>
                 </div>
               </div>
-              <Link href={`/tasks/${content?.id}`}>
+              <Link className="" href={`/tasks/${content?.id}`}>
                 {task && task?.milestones?.length > 0 ? (
                   <div className=" w-[25%] flex flex-col items-center justify-center  bg-[#64f5c56c] rounded-tr rounded-br">
                     <div className="scale-[.8]">
@@ -276,7 +283,13 @@ const SingleTaskMobile = ({
                     </div>
                   </div>
                 ) : (
-                  <div className="flex items-center justify-end w-[25%] bg-[#64f5c56c] pr-2">
+                  <div
+                    className={`flex items-center justify-end w-[25%] bg-[#64f5c56c] pr-2 ${
+                      task && task?.milestones.length <= 0 && task?.completed
+                        ? 'hidden'
+                        : 'block'
+                    }`}
+                  >
                     <BiListPlus className="opacity-80" size={30}></BiListPlus>
                   </div>
                 )}

@@ -58,12 +58,14 @@ const TaskTypeMenu = ({
   return (
     <div
       ref={domNode}
-      className={` flex semiSm:flex-col items-center justify-center `}
+      className={` flex semiSm:flex-col items-center justify-center semiSm:h-[3rem]`}
     >
       <button
         disabled={task?.completed}
         type="button"
-        className="self-end hover:text-white transition-all ease-in-out"
+        className={`self-end transition-all ease-in-out ${
+          task?.completed ? '' : 'semiSm:hover:text-white '
+        }`}
         onClick={() => setHidden(false || task?.completed)}
       >
         {dynamicIconHandler(value, hidden)}
@@ -84,7 +86,7 @@ const TaskTypeMenu = ({
           <SwiperSlide>
             <button
               type="button"
-              className="flex justify-end semiSm:ml-[.35rem] hover:text-white transition-all ease-in-out"
+              className="flex justify-end semiSm:ml-[.35rem] semiSm:hover:text-white transition-all ease-in-out"
               value="personal"
               onClick={(e) => iconsHandler(e)}
             >
@@ -100,7 +102,7 @@ const TaskTypeMenu = ({
           <SwiperSlide>
             <button
               type="button"
-              className="flex justify-end semiSm:ml-[.35rem]  hover:text-white transition-all ease-in-out"
+              className="flex justify-end semiSm:ml-[.35rem]  semiSm:hover:text-white transition-all ease-in-out"
               value="work"
               onClick={(e) => iconsHandler(e)}
             >
@@ -116,7 +118,7 @@ const TaskTypeMenu = ({
           <SwiperSlide>
             <button
               type="button"
-              className="flex justify-end semiSm:ml-[.35rem] hover:text-white transition-all ease-in-out"
+              className="flex justify-end semiSm:ml-[.35rem] semiSm:hover:text-white transition-all ease-in-out"
               value="fun"
               onClick={(e) => iconsHandler(e)}
             >
@@ -131,7 +133,7 @@ const TaskTypeMenu = ({
           <SwiperSlide>
             <button
               type="button"
-              className="flex justify-end semiSm:ml-[.35rem]  hover:text-white transition-all ease-in-out"
+              className="flex justify-end semiSm:ml-[.35rem]  semiSm:hover:text-white transition-all ease-in-out"
               value="gym"
               onClick={(e) => iconsHandler(e)}
             >
@@ -147,7 +149,7 @@ const TaskTypeMenu = ({
           <SwiperSlide>
             <button
               type="button"
-              className="flex justify-end semiSm:ml-[.35rem]  hover:text-white transition-all ease-in-out"
+              className="flex justify-end semiSm:ml-[.35rem]  semiSm:hover:text-white transition-all ease-in-out"
               value="friends"
               onClick={(e) => iconsHandler(e)}
             >
@@ -163,7 +165,7 @@ const TaskTypeMenu = ({
           <SwiperSlide>
             <button
               type="button"
-              className="flex justify-end semiSm:ml-[.35rem]  hover:text-white transition-all ease-in-out"
+              className="flex justify-end semiSm:ml-[.35rem]  semiSm:hover:text-white transition-all ease-in-out"
               value="shopping"
               onClick={(e) => iconsHandler(e)}
             >
@@ -179,7 +181,7 @@ const TaskTypeMenu = ({
           <SwiperSlide>
             <button
               type="button"
-              className="flex justify-end semiSm:ml-[.35rem]  hover:text-white transition-all ease-in-out"
+              className="flex justify-end semiSm:ml-[.35rem]  semiSm:hover:text-white transition-all ease-in-out"
               value="nature"
               onClick={(e) => iconsHandler(e)}
             >
