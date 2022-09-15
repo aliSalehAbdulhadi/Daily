@@ -145,7 +145,10 @@ const MilestoneSinglePage = ({
   }, []);
 
   return (
+
     <div className="flex justify-between my-5 font-Comfortaa">
+
+
       <div className="flex justify-between items-end w-full">
         <div className={`${edit ? 'w-full' : 'w-[90%]'}  cursor-pointer `}>
           {edit && !milestone.milestoneCompleted ? (
@@ -178,16 +181,20 @@ const MilestoneSinglePage = ({
               className={`font-Comfortaa font-bold flex flex-col py-2 transition-all  ml-2 semiSm:ml-0`}
             >
               <pre
+
                 className={`flex items-center transition-all semiSm:pb-0 whitespace-pre-line font-Comfortaa  ${
+
                   milestone?.milestoneCompleted ? 'strike opacity-60' : ''
                 }`}
               >
                 {punctCheckbox ? `${index + 1}-` : null}{' '}
+
                 <ReactQuill
                   readOnly
                   theme="bubble"
                   value={milestone?.milestoneContent}
                 />
+
               </pre>
               <div
                 className={`${

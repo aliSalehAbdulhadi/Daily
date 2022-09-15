@@ -6,7 +6,9 @@
     "formik",
     "headlessui",
     "persistor",
+
     "punct",
+
     "Swipeable"
   ]
 }

@@ -24,7 +24,7 @@ const MileStone = ({ taskId }: { taskId: string }) => {
   const milestoneAdvancedFormRef = useClickOutside(() => {
     setOpenAdvancedForm(false);
   });
-
+fli
   const plusRef = useClickOutside(() => {
     setPlusIcon(false);
   });
@@ -81,6 +81,7 @@ const MileStone = ({ taskId }: { taskId: string }) => {
   };
 
   return (
+
     <div className="m-5 flex flex-col  font-Comfortaa transition-all text-white  relative h-[80vh]">
       <h1 className="mb-[1.3rem] py-3 self-center px-5 bg-white text-primaryColor rounded">
         Milestones
@@ -109,6 +110,7 @@ const MileStone = ({ taskId }: { taskId: string }) => {
                   </div>
                 </div>
               </div>
+
             </div>
           ) : taskId && !task?.completed ? (
             <span className="self-center mt-[5rem] ml-2">
