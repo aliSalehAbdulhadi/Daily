@@ -47,7 +47,7 @@ const Swipeable = ({
   });
 
   return (
-    <div className="bg-red-100 z-50" {...handlers}>
+    <div className=" z-50" {...handlers}>
       <Swiper
         spaceBetween={0}
         modules={[Navigation, Pagination, Scrollbar, A11y]}
@@ -63,7 +63,7 @@ const Swipeable = ({
           <div>placeholder div to fill the fist slide</div>
         </SwiperSlide>
         <SwiperSlide>
-          <div>{children}</div>
+          <div className="rounded">{children}</div>
         </SwiperSlide>
         <style>{`.swiper-slide-active{background-color:${
           !id ? ' ' : dark ? '#427676' : '#56a691'

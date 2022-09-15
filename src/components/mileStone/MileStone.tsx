@@ -6,23 +6,25 @@ import {
   SingleTaskInterface,
   useAppSelector,
 } from '../../interfaces/interfaces';
-import MileStoneForm from '../Forms/MileStoneForm/MileStoneForm';
 import MilestoneControlSection from '../milestoneControlSection/MilestoneControlSection';
 import MilestoneSinglePage from '../MilestoneSinglePage/MilestoneSinglePage';
 import ProgressBar from '../progressBar/ProgressBar';
+import AdvancedForm from '../Forms/advancedForm/AdvancedForm';
 
 const MileStone = ({ taskId }: { taskId: string }) => {
-  const [addMilestone, setAddMilestone] = useState<boolean>(false);
   const [plusIcon, setPlusIcon] = useState<boolean>(false);
   const [scroll, setScroll] = useState<boolean>(false);
+  const [openAdvancedForm, setOpenAdvancedForm] = useState<boolean>(false);
 
   const tasks: SingleTaskInterface[] = useAppSelector(
     (state: RootState) => state.getTaskReducer.tasks,
   );
   const task = tasks?.find((task) => task?.id === taskId);
-  const milestoneRef = useClickOutside(() => {
-    setAddMilestone(false);
+
+  const milestoneAdvancedFormRef = useClickOutside(() => {
+    setOpenAdvancedForm(false);
   });
+
   const plusRef = useClickOutside(() => {
     setPlusIcon(false);
   });
@@ -50,7 +52,7 @@ const MileStone = ({ taskId }: { taskId: string }) => {
       scrollRefBottom?.current?.scrollIntoView({ behavior: 'smooth' });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [task?.milestones.length]);
+  }, [openAdvancedForm]);
 
   const copyMilestones = task ? [...task?.milestones] : [];
   const milestonesSortHandler = () => {
@@ -79,107 +81,121 @@ const MileStone = ({ taskId }: { taskId: string }) => {
   };
 
   return (
-    <div className="m-10 font-Comfortaa transition-all">
-      <div className="flex flex-col ">
-        <h1 className="mb-[1.3rem] py-3 self-center px-5 bg-white text-primaryColor rounded">
-          Milestones
-        </h1>
+    <div className="m-5 flex flex-col  font-Comfortaa transition-all text-white  relative h-[80vh]">
+      <h1 className="mb-[1.3rem] py-3 self-center px-5 bg-white text-primaryColor rounded">
+        Milestones
+      </h1>
 
-        <div className="bg-primaryColor  rounded overflow-auto scrollBar  text-white h-[65vh]">
-          <div className=" flex flex-col m-10 ">
-            {taskId && task && task?.milestones.length > 0 ? (
-
-              <div className=" w-full pb-7">
-
-                <div className="flex items-center justify-between">
-                  <div className="">
-                    <span className="text-secondaryLight text-base">Task:</span>
-                    <h1 className="text-textDark text-xl font-Handlee">
-                      {task?.content}
-                    </h1>
-                  </div>
-                  <div className=" w-[30%]  flex items-start justify-end relative mr-2">
-                    <div className="w-[4rem]">
-                      <ProgressBar percentage={percentage} />
-                    </div>
+      <div className="bg-primaryColor   rounded scrollBar  h-full  w-full relative ">
+        <div
+          className={`flex flex-col pt-2  ${
+            task && task?.milestones.length > 0
+              ? 'border-b-[1px] shadow-lg'
+              : ''
+          }`}
+        >
+          {taskId && task && task?.milestones.length > 0 ? (
+            <div className="mx-10 ">
+              <div className="flex items-center justify-between">
+                <div className="">
+                  <span className="text-secondaryLight text-base">Task:</span>
+                  <h1 className="text-textDark text-xl wrapWord">
+                    {task?.content}
+                  </h1>
+                </div>
+                <div className="flex items-start justify-end relative mr-1">
+                  <div className="w-[4rem]">
+                    <ProgressBar percentage={percentage} />
                   </div>
                 </div>
               </div>
-            ) : taskId ? (
-              <span className="self-center mt-[5rem]">
-                Click to add milestones
-              </span>
-            ) : null}
-
-            <div
-              className={`border-b-[1px] mr-[.4rem] ${
-                task && task?.milestones.length > 0 ? 'block ' : 'hidden'
-              }`}
-            >
-              <MilestoneControlSection taskId={task?.id} />
             </div>
+          ) : taskId && !task?.completed ? (
+            <span className="self-center mt-[5rem] ml-2">
+              Click to add milestones
+            </span>
+          ) : null}
 
-            <div>
-              {milestonesSortHandler()?.map((milestone: any, i) => {
-                return (
-                  <div key={milestone.id}>
-                    <MilestoneSinglePage
-                      taskId={taskId}
-                      milestone={milestone}
-                      index={i}
-                      tasks={tasks}
-                    />
-                    <div ref={scrollRefBottom}></div>
-                  </div>
-                );
-              })}
-            </div>
-
-            <div
-              className={`${addMilestone ? 'block' : 'hidden'} `}
-              ref={milestoneRef}
-            >
-              <MileStoneForm taskId={taskId} />
-            </div>
-            {taskId && !task?.completed ? (
-              <div
-                ref={plusRef}
-                onMouseEnter={() => setPlusIcon(true)}
-                onMouseLeave={() => setPlusIcon(false)}
-                onClick={() => {
-                  setAddMilestone(true);
-                  setPlusIcon(false);
-                }}
-                className={`self-center cursor-pointer mt-10`}
-              >
-                {plusIcon ? (
-                  <BsPlusCircleFill
-                    fill="white"
-                    className="h-8 w-8  transition-all"
-                    onClick={() => setScroll(true)}
-                  />
-                ) : (
-                  <BsPlusCircle
-                    fill="white"
-                    className={`h-8 w-8 transition-all ${
-                      addMilestone ? 'hidden' : ''
-                    }`}
-                    onClick={() => setScroll(true)}
-                  />
-                )}
-              </div>
-            ) : (
-              <div className="self-center mt-[5rem]">
-                {task?.completed ? (
-                  <span className="">
-                    Cant add milestone to completed tasks
-                  </span>
-                ) : (
-                  <span>Select task to add milestones</span>
-                )}
-              </div>
-            )}
+          <div
+            className={`z-50 mx-10  ${
+              task && task?.milestones.length > 0 ? 'block ' : 'hidden'
+            }`}
+          >
+            <MilestoneControlSection taskId={task?.id} />
           </div>
+        </div>
+
+        <div className="flex flex-col pb-[5rem] items-center h-[58vh] overflow-auto scrollBar">
+          <div className="w-full">
+            {milestonesSortHandler()?.map((milestone: any, i) => {
+              return (
+                <div className="mx-10" key={milestone.id}>
+                  <MilestoneSinglePage
+                    taskId={taskId}
+                    milestone={milestone}
+                    index={i}
+                    tasks={tasks}
+                  />
+                </div>
+              );
+            })}
+          </div>
+
+          <div
+            className={`quillFormEnterAnimation shadow-lg mt-10 w-[90%] ${
+              openAdvancedForm ? 'block' : 'hidden'
+            } `}
+            ref={milestoneAdvancedFormRef}
+          >
+            <AdvancedForm
+              setOpenAdvancedForm={setOpenAdvancedForm}
+              taskId={taskId}
+            />
+            <div ref={scrollRefBottom}></div>
+          </div>
+        </div>
+
+        <div
+          className={`w-fit absolute left-[49%] transform-x-[-100%] ${
+            task && task?.milestones.length > 0 ? 'bottom-5 ' : ' top-10'
+          }`}
+        >
+          {taskId && !task?.completed ? (
+            <div
+              ref={plusRef}
+              onMouseEnter={() => setPlusIcon(true)}
+              onMouseLeave={() => setPlusIcon(false)}
+              onClick={() => {
+                setOpenAdvancedForm(true);
+                setPlusIcon(false);
+              }}
+              className={`cursor-pointer self-center sticky w-fit `}
+            >
+              {plusIcon ? (
+                <BsPlusCircleFill
+                  fill="white"
+                  className="h-8 w-8  transition-all"
+                  onClick={() => setScroll(true)}
+                />
+              ) : (
+                <BsPlusCircle
+                  fill="white"
+                  className={`h-8 w-8 transition-all  ${
+                    openAdvancedForm ? 'hidden' : ''
+                  }`}
+                  onClick={() => setScroll(true)}
+                />
+              )}
+            </div>
+          ) : (
+            <div className="mt-[5rem] translate-x-[-50%]">
+              {task?.completed ? (
+                <span>Cant add milestones to finished tasks</span>
+              ) : (
+                <span>Select task to add milestones</span>
+              )}
+            </div>
+          )}
         </div>
       </div>
     </div>

@@ -151,9 +151,9 @@ const SingleTaskPc = ({
           <div
             className={`${
               edit ? 'hidden' : 'flex'
-            } items-center justify-between   w-full mb-2 `}
+            } items-center justify-between w-full mb-2  `}
           >
-            <div className="text-xs w-fit whitespace-nowrap  select-none">
+            <div className="text-xs w-fit whitespace-nowrap select-none">
               {formatDate}
             </div>
             <div className={`${content.completed ? 'hidden' : 'block'} `}>
@@ -169,9 +169,9 @@ const SingleTaskPc = ({
           </div>
           <div className="flex items-center w-full ">
             <div
-              className={`${
+              className={`px-2 ${
                 edit ? 'hidden' : 'block'
-              } w-[5%] z-50 cursor-pointer`}
+              } w-[5%]  z-50 cursor-pointer`}
             >
               <TaskTypeMenu isVertical={true} task={content} />
             </div>
@@ -183,13 +183,13 @@ const SingleTaskPc = ({
                 className="flex flex-col items-center justify-center w-full relative"
               >
                 <textarea
-                  className={`textAreaNoResize my-1 pb-0 ml-5 p-2 outline-none w-[60%] shadow-sm border-gray-300 rounded-md placeholder-slate-400`}
+                  className={`textAreaNoResize  my-1 pb-0 ml-5 p-2 outline-none w-[60%] shadow-sm border-gray-300 rounded-md placeholder-slate-400`}
                   onChange={(e) => setEditText(e.target.value)}
                   value={editText}
                   ref={inputRef}
                   rows={3}
                 />
-                <button className="text-xs bg-opacity-30 text-white bg-black self-start  border-[1px] py-1 px-3  rounded ml-[6.2rem] mt-1 tracking-wider font-semibold w-fit transition-all ease-in-out whitespace-nowrap ">
+                <button className=" text-xs bg-opacity-30 text-white bg-black self-start  border-[1px] py-1 px-3  rounded ml-[7.5rem] mt-1 tracking-wider font-semibold transition-all ease-in-out whitespace-nowrap ">
                   Submit
                 </button>
                 <span
@@ -208,7 +208,7 @@ const SingleTaskPc = ({
                   }`}
                 >
                   <div>
-                    <span>{content?.content}</span>
+                    <span className="wrapWord">{content?.content}</span>
                   </div>
                 </div>
               </div>
@@ -241,8 +241,8 @@ const SingleTaskPc = ({
                   size={20}
                   className={`cursor-pointer mb-2 mr-2 ${
                     content?.completed
-                      ? 'hidden'
-                      : 'block hover:text-white transition-all ease-in-ou'
+                      ? 'invisible'
+                      : 'visible hover:text-white transition-all ease-in-ou'
                   }`}
                 />
               ) : (
@@ -252,8 +252,8 @@ const SingleTaskPc = ({
                   size={20}
                   className={`cursor-pointer mb-2 mr-2 ${
                     content?.completed
-                      ? 'hidden'
-                      : 'block hover:text-white transition-all ease-in-out'
+                      ? 'invisible'
+                      : 'visible hover:text-white transition-all ease-in-out'
                   }`}
                 />
               )}

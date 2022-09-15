@@ -4,12 +4,18 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: 'Comfortaa';
+  src: url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600&display=swap');
+}
+
 html,
 body {
   padding: 0;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  overflow: hidden;
 }
 
 a {
@@ -41,12 +47,11 @@ input:checked + .bg-icon {
 
 .scrollBar::-webkit-scrollbar {
   width: 4px;
-  color: red;
   direction: ltr;
 }
 
 .scrollBar::-webkit-scrollbar-thumb {
-  background: white;
+  background: #f2f2f2;
   border-radius: 3px;
 }
 
@@ -92,6 +97,17 @@ input::-webkit-input-placeholder {
   -webkit-text-fill-color: white;
 }
 
+.wrapWord {
+  white-space: -moz-pre-wrap !important;
+  white-space: -webkit-pre-wrap;
+  white-space: -pre-wrap;
+  white-space: -o-pre-wrap;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  word-break: break-all;
+  white-space: normal;
+}
+
 @keyframes strike {
   from {
     text-decoration-color: transparent;
@@ -128,10 +144,11 @@ input::-webkit-input-placeholder {
   border-bottom: 1px solid white;
   height: 5px;
   position: absolute;
-  top: 72px;
+  top: 55px;
   transition: 0.3s ease-in-out;
   animation: borderBottomAnimation 0.3s linear;
-  width: 65%;
+  width: 74%;
+  right: 17%;
 }
 
 @keyframes borderBottomAnimation {
@@ -152,7 +169,7 @@ input::-webkit-input-placeholder {
   border-bottom: 1px solid white;
   height: 5px;
   position: absolute;
-  top: 5px;
+  top: 20px;
   transition: 0.3s ease-in-out;
   animation: borderBottomAnimation 0.3s linear;
   width: 100%;
@@ -174,7 +191,7 @@ input::-webkit-input-placeholder {
 .deleteUnderline::after {
   content: '';
   border-bottom: 1px solid white;
-  height: 5px;
+  height: 10px;
   position: absolute;
   top: 5px;
   transition: 0.3s ease-in-out;
@@ -365,10 +382,41 @@ input::-webkit-input-placeholder {
   }
 }
 
+.quillFormEnterAnimationMobile {
+  animation: quillFormAnimationMobile 0.2s linear;
+}
+
+@keyframes quillFormAnimationMobile {
+  from {
+    transform: translateY(45rem);
+    width: 10%;
+  }
+  to {
+    transform: translateY(0%);
+  }
+}
+
+.quillFormEnterAnimation {
+  animation: quillFormAnimation 0.2s linear;
+}
+
+@keyframes quillFormAnimation {
+  from {
+    transform: translateY(45rem);
+    width: 10%;
+    left: 13%;
+  }
+  to {
+    transform: translateY(0%);
+    width: 75%;
+    left: 13%;
+  }
+}
+
 .swiper {
   position: relative;
-
   overflow: hidden;
+  border-radius: 0.25rem;
 }
 
 .swiper::after {
@@ -382,46 +430,26 @@ input::-webkit-input-placeholder {
   width: 100%;
 }
 
-.M {
-  transform: translate(20px, 85px) rotate(-30deg);
+#quill {
+  min-height: 300px;
+  overflow: hidden;
+  font-family: Comfortaa;
+}
+#quill-edit {
+  min-height: 200px;
+  overflow: hidden;
+  font-family: Comfortaa;
 }
 
-.I {
-  transform: translate(13px, 60px) rotate(-25deg);
+.ql-toolbar {
+  background-color: #f2f2f2;
+  border: none !important;
 }
 
-.L {
-  transform: translate(6px, 40px) rotate(-20deg);
+.ql-editor {
+  font-family: Comfortaa;
 }
 
-.E1 {
-  transform: translate(3px, 23px) rotate(-15deg);
-}
-
-.S1 {
-  transform: translate(2px, 14px) rotate(-10deg);
-}
-
-.T {
-  transform: translate(1px, 8px) rotate(-5deg);
-}
-
-.O {
-  transform: translate(0px, 5px) rotate(0deg);
-}
-
-.N {
-  transform: translate(-1px, 8px) rotate(5deg);
-}
-
-.E2 {
-  transform: translate(-2px, 14px) rotate(10deg);
-}
-
-.S2 {
-  transform: translate(-3px, 25px) rotate(15deg);
-}
-
-.curvedTextContainer {
-  display: inline-block;
+.ql-container.ql-snow {
+  border: none !important;
 }
