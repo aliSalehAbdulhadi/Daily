@@ -53,6 +53,7 @@ const TaskTypeMenu = ({
       }),
     );
     dispatch(addTaskTypeLocally({ taskId: task?.id, taskType: value }));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value]);
 
   return (

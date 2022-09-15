@@ -25,7 +25,6 @@ import '@djthoms/pretty-checkbox';
 
 import { MdChecklist, MdDelete, MdOutlineDelete } from 'react-icons/md';
 
-
 const MilestoneControlSection = ({ taskId }: { taskId: any }) => {
   const [sortModal, setSortModal] = useState<boolean>(false);
   const [deleteTimer, setDeleteTimer] = useState<boolean>(false);
@@ -72,14 +71,12 @@ const MilestoneControlSection = ({ taskId }: { taskId: any }) => {
     } else return '';
   };
   return (
-<
     <div className="text-[.6rem] semiSm:text-xs  semiSm:scale-[1] w-full  ">
       <div className="flex items-center justify-between   md:flex-row md:items-center w-full semiSm:mt-4 semiSm:mb-4">
         <div className="flex  semiSm:mb-4 md:mb-0 items-center w-full ">
           <div className="flex items-center justify-between w-[45%]">
             <div
               className="relative select-none cursor-pointer w-fit "
-
               ref={sortModalRef}
             >
               <div
@@ -91,18 +88,15 @@ const MilestoneControlSection = ({ taskId }: { taskId: any }) => {
                 <h1 className=" w-[8rem]  semiSm:w-fit ">
                   By {milestonesSortTitleHandler()}{' '}
                 </h1>
-
               </div>
               <div className={`absolute z-[100] top-12 left-0 `}>
                 <SortMilestoneModal open={sortModal} setOpen={setSortModal} />
               </div>
             </div>
 
-
             <div className="items-center justify-center hidden semiSm:flex ">
               <h1 className="mr-2">Milestones Progress:</h1>
               <div className="min-w-[1.5rem]">
-
                 <span>{milestoneCompleted}</span>
                 <span>/</span>
                 <span>{task?.milestones?.length}</span>
@@ -110,9 +104,7 @@ const MilestoneControlSection = ({ taskId }: { taskId: any }) => {
             </div>
           </div>
 
-
           <div className="ml-10 flex flex-row-reverse items-center justify-center mb-1 text-xs">
-
             <label className="mt-1" htmlFor="punct">
               Punct
             </label>
@@ -130,16 +122,13 @@ const MilestoneControlSection = ({ taskId }: { taskId: any }) => {
         <button
           onClick={() => setDeleteTimer(!deleteTimer)}
           title="Delete all finished tasks"
-
           className={`bg-white text-secondaryColor border-[1px]  semiSm:mb-0 px-2 py-1 rounded semiSm:mr-4 flex items-center transition-all opacity-90 ${
             task && milestoneCompleted === 0 ? 'invisible ' : 'visible'
           } ${
-
             milestoneCompleted == 0
               ? ''
               : 'semiSm:hover:bg-red-500 semiSm:hover:text-white '
           }`}
-
         >
           {deleteTimer ? (
             <div
