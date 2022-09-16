@@ -101,6 +101,7 @@ const TaskForm = () => {
                   } text-sm md:text-base ${dark ? '' : 'placeholder-textDark'}`}
                 />
                 <div
+
                   className={`absolute text-xs font-light semiSm:font-normal top-[60px] semiSm:top-[64px] right-10 semiSm:right-11  ${
                     value?.length > 0 ? 'visible' : 'invisible'
                   } ${
@@ -110,6 +111,7 @@ const TaskForm = () => {
                       ? 'text-white'
                       : 'text-black'
                   }`}
+
                 >
                   <span>{value.length}</span>
                   <span>/</span>

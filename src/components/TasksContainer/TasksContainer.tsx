@@ -18,6 +18,7 @@ const TasksContainer = () => {
       className={`${
         dark ? 'bg-primaryColor' : 'bg-primaryLight'
       }  w-[100%] semiSm:pt-[1rem]  semiSm:h-[90vh] font-Comfortaa`}
+
     >
       <div>
         {signInStatus === 'pending' ? (
