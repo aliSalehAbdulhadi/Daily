@@ -79,12 +79,14 @@ const Tasks = ({ id }: { id: Function }) => {
         dark
           ? 'bg-primaryColor semiSm:bg-secondaryColor'
           : ' bg-primaryLight semiSm:bg-secondaryLight'
+
       }`}
     >
       <Droppable droppableId="NewTasks">
         {(provided) => (
           <div
             className=" semiSm:m-5  h-[67vh] semiSm:h-fit font-Comfortaa font-bold w-full "
+
             ref={provided.innerRef}
             {...provided.droppableProps}
           >
@@ -117,12 +119,14 @@ const Tasks = ({ id }: { id: Function }) => {
                   ? 'bg-secondaryColor semiSm:bg-primaryColor'
                   : 'bg-primaryColor'
               } semiSm:pt-1 ${
+
                 tasks?.length > 0 ? 'flex' : 'hidden'
               }  items-center justify-between w-full`}
             >
               <div className="flex item-center justify-between w-full semiSm:px-6 ">
                 <div
                   className="relative self-start select-none cursor-pointer  semiSm:mt-4"
+
                   ref={sortModalRef}
                 >
                   <div
@@ -228,9 +232,40 @@ const Tasks = ({ id }: { id: Function }) => {
                 Finished Tasks
               </button>
             </div>
+
           </div>
         )}
       </Droppable>
+      <div
+        className={`flex items-center justify-center cursor-pointer sticky bottom-0 z-40  w-full p-3 semiSm:hidden ${
+          dark ? 'bg-secondaryColor' : 'bg-primaryColor'
+        }`}
+      >
+        <button
+          onClick={() => setCompletedTask(false)}
+          className={`text-textDark  select-none py-3 px-7 rounded-tl rounded-bl text-sm semiSm:text-base whitespace-nowrap ${
+            completedTask
+              ? dark
+                ? 'bg-primaryColor text-white'
+                : 'bg-secondaryLight text-white'
+              : ' bg-white text-primaryColor'
+          }`}
+        >
+          Pending Tasks
+        </button>
+        <button
+          onClick={() => setCompletedTask(true)}
+          className={`text-textDark  select-none py-3 px-5 rounded-tr rounded-br text-sm semiSm:text-base whitespace-nowrap ${
+            completedTask
+              ? 'bg-white text-primaryColor'
+              : dark
+              ? 'bg-primaryColor text-white'
+              : 'bg-secondaryLight text-white'
+          }`}
+        >
+          Finished Tasks
+        </button>
+      </div>
     </div>
   );
 };
