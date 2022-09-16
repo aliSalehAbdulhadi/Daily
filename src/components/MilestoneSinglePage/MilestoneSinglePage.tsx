@@ -153,6 +153,7 @@ const MilestoneSinglePage = ({
           }  cursor-pointer `}
         >
           {edit && !milestone?.milestoneCompleted ? (
+
             <div className="border-b-[1px] w-full relative mt-3" ref={inputRef}>
               <button
                 type="button"
@@ -182,11 +183,14 @@ const MilestoneSinglePage = ({
               className={`font-Comfortaa font-bold flex flex-col py-2 transition-all  ml-2 semiSm:ml-0`}
             >
               <pre
+
                 className={`flex items-center transition-all semiSm:pb-0 whitespace-pre-line font-Comfortaa  ${
+
                   milestone?.milestoneCompleted ? 'strike opacity-60' : ''
                 }`}
               >
                 {punctCheckbox ? `${index + 1}-` : null}{' '}
+
                 <ReactQuill
                   readOnly
                   theme="bubble"
