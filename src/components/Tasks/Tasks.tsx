@@ -153,8 +153,9 @@ const Tasks = ({ id }: { id: Function }) => {
                   ? 'bg-primaryColor'
                   : 'bg-secondaryLight semiSm:bg-primaryColor'
               } ${
-                tasks?.length > 0 ? ' h-[60.1vh]' : 'h-[75.7vh]'
+                tasks?.length > 0 ? 'h-[60.1vh]' : 'h-[75.7vh]'
               } semiSm:h-[65vh] w-[100%] overflow-auto p-5 semiSm:px-10 semiSm:py-4 scrollBar flex flex-col items-center semiSm:rounded-b py-3 `}
+
             >
               {tasks?.length > 0 ? (
                 completedTask ? (
@@ -202,6 +203,7 @@ const Tasks = ({ id }: { id: Function }) => {
               className={`flex items-center justify-center cursor-pointer sticky bottom-0 z-40 py-3 w-full  semiSm:hidden ${
                 tasks?.length > 0 ? 'block' : 'hidden'
               } ${dark ? 'bg-secondaryColor' : 'bg-primaryColor'}`}
+
             >
               <button
                 onClick={() => setCompletedTask(false)}
@@ -228,6 +230,7 @@ const Tasks = ({ id }: { id: Function }) => {
                 Finished Tasks
               </button>
             </div>
+
           </div>
         )}
       </Droppable>
