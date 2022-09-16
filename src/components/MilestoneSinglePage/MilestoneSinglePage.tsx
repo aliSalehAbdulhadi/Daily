@@ -145,13 +145,14 @@ const MilestoneSinglePage = ({
   }, []);
 
   return (
-
     <div className="flex justify-between my-5 font-Comfortaa">
-
-
       <div className="flex justify-between items-end w-full">
-        <div className={`${edit ? 'w-full' : 'w-[90%]'}  cursor-pointer `}>
-          {edit && !milestone.milestoneCompleted ? (
+        <div
+          className={`${
+            edit && !milestone?.milestoneCompleted ? 'w-full' : 'w-[90%]'
+          }  cursor-pointer `}
+        >
+          {edit && !milestone?.milestoneCompleted ? (
             <div className="border-b-[1px] w-full relative mt-3" ref={inputRef}>
               <button
                 type="button"
@@ -181,20 +182,16 @@ const MilestoneSinglePage = ({
               className={`font-Comfortaa font-bold flex flex-col py-2 transition-all  ml-2 semiSm:ml-0`}
             >
               <pre
-
                 className={`flex items-center transition-all semiSm:pb-0 whitespace-pre-line font-Comfortaa  ${
-
                   milestone?.milestoneCompleted ? 'strike opacity-60' : ''
                 }`}
               >
                 {punctCheckbox ? `${index + 1}-` : null}{' '}
-
                 <ReactQuill
                   readOnly
                   theme="bubble"
                   value={milestone?.milestoneContent}
                 />
-
               </pre>
               <div
                 className={`${
@@ -263,7 +260,7 @@ const MilestoneSinglePage = ({
         </div>
         <div
           className={`flex items-center justify-center h-full ml-3 mr-4 semiSm:hidden ${
-            edit ? 'hidden' : ''
+            edit && !milestone?.milestoneCompleted ? 'hidden' : ''
           }`}
         >
           <button

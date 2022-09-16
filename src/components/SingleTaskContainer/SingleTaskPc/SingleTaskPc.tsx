@@ -131,7 +131,7 @@ const SingleTaskPc = ({
     <Draggable key={content?.id} draggableId={content?.id} index={index}>
       {(provided) => (
         <div
-          className={`text-textLight  outline-[1px] ${
+          className={`text-textLight  outline-[1px] relative ${
             content.important ? 'outline-[1px] outline outline-yellow-400' : ''
           }
            hover:transition-transform hover:ease-in-out hover:duration-300 font-Comfortaa font-semibold my-2 px-5 py-2 min-h-[10rem] relative ${
@@ -151,7 +151,7 @@ const SingleTaskPc = ({
           <div
             className={`${
               edit ? 'hidden' : 'flex'
-            } items-center justify-between w-full mb-2  `}
+            } items-center justify-between w-full absolute top-[12px]  px-5 `}
           >
             <div className="text-xs w-fit whitespace-nowrap select-none">
               {formatDate}
@@ -167,7 +167,7 @@ const SingleTaskPc = ({
               />
             </div>
           </div>
-          <div className="flex items-center w-full ">
+          <div className="flex items-center w-full mt-3">
             <div
               className={`px-2 ${
                 edit ? 'hidden' : 'block'
