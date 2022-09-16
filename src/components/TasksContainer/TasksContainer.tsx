@@ -1,23 +1,14 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { ClapSpinner } from 'react-spinners-kit';
-import {
-  RootState,
-  useAppSelector,
-  SingleTaskInterface,
-} from '../../interfaces/interfaces';
+import { RootState, useAppSelector } from '../../interfaces/interfaces';
 import MileStone from '../mileStone/MileStone';
 import Tasks from '../Tasks/Tasks';
 
 const TasksContainer = () => {
   const [taskId, setTaskId] = useState<string>('');
-  const tasks: SingleTaskInterface[] = useAppSelector(
-    (state: RootState) => state.getTaskReducer.tasks,
-  );
-  const user = useAppSelector((state: RootState) => state.userReducer.userUid);
   const dark = useAppSelector(
     (state: RootState) => state.darkModeReducer.darkMode,
   );
-
   const signInStatus = useAppSelector(
     (state: RootState) => state.signInReducer?.state,
   );
@@ -26,7 +17,8 @@ const TasksContainer = () => {
     <div
       className={`${
         dark ? 'bg-primaryColor' : 'bg-primaryLight'
-      }  w-[100%] semiSm:pt-[1rem] min-h-[85vh] semiSm:h-[90vh] font-Comfortaa`}
+      }  w-[100%] semiSm:pt-[1rem]  semiSm:h-[90vh] font-Comfortaa`}
+
     >
       <div>
         {signInStatus === 'pending' ? (

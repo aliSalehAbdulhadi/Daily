@@ -145,13 +145,16 @@ const MilestoneSinglePage = ({
   }, []);
 
   return (
-
     <div className="flex justify-between my-5 font-Comfortaa">
 
-
       <div className="flex justify-between items-end w-full">
-        <div className={`${edit ? 'w-full' : 'w-[90%]'}  cursor-pointer `}>
-          {edit && !milestone.milestoneCompleted ? (
+        <div
+          className={`${
+            edit && !milestone?.milestoneCompleted ? 'w-full' : 'w-[90%]'
+          }  cursor-pointer `}
+        >
+          {edit && !milestone?.milestoneCompleted ? (
+
             <div className="border-b-[1px] w-full relative mt-3" ref={inputRef}>
               <button
                 type="button"
@@ -263,7 +266,9 @@ const MilestoneSinglePage = ({
         </div>
         <div
           className={`flex items-center justify-center h-full ml-3 mr-4 semiSm:hidden ${
-            edit ? 'hidden' : ''
+
+            edit && !milestone?.milestoneCompleted ? 'hidden' : ''
+
           }`}
         >
           <button
