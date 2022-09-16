@@ -75,18 +75,16 @@ const Tasks = ({ id }: { id: Function }) => {
 
   return (
     <div
-      className={`flex flex-col justify-center semiSm:w-[90%] h-[70vh] semiSm:h-[84vh] ${
+      className={`flex flex-col justify-center semiSm:w-[90%] h-[77.5vh] semiSm:h-[84vh] ${
         dark
           ? 'bg-primaryColor semiSm:bg-secondaryColor'
           : ' bg-primaryLight semiSm:bg-secondaryLight'
-
       }`}
     >
       <Droppable droppableId="NewTasks">
         {(provided) => (
           <div
             className=" semiSm:m-5  h-[67vh] semiSm:h-fit font-Comfortaa font-bold w-full "
-
             ref={provided.innerRef}
             {...provided.droppableProps}
           >
@@ -119,14 +117,12 @@ const Tasks = ({ id }: { id: Function }) => {
                   ? 'bg-secondaryColor semiSm:bg-primaryColor'
                   : 'bg-primaryColor'
               } semiSm:pt-1 ${
-
                 tasks?.length > 0 ? 'flex' : 'hidden'
               }  items-center justify-between w-full`}
             >
               <div className="flex item-center justify-between w-full semiSm:px-6 ">
                 <div
                   className="relative self-start select-none cursor-pointer  semiSm:mt-4"
-
                   ref={sortModalRef}
                 >
                   <div
@@ -157,7 +153,7 @@ const Tasks = ({ id }: { id: Function }) => {
                   ? 'bg-primaryColor'
                   : 'bg-secondaryLight semiSm:bg-primaryColor'
               } ${
-                tasks?.length > 0 ? ' h-[60.1vh]' : 'h-[75.7vh]'
+                tasks?.length > 0 ? ' h-[56.5vh]' : 'h-[72vh]'
               } semiSm:h-[65vh] w-[100%] overflow-auto p-5 semiSm:px-10 semiSm:py-4 scrollBar flex flex-col items-center semiSm:rounded-b py-3 `}
             >
               {tasks?.length > 0 ? (
@@ -232,40 +228,9 @@ const Tasks = ({ id }: { id: Function }) => {
                 Finished Tasks
               </button>
             </div>
-
           </div>
         )}
       </Droppable>
-      <div
-        className={`flex items-center justify-center cursor-pointer sticky bottom-0 z-40  w-full p-3 semiSm:hidden ${
-          dark ? 'bg-secondaryColor' : 'bg-primaryColor'
-        }`}
-      >
-        <button
-          onClick={() => setCompletedTask(false)}
-          className={`text-textDark  select-none py-3 px-7 rounded-tl rounded-bl text-sm semiSm:text-base whitespace-nowrap ${
-            completedTask
-              ? dark
-                ? 'bg-primaryColor text-white'
-                : 'bg-secondaryLight text-white'
-              : ' bg-white text-primaryColor'
-          }`}
-        >
-          Pending Tasks
-        </button>
-        <button
-          onClick={() => setCompletedTask(true)}
-          className={`text-textDark  select-none py-3 px-5 rounded-tr rounded-br text-sm semiSm:text-base whitespace-nowrap ${
-            completedTask
-              ? 'bg-white text-primaryColor'
-              : dark
-              ? 'bg-primaryColor text-white'
-              : 'bg-secondaryLight text-white'
-          }`}
-        >
-          Finished Tasks
-        </button>
-      </div>
     </div>
   );
 };

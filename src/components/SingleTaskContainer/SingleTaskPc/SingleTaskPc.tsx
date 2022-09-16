@@ -154,6 +154,7 @@ const SingleTaskPc = ({
 
             } items-center justify-between w-full absolute top-[12px]  px-5 `}
 
+
           >
             <div className="text-xs w-fit whitespace-nowrap select-none">
               {formatDate}
