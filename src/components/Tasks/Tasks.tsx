@@ -92,6 +92,7 @@ const Tasks = ({ id }: { id: Function }) => {
             className={`flex flex-col semiSm:m-5 font-Comfortaa font-bold semiSm:h-fit w-full ${
               tasks?.length > 0 ? '' : 'h-[77.2vh]'
             }`}
+
             ref={provided.innerRef}
             {...provided.droppableProps}
           >
@@ -119,6 +120,7 @@ const Tasks = ({ id }: { id: Function }) => {
             </div>
             <div
               className={`relative semiSm:rounded semiSm:h-[75vh] ${
+
                 dark
                   ? 'bg-secondaryColor semiSm:bg-primaryColor'
                   : 'bg-primaryColor'
