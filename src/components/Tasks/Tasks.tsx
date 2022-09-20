@@ -81,7 +81,6 @@ const Tasks = ({ id }: { id: Function }) => {
   return (
     <div
       className={`flex flex-col justify-center semiSm:w-[90%]  ${
-
         dark
           ? 'bg-primaryColor semiSm:bg-secondaryColor'
           : ' bg-primaryLight semiSm:bg-secondaryLight'
@@ -91,7 +90,6 @@ const Tasks = ({ id }: { id: Function }) => {
         {(provided) => (
           <div
             className="flex flex-col semiSm:m-5 font-Comfortaa font-bold  semiSm:h-fit w-full"
-
             ref={provided.innerRef}
             {...provided.droppableProps}
           >
@@ -119,7 +117,6 @@ const Tasks = ({ id }: { id: Function }) => {
             </div>
             <div
               className={`relative semiSm:rounded semiSm:h-[75vh] ${
-
                 dark
                   ? 'bg-secondaryColor semiSm:bg-primaryColor'
                   : 'bg-primaryColor'
@@ -156,7 +153,7 @@ const Tasks = ({ id }: { id: Function }) => {
                 </div>
               </div>
               <div
-                className={`w-[100%] h-[63vh]  semiSm:h-[67vh] px-5 py-3 semiSm:py-2 overflow-auto scrollBar flex flex-col items-center `}
+                className={`w-[100%] h-[62vh]  semiSm:h-[67vh] px-5 py-3 semiSm:py-2 overflow-auto scrollBar flex flex-col items-center `}
               >
                 {tasks?.length > 0 ? (
                   completedTask ? (
