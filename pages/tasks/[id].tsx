@@ -184,6 +184,7 @@ const MileStone = () => {
       <div
         className={`overflow-auto scrollBar flex flex-col w-full ${
           task?.milestones.length === 0 ? 'h-[79.5vh]' : 'h-[71.8vh]'
+
         }`}
       >
         {milestonesSortHandler()?.map((milestone: any, i) => {
