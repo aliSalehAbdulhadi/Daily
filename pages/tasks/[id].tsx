@@ -182,6 +182,7 @@ const MileStone = () => {
       </div>
 
       <div
+
         className={`overflow-auto scrollBar flex flex-col w-full ${
           task?.milestones.length === 0 ? 'h-[80vh]' : 'h-[72vh]'
         }`}
