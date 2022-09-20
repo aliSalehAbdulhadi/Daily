@@ -6,9 +6,8 @@
     "formik",
     "headlessui",
     "persistor",
-
+    "primarycolor",
     "punct",
-
     "Swipeable"
   ]
 }

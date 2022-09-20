@@ -182,7 +182,7 @@ const MileStone = () => {
       </div>
 
       <div
-        className={`overflow-auto w-full ${
+        className={`overflow-auto flex flex-col w-full ${
           task?.milestones.length === 0 ? 'h-[80vh]' : 'h-[72vh]'
         }`}
       >
@@ -216,10 +216,10 @@ const MileStone = () => {
 
         <div
           onClick={() => {
-            setOpenAdvancedForm(true);
+            setOpenAdvancedForm(!task?.completed);
             setScroll(true);
           }}
-          className={`sticky bottom-0 mt-5 py-3 z-30 flex flex-col items-center justify-center self-center cursor-pointer ${
+          className={`sticky w-fit bottom-0 mt-5 py-3 z-30 flex flex-col items-center justify-center self-center cursor-pointer ${
             openAdvancedForm ? 'hidden' : 'block'
           }`}
         >

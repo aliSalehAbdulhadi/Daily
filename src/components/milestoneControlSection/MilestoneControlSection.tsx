@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
 import { CountdownCircleTimer } from 'react-countdown-circle-timer';
 import { BiSortAlt2, BiX } from 'react-icons/bi';
-
-import { CgPlayListRemove } from 'react-icons/cg';
 import { Checkbox } from 'pretty-checkbox-react';
-
 import { TbListCheck } from 'react-icons/tb';
+import { MdOutlineDelete } from 'react-icons/md';
 
 import useClickOutside from '../../hooks/useClickOutside';
 import {
@@ -15,15 +13,11 @@ import {
   useAppSelector,
 } from '../../interfaces/interfaces';
 import { deleteAllFinishedMilestoneLocally } from '../../redux/slices/features/getTasksSlice';
-import {
-  completeMilestone,
-  deleteAllFinishedMilestone,
-} from '../../redux/slices/features/MilestonesSlice';
+import { deleteAllFinishedMilestone } from '../../redux/slices/features/MilestonesSlice';
 import SortMilestoneModal from '../modals/sortMilestoneModal/SortMilestoneModal';
 import { punctCheckboxAction } from '../../redux/slices/features/milestonePunctCheckboxSlice';
 import '@djthoms/pretty-checkbox';
 
-import { MdChecklist, MdDelete, MdOutlineDelete } from 'react-icons/md';
 
 const MilestoneControlSection = ({ taskId }: { taskId: any }) => {
   const [sortModal, setSortModal] = useState<boolean>(false);
@@ -74,7 +68,7 @@ const MilestoneControlSection = ({ taskId }: { taskId: any }) => {
     <div className="text-[.6rem] semiSm:text-xs  semiSm:scale-[1] w-full  ">
       <div className="flex items-center justify-between   md:flex-row md:items-center w-full semiSm:mt-4 semiSm:mb-4">
         <div className="flex  semiSm:mb-4 md:mb-0 items-center w-full ">
-          <div className="flex items-center justify-between w-[45%]">
+          <div className="flex items-center justify-between w-[50%]">
             <div
               className="relative select-none cursor-pointer w-fit "
               ref={sortModalRef}
@@ -137,7 +131,7 @@ const MilestoneControlSection = ({ taskId }: { taskId: any }) => {
             >
               <BiX className="absolute h-4 w-4 top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]" />
               <CountdownCircleTimer
-                size={25}
+                size={20}
                 strokeWidth={1.5}
                 isPlaying
                 duration={3}

@@ -16,7 +16,6 @@ import {
 } from '../../../redux/slices/features/getTasksSlice';
 import { addMilestones } from '../../../redux/slices/features/MilestonesSlice';
 import { modules } from '../../../utilities/quillToolBar';
-import { FaWindowClose } from 'react-icons/fa';
 import { AiFillCloseSquare } from 'react-icons/ai';
 
 const AdvancedForm = ({
@@ -51,12 +50,21 @@ const AdvancedForm = ({
     'color',
     'image',
   ];
+  function isQuillEmpty(value: string) {
+    if (
+      value.replace(/<(.|\n)*?>/g, '').trim().length === 0 &&
+      !value.includes('<img')
+    ) {
+      return true;
+    }
+    return false;
+  }
 
   const formSubmitHandler = (e: any) => {
     e.preventDefault();
     const newDate = new Date();
 
-    value.length === 0
+    isQuillEmpty(value)
       ? false
       : dispatch(
           addMilestones({
@@ -72,7 +80,7 @@ const AdvancedForm = ({
           }),
         );
 
-    value.length === 0
+    isQuillEmpty(value)
       ? false
       : setTimeout(() => {
           dispatch(

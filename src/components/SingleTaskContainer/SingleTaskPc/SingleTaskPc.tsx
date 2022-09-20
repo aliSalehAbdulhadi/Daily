@@ -134,7 +134,7 @@ const SingleTaskPc = ({
           className={`text-textLight  outline-[1px] relative ${
             content.important ? 'outline-[1px] outline outline-yellow-400' : ''
           }
-           hover:transition-transform hover:ease-in-out hover:duration-300 font-Comfortaa font-semibold my-2 px-5 py-2 min-h-[10rem] relative ${
+           hover:transition-transform hover:ease-in-out hover:duration-300 font-Comfortaa font-semibold my-2 px-5 min-h-[10rem] relative ${
              content?.completed
                ? 'bg-red-400 shadow-2xl'
                : setCardColorByTypeHandler(true, content)

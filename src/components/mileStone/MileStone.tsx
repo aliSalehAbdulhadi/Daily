@@ -81,43 +81,37 @@ const MileStone = ({ taskId }: { taskId: string }) => {
   };
 
   return (
-    <div className="m-5 flex flex-col  font-Comfortaa transition-all text-white  relative h-[80vh]">
+    <div className="m-5 flex flex-col  font-Comfortaa transition-all text-white  relative">
       <h1 className="mb-[1.3rem] py-3 self-center px-5 bg-white text-primaryColor rounded">
         Milestones
       </h1>
 
-      <div className="bg-primaryColor   rounded scrollBar  h-full  w-full relative ">
+      <div className="bg-primaryColor rounded overflow-hidden scrollBar w-full relative h-[75vh]">
         <div
-          className={`flex flex-col pt-2  ${
+          className={`flex flex-col mt-3 ${
             task && task?.milestones.length > 0
               ? 'border-b-[1px] shadow-lg'
               : ''
           }`}
         >
           {taskId && task && task?.milestones.length > 0 ? (
-            <div className="mx-10 ">
-              <div className="flex items-center justify-between">
-                <div className="">
-                  <span className="text-secondaryLight text-base">Task:</span>
-                  <h1 className="text-textDark text-xl wrapWord">
-                    {task?.content}
-                  </h1>
-                </div>
-                <div className="flex items-start justify-end relative mr-1">
-                  <div className="w-[4rem]">
-                    <ProgressBar percentage={percentage} />
-                  </div>
+            <div className="flex items-center justify-between mx-5">
+              <div>
+                <span className="text-secondaryLight text-base">Task:</span>
+                <h1 className="text-textDark text-xl wrapWord">
+                  {task?.content}
+                </h1>
+              </div>
+              <div className="flex items-start justify-end relative mr-1 ">
+                <div className="w-[4rem]">
+                  <ProgressBar percentage={percentage} />
                 </div>
               </div>
             </div>
-          ) : taskId && !task?.completed ? (
-            <span className="self-center mt-[5rem] ml-2">
-              Click to add milestones
-            </span>
           ) : null}
 
           <div
-            className={`z-50 mx-10  ${
+            className={`z-50 mx-5  ${
               task && task?.milestones.length > 0 ? 'block ' : 'hidden'
             }`}
           >
@@ -125,11 +119,11 @@ const MileStone = ({ taskId }: { taskId: string }) => {
           </div>
         </div>
 
-        <div className="flex flex-col pb-[5rem] items-center h-[58vh] overflow-auto scrollBar">
-          <div className="w-full">
+        <div className="flex flex-col items-center mx-5 overflow-auto scrollBar h-[59vh]">
+          <div className="w-full mb-10">
             {milestonesSortHandler()?.map((milestone: any, i) => {
               return (
-                <div className="mx-10" key={milestone.id}>
+                <div key={milestone.id}>
                   <MilestoneSinglePage
                     taskId={taskId}
                     milestone={milestone}
@@ -142,7 +136,7 @@ const MileStone = ({ taskId }: { taskId: string }) => {
           </div>
 
           <div
-            className={`quillFormEnterAnimation shadow-lg mt-10 w-[90%] ${
+            className={`quillFormEnterAnimation shadow-lg mb-5 w-[90%] ${
               openAdvancedForm ? 'block' : 'hidden'
             } `}
             ref={milestoneAdvancedFormRef}
@@ -156,9 +150,9 @@ const MileStone = ({ taskId }: { taskId: string }) => {
         </div>
 
         <div
-          className={`w-fit absolute left-[49%] transform-x-[-100%] ${
-            task && task?.milestones.length > 0 ? 'bottom-5 ' : ' top-10'
-          }`}
+          className={`w-fit absolute left-[48.5%] transform-x-[-100%] ${
+            openAdvancedForm ? 'hidden' : 'block'
+          }  ${task && task?.milestones.length > 0 ? 'bottom-5 ' : ' top-10'}`}
         >
           {taskId && !task?.completed ? (
             <div
@@ -186,6 +180,17 @@ const MileStone = ({ taskId }: { taskId: string }) => {
                   onClick={() => setScroll(true)}
                 />
               )}
+
+              <div className="absolute whitespace-nowrap left-[-75px] top-14">
+                {taskId &&
+                !task?.completed &&
+                task &&
+                task?.milestones.length === 0 ? (
+                  <span>Click to add milestones</span>
+                ) : (
+                  ''
+                )}
+              </div>
             </div>
           ) : (
             <div className="mt-[5rem] translate-x-[-50%]">
