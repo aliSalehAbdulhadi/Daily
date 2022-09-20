@@ -11,6 +11,13 @@ import SortModal from '../modals/SortModal/SortModal';
 import SingleTaskContainer from '../SingleTaskContainer/SingleTaskContainer';
 
 const Tasks = ({ id }: { id: Function }) => {
+  window.addEventListener('load', function () {
+    setTimeout(function () {
+      // This hides the address bar:
+      window.scrollTo(0, 1);
+    }, 0);
+  });
+
   const [completedTask, setCompletedTask] = useState<boolean>(false);
   const [taskId, setTaskId] = useState<string>('');
   const [sortModal, setSortModal] = useState<boolean>(false);
