@@ -89,7 +89,9 @@ const Tasks = ({ id }: { id: Function }) => {
       <Droppable droppableId="NewTasks">
         {(provided) => (
           <div
-            className="flex flex-col semiSm:m-5 font-Comfortaa font-bold h-screen semiSm:h-fit w-full"
+            className={`flex flex-col semiSm:m-5 font-Comfortaa font-bold semiSm:h-fit w-full ${
+              tasks?.length > 0 ? '' : 'h-[77.2vh]'
+            }`}
             ref={provided.innerRef}
             {...provided.droppableProps}
           >
@@ -116,7 +118,7 @@ const Tasks = ({ id }: { id: Function }) => {
               </button>
             </div>
             <div
-              className={`flex-grow relative semiSm:rounded semiSm:h-[75vh] ${
+              className={`relative semiSm:rounded semiSm:h-[75vh] ${
                 dark
                   ? 'bg-secondaryColor semiSm:bg-primaryColor'
                   : 'bg-primaryColor'
