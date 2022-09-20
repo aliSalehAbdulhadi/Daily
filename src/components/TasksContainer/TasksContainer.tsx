@@ -15,7 +15,7 @@ const TasksContainer = () => {
 
   return (
     <div
-      className={`${
+      className={` ${
         dark ? 'bg-primaryColor' : 'bg-primaryLight'
       }  w-[100%]  semiSm:pt-[1rem]  semiSm:h-[90vh] font-Comfortaa`}
     >
@@ -26,7 +26,7 @@ const TasksContainer = () => {
           </h1>
         ) : (
           <div
-            className={` sm:px-10 ${
+            className={` sm:px-10  ${
               dark ? 'bg-secondaryColor' : 'bg-secondaryLight'
             }  flex justify-center transition-all ease-in-out `}
           >

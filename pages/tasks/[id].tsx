@@ -128,15 +128,15 @@ const MileStone = () => {
 
   return (
     <div
-      className={`flex flex-col text-sm font-Comfortaa w-full  ${
+      className={`flex flex-col text-sm font-Comfortaa w-full ${
         dark ? 'bg-primaryColor' : 'bg-secondaryLight'
-      } scrollBar text-white  transition-all`}
+      }  text-white  transition-all`}
     >
       <div
-        className={`flex flex-col items-center justify-center w-full border-b-[1px] shadow-lg`}
+        className={`flex flex-col items-center justify-center w-full border-b-[1px] `}
       >
         <div
-          className={`flex py-5 px-3 w-full ${
+          className={`flex py-5 px-3 w-full  ${
             dark ? 'bg-secondaryColor' : 'bg-primaryColor'
           }`}
         >
@@ -145,7 +145,7 @@ const MileStone = () => {
               <TiArrowBack fill="#2c5252" size={20} />
             </button>
           </Link>
-          <div className=" mt-1 w-[95%]">
+          <div className="flex items-center mt-1 w-[95%]">
             <h1 className="text-textDark mr-2 ml-3 wrapWord">
               {task?.content}
             </h1>
@@ -167,12 +167,12 @@ const MileStone = () => {
         </div>
 
         <div
-          className={`flex w-full ${
+          className={`flex w-full shadow-lg  ${
             task?.milestones.length === 0 ? 'mt-0' : 'mt-3'
           }`}
         >
           <div
-            className={`w-full px-3 pb-3 ${
+            className={`w-full px-3 pb-3 mr-1  ${
               task && task?.milestones.length > 0 ? 'block ' : 'hidden'
             }`}
           >
@@ -182,8 +182,9 @@ const MileStone = () => {
       </div>
 
       <div
-        className={`overflow-auto flex flex-col w-full ${
-          task?.milestones.length === 0 ? 'h-[80vh]' : 'h-[72vh]'
+        className={`overflow-auto scrollBar flex flex-col w-full ${
+          task?.milestones.length === 0 ? 'h-[79.5vh]' : 'h-[71.8vh]'
+
         }`}
       >
         {milestonesSortHandler()?.map((milestone: any, i) => {
