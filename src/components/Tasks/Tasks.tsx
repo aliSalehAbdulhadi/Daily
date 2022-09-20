@@ -80,7 +80,7 @@ const Tasks = ({ id }: { id: Function }) => {
 
   return (
     <div
-      className={`flex flex-col justify-center semiSm:w-[90%]   ${
+      className={`flex flex-col justify-center semiSm:w-[90%]  ${
         dark
           ? 'bg-primaryColor semiSm:bg-secondaryColor'
           : ' bg-primaryLight semiSm:bg-secondaryLight'
@@ -89,9 +89,7 @@ const Tasks = ({ id }: { id: Function }) => {
       <Droppable droppableId="NewTasks">
         {(provided) => (
           <div
-            className={`flex flex-col semiSm:m-5 font-Comfortaa font-bold semiSm:h-fit w-full ${
-              tasks?.length > 0 ? '' : 'h-[77.2vh]'
-            }`}
+            className="flex flex-col semiSm:m-5 font-Comfortaa font-bold  semiSm:h-fit w-full"
             ref={provided.innerRef}
             {...provided.droppableProps}
           >
