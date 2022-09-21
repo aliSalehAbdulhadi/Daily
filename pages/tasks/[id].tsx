@@ -40,7 +40,6 @@ const MileStone = () => {
   );
   const task = tasks?.find((task) => task?.id === id);
 
-  console.log(scroll);
   const milestoneAdvancedFormRef = useClickOutside(() => {
     setOpenAdvancedForm(false);
   });
