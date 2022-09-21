@@ -21,8 +21,10 @@ import { AiFillCloseSquare } from 'react-icons/ai';
 const AdvancedForm = ({
   taskId,
   setOpenAdvancedForm,
+  setScroll,
 }: {
   taskId: string;
+  setScroll?: React.Dispatch<React.SetStateAction<boolean>>;
   setOpenAdvancedForm: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
   const [value, setValue] = useState('');
@@ -128,6 +130,7 @@ const AdvancedForm = ({
         theme="snow"
         value={value}
         onChange={setValue}
+        onFocus={() => setScroll && setScroll(true)}
       />
 
       <button className="w-full py-2 bg-primaryLight text-black" type="submit">
