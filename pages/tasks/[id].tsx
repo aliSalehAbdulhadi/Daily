@@ -18,10 +18,7 @@ import {
   singleMilestoneInterface,
 } from '../../src/interfaces/interfaces';
 import { deleteMilestoneLocally } from '../../src/redux/slices/features/getTasksSlice';
-import {
-  deleteMilestone,
-  editMilestone,
-} from '../../src/redux/slices/features/MilestonesSlice';
+import { deleteMilestone } from '../../src/redux/slices/features/MilestonesSlice';
 
 const MileStone = () => {
   const router = useRouter();
@@ -46,7 +43,7 @@ const MileStone = () => {
   const milestoneAdvancedFormRef = useClickOutside(() => {
     setOpenAdvancedForm(false);
   });
-  const scrollRefBottom = useRef<HTMLDivElement>(null);
+  const scrollRefTop = useRef<HTMLDivElement>(null);
 
   const milestoneCompleted = task?.milestones?.filter(
     (ms: any) => ms?.milestoneCompleted === true,
@@ -68,10 +65,14 @@ const MileStone = () => {
 
   useEffect(() => {
     if (scroll) {
-      scrollRefBottom?.current?.scrollIntoView({ behavior: 'smooth' });
+      scrollRefTop?.current?.scrollIntoView({ behavior: 'smooth' });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [openAdvancedForm]);
+
+  useEffect(() => {
+    setOpenAdvancedForm(false);
+  }, [task?.milestones.length]);
 
   const deleteMilestoneHandler = (milestone: singleMilestoneInterface) => {
     setDeleteAnimation({
@@ -128,12 +129,13 @@ const MileStone = () => {
 
   return (
     <div
-      className={`flex flex-col text-sm font-Comfortaa w-full h-[90vh] ${
+      ref={scrollRefTop}
+      className={`flex flex-col text-sm font-Comfortaa w-full min-h-[90vh]  ${
         dark ? 'bg-primaryColor' : 'bg-secondaryLight'
       }  text-white  transition-all`}
     >
       <div
-        className={`flex flex-col items-center justify-center w-full border-b-[1px] `}
+        className={`flex flex-col items-center justify-center w-full border-b-[1px] sticky top-0 z-[50]`}
       >
         <div
           className={`flex py-5 px-3 w-full  ${
@@ -167,12 +169,12 @@ const MileStone = () => {
         </div>
 
         <div
-          className={`flex w-full shadow-lg  ${
-            task?.milestones.length === 0 ? 'mt-0' : 'mt-3'
-          }`}
+          className={`flex w-full shadow-lg ${
+            dark ? 'bg-primaryColor' : 'bg-secondaryLight'
+          }   ${task?.milestones.length === 0 ? 'pt-0' : 'pt-3'}`}
         >
           <div
-            className={`w-full px-3 pb-3 mr-1  ${
+            className={`w-full px-3 pb-3 mr-1   ${
               task && task?.milestones.length > 0 ? 'block ' : 'hidden'
             }`}
           >
@@ -181,7 +183,7 @@ const MileStone = () => {
         </div>
       </div>
 
-      <div className={`overflow-auto scrollBar flex flex-col w-full h-[78 %]`}>
+      <div className={` flex flex-col w-full`}>
         {milestonesSortHandler()?.map((milestone: any, i) => {
           return (
             <div key={milestone?.id}>
@@ -199,14 +201,15 @@ const MileStone = () => {
         })}
 
         <div
-          className={`quillFormEnterAnimationMobile z-50 shadow-xl mx-2 mt-10 ${
-            openAdvancedForm ? 'block' : 'hidden'
-          } `}
+          className={`quillFormEnterAnimationMobile absolute z-50  top-[5.5rem] ${
+            dark ? 'bg-primaryColor' : 'bg-secondaryLight'
+          }   ${openAdvancedForm ? 'block' : 'hidden'} `}
           ref={milestoneAdvancedFormRef}
         >
           <AdvancedForm
             setOpenAdvancedForm={setOpenAdvancedForm}
             taskId={String(task?.id)}
+            setScroll={setScroll}
           />
         </div>
 
@@ -246,7 +249,6 @@ const MileStone = () => {
             </div>
           )}
         </div>
-        <div className="mt-10" ref={scrollRefBottom}></div>
       </div>
     </div>
   );

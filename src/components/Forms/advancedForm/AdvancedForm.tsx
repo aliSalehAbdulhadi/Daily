@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useState } from 'react';
 import dynamic from 'next/dynamic';
 const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
 import { v4 as uuidv4 } from 'uuid';
@@ -21,8 +21,10 @@ import { AiFillCloseSquare } from 'react-icons/ai';
 const AdvancedForm = ({
   taskId,
   setOpenAdvancedForm,
+  setScroll,
 }: {
   taskId: string;
+  setScroll?: React.Dispatch<React.SetStateAction<boolean>>;
   setOpenAdvancedForm: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
   const [value, setValue] = useState('');
@@ -50,6 +52,7 @@ const AdvancedForm = ({
     'color',
     'image',
   ];
+
   function isQuillEmpty(value: string) {
     if (
       value.replace(/<(.|\n)*?>/g, '').trim().length === 0 &&
@@ -108,7 +111,7 @@ const AdvancedForm = ({
   return (
     <form
       onSubmit={(e) => formSubmitHandler(e)}
-      className="border-[1px] w-full rounded relative "
+      className="border-[1px] w-full semiSm:rounded relative shadow-lg "
     >
       <button
         type="button"
@@ -127,7 +130,9 @@ const AdvancedForm = ({
         theme="snow"
         value={value}
         onChange={setValue}
+        onFocus={() => setScroll && setScroll(true)}
       />
+
       <button className="w-full py-2 bg-primaryLight text-black" type="submit">
         Submit
       </button>
