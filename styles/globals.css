@@ -387,8 +387,7 @@ input::-webkit-input-placeholder {
 
 @keyframes quillFormAnimationMobile {
   from {
-    transform: translateY(45rem);
-    width: 10%;
+    transform: translateY(-30rem);
   }
   to {
     transform: translateY(0%);
@@ -430,7 +429,7 @@ input::-webkit-input-placeholder {
 }
 
 #quill {
-  min-height: 300px;
+  min-height: 350px;
   overflow: hidden;
   font-family: Comfortaa;
 }

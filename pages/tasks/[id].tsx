@@ -73,6 +73,10 @@ const MileStone = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [openAdvancedForm]);
 
+  useEffect(() => {
+    setOpenAdvancedForm(false);
+  }, [task?.milestones.length]);
+
   const deleteMilestoneHandler = (milestone: singleMilestoneInterface) => {
     setDeleteAnimation({
       animation: true,
@@ -128,7 +132,7 @@ const MileStone = () => {
 
   return (
     <div
-      className={`flex flex-col text-sm font-Comfortaa w-full h-[90vh] ${
+      className={`flex flex-col text-sm font-Comfortaa w-full h-[90vh] relative ${
         dark ? 'bg-primaryColor' : 'bg-secondaryLight'
       }  text-white  transition-all`}
     >
@@ -181,7 +185,7 @@ const MileStone = () => {
         </div>
       </div>
 
-      <div className={`overflow-auto scrollBar flex flex-col w-full h-[78 %]`}>
+      <div className={`overflow-auto scrollBar flex flex-col w-full`}>
         {milestonesSortHandler()?.map((milestone: any, i) => {
           return (
             <div key={milestone?.id}>
@@ -199,9 +203,9 @@ const MileStone = () => {
         })}
 
         <div
-          className={`quillFormEnterAnimationMobile z-50 shadow-xl mx-2 mt-10 ${
-            openAdvancedForm ? 'block' : 'hidden'
-          } `}
+          className={`quillFormEnterAnimationMobile absolute z-50  top-[5.5rem] ${
+            dark ? 'bg-primaryColor' : 'bg-secondaryLight'
+          }   ${openAdvancedForm ? 'block' : 'hidden'} `}
           ref={milestoneAdvancedFormRef}
         >
           <AdvancedForm

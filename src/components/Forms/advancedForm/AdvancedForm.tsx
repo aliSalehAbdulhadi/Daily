@@ -108,7 +108,7 @@ const AdvancedForm = ({
   return (
     <form
       onSubmit={(e) => formSubmitHandler(e)}
-      className="border-[1px] w-full rounded relative "
+      className="border-[1px] w-full semiSm:rounded relative shadow-lg "
     >
       <button
         type="button"
