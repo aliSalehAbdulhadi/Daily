@@ -153,7 +153,7 @@ const Tasks = ({ id }: { id: Function }) => {
                 </div>
               </div>
               <div
-                className={`w-[100%] h-[61vh]  semiSm:h-[67vh] px-5 pb-5 pt-3 semiSm:py-2 overflow-auto scrollBar flex flex-col items-center `}
+                className={`w-[100%] h-[61.5vh]  semiSm:h-[67vh] px-5 pb-5 pt-3 semiSm:py-2 overflow-auto scrollBar flex flex-col items-center `}
               >
                 {tasks?.length > 0 ? (
                   completedTask ? (
@@ -200,7 +200,7 @@ const Tasks = ({ id }: { id: Function }) => {
             </div>
             {/* mobile switch buttons */}
             <div
-              className={`flex items-center justify-center cursor-pointer absolute bottom-0 z-40 py-3 w-full semiSm:hidden border-t-[1px]  ${
+              className={`flex items-center justify-center cursor-pointer sticky bottom-0 z-40 py-3 w-full semiSm:hidden border-t-[1px]  ${
                 tasks?.length > 0 ? 'block' : 'hidden'
               } ${dark ? 'bg-secondaryColor' : 'bg-primaryColor'}`}
             >
