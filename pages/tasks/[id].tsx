@@ -217,7 +217,6 @@ const MileStone = () => {
         <div
           onClick={() => {
             setOpenAdvancedForm(!task?.completed);
-            setScroll(true);
           }}
           className={`sticky w-fit bottom-0 mt-5 ml-2 py-3 z-30 flex flex-col items-center justify-center self-center cursor-pointer ${
             openAdvancedForm ? 'hidden' : 'block'
