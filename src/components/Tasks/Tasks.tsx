@@ -89,7 +89,7 @@ const Tasks = ({ id }: { id: Function }) => {
       <Droppable droppableId="NewTasks">
         {(provided) => (
           <div
-            className="flex flex-col semiSm:m-5 font-Comfortaa font-bold  semiSm:h-fit w-full"
+            className="flex flex-col semiSm:m-5 font-Comfortaa font-bold w-full"
             ref={provided.innerRef}
             {...provided.droppableProps}
           >
@@ -153,7 +153,7 @@ const Tasks = ({ id }: { id: Function }) => {
                 </div>
               </div>
               <div
-                className={`w-[100%] h-[62vh]  semiSm:h-[67vh] px-5 py-3 semiSm:py-2 overflow-auto scrollBar flex flex-col items-center `}
+                className={`w-[100%] h-[61.5vh]  semiSm:h-[67vh] px-5 py-3 semiSm:py-2 overflow-auto scrollBar flex flex-col items-center `}
               >
                 {tasks?.length > 0 ? (
                   completedTask ? (

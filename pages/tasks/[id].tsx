@@ -128,7 +128,7 @@ const MileStone = () => {
 
   return (
     <div
-      className={`flex flex-col text-sm font-Comfortaa w-full ${
+      className={`flex flex-col text-sm font-Comfortaa w-full h-[90vh] ${
         dark ? 'bg-primaryColor' : 'bg-secondaryLight'
       }  text-white  transition-all`}
     >
@@ -181,12 +181,7 @@ const MileStone = () => {
         </div>
       </div>
 
-      <div
-        className={`overflow-auto scrollBar flex flex-col w-full ${
-          task?.milestones.length === 0 ? 'h-[79.5vh]' : 'h-[71.8vh]'
-
-        }`}
-      >
+      <div className={`overflow-auto scrollBar flex flex-col w-full h-[72vh]`}>
         {milestonesSortHandler()?.map((milestone: any, i) => {
           return (
             <div key={milestone?.id}>
