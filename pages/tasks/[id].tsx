@@ -130,12 +130,12 @@ const MileStone = () => {
   return (
     <div
       ref={scrollRefTop}
-      className={`flex flex-col text-sm font-Comfortaa w-full h-[90vh] relative ${
+      className={`flex flex-col text-sm font-Comfortaa w-full min-h-[90vh]  ${
         dark ? 'bg-primaryColor' : 'bg-secondaryLight'
       }  text-white  transition-all`}
     >
       <div
-        className={`flex flex-col items-center justify-center w-full border-b-[1px] `}
+        className={`flex flex-col items-center justify-center w-full border-b-[1px] sticky top-0 z-[50]`}
       >
         <div
           className={`flex py-5 px-3 w-full  ${
@@ -169,12 +169,12 @@ const MileStone = () => {
         </div>
 
         <div
-          className={`flex w-full shadow-lg  ${
-            task?.milestones.length === 0 ? 'mt-0' : 'mt-3'
-          }`}
+          className={`flex w-full shadow-lg ${
+            dark ? 'bg-primaryColor' : 'bg-secondaryLight'
+          }   ${task?.milestones.length === 0 ? 'pt-0' : 'pt-3'}`}
         >
           <div
-            className={`w-full px-3 pb-3 mr-1  ${
+            className={`w-full px-3 pb-3 mr-1   ${
               task && task?.milestones.length > 0 ? 'block ' : 'hidden'
             }`}
           >
@@ -183,7 +183,7 @@ const MileStone = () => {
         </div>
       </div>
 
-      <div className={`overflow-auto scrollBar flex flex-col w-full`}>
+      <div className={` flex flex-col w-full`}>
         {milestonesSortHandler()?.map((milestone: any, i) => {
           return (
             <div key={milestone?.id}>
@@ -216,6 +216,7 @@ const MileStone = () => {
         <div
           onClick={() => {
             setOpenAdvancedForm(!task?.completed);
+            setScroll(true);
           }}
           className={`sticky w-fit bottom-0 mt-5 ml-2 py-3 z-30 flex flex-col items-center justify-center self-center cursor-pointer ${
             openAdvancedForm ? 'hidden' : 'block'
