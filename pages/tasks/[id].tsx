@@ -128,7 +128,7 @@ const MileStone = () => {
 
   return (
     <div
-      className={`flex flex-col text-sm font-Comfortaa w-full h-[85vh] ${
+      className={`flex flex-col text-sm font-Comfortaa w-full h-[84vh] ${
         dark ? 'bg-primaryColor' : 'bg-secondaryLight'
       }  text-white  transition-all`}
     >
