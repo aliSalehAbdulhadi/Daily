@@ -18,10 +18,7 @@ import {
   singleMilestoneInterface,
 } from '../../src/interfaces/interfaces';
 import { deleteMilestoneLocally } from '../../src/redux/slices/features/getTasksSlice';
-import {
-  deleteMilestone,
-  editMilestone,
-} from '../../src/redux/slices/features/MilestonesSlice';
+import { deleteMilestone } from '../../src/redux/slices/features/MilestonesSlice';
 
 const MileStone = () => {
   const router = useRouter();
@@ -46,7 +43,7 @@ const MileStone = () => {
   const milestoneAdvancedFormRef = useClickOutside(() => {
     setOpenAdvancedForm(false);
   });
-  const scrollRefBottom = useRef<HTMLDivElement>(null);
+  const scrollRefTop = useRef<HTMLDivElement>(null);
 
   const milestoneCompleted = task?.milestones?.filter(
     (ms: any) => ms?.milestoneCompleted === true,
@@ -68,7 +65,7 @@ const MileStone = () => {
 
   useEffect(() => {
     if (scroll) {
-      scrollRefBottom?.current?.scrollIntoView({ behavior: 'smooth' });
+      scrollRefTop?.current?.scrollIntoView({ behavior: 'smooth' });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [openAdvancedForm]);
@@ -132,6 +129,7 @@ const MileStone = () => {
 
   return (
     <div
+      ref={scrollRefTop}
       className={`flex flex-col text-sm font-Comfortaa w-full h-[90vh] relative ${
         dark ? 'bg-primaryColor' : 'bg-secondaryLight'
       }  text-white  transition-all`}
@@ -250,7 +248,6 @@ const MileStone = () => {
             </div>
           )}
         </div>
-        <div className="mt-10" ref={scrollRefBottom}></div>
       </div>
     </div>
   );

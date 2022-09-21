@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useState } from 'react';
 import dynamic from 'next/dynamic';
 const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
 import { v4 as uuidv4 } from 'uuid';
@@ -50,6 +50,7 @@ const AdvancedForm = ({
     'color',
     'image',
   ];
+
   function isQuillEmpty(value: string) {
     if (
       value.replace(/<(.|\n)*?>/g, '').trim().length === 0 &&
@@ -128,6 +129,7 @@ const AdvancedForm = ({
         value={value}
         onChange={setValue}
       />
+
       <button className="w-full py-2 bg-primaryLight text-black" type="submit">
         Submit
       </button>
