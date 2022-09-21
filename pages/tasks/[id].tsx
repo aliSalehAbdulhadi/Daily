@@ -128,7 +128,7 @@ const MileStone = () => {
 
   return (
     <div
-      className={`flex flex-col text-sm font-Comfortaa w-full h-[82vh] ${
+      className={`flex flex-col text-sm font-Comfortaa w-full h-[90vh] ${
         dark ? 'bg-primaryColor' : 'bg-secondaryLight'
       }  text-white  transition-all`}
     >
@@ -215,7 +215,7 @@ const MileStone = () => {
             setOpenAdvancedForm(!task?.completed);
             setScroll(true);
           }}
-          className={`sticky w-fit bottom-0 mt-5 py-3 z-30 flex flex-col items-center justify-center self-center cursor-pointer ${
+          className={`sticky w-fit bottom-0 mt-5 ml-2 py-3 z-30 flex flex-col items-center justify-center self-center cursor-pointer ${
             openAdvancedForm ? 'hidden' : 'block'
           }`}
         >
