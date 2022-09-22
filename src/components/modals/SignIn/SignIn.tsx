@@ -3,6 +3,7 @@ import { Formik, Form } from 'formik';
 import { FaSpinner } from 'react-icons/fa';
 import Modal from '../Modal/Modal';
 import {
+  RootState,
   SignInInterface,
   useAppDispatch,
   useAppSelector,
@@ -35,6 +36,10 @@ const SignIn = ({
     error: signInError,
   });
 
+  const dark = useAppSelector(
+    (state: RootState) => state.darkModeReducer.darkMode,
+  );
+
   return (
     <Modal label="Sign In" setOpen={setOpen} open={open}>
       <Formik
@@ -59,7 +64,7 @@ const SignIn = ({
               classNameField="p-5 outline-none block w-full shadow-sm sm:text-sm border-gray-300 rounded py-3 font-Comfortaa text-textLight mt-1"
             />
             <FormField
-              autoComplete="password"
+              autoComplete=""
               className="pt-5"
               label="Password"
               name="Password"
@@ -89,7 +94,9 @@ const SignIn = ({
             <div className="flex justify-between items-center mt-7">
               {pending ? (
                 <button
-                  className="flex items-center justify-center bg-primaryColor py-3 px-5 rounded text-white ml-2 text-xs md:text-sm"
+                  className={`flex items-center justify-center py-3 px-5 rounded text-white  text-xs md:text-sm ${
+                    dark ? 'bg-primaryColor' : 'bg-secondaryLight'
+                  }`}
                   type="submit"
                 >
                   <FaSpinner className="mr-4 animate-spin" />
@@ -97,7 +104,9 @@ const SignIn = ({
                 </button>
               ) : (
                 <button
-                  className="bg-primaryColor py-3 px-7 rounded text-white ml-2 text-xs md:text-sm hover:text-primaryColor hover:bg-white"
+                  className={`py-3 px-7 rounded text-white text-xs md:text-sm hover:text-primaryColor hover:bg-white ${
+                    dark ? 'bg-primaryColor' : 'bg-secondaryLight'
+                  }`}
                   type="submit"
                 >
                   Sign In
@@ -106,7 +115,7 @@ const SignIn = ({
               <div className="flex flex-col text-xs md:text-sm ">
                 <span>Dont have an account?</span>
                 <button
-                  className="mt-1 animate-pulse"
+                  className="mt-1"
                   type="button"
                   onClick={() => {
                     setOpen(false);

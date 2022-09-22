@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useEffect, useRef, useState } from 'react';
@@ -131,14 +132,23 @@ const MileStone = () => {
     <div
       ref={scrollRefTop}
       className={`flex flex-col text-sm font-Comfortaa w-full ${
-        openAdvancedForm ? 'h-[80vh] overflow-hidden' : 'min-h-[90vh]'
+        openAdvancedForm
+          ? 'h-[83vh] overflow-hidden  bg-opacity-70 '
+          : 'min-h-[90vh]'
       } ${
         dark ? 'bg-primaryColor' : 'bg-secondaryLight'
       }  text-white  transition-all`}
     >
+      <img
+        className={`${
+          openAdvancedForm ? 'block' : 'hidden'
+        } mt-[19rem] opacity-60`}
+        src="/images/writingHands.png"
+        alt="feather"
+      />
       <div className={`${openAdvancedForm ? 'hidden' : 'block'}`}>
         <div
-          className={`flex flex-col items-center justify-center w-full border-b-[1px] sticky top-0 z-[50]`}
+          className={`flex flex-col items-center justify-center w-full border-b-[1px] sticky top-0 z-[40]`}
         >
           <div
             className={`flex py-5 px-3 w-full  ${

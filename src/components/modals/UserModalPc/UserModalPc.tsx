@@ -50,37 +50,38 @@ const UserModalPc = ({
             onClick={() => {
               setOpenSignInModal(true);
             }}
-            className="w-full text-start my-1 pt-2 px-4 pb-5 hover:bg-gray-50 border-b-[1.7px] mb-3"
+            className="w-full text-start my-1 pt-2 px-4 hover:bg-gray-50 mb-3"
           >
             Log in
           </button>
         </div>
       )}
-      <button
-        onClick={() => {
-          setOpenUsernameModal(true);
-        }}
-        className="w-full text-start my-1 py-2 px-4 hover:bg-gray-50"
-      >
-        Change Username
-      </button>
-      <button
-        onClick={() => setOpenPasswordModal(true)}
-        className="w-full text-start my-1 py-2 px-4 hover:bg-gray-50"
-      >
-        Change Password
-      </button>
 
-      <button
-        onClick={() => {
-          setOpenLogoutModal(true);
-        }}
-        className={`w-full text-start my-1 py-2 px-4 hover:bg-gray-50  ${
-          user ? 'block' : 'hidden'
-        }`}
-      >
-        Log Out
-      </button>
+      <div className={`flex flex-col items-center justify-center ${user ? 'block' : 'hidden'}`}>
+        <button
+          onClick={() => {
+            setOpenUsernameModal(true);
+          }}
+          className="w-full text-start my-1 py-2 px-4 hover:bg-gray-50"
+        >
+          Change Username
+        </button>
+        <button
+          onClick={() => setOpenPasswordModal(true)}
+          className="w-full text-start my-1 py-2 px-4 hover:bg-gray-50"
+        >
+          Change Password
+        </button>
+
+        <button
+          onClick={() => {
+            setOpenLogoutModal(true);
+          }}
+          className={`w-full text-start my-1 py-2 px-4 hover:bg-gray-50 `}
+        >
+          Log Out
+        </button>
+      </div>
 
       <ChangeUserName open={openUsernameModal} setOpen={setOpenUsernameModal} />
       <ResetPassword open={openPasswordModal} setOpen={setOpenPasswordModal} />

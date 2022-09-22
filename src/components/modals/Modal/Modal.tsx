@@ -1,6 +1,10 @@
 import { Fragment, useRef } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
-import { ModalInterface } from '../../../interfaces/interfaces';
+import {
+  ModalInterface,
+  RootState,
+  useAppSelector,
+} from '../../../interfaces/interfaces';
 
 function Modal({
   children,
@@ -10,6 +14,9 @@ function Modal({
 }: ModalInterface): JSX.Element {
   const cancelButtonRef = useRef(null);
 
+  const dark = useAppSelector(
+    (state: RootState) => state.darkModeReducer.darkMode,
+  );
   return (
     <Transition.Root show={open} as={Fragment}>
       <Dialog
@@ -50,7 +57,11 @@ function Modal({
               className={`relative inline-block align-bottom bg-primaryDark rounded text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle 
               }`}
             >
-              <div className={`p-4 sm:p-6 sm:pb-4 w-full bg-secondaryColor`}>
+              <div
+                className={`p-4 sm:p-6 sm:pb-4 w-full  ${
+                  dark ? 'bg-secondaryColor' : 'bg-primaryColor'
+                }`}
+              >
                 <div className="flex  justify-between mb-5">
                   <h2 className="  w-max font-semibold text-[1.2rem] mb-1">
                     {label}
