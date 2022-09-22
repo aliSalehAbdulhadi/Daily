@@ -131,7 +131,7 @@ const MileStone = () => {
     <div
       ref={scrollRefTop}
       className={`flex flex-col text-sm font-Comfortaa w-full ${
-        openAdvancedForm ? 'h-[90vh] overflow-hidden' : 'min-h-[90vh]'
+        openAdvancedForm ? 'h-[80vh] overflow-hidden' : 'min-h-[90vh]'
       } ${
         dark ? 'bg-primaryColor' : 'bg-secondaryLight'
       }  text-white  transition-all`}
