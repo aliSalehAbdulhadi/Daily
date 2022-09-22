@@ -142,7 +142,7 @@ const MileStone = () => {
       <img
         className={`${
           openAdvancedForm ? 'block' : 'hidden'
-        } mt-[21.5rem] opacity-60`}
+        } mt-[20rem] opacity-60`}
         src="/images/writingHands.png"
         alt="feather"
       />
