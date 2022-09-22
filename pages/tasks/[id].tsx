@@ -133,7 +133,7 @@ const MileStone = () => {
       ref={scrollRefTop}
       className={`flex flex-col text-sm font-Comfortaa w-full ${
         openAdvancedForm
-          ? 'h-[83vh] overflow-hidden  bg-opacity-70 '
+          ? 'h-[90vh] overflow-hidden  bg-opacity-70 '
           : 'min-h-[90vh]'
       } ${
         dark ? 'bg-primaryColor' : 'bg-secondaryLight'
