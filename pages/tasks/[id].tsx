@@ -130,11 +130,13 @@ const MileStone = () => {
   return (
     <div
       ref={scrollRefTop}
+
       className={`flex flex-col text-sm font-Comfortaa w-full min-h-[90vh] ${
         dark ? 'bg-primaryColor' : 'bg-secondaryLight'
       }  text-white  transition-all`}
     >
       <div className={`${openAdvancedForm ? 'hidden' : 'block'}`}>
+
         <div
           className={`flex flex-col items-center justify-center w-full border-b-[1px] sticky top-0 z-[50]`}
         >
@@ -173,6 +175,7 @@ const MileStone = () => {
             className={`flex w-full shadow-lg ${
               dark ? 'bg-primaryColor' : 'bg-secondaryLight'
             }   ${task?.milestones.length === 0 ? 'pt-0' : 'pt-3'}`}
+
           >
             <div
               className={`w-full px-3 pb-3 mr-1   ${
@@ -183,6 +186,7 @@ const MileStone = () => {
             </div>
           </div>
         </div>
+
 
         <div className={` flex flex-col w-full`}>
           {milestonesSortHandler()?.map((milestone: any, i) => {
@@ -208,6 +212,7 @@ const MileStone = () => {
             }}
             className={`sticky w-fit bottom-0 mt-5 ml-2 py-3 z-30 flex flex-col items-center justify-center self-center cursor-pointer ${
               openAdvancedForm ? 'hidden' : 'block'
+
             }`}
           >
             <h1
@@ -238,6 +243,7 @@ const MileStone = () => {
             )}
           </div>
         </div>
+
       </div>
       <div
         className={`quillFormEnterAnimationMobile absolute z-50  top-[5.2rem] ${
@@ -250,6 +256,7 @@ const MileStone = () => {
           taskId={String(task?.id)}
           setScroll={setScroll}
         />
+
       </div>
     </div>
   );
