@@ -45,6 +45,7 @@ const Tasks = ({ id }: { id: Function }) => {
   const copyTasks = tasks ? [...tasks] : [];
   const completedTasks = tasks ? tasks?.filter((task) => task.completed) : [];
   const pendingTasks = tasks ? tasks?.filter((task) => !task.completed) : [];
+  const user = useAppSelector((state: RootState) => state.userReducer.userUid);
 
   const taskSortHandler = () => {
     if (sortBy === 'newTasks') {
@@ -123,7 +124,7 @@ const Tasks = ({ id }: { id: Function }) => {
               }`}
             >
               <div
-                className={` w-full flex item-center justify-between sticky top-0 z-[50] shadow-md  semiSm:border-b-[1px] py-3 px-5 ${
+                className={` w-full flex item-center justify-between sticky top-0 z-[40] shadow-md  semiSm:border-b-[1px] py-3 px-5 ${
                   dark
                     ? 'bg-secondaryColor semiSm:bg-primaryColor'
                     : 'bg-primaryColor'
@@ -157,7 +158,9 @@ const Tasks = ({ id }: { id: Function }) => {
                 </div>
               </div>
               <div
-                className={`w-[100%] min-h-[57.5vh] semiSm:h-[67vh] px-5 py-3 semiSm:py-2 overflow-auto scrollBar flex flex-col items-center `}
+                className={`w-[100%]  semiSm:h-[67vh] px-5 py-3 semiSm:py-2 overflow-auto scrollBar flex flex-col items-center ${
+                  user ? 'min-h-[61.5vh]' : 'h-[88.6vh]'
+                } `}
               >
                 {tasks?.length > 0 ? (
                   completedTask ? (
@@ -196,15 +199,29 @@ const Tasks = ({ id }: { id: Function }) => {
                     )
                   )
                 ) : (
-                  <span className="text-white mt-[5rem]">
-                    There are no tasks to display
-                  </span>
+                  <div className="text-white mt-[5rem]">
+                    <span className={`${user ? 'block' : 'hidden'}`}>
+                      There are no tasks to display
+                    </span>
+                    <span
+                      className={`mt-10 semiSm:mt-0 ${
+                        user ? 'hidden' : 'block'
+                      } flex flex-col items-center justify-center`}
+                    >
+                      Please login to start adding tasks
+                      <img
+                        className="opacity-70 mt-3 ml-5"
+                        src="/images/wavy.png"
+                        alt=""
+                      />
+                    </span>
+                  </div>
                 )}
               </div>
             </div>
             {/* mobile switch buttons */}
             <div
-              className={`flex items-center justify-center cursor-pointer sticky bottom-0 z-[50]  py-3 w-full semiSm:hidden border-t-[1px]  ${
+              className={`flex items-center justify-center cursor-pointer sticky bottom-0 z-[40]  py-3 w-full semiSm:hidden border-t-[1px]  ${
                 tasks?.length > 0 ? 'block' : 'hidden'
               } ${dark ? 'bg-secondaryColor' : 'bg-primaryColor'}`}
             >

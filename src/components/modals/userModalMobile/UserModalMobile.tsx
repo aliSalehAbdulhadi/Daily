@@ -49,20 +49,21 @@ const UserModalMobile = ({
             <h1 className="text-lg">{userName}</h1>
           </div>
         ) : (
-          <div className="flex flex-col items-center justify-start w-full">
+          <div className="flex  items-center justify-center w-full h-[25vh]">
             <button
               onClick={() => {
                 setOpenSignInModal(true);
               }}
-              className="w-full  my-1 py-2 px-4 hover:bg-gray-50 mt-2 font-cerealMedium"
+              className="w-full  my-1 py-2 px-4 hover:bg-gray-50 mt-2 font-cerealMedium h-[98%]"
             >
               Log in
             </button>
+            <div className="border-l-[1px] h-[50%] ml-1"></div>
             <button
               onClick={() => {
                 setOpenSignUpModal(true);
               }}
-              className="w-full  my-1 py-2 px-4 hover:bg-gray-50 mt-2 font-cerealMedium"
+              className="w-full  my-1 py-2 px-4 hover:bg-gray-50 mt-2 font-cerealMedium h-[98%]"
             >
               Sign up
             </button>

@@ -32,6 +32,9 @@ const SignUp = ({ open, setOpen, setSignIn }: SignUpInterface) => {
   const signUpStatus = useAppSelector(
     (state: any) => state.signUpReducer?.state,
   );
+  const dark = useAppSelector(
+    (state: RootState) => state.darkModeReducer.darkMode,
+  );
   const [pending, fulfilled, rejected, errorMessage] = useCheckStatus({
     setOpen,
     status: signUpStatus,
@@ -100,7 +103,7 @@ const SignUp = ({ open, setOpen, setSignIn }: SignUpInterface) => {
               classNameField="p-5 outline-none block w-full shadow-sm sm:text-sm border-gray-300 rounded py-3 font-Comfortaa text-textLight mt-1"
             />
             <FormField
-              autoComplete="password"
+              autoComplete=""
               className="mb-3"
               label="Password"
               name="Password"
@@ -111,7 +114,7 @@ const SignUp = ({ open, setOpen, setSignIn }: SignUpInterface) => {
             />
 
             <FormField
-              autoComplete="password"
+              autoComplete=""
               className="mb-3"
               label="Password Confirmation"
               name="PasswordConfirmation"
@@ -131,7 +134,9 @@ const SignUp = ({ open, setOpen, setSignIn }: SignUpInterface) => {
             <div className="flex justify-between items-center mt-5">
               {pending ? (
                 <button
-                  className="flex items-center justify-center bg-primaryColor py-3 px-3 rounded text-white ml-2 text-xs md:text-sm"
+                  className={`flex items-center justify-center py-3 px-3 rounded text-white  text-xs md:text-sm ${
+                    dark ? 'bg-secondaryColor' : 'bg-secondaryLight'
+                  } `}
                   type="submit"
                 >
                   <FaSpinner className="mr-3 animate-spin" />
@@ -139,7 +144,9 @@ const SignUp = ({ open, setOpen, setSignIn }: SignUpInterface) => {
                 </button>
               ) : (
                 <button
-                  className="bg-primaryColor py-3 px-7 rounded text-white ml-2 text-xs md:text-sm hover:text-primaryColor hover:bg-white"
+                  className={`py-3 px-7 rounded text-white text-xs md:text-sm hover:text-primaryColor hover:bg-white ${
+                    dark ? 'bg-primaryColor' : 'bg-secondaryLight'
+                  }`}
                   type="submit"
                 >
                   Sign Up
@@ -148,7 +155,7 @@ const SignUp = ({ open, setOpen, setSignIn }: SignUpInterface) => {
               <div className="flex flex-col text-xs md:text-sm">
                 <span>Already have an account?</span>
                 <button
-                  className="mt-1 animate-pulse"
+                  className="mt-1"
                   type="button"
                   onClick={() => {
                     setOpen(false);

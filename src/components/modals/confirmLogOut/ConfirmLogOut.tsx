@@ -1,6 +1,7 @@
 import { signOut } from 'firebase/auth';
 import React from 'react';
 import { auth } from '../../../container/firebase';
+import { RootState, useAppSelector } from '../../../interfaces/interfaces';
 import Modal from '../Modal/Modal';
 
 const ConfirmLogOut = ({
@@ -16,6 +17,10 @@ const ConfirmLogOut = ({
       signOut(auth);
     }, 500);
   };
+  const dark = useAppSelector(
+    (state: RootState) => state.darkModeReducer.darkMode,
+  );
+
   return (
     <Modal label="Want to log out?" setOpen={setOpen} open={open}>
       <div className="flex items-center justify-evenly md:text-base text-sm w-[25vh] font-Comfortaa">
@@ -27,7 +32,9 @@ const ConfirmLogOut = ({
         </button>
         <button
           onClick={() => setOpen(false)}
-          className="bg-primaryColor hover:bg-white hover:text-primaryColor text-white  py-2 px-4 rounded"
+          className={`${
+            dark ? 'bg-primaryColor' : 'bg-secondaryLight'
+          } hover:bg-white hover:text-primaryColor text-white  py-2 px-4 rounded`}
         >
           Cancel
         </button>

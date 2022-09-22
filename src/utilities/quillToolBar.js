@@ -8,6 +8,7 @@ export const modules = {
       { indent: '-1' },
       { indent: '+1' },
     ],
+    [{ direction: 'rtl' }],
     [{ align: [] }],
     [
       {

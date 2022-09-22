@@ -2,6 +2,8 @@ import { useState } from 'react';
 import dynamic from 'next/dynamic';
 const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
 import { v4 as uuidv4 } from 'uuid';
+import { AiFillCloseSquare } from 'react-icons/ai';
+import { GrClose } from 'react-icons/gr';
 import 'react-quill/dist/quill.snow.css';
 import 'react-quill/dist/quill.bubble.css';
 import {
@@ -16,7 +18,7 @@ import {
 } from '../../../redux/slices/features/getTasksSlice';
 import { addMilestones } from '../../../redux/slices/features/MilestonesSlice';
 import { modules } from '../../../utilities/quillToolBar';
-import { AiFillCloseSquare } from 'react-icons/ai';
+import { MdClose } from 'react-icons/md';
 
 const AdvancedForm = ({
   taskId,
@@ -111,7 +113,7 @@ const AdvancedForm = ({
   return (
     <form
       onSubmit={(e) => formSubmitHandler(e)}
-      className="border-[1px] w-full semiSm:rounded relative shadow-lg "
+      className=" border-t-[1px] w-full semiSm:rounded relative shadow-lg "
     >
       <button
         type="button"
@@ -119,23 +121,44 @@ const AdvancedForm = ({
           setOpenAdvancedForm(false);
           setValue('');
         }}
-        className="absolute text-black right-2 top-[.60rem] "
+        className="absolute ml-10 text-black right-2 top-[.60rem] hidden semiSm:block "
       >
         <AiFillCloseSquare className="rounded-lg opacity-[.75]" size={20} />
       </button>
       <ReactQuill
         id="quill"
         modules={modules}
-        className={`${dark ? 'bg-secondaryColor' : 'bg-primaryColor'}}`}
+        className={`${
+          dark ? 'bg-secondaryColor' : 'bg-primaryColor'
+        }} semiSm:rounded`}
         theme="snow"
         value={value}
         onChange={setValue}
         onFocus={() => setScroll && setScroll(true)}
       />
 
-      <button className="w-full py-2 bg-primaryLight text-black" type="submit">
-        Submit
-      </button>
+      <div className="w-full flex items-center ">
+        <button
+          className="w-[75%] semiSm:w-full py-2 bg-primaryLight text-black semiSm:rounded-b"
+          type="submit"
+        >
+          Submit
+        </button>
+        <button
+          type="button"
+          onClick={() => {
+            setOpenAdvancedForm(false);
+            setValue('');
+          }}
+          className="bg-red-400 w-[25%] flex items-center justify-center semiSm:hidden h-full py-2"
+        >
+          <MdClose
+            className="rounded-lg opacity-[.75] "
+            fill="white"
+            size={20}
+          />
+        </button>
+      </div>
     </form>
   );
 };

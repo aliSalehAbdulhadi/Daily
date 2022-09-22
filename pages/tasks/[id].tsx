@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useEffect, useRef, useState } from 'react';
@@ -130,125 +131,137 @@ const MileStone = () => {
   return (
     <div
       ref={scrollRefTop}
-      className={`flex flex-col text-sm font-Comfortaa w-full min-h-[90vh]  ${
+      className={`flex flex-col text-sm font-Comfortaa w-full ${
+        openAdvancedForm
+          ? 'h-[83.5vh] overflow-hidden  bg-opacity-70 '
+          : 'min-h-[90vh]'
+      } ${
         dark ? 'bg-primaryColor' : 'bg-secondaryLight'
       }  text-white  transition-all`}
     >
-      <div
-        className={`flex flex-col items-center justify-center w-full border-b-[1px] sticky top-0 z-[50]`}
-      >
+      <img
+        className={`${
+          openAdvancedForm ? 'block' : 'hidden'
+        } mt-[21.5rem] opacity-60`}
+        src="/images/writingHands.png"
+        alt="feather"
+      />
+      <div className={`${openAdvancedForm ? 'hidden' : 'block'}`}>
         <div
-          className={`flex py-5 px-3 w-full  ${
-            dark ? 'bg-secondaryColor' : 'bg-primaryColor'
-          }`}
+          className={`flex flex-col items-center justify-center w-full border-b-[1px] sticky top-0 z-[40]`}
         >
-          <Link href="/">
-            <button className=" bg-white px-2  rounded">
-              <TiArrowBack fill="#2c5252" size={20} />
-            </button>
-          </Link>
-          <div className="flex items-center mt-1 w-[95%]">
-            <h1 className="text-textDark mr-2 ml-3 wrapWord">
-              {task?.content}
-            </h1>
-          </div>
-          <div className="sm:w-[7%] ">
-            <div className="h-[3rem] w-[3rem]">
-              {task && task?.milestones.length > 0 ? (
-                <div className="relative">
-                  <ProgressBar percentage={percentage} />
-                  <div className="absolute top-[46px] right-[43px] text-xs">
-                    <span>{milestoneCompleted}</span>
-                    <span className="text-xs">/</span>
-                    <span>{task.milestones?.length}</span>
+          <div
+            className={`flex py-5 px-3 w-full  ${
+              dark ? 'bg-secondaryColor' : 'bg-primaryColor'
+            }`}
+          >
+            <Link href="/">
+              <button className=" bg-white px-2  rounded">
+                <TiArrowBack fill="#2c5252" size={20} />
+              </button>
+            </Link>
+            <div className="flex items-center mt-1 w-[95%]">
+              <h1 className="text-textDark mr-2 ml-3 wrapWord">
+                {task?.content}
+              </h1>
+            </div>
+            <div className="sm:w-[7%] ">
+              <div className="h-[3rem] w-[3rem]">
+                {task && task?.milestones.length > 0 ? (
+                  <div className="relative">
+                    <ProgressBar percentage={percentage} />
+                    <div className="absolute top-[46px] right-[43px] text-xs">
+                      <span>{milestoneCompleted}</span>
+                      <span className="text-xs">/</span>
+                      <span>{task.milestones?.length}</span>
+                    </div>
                   </div>
-                </div>
-              ) : null}
+                ) : null}
+              </div>
+            </div>
+          </div>
+
+          <div
+            className={`flex w-full shadow-lg ${
+              dark ? 'bg-primaryColor' : 'bg-secondaryLight'
+            }   ${task?.milestones.length === 0 ? 'pt-0' : 'pt-3'}`}
+          >
+            <div
+              className={`w-full px-3 pb-3 mr-1   ${
+                task && task?.milestones.length > 0 ? 'block ' : 'hidden'
+              }`}
+            >
+              <MilestoneControlSection taskId={task?.id} />
             </div>
           </div>
         </div>
 
-        <div
-          className={`flex w-full shadow-lg ${
-            dark ? 'bg-primaryColor' : 'bg-secondaryLight'
-          }   ${task?.milestones.length === 0 ? 'pt-0' : 'pt-3'}`}
-        >
+        <div className={` flex flex-col w-full`}>
+          {milestonesSortHandler()?.map((milestone: any, i) => {
+            return (
+              <div key={milestone?.id}>
+                <Swipeable handler={() => deleteMilestoneHandler(milestone)}>
+                  <MilestoneSinglePage
+                    taskId={String(id)}
+                    milestone={milestone}
+                    index={i}
+                    tasks={tasks}
+                    setDeleteAnimationMobile={deleteAnimation}
+                  />
+                </Swipeable>
+              </div>
+            );
+          })}
+
           <div
-            className={`w-full px-3 pb-3 mr-1   ${
-              task && task?.milestones.length > 0 ? 'block ' : 'hidden'
+            onClick={() => {
+              setOpenAdvancedForm(!task?.completed);
+              setScroll(true);
+            }}
+            className={`sticky w-fit bottom-0 mt-5 ml-2 py-3 z-30 flex flex-col items-center justify-center self-center cursor-pointer ${
+              openAdvancedForm ? 'hidden' : 'block'
             }`}
           >
-            <MilestoneControlSection taskId={task?.id} />
+            <h1
+              className={`self-center mb-5 ${
+                task?.milestones.length === 0 && !task?.completed
+                  ? 'block'
+                  : 'hidden'
+              }`}
+            >
+              Add milestones
+            </h1>
+
+            {task?.id && !task?.completed ? (
+              <BsPlusCircleFill
+                fill="white"
+                className={`h-8 w-8  transition-all ${
+                  addMilestone ? 'hidden' : 'block'
+                }`}
+              />
+            ) : (
+              <div className="mt-[5rem]">
+                {task?.completed ? (
+                  <span>Cant add milestones to finished tasks</span>
+                ) : (
+                  <span>Select task to add milestones</span>
+                )}
+              </div>
+            )}
           </div>
         </div>
       </div>
-
-      <div className={` flex flex-col w-full`}>
-        {milestonesSortHandler()?.map((milestone: any, i) => {
-          return (
-            <div key={milestone?.id}>
-              <Swipeable handler={() => deleteMilestoneHandler(milestone)}>
-                <MilestoneSinglePage
-                  taskId={String(id)}
-                  milestone={milestone}
-                  index={i}
-                  tasks={tasks}
-                  setDeleteAnimationMobile={deleteAnimation}
-                />
-              </Swipeable>
-            </div>
-          );
-        })}
-
-        <div
-          className={`quillFormEnterAnimationMobile absolute z-50  top-[5.5rem] ${
-            dark ? 'bg-primaryColor' : 'bg-secondaryLight'
-          }   ${openAdvancedForm ? 'block' : 'hidden'} `}
-          ref={milestoneAdvancedFormRef}
-        >
-          <AdvancedForm
-            setOpenAdvancedForm={setOpenAdvancedForm}
-            taskId={String(task?.id)}
-            setScroll={setScroll}
-          />
-        </div>
-
-        <div
-          onClick={() => {
-            setOpenAdvancedForm(!task?.completed);
-            setScroll(true);
-          }}
-          className={`sticky w-fit bottom-0 mt-5 ml-2 py-3 z-30 flex flex-col items-center justify-center self-center cursor-pointer ${
-            openAdvancedForm ? 'hidden' : 'block'
-          }`}
-        >
-          <h1
-            className={`self-center mb-5 ${
-              task?.milestones.length === 0 && !task?.completed
-                ? 'block'
-                : 'hidden'
-            }`}
-          >
-            Add milestones
-          </h1>
-
-          {task?.id && !task?.completed ? (
-            <BsPlusCircleFill
-              fill="white"
-              className={`h-8 w-8  transition-all ${
-                addMilestone ? 'hidden' : 'block'
-              }`}
-            />
-          ) : (
-            <div className="mt-[5rem]">
-              {task?.completed ? (
-                <span>Cant add milestones to finished tasks</span>
-              ) : (
-                <span>Select task to add milestones</span>
-              )}
-            </div>
-          )}
-        </div>
+      <div
+        className={`quillFormEnterAnimationMobile absolute z-50  top-0 ${
+          dark ? 'bg-primaryColor' : 'bg-secondaryLight'
+        }   ${openAdvancedForm ? 'block' : 'hidden'} `}
+        ref={milestoneAdvancedFormRef}
+      >
+        <AdvancedForm
+          setOpenAdvancedForm={setOpenAdvancedForm}
+          taskId={String(task?.id)}
+          setScroll={setScroll}
+        />
       </div>
     </div>
   );

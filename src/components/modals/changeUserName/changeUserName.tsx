@@ -24,8 +24,10 @@ const ChangeUserName = ({
 }) => {
   const [animation, setAnimation] = useState<boolean>(false);
   const dispatch = useAppDispatch();
-
   const user = useAppSelector((state: RootState) => state.userReducer.userUid);
+  const dark = useAppSelector(
+    (state: RootState) => state.darkModeReducer.darkMode,
+  );
 
   return (
     <Modal label="Change User Name" setOpen={setOpen} open={open}>
@@ -44,6 +46,7 @@ const ChangeUserName = ({
             setAnimation(false);
           }, 1000);
         }}
+
       >
         {({}) => (
           <Form className="">
@@ -58,10 +61,12 @@ const ChangeUserName = ({
               classNameField="p-5 outline-none block w-full shadow-sm sm:text-sm border-gray-300 rounded py-3 font-Comfortaa text-textLight"
             />
 
-            <div className="flex justify-center items-center mt-7 px-[5rem] py-5">
+            <div className="flex justify-center items-center mt-8 px-[5rem] py-5">
               {animation ? (
                 <button
-                  className="flex items-center justify-center bg-primaryColor py-3 px-5 md:px-5 rounded text-white  text-xs md:text-sm"
+                  className={`flex items-center justify-center ${
+                    dark ? 'bg-primaryColor' : 'bg-secondaryLight'
+                  } py-3 px-5 md:px-5 rounded text-white  text-xs md:text-sm`}
                   type="submit"
                 >
                   <FaSpinner className="mr-4 animate-spin" />
@@ -69,7 +74,9 @@ const ChangeUserName = ({
                 </button>
               ) : (
                 <button
-                  className="bg-primaryColor py-3 px-[4rem] rounded text-white  text-xs md:text-sm hover:text-primaryColor hover:bg-white"
+                  className={`${
+                    dark ? 'bg-primaryColor' : 'bg-secondaryLight'
+                  } py-3 px-[4rem] rounded text-white  text-xs md:text-sm hover:text-primaryColor hover:bg-white`}
                   type="submit"
                 >
                   Submit
