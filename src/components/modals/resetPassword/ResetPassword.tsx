@@ -2,7 +2,11 @@ import * as Yup from 'yup';
 import { Formik, Form } from 'formik';
 import { FaSpinner } from 'react-icons/fa';
 import Modal from '../Modal/Modal';
-import { useAppDispatch, useAppSelector } from '../../../interfaces/interfaces';
+import {
+  RootState,
+  useAppDispatch,
+  useAppSelector,
+} from '../../../interfaces/interfaces';
 import FormField from '../../FormField/FormField';
 import useCheckStatus from '../../../hooks/useCheckStatus';
 import { resetPasswordThunk } from '../../../redux/slices/authentication/resetPasswordSlice';
@@ -32,6 +36,9 @@ const ResetPassword = ({
     status: passwordState,
     error: passwordError,
   });
+  const dark = useAppSelector(
+    (state: RootState) => state.darkModeReducer.darkMode,
+  );
 
   return (
     <Modal label="Reset Password" setOpen={setOpen} open={open}>
@@ -68,18 +75,22 @@ const ResetPassword = ({
               <div className="flex justify-center items-center mt-7">
                 {pending ? (
                   <button
-                    className="flex items-center justify-center bg-primaryColor py-3 px-5 md:px-5 rounded text-white  text-xs md:text-sm"
+                    className={`flex items-center justify-center ${
+                      dark ? 'bg-primaryColor' : 'bg-secondaryLight'
+                    } py-3 px-5 md:px-5 rounded text-white  text-sm md:text-sm`}
                     type="submit"
                   >
                     <FaSpinner className="mr-4 animate-spin" />
-                    Submitting
+                    Resetting
                   </button>
                 ) : (
                   <button
-                    className="bg-primaryColor py-3 px-[4rem] rounded text-white  text-xs md:text-sm hover:text-primaryColor hover:bg-white"
+                    className={`${
+                      dark ? 'bg-primaryColor' : 'bg-secondaryLight'
+                    } py-3 px-[4rem] rounded text-white  text-sm md:text-sm hover:text-primaryColor hover:bg-white`}
                     type="submit"
                   >
-                    Submit
+                    Reset
                   </button>
                 )}
               </div>
