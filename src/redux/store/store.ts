@@ -45,5 +45,6 @@ const store = configureStore({
 });
 
 export const persistor = persistStore(store);
+persistor.pause();
 
 export default store;

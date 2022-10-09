@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useSwipeable } from 'react-swipeable';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
+import { useRouter } from 'next/router';
 import 'swiper/css';
 import {
   RootState,
@@ -9,7 +10,6 @@ import {
   useAppSelector,
 } from '../../interfaces/interfaces';
 import { toggleDisableDragDnd } from '../../redux/slices/features/disableDragDndSlice';
-import { useRouter } from 'next/router';
 
 const Swipeable = ({
   children,
@@ -46,8 +46,13 @@ const Swipeable = ({
     },
   });
 
+  const disableSwiper = useAppSelector(
+    (state: RootState) => state.disableSwiperReducer.disableSwiper,
+  );
+
+
   return (
-    <div className=" z-50" {...handlers}>
+    <div className="z-50" {...handlers}>
       <Swiper
         spaceBetween={0}
         modules={[Navigation, Pagination, Scrollbar, A11y]}
@@ -55,9 +60,11 @@ const Swipeable = ({
         slidesPerView={1}
         threshold={0}
         edgeSwipeThreshold={0}
-        initialSlide={2}
+        initialSlide={1}
         allowSlidePrev={false}
+        allowSlideNext={disableSwiper}
         style={{ backgroundColor: bgColor }}
+        observer
       >
         <SwiperSlide>
           <div>placeholder div to fill the fist slide</div>

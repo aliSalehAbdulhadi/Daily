@@ -17,6 +17,7 @@ import {
 import { addTaskType } from '../../../redux/slices/features/addTaskTypeSlice';
 import { addTaskTypeLocally } from '../../../redux/slices/features/getTasksSlice';
 import { dynamicIconHandler } from '../../../utilities/dynamicIconHandler';
+import { toggleDisableSwiper } from '../../../redux/slices/features/disableSwiperSlice';
 
 const TaskTypeMenu = ({
   task,
@@ -53,8 +54,12 @@ const TaskTypeMenu = ({
       }),
     );
     dispatch(addTaskTypeLocally({ taskId: task?.id, taskType: value }));
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value]);
+
+  useEffect(() => {
+    dispatch(toggleDisableSwiper(hidden));
+  }, [dispatch, hidden]);
 
   return (
     <div

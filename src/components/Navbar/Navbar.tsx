@@ -96,12 +96,12 @@ const Navbar = () => {
             </div>
           </Link>
         </div>
-        <div className="absolute top-[.40rem] left-32">
+        <div className="absolute top-[1.9rem] left-[4rem] semiSm:top-[.40rem] semiSm:left-32">
           <CheckInternet />
         </div>
       </div>
 
-      <div className="hidden sm:block w-full  ">
+      <div className="hidden semiSm:block w-full  ">
         <TaskForm />
       </div>
 

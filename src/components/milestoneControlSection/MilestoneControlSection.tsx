@@ -18,7 +18,6 @@ import SortMilestoneModal from '../modals/sortMilestoneModal/SortMilestoneModal'
 import { punctCheckboxAction } from '../../redux/slices/features/milestonePunctCheckboxSlice';
 import '@djthoms/pretty-checkbox';
 
-
 const MilestoneControlSection = ({ taskId }: { taskId: any }) => {
   const [sortModal, setSortModal] = useState<boolean>(false);
   const [deleteTimer, setDeleteTimer] = useState<boolean>(false);
@@ -61,7 +60,7 @@ const MilestoneControlSection = ({ taskId }: { taskId: any }) => {
     } else if (sortMilestonesBy === 'oldMilestones') {
       return 'Oldest Milestones';
     } else if (sortMilestonesBy === 'completedMilestones') {
-      return 'Completed Milestones';
+      return 'Pending Milestones';
     } else return '';
   };
   return (

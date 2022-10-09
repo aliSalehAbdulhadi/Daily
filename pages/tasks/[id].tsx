@@ -5,7 +5,6 @@ import React, { useEffect, useRef, useState } from 'react';
 import { BsPlusCircleFill } from 'react-icons/bs';
 import { TiArrowBack } from 'react-icons/ti';
 import AdvancedForm from '../../src/components/Forms/advancedForm/AdvancedForm';
-import MileStoneForm from '../../src/components/Forms/MileStoneForm/MileStoneForm';
 import MilestoneControlSection from '../../src/components/milestoneControlSection/MilestoneControlSection';
 import MilestoneSinglePage from '../../src/components/MilestoneSinglePage/MilestoneSinglePage';
 import ProgressBar from '../../src/components/progressBar/ProgressBar';

@@ -38,8 +38,9 @@ const Home: NextPage = () => {
         <meta name="msapplication-TileColor" content="#da532c" />
         <meta name="theme-color" content="#d58989" />
       </Head>
-      <div className="flex flex-col items-center justify-center  ">
-        <div className="w-full sm:hidden">
+
+      <div className="flex flex-col items-center justify-center">
+        <div className="w-full semiSm:hidden">
           <TaskForm />
         </div>
         <TasksContainer />
