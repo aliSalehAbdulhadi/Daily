@@ -28,14 +28,6 @@ const UserModalMobile = ({
     (state: RootState) => state.getTaskReducer.userName,
   );
   const user = useAppSelector((state: RootState) => state.userReducer.userUid);
-  const bodyNoScroll = document.querySelector('body');
-
-  useEffect(() => {
-    if (!bodyNoScroll) return;
-    open
-      ? (bodyNoScroll.style.overflowY = 'hidden')
-      : (bodyNoScroll.style.overflowY = 'visible');
-  }, [open, bodyNoScroll]);
 
   return (
     <div ref={userModalRef} className={` ${open ? 'block' : 'hidden'} `}>

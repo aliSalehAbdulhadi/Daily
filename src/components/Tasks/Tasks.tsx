@@ -14,7 +14,6 @@ const Tasks = ({ id }: { id: Function }) => {
   const [completedTask, setCompletedTask] = useState<boolean>(false);
   const [taskId, setTaskId] = useState<string>('');
   const [sortModal, setSortModal] = useState<boolean>(false);
-
   const tasks: SingleTaskInterface[] = useAppSelector(
     (state: RootState) => state.getTaskReducer.tasks,
   );
@@ -27,6 +26,7 @@ const Tasks = ({ id }: { id: Function }) => {
   const sortModalRef = useClickOutside(() => {
     setSortModal(false);
   });
+  const user = useAppSelector((state: RootState) => state.userReducer.userUid);
 
   useEffect(() => {
     id(taskId);
@@ -45,7 +45,6 @@ const Tasks = ({ id }: { id: Function }) => {
   const copyTasks = tasks ? [...tasks] : [];
   const completedTasks = tasks ? tasks?.filter((task) => task.completed) : [];
   const pendingTasks = tasks ? tasks?.filter((task) => !task.completed) : [];
-  const user = useAppSelector((state: RootState) => state.userReducer.userUid);
 
   const taskSortHandler = () => {
     if (sortBy === 'newTasks') {

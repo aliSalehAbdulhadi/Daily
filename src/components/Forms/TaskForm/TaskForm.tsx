@@ -80,7 +80,7 @@ const TaskForm = () => {
           } flex items-center justify-center select-none h-fit`}
         >
           {user ? (
-            <div className=" flex flex-col mb-5 sm:mb-0 ml-7 semiSm:ml-0 xl:w-[40%] md:w-[50%] w-[70%] relative">
+            <div className=" flex flex-col mb-5 semiSm:mb-0 ml-7 semiSm:ml-0 xl:w-[40%] md:w-[50%] w-[70%] relative">
               <div className="flex items-center justify-center  w-full ">
                 <FormField
                   type="text"

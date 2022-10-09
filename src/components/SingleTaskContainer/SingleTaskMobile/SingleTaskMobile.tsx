@@ -175,7 +175,7 @@ const SingleTaskMobile = ({
             >
               <div
                 className={`flex flex-col justify-between my-0 px-5 py-2 min-h-[10rem]  ${
-                  task && task?.milestones.length <= 0 && task?.completed
+                  task && task?.milestones?.length <= 0 && task?.completed
                     ? 'w-full'
                     : 'w-[75%] mobileTaskCardBoxShadow'
                 }`}
@@ -285,7 +285,7 @@ const SingleTaskMobile = ({
                 ) : (
                   <div
                     className={`flex items-center justify-end w-[25%] bg-[#64f5c56c] pr-2 ${
-                      task && task?.milestones.length <= 0 && task?.completed
+                      task && task?.milestones?.length <= 0 && task?.completed
                         ? 'hidden'
                         : 'block'
                     }`}

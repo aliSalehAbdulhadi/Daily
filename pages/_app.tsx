@@ -7,6 +7,7 @@ import { persistor } from '../src/redux/store/store';
 import Wrapper from '../src/components/wrapper/wrapper';
 
 function MyApp({ Component, pageProps }: AppProps) {
+
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>

@@ -2,6 +2,7 @@ import { signOut } from 'firebase/auth';
 import React from 'react';
 import { auth } from '../../../container/firebase';
 import { RootState, useAppSelector } from '../../../interfaces/interfaces';
+import { persistor } from '../../../redux/store/store';
 import Modal from '../Modal/Modal';
 
 const ConfirmLogOut = ({
@@ -15,6 +16,7 @@ const ConfirmLogOut = ({
     setOpen(false);
     setTimeout(() => {
       signOut(auth);
+      persistor.purge();
     }, 500);
   };
   const dark = useAppSelector(

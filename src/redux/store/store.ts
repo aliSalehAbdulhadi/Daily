@@ -1,3 +1,4 @@
+import { createMigrate } from 'redux-persist';
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { persistReducer, persistStore } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
@@ -13,6 +14,15 @@ import disableDragDnd from '../slices/features/disableDragDndSlice';
 import sortTasksSlice from '../slices/features/sortTasksSlice';
 import sortMilestonesSlice from '../slices/features/sortMilestonesSlice';
 import milestonePunctCheckboxSlice from '../slices/features/milestonePunctCheckboxSlice';
+
+const migrations = {
+  0: (state: any) => {
+    return {
+      ...state,
+      getTaskReducer: {},
+    };
+  },
+};
 
 const rootReducer = combineReducers({
   signUpReducer: signUpSlice,
@@ -32,6 +42,8 @@ const rootReducer = combineReducers({
 const persistConfig = {
   key: 'root',
   storage,
+  version: 0,
+  // migrate: createMigrate(migrations, { debug: true }),
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -45,5 +57,6 @@ const store = configureStore({
 });
 
 export const persistor = persistStore(store);
+persistor.pause();
 
 export default store;

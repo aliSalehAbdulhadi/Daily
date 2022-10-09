@@ -11,7 +11,7 @@ import { useState, useEffect, useRef } from 'react';
 import { Draggable } from 'react-beautiful-dnd';
 import moment from 'moment';
 import { CountdownCircleTimer } from 'react-countdown-circle-timer';
-
+import { HiOutlineStar } from 'react-icons/hi';
 import {
   RootState,
   useAppDispatch,
@@ -30,7 +30,6 @@ import { editTask } from '../../../redux/slices/features/editTaskSlice';
 import useClickOutside from '../../../hooks/useClickOutside';
 import TaskTypeMenu from '../../Forms/TaskForm/TaskTypeMenu';
 import { changeTaskImportantState } from '../../../redux/slices/features/changeTaskImportantStateSlice';
-import { HiOutlineStar } from 'react-icons/hi';
 import { setCardColorByTypeHandler } from '../../../utilities/setColorByTypeHandler';
 
 const SingleTaskPc = ({
@@ -66,7 +65,7 @@ const SingleTaskPc = ({
 
   const editHanlder = (e: SyntheticEvent) => {
     e.preventDefault();
-    editText?.length === 0 || editText.length > 50
+    editText?.length === 0 || editText?.length > 50
       ? setEditText(content?.content)
       : dispatch(
           editTask({
@@ -171,7 +170,7 @@ const SingleTaskPc = ({
             <div
               className={`px-2 ${
                 edit ? 'hidden' : 'block'
-              } w-[5%]  z-50 cursor-pointer`}
+              } w-[5%]  z-39 cursor-pointer`}
             >
               <TaskTypeMenu isVertical={true} task={content} />
             </div>
@@ -194,10 +193,10 @@ const SingleTaskPc = ({
                 </button>
                 <span
                   className={`absolute top-16 right-28 text-[.65rem] ${
-                    editText.length > 50 ? 'text-red-500' : ''
+                    editText?.length > 50 ? 'text-red-500' : ''
                   }`}
                 >
-                  {editText.length}/50
+                  {editText?.length}/50
                 </span>
               </form>
             ) : (
@@ -295,7 +294,7 @@ const SingleTaskPc = ({
 
           {content?.id === taskId ? (
             <div>
-              <div className="selectedTask pointer-events-none bg-white h-[7rem] w-[1px] text-transparent  absolute top-[50%] translate-y-[-50%] left-[-15px]">
+              <div className="selectedTask pointer-events-none bg-white h-[7rem] w-[1px] text-transparent  absolute top-[50%] translate-y-[-50%] left-[-10px]">
                 .
               </div>
             </div>

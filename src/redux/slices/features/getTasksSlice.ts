@@ -1,5 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { getDoc, doc } from 'firebase/firestore';
+import { PURGE } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
 import { db } from '../../../container/firebase';
 import { SingleTaskInterface } from '../../../interfaces/interfaces';
 

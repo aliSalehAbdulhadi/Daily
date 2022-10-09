@@ -182,7 +182,7 @@ const MilestoneSinglePage = ({
               className={`font-Comfortaa font-bold flex flex-col py-2 transition-all  ml-2 semiSm:ml-0`}
             >
               <pre
-                className={`flex items-center transition-all semiSm:pb-0 whitespace-pre-line font-Comfortaa  ${
+                className={`transition-all semiSm:pb-0 whitespace-pre-line font-Comfortaa  ${
                   milestone?.milestoneCompleted ? 'strike opacity-60' : ''
                 }`}
               >
