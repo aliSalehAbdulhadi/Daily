@@ -198,7 +198,7 @@ const Tasks = ({ id }: { id: Function }) => {
                     )
                   )
                 ) : (
-                  <div className="text-white mt-[5rem]">
+                  <div className="text-white mt-[5rem] h-[100vh]">
                     <span className={`${user ? 'block' : 'hidden'}`}>
                       There are no tasks to display
                     </span>
