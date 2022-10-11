@@ -3,7 +3,6 @@ import dynamic from 'next/dynamic';
 const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
 import { v4 as uuidv4 } from 'uuid';
 import { AiFillCloseSquare } from 'react-icons/ai';
-import { GrClose } from 'react-icons/gr';
 import 'react-quill/dist/quill.snow.css';
 import 'react-quill/dist/quill.bubble.css';
 import {
@@ -108,6 +107,10 @@ const AdvancedForm = ({
     }, 1000);
 
     setValue('');
+  };
+
+  const setFocus = (ref: any) => {
+    ref?.focus();
   };
 
   return (
