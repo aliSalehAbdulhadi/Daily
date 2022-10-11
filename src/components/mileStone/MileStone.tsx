@@ -1,3 +1,4 @@
+import dynamic from 'next/dynamic';
 import React, { useEffect, useRef, useState } from 'react';
 import { BsPlusCircle, BsPlusCircleFill } from 'react-icons/bs';
 import useClickOutside from '../../hooks/useClickOutside';
@@ -9,11 +10,14 @@ import {
 import MilestoneControlSection from '../milestoneControlSection/MilestoneControlSection';
 import MilestoneSinglePage from '../MilestoneSinglePage/MilestoneSinglePage';
 import ProgressBar from '../progressBar/ProgressBar';
-import AdvancedForm from '../Forms/advancedForm/AdvancedForm';
-import TestForm from '../Forms/TestForm';
+const AdvancedForm = dynamic(
+  () => import('../Forms/advancedForm/AdvancedForm'),
+  { ssr: false },
+);
 
 const MileStone = ({ taskId }: { taskId: string }) => {
   const [plusIcon, setPlusIcon] = useState<boolean>(false);
+
   const [scroll, setScroll] = useState<boolean>(false);
   const [openAdvancedForm, setOpenAdvancedForm] = useState<boolean>(false);
 
@@ -146,7 +150,7 @@ const MileStone = ({ taskId }: { taskId: string }) => {
               setOpenAdvancedForm={setOpenAdvancedForm}
               taskId={taskId}
             />
-            {/* <TestForm /> */}
+
             <div ref={scrollRefBottom}></div>
           </div>
         </div>
