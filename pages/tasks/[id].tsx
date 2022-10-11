@@ -4,7 +4,11 @@ import { useRouter } from 'next/router';
 import React, { useEffect, useRef, useState } from 'react';
 import { BsPlusCircleFill } from 'react-icons/bs';
 import { TiArrowBack } from 'react-icons/ti';
-import AdvancedForm from '../../src/components/Forms/advancedForm/AdvancedForm';
+import dynamic from 'next/dynamic';
+const AdvancedForm = dynamic(
+  () => import('../../src/components/Forms/advancedForm/AdvancedForm'),
+  { ssr: false },
+);
 import MilestoneControlSection from '../../src/components/milestoneControlSection/MilestoneControlSection';
 import MilestoneSinglePage from '../../src/components/MilestoneSinglePage/MilestoneSinglePage';
 import ProgressBar from '../../src/components/progressBar/ProgressBar';

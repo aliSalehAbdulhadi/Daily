@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import dynamic from 'next/dynamic';
-const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
+// const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
+import ReactQuill from 'react-quill';
 import { v4 as uuidv4 } from 'uuid';
 import { AiFillCloseSquare } from 'react-icons/ai';
-import { GrClose } from 'react-icons/gr';
+import { MdClose } from 'react-icons/md';
 import 'react-quill/dist/quill.snow.css';
 import 'react-quill/dist/quill.bubble.css';
 import {
@@ -18,7 +19,6 @@ import {
 } from '../../../redux/slices/features/getTasksSlice';
 import { addMilestones } from '../../../redux/slices/features/MilestonesSlice';
 import { modules } from '../../../utilities/quillToolBar';
-import { MdClose } from 'react-icons/md';
 
 const AdvancedForm = ({
   taskId,
@@ -40,20 +40,12 @@ const AdvancedForm = ({
   const dark = useAppSelector(
     (state: RootState) => state.darkModeReducer.darkMode,
   );
-  const formats = [
-    'header',
-    'bold',
-    'italic',
-    'underline',
-    'strike',
-    'blockquote',
-    'list',
-    'bullet',
-    'indent',
-    'link',
-    'color',
-    'image',
-  ];
+
+  const quillRef = useRef(null);
+  useEffect(() => {
+    //@ts-ignore
+    quillRef?.current?.focus();
+  });
 
   function isQuillEmpty(value: string) {
     if (
@@ -125,6 +117,7 @@ const AdvancedForm = ({
       >
         <AiFillCloseSquare className="rounded-lg opacity-[.75]" size={20} />
       </button>
+
       <ReactQuill
         id="quill"
         modules={modules}
@@ -135,6 +128,7 @@ const AdvancedForm = ({
         value={value}
         onChange={setValue}
         onFocus={() => setScroll && setScroll(true)}
+        ref={quillRef}
       />
 
       <div className="w-full flex items-center ">
