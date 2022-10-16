@@ -44,7 +44,15 @@ const store = configureStore({
     }),
 });
 
+let isOnline;
+
+if (typeof window !== 'undefined') {
+  isOnline = window?.navigator?.onLine;
+}
+
 export const persistor = persistStore(store);
-persistor.pause();
+if (isOnline) {
+  persistor.pause();
+}
 
 export default store;
