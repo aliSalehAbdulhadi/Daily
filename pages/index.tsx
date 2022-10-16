@@ -1,4 +1,3 @@
-import Head from 'next/head';
 import type { NextPage } from 'next';
 import TaskForm from '../src/components/Forms/TaskForm/TaskForm';
 import TasksContainer from '../src/components/TasksContainer/TasksContainer';

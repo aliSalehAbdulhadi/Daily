@@ -27,6 +27,7 @@ const Tasks = ({ id }: { id: Function }) => {
     setSortModal(false);
   });
   const user = useAppSelector((state: RootState) => state.userReducer.userUid);
+  console.log(tasks);
 
   useEffect(() => {
     id(taskId);

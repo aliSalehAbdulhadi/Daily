@@ -20,32 +20,32 @@ class MyDocument extends Document {
           <link
             rel="apple-touch-icon"
             type="png"
-            href="/apple-touch-icon.png"
+            href="/icons/apple-touch-icon.png"
           />
           <link
             rel="icon"
             type="png"
             sizes="192x192"
-            href="/icon-maskable-192x192.png"
+            href="/icons/icon-maskable-192x192.png"
           />
           <link
             rel="icon"
             type="png"
             sizes="512x512"
-            href="/icon-maskable-512x512.png"
+            href="/icons/icon-maskable-512x512.png"
           />
 
           <link
             rel="icon"
             type="png"
             sizes="512x512"
-            href="/icon-512x512.png"
+            href="/icons/icon-512x512.png"
           />
           <link
             rel="icon"
             type="png"
             sizes="192x192"
-            href="/icon-192x192.png"
+            href="/icons/icon-192x192.png"
           />
         </Head>
         <body>
