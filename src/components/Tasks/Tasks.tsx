@@ -80,7 +80,7 @@ const Tasks = ({ id }: { id: Function }) => {
 
   return (
     <div
-      className={`flex flex-col justify-center semiSm:w-[90%]  ${
+      className={`flex flex-col justify-center semiSm:w-[90%] rounded-t ${
         dark
           ? 'bg-primaryColor semiSm:bg-secondaryColor'
           : ' bg-primaryLight semiSm:bg-secondaryLight'
@@ -123,7 +123,7 @@ const Tasks = ({ id }: { id: Function }) => {
               }`}
             >
               <div
-                className={` w-full flex item-center justify-between sticky top-0 z-[40] shadow-md  semiSm:border-b-[1px] py-3 px-5 ${
+                className={` w-full flex item-center justify-between sticky top-0 z-[40] shadow-md  semiSm:border-b-[1px] py-3 px-5 rounded-t ${
                   dark
                     ? 'bg-secondaryColor semiSm:bg-primaryColor'
                     : 'bg-primaryColor'

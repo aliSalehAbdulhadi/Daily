@@ -23,7 +23,10 @@
     "src/redux/store/store.ts",
     "src/components/Navbar/Navbar.tsx",
     "src/components/swipeable/Swipeable.jsx",
-    "src/redux/slices/features/disableDrag.js"
+    "src/redux/slices/features/disableDrag.js",
+
+    "pages/index.tsx"
   ],
+
   "exclude": ["node_modules"]
 }
