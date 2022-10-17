@@ -26,26 +26,26 @@ class MyDocument extends Document {
             rel="icon"
             type="png"
             sizes="192x192"
-            href="/icons/icon-maskable-192x192.png"
+            href="/icons/android-chrome-maskable-192x192.png"
           />
           <link
             rel="icon"
             type="png"
             sizes="512x512"
-            href="/icons/icon-maskable-512x512.png"
+            href="/icons/android-chrome-maskable-512x512.png"
           />
 
           <link
             rel="icon"
             type="png"
             sizes="512x512"
-            href="/icons/icon-512x512.png"
+            href="/icons/android-chrome-512x512.png"
           />
           <link
             rel="icon"
             type="png"
             sizes="192x192"
-            href="/icons/icon-192x192.png"
+            href="/icons/android-chrome-192x192.png"
           />
         </Head>
         <body>

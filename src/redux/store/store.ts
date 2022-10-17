@@ -51,6 +51,7 @@ if (typeof window !== 'undefined') {
 }
 
 export const persistor = persistStore(store);
+
 if (isOnline) {
   persistor.pause();
 }
