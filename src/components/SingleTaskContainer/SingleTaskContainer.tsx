@@ -7,10 +7,12 @@ const SingleTaskContainer = ({
   content,
   index,
   taskId,
+  defaultTaskId,
 }: {
   content: SingleTaskInterface;
   index: number;
   taskId: string;
+  defaultTaskId?: string;
 }) => {
   const width = useWindowSize();
 
@@ -18,7 +20,12 @@ const SingleTaskContainer = ({
     <div>
       {width >= 840 ? (
         <div className="hidden semiSm:block">
-          <SingleTaskPc content={content} index={index} taskId={taskId} />
+          <SingleTaskPc
+            content={content}
+            index={index}
+            taskId={taskId}
+            defaultTaskId={defaultTaskId}
+          />
         </div>
       ) : (
         <div className="block semiSm:hidden ">

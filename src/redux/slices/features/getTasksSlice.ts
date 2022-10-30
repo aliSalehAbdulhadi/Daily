@@ -185,6 +185,7 @@ const getTasksSlice = createSlice({
       });
     },
   },
+
   extraReducers(build) {
     build.addCase(getTasks.pending, (state) => {
       state.status = 'pending';

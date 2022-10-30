@@ -23,6 +23,7 @@ import {
 } from '../../src/interfaces/interfaces';
 import { deleteMilestoneLocally } from '../../src/redux/slices/features/getTasksSlice';
 import { deleteMilestone } from '../../src/redux/slices/features/MilestonesSlice';
+import { useScrollY } from '../../src/hooks/useScroll';
 
 const MileStone = () => {
   const router = useRouter();
@@ -62,6 +63,8 @@ const MileStone = () => {
   const sortMilestonesBy = useAppSelector(
     (state: RootState) => state.sortMilestonesReducer.sortMilestones,
   );
+
+  const scrollY = useScrollY();
 
   useEffect(() => {
     setScroll(false);
@@ -154,7 +157,7 @@ const MileStone = () => {
           className={`flex flex-col items-center justify-center w-full border-b-[1px] sticky top-0 z-[40]`}
         >
           <div
-            className={`flex py-5 px-3 w-full  ${
+            className={`flex  px-3 w-full transition-all py-4 ${
               dark ? 'bg-secondaryColor' : 'bg-primaryColor'
             }`}
           >
@@ -164,7 +167,11 @@ const MileStone = () => {
               </button>
             </Link>
             <div className="flex items-center mt-1 w-[95%]">
-              <h1 className="text-textDark mr-2 ml-3 wrapWord">
+              <h1
+                className={`text-textDark mr-2 ml-3 wrapWord ${
+                  task?.completed ? 'strike opacity-60' : ''
+                }`}
+              >
                 {task?.content}
               </h1>
             </div>
@@ -185,9 +192,11 @@ const MileStone = () => {
           </div>
 
           <div
-            className={`flex w-full shadow-lg ${
-              dark ? 'bg-primaryColor' : 'bg-secondaryLight'
-            }   ${task?.milestones.length === 0 ? 'pt-0' : 'pt-3'}`}
+            className={`flex w-full transition-all ${
+              scrollY >= 83 ? 'shadow-lg' : ''
+            } ${dark ? 'bg-primaryColor' : 'bg-secondaryLight'}   ${
+              task?.milestones.length === 0 ? 'pt-0' : 'pt-3'
+            }`}
           >
             <div
               className={`w-full px-3 pb-3 mr-1   ${

@@ -1,11 +1,7 @@
 import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
-import { RootState, useAppSelector } from '../../interfaces/interfaces';
 
 const ProgressBar = ({ percentage }: { percentage: number }) => {
-  const dark = useAppSelector(
-    (state: RootState) => state.darkModeReducer.darkMode,
-  );
   return (
     <div>
       <CircularProgressbar

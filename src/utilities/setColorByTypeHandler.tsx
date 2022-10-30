@@ -14,15 +14,15 @@ export const setCardColorByTypeHandler = (
     return isBg ? 'bg-purple-400' : 'border-purple-400';
   }
   if (content?.taskType === 'gym') {
-    return isBg ? 'bg-pink-400' : '#FF72B6';
+    return isBg ? 'bg-pink-400' : 'border-[#FF72B6]';
   }
   if (content?.taskType === 'friends') {
-    return isBg ? 'bg-teal-400' : '#2dd4bf';
+    return isBg ? 'bg-teal-400' : 'border-[#2dd4bf]';
   }
   if (content?.taskType === 'shopping') {
-    return isBg ? 'bg-[#F88379] ' : '#F88379';
+    return isBg ? 'bg-[#F88379] ' : 'border-[#F88379]';
   }
   if (content?.taskType === 'nature') {
-    return isBg ? 'bg-emerald-500' : '#10b981';
+    return isBg ? 'bg-emerald-500' : 'border-[#10b981]';
   }
 };

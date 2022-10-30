@@ -1,7 +1,6 @@
 import { BsFillPersonFill } from 'react-icons/bs';
 import { MdPark, MdWork } from 'react-icons/md';
 import { IoGameController } from 'react-icons/io5';
-import { Swiper, SwiperSlide } from 'swiper/react';
 import { FaShoppingCart, FaUserFriends } from 'react-icons/fa';
 import { CgGym } from 'react-icons/cg';
 

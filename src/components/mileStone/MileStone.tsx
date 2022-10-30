@@ -103,7 +103,11 @@ const MileStone = ({ taskId }: { taskId: string }) => {
             <div className="flex items-center justify-between mx-5">
               <div>
                 <span className="text-secondaryLight text-base">Task:</span>
-                <h1 className="text-textDark text-xl wrapWord">
+                <h1
+                  className={`text-textDark text-xl wrapWord ${
+                    task?.completed ? 'strike opacity-60' : ''
+                  }`}
+                >
                   {task?.content}
                 </h1>
               </div>
