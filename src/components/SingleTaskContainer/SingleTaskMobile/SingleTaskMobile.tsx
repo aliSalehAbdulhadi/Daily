@@ -174,7 +174,7 @@ const SingleTaskMobile = ({
             } ${completeAnimation ? 'animate-bounce' : ''} `}
             >
               <div
-                className={`flex flex-col justify-between my-0 px-5 py-2 min-h-[10rem]  ${
+                className={`flex flex-col justify-between my-0 px-3  py-2 min-h-[10rem]  ${
                   task && task?.milestones?.length <= 0 && task?.completed
                     ? 'w-full'
                     : 'w-[75%] mobileTaskCardBoxShadow'
@@ -183,13 +183,13 @@ const SingleTaskMobile = ({
                 <div
                   className={`${
                     edit ? 'hidden' : 'block'
-                  } items-center justify-between mt-1 flex `}
+                  } items-center justify-between mt-1 flex`}
                 >
                   <HiOutlineStar
                     onClick={importantStateHandler}
                     size={20}
                     fill={content?.important ? '#e8b923' : 'none'}
-                    className={` ${
+                    className={`${
                       content?.important ? 'text-yellow-300' : ''
                     } ${task?.completed ? 'invisible' : 'visible'}`}
                   />
@@ -197,7 +197,7 @@ const SingleTaskMobile = ({
                     {formatDate}
                   </div>
                 </div>
-                <div className="relative">
+                <div className="relative ml-1">
                   {edit ? (
                     <form
                       ref={textareaRef}
@@ -243,7 +243,7 @@ const SingleTaskMobile = ({
                     </div>
                   )}
                 </div>
-                <div className="flex items-center">
+                <div className="flex items-center ml-[.31rem]">
                   <div
                     className={` h-[2rem] w-fit flex items-center ${
                       edit ? 'hidden' : 'flex'
@@ -276,7 +276,7 @@ const SingleTaskMobile = ({
                     <div className="scale-[.8]">
                       <ProgressBar percentage={percentage} />
                     </div>
-                    <div className="flex items-center">
+                    <div className="flex items-center mt-1">
                       <h1 className="">{milestoneCompleted}</h1>
                       <span className="scale-[.80]">/</span>
                       <span className="">{content?.milestones.length}</span>

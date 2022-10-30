@@ -12,6 +12,8 @@ import { Draggable } from 'react-beautiful-dnd';
 import moment from 'moment';
 import { CountdownCircleTimer } from 'react-countdown-circle-timer';
 import { HiOutlineStar } from 'react-icons/hi';
+//@ts-ignore
+import { ProgressBar } from 'react-step-progress-bar';
 import {
   RootState,
   useAppDispatch,
@@ -31,15 +33,18 @@ import useClickOutside from '../../../hooks/useClickOutside';
 import TaskTypeMenu from '../../Forms/TaskForm/TaskTypeMenu';
 import { changeTaskImportantState } from '../../../redux/slices/features/changeTaskImportantStateSlice';
 import { setCardColorByTypeHandler } from '../../../utilities/setColorByTypeHandler';
+import 'react-step-progress-bar/styles.css';
 
 const SingleTaskPc = ({
   content,
   index,
   taskId,
+  defaultTaskId,
 }: {
   content: SingleTaskInterface;
   index: number;
   taskId: string;
+  defaultTaskId: any;
 }) => {
   const [deleteAnimation, setDeleteAnimation] = useState<boolean>(false);
   const [deleteTimer, setDeleteTimer] = useState<boolean>(false);
@@ -57,6 +62,15 @@ const SingleTaskPc = ({
   }, [edit]);
 
   const formatDate = moment(content?.date).format('MMM/D/YYYY');
+
+  const task = tasks?.find((task) => task?.id === defaultTaskId);
+  const milestoneCompleted = task?.milestones?.filter(
+    (ms: any) => ms?.milestoneCompleted === true,
+  ).length;
+  const percentage =
+    milestoneCompleted && task.milestones.length > 0
+      ? Math.round((milestoneCompleted / task?.milestones?.length) * 100)
+      : 0;
 
   let textareaRef = useClickOutside(() => {
     setEdit(false);
@@ -133,7 +147,7 @@ const SingleTaskPc = ({
           className={`text-textLight  outline-[1px] relative ${
             content.important ? 'outline-[1px] outline outline-yellow-400' : ''
           }
-           hover:transition-transform hover:ease-in-out hover:duration-300 font-Comfortaa font-semibold my-2 px-5 min-h-[10rem] relative ${
+           hover:transition-transform hover:ease-in-out font-Comfortaa font-semibold my-2 px-5 min-h-[10rem] relative ${
              content?.completed
                ? 'bg-red-400 shadow-2xl'
                : setCardColorByTypeHandler(true, content)
@@ -200,14 +214,32 @@ const SingleTaskPc = ({
                 </span>
               </form>
             ) : (
-              <div className="w-full ml-5">
+              <div className="w-full ml-5 ">
                 <div
-                  className={` flex-col items-center flex ${
+                  className={` flex-col  items-center flex ${
                     content?.completed ? 'strike opacity-60' : ''
                   }`}
                 >
                   <div>
                     <span className="wrapWord">{content?.content}</span>
+                  </div>
+
+                  <div
+                    className={`w-full flex items-center justify-center bottom-[.55rem] ${
+                      task && task?.milestones.length > 0
+                        ? 'absolute'
+                        : 'hidden'
+                    }`}
+                  >
+                    <div className="w-[50%] relative">
+                      <ProgressBar
+                        percent={percentage}
+                        height={8}
+                        filledBackground="linear-gradient(to right, #ccedde, #86d9b8)"
+                        unfilledBackground="#f5faf8"
+                      />
+                      <span className="ml-5 text-[.80rem] absolute top-[-5.7px] right-[-30px]">{`${milestoneCompleted}/${task?.milestones.length}`}</span>
+                    </div>
                   </div>
                 </div>
               </div>

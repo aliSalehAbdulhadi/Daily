@@ -182,11 +182,13 @@ const MilestoneSinglePage = ({
               className={`font-Comfortaa font-bold flex flex-col py-2 transition-all  ml-2 semiSm:ml-0`}
             >
               <pre
-                className={`transition-all semiSm:pb-0 whitespace-pre-line font-Comfortaa  ${
+                className={`flex transition-all semiSm:pb-0 whitespace-pre-line font-Comfortaa  ${
                   milestone?.milestoneCompleted ? 'strike opacity-60' : ''
                 }`}
               >
-                {punctCheckbox ? `${index + 1}-` : null}{' '}
+                {punctCheckbox ? (
+                  <div className="self-center">{index + 1}-</div>
+                ) : null}{' '}
                 <ReactQuill
                   readOnly
                   theme="bubble"

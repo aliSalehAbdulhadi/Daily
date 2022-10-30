@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Droppable } from 'react-beautiful-dnd';
 import { BiSortAlt2 } from 'react-icons/bi';
 import useClickOutside from '../../hooks/useClickOutside';
+import { useScrollY } from '../../hooks/useScroll';
 import {
   useAppSelector,
   SingleTaskInterface,
@@ -45,6 +46,8 @@ const Tasks = ({ id }: { id: Function }) => {
   const copyTasks = tasks ? [...tasks] : [];
   const completedTasks = tasks ? tasks?.filter((task) => task.completed) : [];
   const pendingTasks = tasks ? tasks?.filter((task) => !task.completed) : [];
+  
+  const scrollY = useScrollY();
 
   const taskSortHandler = () => {
     if (sortBy === 'newTasks') {
@@ -123,7 +126,9 @@ const Tasks = ({ id }: { id: Function }) => {
               }`}
             >
               <div
-                className={` w-full flex item-center justify-between sticky top-0 z-[40] shadow-md  semiSm:border-b-[1px] py-3 px-5 rounded-t ${
+                className={` w-full flex item-center justify-between sticky top-0 z-[40]  semiSm:border-b-[1px] transition-all px-5 ${
+                  scrollY >= 192 ? 'py-2 shadow-md ' : 'py-4'
+                } rounded-t ${
                   dark
                     ? 'bg-secondaryColor semiSm:bg-primaryColor'
                     : 'bg-primaryColor'
@@ -175,6 +180,7 @@ const Tasks = ({ id }: { id: Function }) => {
                               content={task}
                               index={index}
                               taskId={taskId}
+                              defaultTaskId={task?.id}
                             />
                           </div>
                         ) : null,
@@ -186,12 +192,13 @@ const Tasks = ({ id }: { id: Function }) => {
                           <div
                             key={task?.id}
                             className="w-full"
-                            onClick={() => setTaskId(task.id)}
+                            onClick={() => setTaskId(task?.id)}
                           >
                             <SingleTaskContainer
                               content={task}
                               index={index}
                               taskId={taskId}
+                              defaultTaskId={task?.id}
                             />
                           </div>
                         ) : null,
