@@ -42,6 +42,7 @@ const TaskForm = () => {
                   taskType: 'personal',
                   date: newDate.toISOString(),
                   important: false,
+                  locked: false,
                   milestones: [],
                 },
                 userUid: user,
@@ -59,6 +60,7 @@ const TaskForm = () => {
                   taskType: 'personal',
                   date: newDate.toISOString(),
                   important: false,
+                  locked: false,
                   milestones: [],
                 }),
               );

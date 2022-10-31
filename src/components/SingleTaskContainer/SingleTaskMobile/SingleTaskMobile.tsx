@@ -2,6 +2,7 @@ import { SyntheticEvent } from 'react';
 import { GoCheck } from 'react-icons/go';
 import { MdOutlineRemoveDone } from 'react-icons/md';
 import { HiOutlineStar } from 'react-icons/hi';
+import { HiLockClosed, HiLockOpen } from 'react-icons/hi';
 import { BiListPlus } from 'react-icons/bi';
 import { useState, useEffect, useRef } from 'react';
 import { Draggable } from 'react-beautiful-dnd';
@@ -19,6 +20,7 @@ import {
   deleteTask,
   getTasks,
   completeTaskLocally,
+  lockTaskLocally,
 } from '../../../redux/slices/features/getTasksSlice';
 import { editTask } from '../../../redux/slices/features/editTaskSlice';
 import useClickOutside from '../../../hooks/useClickOutside';
@@ -28,13 +30,16 @@ import { removeTask } from '../../../redux/slices/features/deleteTaskSlice';
 import TaskTypeMenu from '../../Forms/TaskForm/TaskTypeMenu';
 import { changeTaskImportantState } from '../../../redux/slices/features/changeTaskImportantStateSlice';
 import { setCardColorByTypeHandler } from '../../../utilities/setColorByTypeHandler';
+import { lockTask } from '../../../redux/slices/features/lockTaskSlice';
 
 const SingleTaskMobile = ({
   content,
   index,
+  taskId,
 }: {
   content: SingleTaskInterface;
   index: number;
+  taskId: string;
 }) => {
   const [completeAnimation, setCompleteAnimation] = useState<boolean>(false);
   const [deleteAnimation, setDeleteAnimation] = useState<boolean>(false);
@@ -70,6 +75,8 @@ const SingleTaskMobile = ({
     setEdit(false);
     setEditText(content?.content);
   });
+
+  let selectedTask = task?.id === taskId;
 
   const editHanlder = (e: SyntheticEvent) => {
     e.preventDefault();
@@ -107,7 +114,7 @@ const SingleTaskMobile = ({
   };
 
   const deletionHandler = () => {
-    if (!disableSwiper) return;
+    if (!disableSwiper || task?.locked) return;
     dispatch(
       removeTask({
         userUid: user,
@@ -135,6 +142,18 @@ const SingleTaskMobile = ({
     dispatch(changeTaskImportantStateLocally({ taskId: content.id }));
   };
 
+  const lockTaskHandler = () => {
+    dispatch(
+      lockTask({
+        userUid: user,
+        taskId: content?.id,
+        allTasks: tasks,
+      }),
+    );
+
+    dispatch(lockTaskLocally({ taskId: content.id }));
+  };
+
   return (
     <Draggable
       key={content?.id}
@@ -149,7 +168,11 @@ const SingleTaskMobile = ({
           ref={provided.innerRef}
           className="pb-3"
         >
-          <Swipeable handler={deletionHandler}>
+          <Swipeable
+            disableSwiper={disableSwiper}
+            taskLocked={task?.locked}
+            handler={deletionHandler}
+          >
             <div
               className={` taskMobileEnter  flex text-textLight
           font-Comfortaa font-semibold ${
@@ -265,9 +288,28 @@ const SingleTaskMobile = ({
                       />
                     )}
                   </div>
-                  <div className={edit ? 'hidden' : ''}>
+
+                  <div className={`mr-[1.15rem] ${edit ? 'hidden' : ''}`}>
                     <TaskTypeMenu isVertical={false} task={content} />
                   </div>
+
+                  {task?.locked ? (
+                    <HiLockClosed
+                      title="lock task"
+                      type="button"
+                      onClick={lockTaskHandler}
+                      size={20}
+                      className="cursor-pointer    hover:text-white transition-all ease-in-out"
+                    />
+                  ) : (
+                    <HiLockOpen
+                      title="lock task"
+                      type="button"
+                      onClick={lockTaskHandler}
+                      size={20}
+                      className="cursor-pointer  hover:text-white transition-all ease-in-out"
+                    />
+                  )}
                 </div>
               </div>
               <Link className="" href={`/tasks/${content?.id}`}>

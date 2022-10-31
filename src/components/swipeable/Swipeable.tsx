@@ -14,16 +14,19 @@ import { toggleDisableDragDnd } from '../../redux/slices/features/disableDragDnd
 const Swipeable = ({
   children,
   handler,
+  taskLocked,
+  disableSwiper,
 }: {
   children: JSX.Element;
   handler: Function;
+  taskLocked?: any;
+  disableSwiper?: boolean;
 }) => {
   const dark = useAppSelector(
     (state: RootState) => state.darkModeReducer.darkMode,
   );
   const router = useRouter();
   const { id } = router.query;
-
   const [bgColor, setBgColor] = useState(dark ? '#427676' : '#56a691');
   const dispatch = useAppDispatch();
   const handlers = useSwipeable({
@@ -46,11 +49,6 @@ const Swipeable = ({
     },
   });
 
-  const disableSwiper = useAppSelector(
-    (state: RootState) => state.disableSwiperReducer.disableSwiper,
-  );
-
-
   return (
     <div className="z-50" {...handlers}>
       <Swiper
@@ -62,7 +60,7 @@ const Swipeable = ({
         edgeSwipeThreshold={0}
         initialSlide={1}
         allowSlidePrev={false}
-        allowSlideNext={disableSwiper}
+        allowSlideNext={disableSwiper && !taskLocked}
         style={{ backgroundColor: bgColor }}
         observer
       >

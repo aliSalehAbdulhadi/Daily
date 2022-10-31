@@ -51,6 +51,7 @@ export interface SingleTaskInterface {
   taskType: string;
   date: string;
   important: boolean;
+  locked: boolean;
   milestones: object[];
 }
 

@@ -87,6 +87,21 @@ const getTasksSlice = createSlice({
       });
     },
 
+    lockTaskLocally: (
+      state: {
+        tasks: SingleTaskInterface[];
+        error: {}[];
+        status: string;
+      },
+      action: PayloadAction<{ taskId: string }>,
+    ) => {
+      state.tasks = state.tasks?.map((task: SingleTaskInterface) => {
+        return task.id === action.payload.taskId
+          ? { ...task, locked: !task.locked }
+          : task;
+      });
+    },
+
     reArrangeTasks: (
       state: {
         tasks: SingleTaskInterface[];
@@ -210,6 +225,7 @@ export const {
   reArrangeTasks,
   setMilestones,
   completeMilestoneLocally,
+  lockTaskLocally,
   deleteMilestoneLocally,
   editMilestoneLocally,
   addTaskTypeLocally,

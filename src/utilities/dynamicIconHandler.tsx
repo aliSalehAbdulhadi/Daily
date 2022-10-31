@@ -8,7 +8,7 @@ export const dynamicIconHandler = (value: string, hidden: boolean) => {
   if (value === 'personal' || !value) {
     return (
       <BsFillPersonFill
-        size={22}
+        size={21}
         title="Task Type"
         className={`${!hidden ? 'hidden' : 'block'} `}
       />
@@ -18,7 +18,7 @@ export const dynamicIconHandler = (value: string, hidden: boolean) => {
   if (value === 'work') {
     return (
       <MdWork
-        size={22}
+        size={20}
         title="Task Type"
         className={`${!hidden ? 'hidden' : 'block'} `}
       />
@@ -28,7 +28,7 @@ export const dynamicIconHandler = (value: string, hidden: boolean) => {
   if (value === 'fun') {
     return (
       <IoGameController
-        size={22}
+        size={21}
         title="Task Type"
         className={`${!hidden ? 'hidden' : 'block'} `}
       />
@@ -38,7 +38,7 @@ export const dynamicIconHandler = (value: string, hidden: boolean) => {
   if (value === 'gym') {
     return (
       <CgGym
-        size={22}
+        size={21}
         title="Task Type"
         className={`${!hidden ? 'hidden' : 'block'} `}
       />
@@ -48,7 +48,7 @@ export const dynamicIconHandler = (value: string, hidden: boolean) => {
   if (value === 'friends') {
     return (
       <FaUserFriends
-        size={22}
+        size={21}
         title="Task Type"
         className={`${!hidden ? 'hidden' : 'block'} `}
       />
@@ -58,7 +58,7 @@ export const dynamicIconHandler = (value: string, hidden: boolean) => {
   if (value === 'shopping') {
     return (
       <FaShoppingCart
-        size={22}
+        size={21}
         title="Task Type"
         className={`${!hidden ? 'hidden' : 'block'} `}
       />
@@ -68,7 +68,7 @@ export const dynamicIconHandler = (value: string, hidden: boolean) => {
   if (value === 'nature') {
     return (
       <MdPark
-        size={22}
+        size={21}
         title="Task Type"
         className={`${!hidden ? 'hidden' : 'block'} `}
       />

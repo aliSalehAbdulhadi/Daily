@@ -28,7 +28,6 @@ import { useScrollY } from '../../src/hooks/useScroll';
 const MileStone = () => {
   const router = useRouter();
   const { id } = router.query;
-  const [addMilestone, setAddMilestone] = useState<boolean>(false);
   const [deleteAnimation, setDeleteAnimation] = useState<{
     animation: boolean;
     deletedMilestoneId: string;
@@ -247,9 +246,7 @@ const MileStone = () => {
             {task?.id && !task?.completed ? (
               <BsPlusCircleFill
                 fill="white"
-                className={`h-8 w-8  transition-all ${
-                  addMilestone ? 'hidden' : 'block'
-                }`}
+                className={`h-8 w-8  transition-all `}
               />
             ) : (
               <div className="mt-[5rem]">
