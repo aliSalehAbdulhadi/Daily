@@ -47,8 +47,6 @@ const Tasks = ({ id }: { id: Function }) => {
   const copyTasks = tasks ? [...tasks] : [];
   const completedTasks = tasks ? tasks?.filter((task) => task.completed) : [];
   const pendingTasks = tasks ? tasks?.filter((task) => !task.completed) : [];
-  
-  const scrollY = useScrollY();
 
   const scrollY = useScrollY();
 
