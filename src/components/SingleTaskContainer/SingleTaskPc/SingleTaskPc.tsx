@@ -38,6 +38,7 @@ import { setCardColorByTypeHandler } from '../../../utilities/setColorByTypeHand
 import 'react-step-progress-bar/styles.css';
 import { lockTask } from '../../../redux/slices/features/lockTaskSlice';
 
+
 const SingleTaskPc = ({
   content,
   index,
