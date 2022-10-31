@@ -1,4 +1,3 @@
-import { ProviderId } from 'firebase/auth';
 import { useEffect, useState } from 'react';
 import { Droppable } from 'react-beautiful-dnd';
 import { BiSortAlt2 } from 'react-icons/bi';
