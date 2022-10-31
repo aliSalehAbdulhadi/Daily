@@ -1,3 +1,4 @@
+import { ProviderId } from 'firebase/auth';
 import { useEffect, useState } from 'react';
 import { Droppable } from 'react-beautiful-dnd';
 import { BiSortAlt2 } from 'react-icons/bi';
@@ -46,7 +47,7 @@ const Tasks = ({ id }: { id: Function }) => {
   const copyTasks = tasks ? [...tasks] : [];
   const completedTasks = tasks ? tasks?.filter((task) => task.completed) : [];
   const pendingTasks = tasks ? tasks?.filter((task) => !task.completed) : [];
-  
+
   const scrollY = useScrollY();
 
   const taskSortHandler = () => {

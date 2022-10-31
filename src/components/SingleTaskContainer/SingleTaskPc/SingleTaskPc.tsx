@@ -7,6 +7,7 @@ import {
   MdOutlineRemoveDone,
 } from 'react-icons/md';
 import { BiX } from 'react-icons/bi';
+import { HiLockClosed, HiLockOpen } from 'react-icons/hi';
 import { useState, useEffect, useRef } from 'react';
 import { Draggable } from 'react-beautiful-dnd';
 import moment from 'moment';
@@ -27,6 +28,7 @@ import {
   deleteTask,
   getTasks,
   completeTaskLocally,
+  lockTaskLocally,
 } from '../../../redux/slices/features/getTasksSlice';
 import { editTask } from '../../../redux/slices/features/editTaskSlice';
 import useClickOutside from '../../../hooks/useClickOutside';
@@ -34,6 +36,7 @@ import TaskTypeMenu from '../../Forms/TaskForm/TaskTypeMenu';
 import { changeTaskImportantState } from '../../../redux/slices/features/changeTaskImportantStateSlice';
 import { setCardColorByTypeHandler } from '../../../utilities/setColorByTypeHandler';
 import 'react-step-progress-bar/styles.css';
+import { lockTask } from '../../../redux/slices/features/lockTaskSlice';
 
 const SingleTaskPc = ({
   content,
@@ -140,6 +143,18 @@ const SingleTaskPc = ({
     dispatch(changeTaskImportantStateLocally({ taskId: content.id }));
   };
 
+  const lockTaskHandler = () => {
+    dispatch(
+      lockTask({
+        userUid: user,
+        taskId: content?.id,
+        allTasks: tasks,
+      }),
+    );
+
+    dispatch(lockTaskLocally({ taskId: content.id }));
+  };
+
   return (
     <Draggable key={content?.id} draggableId={content?.id} index={index}>
       {(provided) => (
@@ -180,12 +195,31 @@ const SingleTaskPc = ({
               />
             </div>
           </div>
-          <div className="flex items-center w-full mt-3">
+          <div className="flex items-center w-full mt-4">
             <div
-              className={`px-2 ${
+              className={`px-2 flex flex-col items-center ${
                 edit ? 'hidden' : 'block'
               } w-[5%]  z-39 cursor-pointer`}
             >
+              <div>
+                {task?.locked ? (
+                  <HiLockClosed
+                    title="lock task"
+                    type="button"
+                    onClick={lockTaskHandler}
+                    size={20}
+                    className="cursor-pointer  hover:text-white transition-all ease-in-out"
+                  />
+                ) : (
+                  <HiLockOpen
+                    title="lock task"
+                    type="button"
+                    onClick={lockTaskHandler}
+                    size={20}
+                    className="cursor-pointer  hover:text-white transition-all ease-in-out"
+                  />
+                )}
+              </div>
               <TaskTypeMenu isVertical={true} task={content} />
             </div>
 
@@ -314,12 +348,21 @@ const SingleTaskPc = ({
                   />
                 </div>
               ) : (
-                <AiFillDelete
-                  title="Delete"
-                  type="submit"
+                <button
+                  disabled={task?.locked}
                   onClick={() => setDeleteTimer(true)}
-                  className="cursor-pointer scale-[1.3]  h-[1.35rem] hover:text-white hover:scale-150 transition-all ease-in-out"
-                />
+                  className={`${task?.locked ? 'cursor-default' : ''}`}
+                  title="Delete"
+                >
+                  <AiFillDelete
+                    type="submit"
+                    className={`scale-[1.3] ml-[.10rem] h-[1.35rem] transition-all ease-in-out ${
+                      task?.locked
+                        ? 'opacity-50 '
+                        : 'hover:text-white hover:scale-150'
+                    }`}
+                  />
+                </button>
               )}
             </div>
           </div>
