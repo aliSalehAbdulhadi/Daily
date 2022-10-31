@@ -19,8 +19,8 @@ const Swipeable = ({
 }: {
   children: JSX.Element;
   handler: Function;
-  taskLocked: any;
-  disableSwiper: boolean;
+  taskLocked?: any;
+  disableSwiper?: boolean;
 }) => {
   const dark = useAppSelector(
     (state: RootState) => state.darkModeReducer.darkMode,
