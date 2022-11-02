@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { Droppable } from 'react-beautiful-dnd';
 import { BiSortAlt2 } from 'react-icons/bi';
@@ -29,6 +30,12 @@ const Tasks = ({ id }: { id: Function }) => {
   });
   const user = useAppSelector((state: RootState) => state.userReducer.userUid);
 
+  const copyTasks = tasks ? [...tasks] : [];
+  const completedTasks = tasks ? tasks?.filter((task) => task.completed) : [];
+  const pendingTasks = tasks ? tasks?.filter((task) => !task.completed) : [];
+
+  const scrollY = useScrollY();
+
   useEffect(() => {
     id(taskId);
   }, [taskId, id]);
@@ -40,14 +47,10 @@ const Tasks = ({ id }: { id: Function }) => {
   }, [tasks]);
 
   useEffect(() => {
-    setCompletedTask(false);
-  }, [tasks?.length]);
-
-  const copyTasks = tasks ? [...tasks] : [];
-  const completedTasks = tasks ? tasks?.filter((task) => task.completed) : [];
-  const pendingTasks = tasks ? tasks?.filter((task) => !task.completed) : [];
-
-  const scrollY = useScrollY();
+    if (completedTasks.length <= 0) {
+      setCompletedTask(false);
+    }
+  }, [completedTasks?.length, tasks?.length]);
 
   const taskSortHandler = () => {
     if (sortBy === 'newTasks') {
@@ -98,6 +101,7 @@ const Tasks = ({ id }: { id: Function }) => {
           >
             <div className="items-center justify-center  cursor-pointer hidden semiSm:flex">
               <button
+                title="Pending tasks"
                 onClick={() => setCompletedTask(false)}
                 className={`text-textDark mb-5 select-none py-3 px-7 rounded-tl rounded-bl text-sm semiSm:text-base whitespace-nowrap ${
                   completedTask
@@ -108,6 +112,7 @@ const Tasks = ({ id }: { id: Function }) => {
                 Pending Tasks
               </button>
               <button
+                title="Finished tasks"
                 onClick={() => setCompletedTask(true)}
                 className={`text-textDark mb-5 select-none py-3 px-5 rounded-tr rounded-br text-sm semiSm:text-base whitespace-nowrap ${
                   completedTask
@@ -205,7 +210,7 @@ const Tasks = ({ id }: { id: Function }) => {
                     )
                   )
                 ) : (
-                  <div className="text-white mt-[5rem] h-[100vh]">
+                  <div className="text-white mt-[3rem] h-[100vh]">
                     <span className={`${user ? 'block' : 'hidden'}`}>
                       There are no tasks to display
                     </span>
@@ -215,10 +220,12 @@ const Tasks = ({ id }: { id: Function }) => {
                       } flex flex-col items-center justify-center`}
                     >
                       Please login to start adding tasks
-                      <img
-                        className="opacity-70 mt-3 ml-5"
+                      <Image
+                        width={450}
+                        height={450}
+                        className="opacity-70"
                         src="/images/wavy.png"
-                        alt=""
+                        alt="Photo of a girl sitting on a hourglass and there is a man standing next to it"
                       />
                     </span>
                   </div>
@@ -232,6 +239,7 @@ const Tasks = ({ id }: { id: Function }) => {
               } ${dark ? 'bg-secondaryColor' : 'bg-primaryColor'}`}
             >
               <button
+                title="Pending tasks"
                 onClick={() => setCompletedTask(false)}
                 className={`text-textDark  select-none py-3 px-7 rounded-tl rounded-bl text-sm semiSm:text-base whitespace-nowrap ${
                   completedTask
@@ -244,6 +252,7 @@ const Tasks = ({ id }: { id: Function }) => {
                 Pending Tasks
               </button>
               <button
+                title="Finished tasks"
                 onClick={() => setCompletedTask(true)}
                 className={`text-textDark  select-none py-3 px-5 rounded-tr rounded-br text-sm semiSm:text-base whitespace-nowrap ${
                   completedTask

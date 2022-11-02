@@ -21,7 +21,6 @@ import '@djthoms/pretty-checkbox';
 const MilestoneControlSection = ({ taskId }: { taskId: any }) => {
   const [sortModal, setSortModal] = useState<boolean>(false);
   const [deleteTimer, setDeleteTimer] = useState<boolean>(false);
-
   const dispatch = useAppDispatch();
   const user = useAppSelector((state: RootState) => state.userReducer.userUid);
   const sortModalRef = useClickOutside(() => {

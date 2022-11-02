@@ -429,7 +429,7 @@ input::-webkit-input-placeholder {
 }
 
 #quill {
-  min-height: 300px;
+  min-height: 350px;
   overflow: hidden;
   font-family: Comfortaa;
 }

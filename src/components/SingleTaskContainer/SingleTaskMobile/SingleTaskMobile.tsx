@@ -299,7 +299,6 @@ const SingleTaskMobile = ({
                       type="button"
                       onClick={lockTaskHandler}
                       size={20}
-                      className="cursor-pointer    hover:text-white transition-all ease-in-out"
                     />
                   ) : (
                     <HiLockOpen
@@ -307,21 +306,20 @@ const SingleTaskMobile = ({
                       type="button"
                       onClick={lockTaskHandler}
                       size={20}
-                      className="cursor-pointer  hover:text-white transition-all ease-in-out"
                     />
                   )}
                 </div>
               </div>
-              <Link className="" href={`/tasks/${content?.id}`}>
+              <Link href={`/tasks/${content?.id}`}>
                 {task && task?.milestones?.length > 0 ? (
                   <div className=" w-[25%] flex flex-col items-center justify-center  bg-[#64f5c56c] rounded-tr rounded-br">
                     <div className="scale-[.8]">
                       <ProgressBar percentage={percentage} />
                     </div>
                     <div className="flex items-center mt-1">
-                      <h1 className="">{milestoneCompleted}</h1>
+                      <h1>{milestoneCompleted}</h1>
                       <span className="scale-[.80]">/</span>
-                      <span className="">{content?.milestones.length}</span>
+                      <span>{content?.milestones.length}</span>
                     </div>
                   </div>
                 ) : (

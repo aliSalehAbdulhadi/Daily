@@ -1,4 +1,5 @@
 import { signOut } from 'firebase/auth';
+import { useRouter } from 'next/router';
 import React from 'react';
 import { auth } from '../../../container/firebase';
 import { RootState, useAppSelector } from '../../../interfaces/interfaces';
@@ -12,11 +13,14 @@ const ConfirmLogOut = ({
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   open: boolean;
 }) => {
+  const router = useRouter();
+
   const logOutHandler = () => {
     setOpen(false);
     setTimeout(() => {
-      signOut(auth);
       persistor.purge();
+      signOut(auth);
+      router.push('/');
     }, 500);
   };
   const dark = useAppSelector(
@@ -28,10 +32,11 @@ const ConfirmLogOut = ({
       <div className="flex items-center justify-evenly md:text-base text-sm w-[25vh] font-Comfortaa">
         <button
           onClick={logOutHandler}
-          className="bg-red-600 hover:bg-white hover:text-red-600 text-white  py-2 px-4 rounded"
+          className="bg-red-600 hover:bg-white hover:text-red-600 text-white  py-2 px-4 rounded whitespace-nowrap"
         >
           Log Out
         </button>
+
         <button
           onClick={() => setOpen(false)}
           className={`${

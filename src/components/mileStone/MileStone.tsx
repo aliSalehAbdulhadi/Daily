@@ -1,5 +1,5 @@
 import dynamic from 'next/dynamic';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { Suspense, useEffect, useRef, useState } from 'react';
 import { BsPlusCircle, BsPlusCircleFill } from 'react-icons/bs';
 import useClickOutside from '../../hooks/useClickOutside';
 import {
@@ -8,8 +8,11 @@ import {
   useAppSelector,
 } from '../../interfaces/interfaces';
 import MilestoneControlSection from '../milestoneControlSection/MilestoneControlSection';
-import MilestoneSinglePage from '../MilestoneSinglePage/MilestoneSinglePage';
 import ProgressBar from '../progressBar/ProgressBar';
+const MilestoneSinglePage = dynamic(
+  () => import('../MilestoneSinglePage/MilestoneSinglePage'),
+  { suspense: true },
+);
 const AdvancedForm = dynamic(
   () => import('../Forms/advancedForm/AdvancedForm'),
   { ssr: false },
@@ -132,14 +135,16 @@ const MileStone = ({ taskId }: { taskId: string }) => {
           <div className="w-full mb-10">
             {milestonesSortHandler()?.map((milestone: any, i) => {
               return (
-                <div key={milestone.id}>
-                  <MilestoneSinglePage
-                    taskId={taskId}
-                    milestone={milestone}
-                    index={i}
-                    tasks={tasks}
-                  />
-                </div>
+                <Suspense key={milestone.id}>
+                  <div>
+                    <MilestoneSinglePage
+                      taskId={taskId}
+                      milestone={milestone}
+                      index={i}
+                      tasks={tasks}
+                    />
+                  </div>
+                </Suspense>
               );
             })}
           </div>
