@@ -1,16 +1,10 @@
 /* eslint-disable @next/next/no-img-element */
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { Suspense, useEffect, useRef, useState } from 'react';
 import { BsPlusCircleFill } from 'react-icons/bs';
 import { TiArrowBack } from 'react-icons/ti';
 import dynamic from 'next/dynamic';
-const AdvancedForm = dynamic(
-  () => import('../../src/components/Forms/advancedForm/AdvancedForm'),
-  { ssr: false },
-);
-import MilestoneControlSection from '../../src/components/milestoneControlSection/MilestoneControlSection';
-import MilestoneSinglePage from '../../src/components/MilestoneSinglePage/MilestoneSinglePage';
 import ProgressBar from '../../src/components/progressBar/ProgressBar';
 import Swipeable from '../../src/components/swipeable/Swipeable';
 import useClickOutside from '../../src/hooks/useClickOutside';
@@ -24,6 +18,22 @@ import {
 import { deleteMilestoneLocally } from '../../src/redux/slices/features/getTasksSlice';
 import { deleteMilestone } from '../../src/redux/slices/features/MilestonesSlice';
 import { useScrollY } from '../../src/hooks/useScroll';
+const MilestoneSinglePage = dynamic(
+  () => import('../../src/components/MilestoneSinglePage/MilestoneSinglePage'),
+  { suspense: true },
+);
+const AdvancedForm = dynamic(
+  () => import('../../src/components/Forms/advancedForm/AdvancedForm'),
+  { ssr: false },
+);
+
+const MilestoneControlSection = dynamic(
+  () =>
+    import(
+      '../../src/components/milestoneControlSection/MilestoneControlSection'
+    ),
+  { suspense: true },
+);
 
 const MileStone = () => {
   const router = useRouter();
@@ -35,6 +45,7 @@ const MileStone = () => {
     animation: false,
     deletedMilestoneId: '',
   });
+
   const [scroll, setScroll] = useState<boolean>(false);
   const [openAdvancedForm, setOpenAdvancedForm] = useState<boolean>(false);
   const dispatch = useAppDispatch();
@@ -197,30 +208,34 @@ const MileStone = () => {
               task?.milestones.length === 0 ? 'pt-0' : 'pt-3'
             }`}
           >
-            <div
-              className={`w-full px-3 pb-3 mr-1   ${
-                task && task?.milestones.length > 0 ? 'block ' : 'hidden'
-              }`}
-            >
-              <MilestoneControlSection taskId={task?.id} />
-            </div>
+            <Suspense>
+              <div
+                className={`w-full px-3 pb-3 mr-1   ${
+                  task && task?.milestones.length > 0 ? 'block ' : 'hidden'
+                }`}
+              >
+                <MilestoneControlSection taskId={task?.id} />
+              </div>
+            </Suspense>
           </div>
         </div>
 
         <div className={` flex flex-col w-full`}>
           {milestonesSortHandler()?.map((milestone: any, i) => {
             return (
-              <div key={milestone?.id}>
-                <Swipeable handler={() => deleteMilestoneHandler(milestone)}>
-                  <MilestoneSinglePage
-                    taskId={String(id)}
-                    milestone={milestone}
-                    index={i}
-                    tasks={tasks}
-                    setDeleteAnimationMobile={deleteAnimation}
-                  />
-                </Swipeable>
-              </div>
+              <Suspense key={milestone?.id}>
+                <div>
+                  <Swipeable handler={() => deleteMilestoneHandler(milestone)}>
+                    <MilestoneSinglePage
+                      taskId={String(id)}
+                      milestone={milestone}
+                      index={i}
+                      tasks={tasks}
+                      setDeleteAnimationMobile={deleteAnimation}
+                    />
+                  </Swipeable>
+                </div>
+              </Suspense>
             );
           })}
 

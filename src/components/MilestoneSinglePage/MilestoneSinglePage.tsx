@@ -1,6 +1,8 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { Suspense, useEffect, useRef, useState } from 'react';
 import dynamic from 'next/dynamic';
-const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
+const ReactQuill = dynamic(() => import('react-quill'), {
+  ssr: false,
+});
 import { AiFillDelete, AiOutlineDelete } from 'react-icons/ai';
 import { BsCheckCircle, BsCheckCircleFill } from 'react-icons/bs';
 import { CountdownCircleTimer } from 'react-countdown-circle-timer';
@@ -49,7 +51,6 @@ const MilestoneSinglePage = ({
   const [editText, setEditText] = useState<string>(milestone?.milestoneContent);
   const [deleteAnimation, setDeleteAnimation] = useState<boolean>(false);
   const [deleteTimer, setDeleteTimer] = useState<boolean>(false);
-
   const [initialAnimation, setInitialAnimation] = useState<boolean>(false);
   const [deleteIcon, setDeleteIcon] = useState<boolean>(false);
   const [completeIcon, setCompleteIcon] = useState<boolean>(false);
@@ -71,7 +72,6 @@ const MilestoneSinglePage = ({
   useEffect(() => {
     editRef?.current?.focus();
   });
-
   const editMilestoneHanlder = () => {
     if (editText.length === 0) {
       setEditText(milestone?.milestoneContent);

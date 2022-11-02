@@ -1,8 +1,12 @@
 import { useState } from 'react';
 import { ClapSpinner } from 'react-spinners-kit';
+import dynamic from 'next/dynamic';
+import { Suspense } from 'react';
 import { RootState, useAppSelector } from '../../interfaces/interfaces';
-import MileStone from '../mileStone/MileStone';
 import Tasks from '../Tasks/Tasks';
+const MileStone = dynamic(() => import('../mileStone/MileStone'), {
+  suspense: true,
+});
 
 const TasksContainer = () => {
   const [taskId, setTaskId] = useState<string>('');
@@ -34,9 +38,11 @@ const TasksContainer = () => {
               <Tasks id={(e: string) => setTaskId(e)} />
             </div>
 
-            <div className="w-[55%] md:w-[60%] hidden semiSm:block">
-              <MileStone taskId={taskId} />
-            </div>
+            <Suspense>
+              <div className="w-[55%] md:w-[60%] hidden semiSm:block">
+                <MileStone taskId={taskId} />
+              </div>
+            </Suspense>
           </div>
         )}
       </div>

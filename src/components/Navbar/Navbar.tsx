@@ -5,6 +5,8 @@ import Image from 'next/image';
 import { IoPersonCircleSharp } from 'react-icons/io5';
 import { BsList } from 'react-icons/bs';
 import Link from 'next/link';
+import dynamic from 'next/dynamic';
+import { Suspense } from 'react';
 import { auth } from '../../container/firebase';
 import { setUserUid } from '../../redux/slices/authentication/userSlice';
 import {
@@ -16,9 +18,16 @@ import { getTasks } from '../../redux/slices/features/getTasksSlice';
 import { toggleDarkMode } from '../../redux/slices/features/darkModeSlice';
 import TaskForm from '../Forms/TaskForm/TaskForm';
 import CheckInternet from '../checkInternet/CheckInternet';
-import UserModalPc from '../modals/UserModalPc/UserModalPc';
-import UserModalMobile from '../modals/userModalMobile/UserModalMobile';
 import useClickOutside from '../../hooks/useClickOutside';
+const UserModalPc = dynamic(() => import('../modals/UserModalPc/UserModalPc'), {
+  suspense: true,
+});
+const UserModalMobile = dynamic(
+  () => import('../modals/userModalMobile/UserModalMobile'),
+  {
+    suspense: true,
+  },
+);
 
 const Navbar = () => {
   const darkModeFunction = (): any => {
@@ -67,7 +76,7 @@ const Navbar = () => {
     <nav
       className={`${dark ? 'bg-primaryColor' : 'bg-primaryLight'} ${
         dark ? 'text-textDark' : 'text-textLight'
-      } w-full h-[10vh]  flex items-center justify-between px-5 whitespace-nowrap text-sm md:text-base md:px-10 font-Comfortaa`}
+      } w-full h-[10vh]  flex items-center justify-between px-2 whitespace-nowrap text-sm md:text-base md:px-10 font-Comfortaa`}
     >
       <div className="px-3 flex select-none relative">
         <div className={`${dark ? 'hidden' : 'block'} cursor-pointer`}>
@@ -125,7 +134,7 @@ const Navbar = () => {
             setOpenUserModalPc(true);
             setOpenUserModalMobile(true);
           }}
-          className="flex items-center justify-center border rounded-full py-1 pl-2 pr-1 transition-all ease-in-out duration-200 cursor-pointer hover:shadow-lg relative"
+          className="flex items-center justify-center border rounded-full py-1 pl-2 pr-1 mr-2 transition-all ease-in-out duration-200 cursor-pointer hover:shadow-lg relative"
         >
           <BsList
             className="mr-[.20rem]"
@@ -133,20 +142,24 @@ const Navbar = () => {
             color={dark ? 'white' : 'black'}
           />
           <IoPersonCircleSharp size={35} color={dark ? 'white' : '#696969'} />
-          <div className="absolute top-14 right-0 z-50 hidden semiSm:block">
-            <UserModalPc
-              closeAnimation={closeAnimation}
-              open={openUserModalPc}
-            />
-          </div>
+          <Suspense fallback={<h1 className="font-bold">Loading...</h1>}>
+            <div className="absolute top-14 right-0 z-50 hidden semiSm:block">
+              <UserModalPc
+                closeAnimation={closeAnimation}
+                open={openUserModalPc}
+              />
+            </div>
+          </Suspense>
         </div>
       </div>
-      <div className="fixed top-0 right-0  z-50 semiSm:hidden">
-        <UserModalMobile
-          open={openUserModalMobile}
-          setOpen={setOpenUserModalMobile}
-        />
-      </div>
+      <Suspense fallback={<h1 className="font-bold">Loading...</h1>}>
+        <div className="fixed top-0 right-0  z-50 semiSm:hidden">
+          <UserModalMobile
+            open={openUserModalMobile}
+            setOpen={setOpenUserModalMobile}
+          />
+        </div>
+      </Suspense>
     </nav>
   );
 };

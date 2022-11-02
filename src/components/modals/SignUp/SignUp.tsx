@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import * as Yup from 'yup';
 import { Formik, Form } from 'formik';
+import { FaSpinner } from 'react-icons/fa';
 import Modal from '../Modal/Modal';
 import { SignUpInterface } from '../../../interfaces/interfaces';
 import FormField from '../../FormField/FormField';
@@ -12,7 +13,6 @@ import {
 import { signUpThunk } from '../../../redux/slices/authentication/signUpSlice';
 import { addUsername } from '../../../redux/slices/features/addUsernameSlice';
 import useCheckStatus from '../../../hooks/useCheckStatus';
-import { FaSpinner } from 'react-icons/fa';
 
 const signUpSchema = Yup.object().shape({
   UserName: Yup.string().min(3).max(15).required('User name is required'),
