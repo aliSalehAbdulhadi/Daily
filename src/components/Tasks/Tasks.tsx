@@ -52,6 +52,7 @@ const Tasks = ({ id }: { id: Function }) => {
     }
   }, [completedTasks?.length, tasks?.length]);
 
+
   const taskSortHandler = () => {
     if (sortBy === 'newTasks') {
       const sortedTasks = copyTasks?.sort(
