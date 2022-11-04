@@ -39,12 +39,8 @@ const Tasks = ({ id }: { id: Function }) => {
   const user = useAppSelector((state: RootState) => state.userReducer.userUid);
 
   const copyTasks = tasks ? [...tasks] : [];
-  const completedTasks = tasks
-    ? tasks?.filter((task: any) => task.completed)
-    : [];
-  const pendingTasks = tasks
-    ? tasks?.filter((task: any) => !task.completed)
-    : [];
+  const completedTasks = tasks ? tasks?.filter((task) => task.completed) : [];
+  const pendingTasks = tasks ? tasks?.filter((task) => !task.completed) : [];
 
   const scrollY = useScrollY();
 
