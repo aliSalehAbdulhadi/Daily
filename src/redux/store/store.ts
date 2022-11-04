@@ -16,6 +16,7 @@ import milestonePunctCheckboxSlice from '../slices/features/milestonePunctCheckb
 import storedTasks from '../slices/features/storedTasks';
 import reArrangeFirebase from '../slices/features/reArrangeTasksSlice';
 
+
 const rootReducer = combineReducers({
   signUpReducer: signUpSlice,
   signInReducer: signInSlice,

@@ -22,6 +22,7 @@ const Tasks = ({ id }: { id: Function }) => {
 
   const isOnline = navigator.onLine;
   const localTasks: SingleTaskInterface[] = useAppSelector(
+
     (state: RootState) => state.getTaskReducer.tasks,
   );
   const dbTasks: SingleTaskInterface[] = useAppSelector(
@@ -29,6 +30,7 @@ const Tasks = ({ id }: { id: Function }) => {
   );
   // Switch between using tasks coming from server or local tasks depending if the user is online
   const tasks = isOnline ? dbTasks : localTasks;
+
 
   const dark = useAppSelector(
     (state: RootState) => state.darkModeReducer.darkMode,
