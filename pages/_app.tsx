@@ -8,13 +8,16 @@ import Wrapper from '../src/components/wrapper/wrapper';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <Wrapper>
-          <Component {...pageProps} />
-        </Wrapper>
-      </PersistGate>
-    </Provider>
+    <>
+      <title>Daily</title>
+      <Provider store={store}>
+        <PersistGate persistor={persistor}>
+          <Wrapper>
+            <Component {...pageProps} />
+          </Wrapper>
+        </PersistGate>
+      </Provider>
+    </>
   );
 }
 

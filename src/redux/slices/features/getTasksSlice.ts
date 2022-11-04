@@ -57,6 +57,22 @@ const getTasksSlice = createSlice({
       });
     },
 
+    editTaskLocally: (
+      state: {
+        tasks: SingleTaskInterface[];
+        error: {}[];
+        status: string;
+      },
+      action: PayloadAction<{ taskId: string; taskEdit: string }>,
+    ) => {
+      state.tasks = state.tasks?.map((task: SingleTaskInterface) => {
+        if (task.id === action.payload.taskId) {
+          task.content = action.payload.taskEdit;
+        }
+        return task;
+      });
+    },
+
     addTaskTypeLocally: (
       state: {
         tasks: SingleTaskInterface[];
@@ -222,6 +238,7 @@ export const {
   setTasks,
   deleteTask,
   completeTaskLocally,
+  editTaskLocally,
   reArrangeTasks,
   setMilestones,
   completeMilestoneLocally,

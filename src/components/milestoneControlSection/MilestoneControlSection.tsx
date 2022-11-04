@@ -4,7 +4,6 @@ import { BiSortAlt2, BiX } from 'react-icons/bi';
 import { Checkbox } from 'pretty-checkbox-react';
 import { TbListCheck } from 'react-icons/tb';
 import { MdOutlineDelete } from 'react-icons/md';
-
 import useClickOutside from '../../hooks/useClickOutside';
 import {
   RootState,

@@ -29,6 +29,7 @@ import {
   getTasks,
   completeTaskLocally,
   lockTaskLocally,
+  editTaskLocally,
 } from '../../../redux/slices/features/getTasksSlice';
 import { editTask } from '../../../redux/slices/features/editTaskSlice';
 import useClickOutside from '../../../hooks/useClickOutside';
@@ -37,7 +38,6 @@ import { changeTaskImportantState } from '../../../redux/slices/features/changeT
 import { setCardColorByTypeHandler } from '../../../utilities/setColorByTypeHandler';
 import 'react-step-progress-bar/styles.css';
 import { lockTask } from '../../../redux/slices/features/lockTaskSlice';
-
 
 const SingleTaskPc = ({
   content,
@@ -94,10 +94,11 @@ const SingleTaskPc = ({
           }),
         );
 
+    editText?.length === 0 || editText.length > 50
+      ? setEditText(content?.content)
+      : dispatch(editTaskLocally({ taskId: content?.id, taskEdit: editText }));
+
     setEdit(false);
-    setTimeout(() => {
-      dispatch(getTasks({ userUid: user }));
-    }, 150);
   };
 
   const deletionHandler = () => {

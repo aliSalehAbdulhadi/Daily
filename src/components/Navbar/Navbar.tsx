@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 import { useEffect, useState } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
 import Image from 'next/image';
@@ -142,7 +141,7 @@ const Navbar = () => {
             color={dark ? 'white' : 'black'}
           />
           <IoPersonCircleSharp size={35} color={dark ? 'white' : '#696969'} />
-          <Suspense fallback={<h1 className="font-bold">Loading...</h1>}>
+          <Suspense>
             <div className="absolute top-14 right-0 z-50 hidden semiSm:block">
               <UserModalPc
                 closeAnimation={closeAnimation}
@@ -152,7 +151,7 @@ const Navbar = () => {
           </Suspense>
         </div>
       </div>
-      <Suspense fallback={<h1 className="font-bold">Loading...</h1>}>
+      <Suspense>
         <div className="fixed top-0 right-0  z-50 semiSm:hidden">
           <UserModalMobile
             open={openUserModalMobile}
