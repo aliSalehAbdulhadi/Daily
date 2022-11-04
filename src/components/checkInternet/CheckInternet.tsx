@@ -38,7 +38,7 @@ const CheckInternet = () => {
     window.onoffline = () => {
       setCheckInternet(false);
       setSavingDataLocally(true);
-      persistor.persist();
+      // persistor.persist();
 
       setTimeout(() => {
         setSavingDataLocally(false);

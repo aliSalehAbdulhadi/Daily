@@ -206,7 +206,6 @@ const getTasksSlice = createSlice({
       state.status = 'pending';
     }),
       build.addCase(getTasks.fulfilled, (state, action: any) => {
-        console.log(action.payload?.userData?.tasks);
         state.status = 'fulfilled';
         state.tasks = action.payload?.userData?.tasks;
         state.userName = action.payload?.userName;
