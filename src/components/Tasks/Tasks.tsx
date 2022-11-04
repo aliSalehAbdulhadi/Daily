@@ -14,11 +14,19 @@ import SingleTaskContainer from '../SingleTaskContainer/SingleTaskContainer';
 
 const Tasks = ({ id }: { id: Function }) => {
   const [completedTask, setCompletedTask] = useState<boolean>(false);
+
   const [taskId, setTaskId] = useState<string>('');
   const [sortModal, setSortModal] = useState<boolean>(false);
-  const tasks: SingleTaskInterface[] = useAppSelector(
+
+  const isOnline = navigator.onLine;
+  const storedTasks: SingleTaskInterface[] = useAppSelector(
     (state: RootState) => state.getTaskReducer.tasks,
   );
+  const dbTasks: SingleTaskInterface[] = useAppSelector(
+    (state: RootState) => state?.storedTasksReducer?.tasks,
+  );
+  const tasks = isOnline ? dbTasks : storedTasks;
+
   const dark = useAppSelector(
     (state: RootState) => state.darkModeReducer.darkMode,
   );
@@ -51,7 +59,6 @@ const Tasks = ({ id }: { id: Function }) => {
       setCompletedTask(false);
     }
   }, [completedTasks?.length, tasks?.length]);
-
 
   const taskSortHandler = () => {
     if (sortBy === 'newTasks') {
