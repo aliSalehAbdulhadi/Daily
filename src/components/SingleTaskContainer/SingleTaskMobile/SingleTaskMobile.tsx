@@ -62,7 +62,7 @@ const SingleTaskMobile = ({
   const disableDrag = useAppSelector(
     (state: RootState) => state.disableDragReducer.disableDragDnd,
   );
-  const task = tasks.find((task) => task?.id === content?.id);
+  const task = tasks?.find((task) => task?.id === content?.id);
   const milestoneCompleted = task?.milestones?.filter(
     (ms: any) => ms?.milestoneCompleted === true,
   ).length;

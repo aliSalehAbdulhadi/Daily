@@ -13,6 +13,7 @@ import disableDragDnd from '../slices/features/disableDragDndSlice';
 import sortTasksSlice from '../slices/features/sortTasksSlice';
 import sortMilestonesSlice from '../slices/features/sortMilestonesSlice';
 import milestonePunctCheckboxSlice from '../slices/features/milestonePunctCheckboxSlice';
+import storedTasks from '../slices/features/storedTasks';
 
 const rootReducer = combineReducers({
   signUpReducer: signUpSlice,
@@ -27,11 +28,13 @@ const rootReducer = combineReducers({
   sortTaskReducer: sortTasksSlice,
   sortMilestonesReducer: sortMilestonesSlice,
   milestonePunctCheckboxReducer: milestonePunctCheckboxSlice,
+  storedTasksReducer: storedTasks,
 });
 
 const persistConfig = {
   key: 'root',
   storage,
+  blacklist: ['storedTasksReducer'],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -53,7 +56,7 @@ if (typeof window !== 'undefined') {
 export const persistor = persistStore(store);
 
 if (isOnline) {
-  persistor.pause();
+  // persistor.pause();
 }
 
 export default store;

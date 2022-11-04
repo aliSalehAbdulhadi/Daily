@@ -14,11 +14,19 @@ import SingleTaskContainer from '../SingleTaskContainer/SingleTaskContainer';
 
 const Tasks = ({ id }: { id: Function }) => {
   const [completedTask, setCompletedTask] = useState<boolean>(false);
+
   const [taskId, setTaskId] = useState<string>('');
   const [sortModal, setSortModal] = useState<boolean>(false);
-  const tasks: SingleTaskInterface[] = useAppSelector(
+
+  const isOnline = navigator.onLine;
+  const storedTasks: SingleTaskInterface[] = useAppSelector(
     (state: RootState) => state.getTaskReducer.tasks,
   );
+  const dbTasks: SingleTaskInterface[] = useAppSelector(
+    (state: RootState) => state?.storedTasksReducer?.tasks,
+  );
+  const tasks = isOnline ? dbTasks : storedTasks;
+
   const dark = useAppSelector(
     (state: RootState) => state.darkModeReducer.darkMode,
   );
@@ -31,8 +39,12 @@ const Tasks = ({ id }: { id: Function }) => {
   const user = useAppSelector((state: RootState) => state.userReducer.userUid);
 
   const copyTasks = tasks ? [...tasks] : [];
-  const completedTasks = tasks ? tasks?.filter((task) => task.completed) : [];
-  const pendingTasks = tasks ? tasks?.filter((task) => !task.completed) : [];
+  const completedTasks = tasks
+    ? tasks?.filter((task: any) => task.completed)
+    : [];
+  const pendingTasks = tasks
+    ? tasks?.filter((task: any) => !task.completed)
+    : [];
 
   const scrollY = useScrollY();
 
@@ -51,7 +63,6 @@ const Tasks = ({ id }: { id: Function }) => {
       setCompletedTask(false);
     }
   }, [completedTasks?.length, tasks?.length]);
-
 
   const taskSortHandler = () => {
     if (sortBy === 'newTasks') {
