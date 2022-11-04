@@ -63,17 +63,17 @@ function Modal({
                 }`}
               >
                 <div className="flex  justify-between mb-5">
-                  <h2 className="  w-max font-semibold text-[1.2rem] mb-1">
+                  <h2 className="w-max font-semibold text-[1.2rem] mt-[0.20rem]">
                     {label}
                   </h2>
                   <button
                     type="button"
-                    className="rounded-full cursor-pointer hover:bg-cusOrange hover:text-white outline-none"
+                    className="rounded-full cursor-pointer hover:bg-cusOrange hover:text-white outline-none ml-3 mb-3"
                     onClick={() => setOpen(false)}
                     ref={cancelButtonRef}
                   >
                     <svg
-                      className="w-8 h-8"
+                      className="h-8 w-8"
                       xmlns="http://www.w3.org/2000/svg"
                       fill="currentColor"
                       viewBox="0 0 16 16"

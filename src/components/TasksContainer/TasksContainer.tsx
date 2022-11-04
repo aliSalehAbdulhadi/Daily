@@ -38,7 +38,7 @@ const TasksContainer = () => {
               <Tasks id={(e: string) => setTaskId(e)} />
             </div>
 
-            <Suspense>
+            <Suspense fallback={null}>
               <div className="w-[55%] md:w-[60%] hidden semiSm:block">
                 <MileStone taskId={taskId} />
               </div>

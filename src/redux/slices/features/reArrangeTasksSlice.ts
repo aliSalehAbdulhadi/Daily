@@ -13,10 +13,14 @@ export const reArrangeFirebase = createAsyncThunk(
     userUid: string;
     allTasks: SingleTaskInterface[];
   }) => {
-    const docRef = doc(db, 'userData', userUid);
-    await updateDoc(docRef, {
-      userData: { tasks: allTasks },
-    });
+    try {
+      const docRef = doc(db, 'userData', userUid);
+      await updateDoc(docRef, {
+        userData: { tasks: allTasks },
+      });
+    } catch (error) {
+      return error;
+    }
   },
 );
 
@@ -26,7 +30,7 @@ const initialState: initialState = {
 };
 
 const reArrange = createSlice({
-  name: 'SignInSlice',
+  name: 'reArrangeFirebase',
   initialState,
   reducers: {},
   extraReducers(build) {

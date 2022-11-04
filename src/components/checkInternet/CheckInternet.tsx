@@ -18,7 +18,7 @@ const CheckInternet = () => {
   const user = useAppSelector((state: RootState) => state.userReducer.userUid);
   const dispatch = useAppDispatch();
 
-  let isOnline = window?.navigator?.onLine;
+  let isOnline = navigator?.onLine;
 
   useEffect((): void => {
     window.ononline = () => {

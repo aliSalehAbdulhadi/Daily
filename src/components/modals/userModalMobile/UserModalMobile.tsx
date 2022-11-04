@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import useClickOutside from '../../../hooks/useClickOutside';
 import { RootState, useAppSelector } from '../../../interfaces/interfaces';
 import ChangeUserName from '../changeUserName/changeUserName';

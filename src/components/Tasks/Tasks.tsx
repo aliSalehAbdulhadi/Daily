@@ -7,10 +7,12 @@ import { useScrollY } from '../../hooks/useScroll';
 import {
   useAppSelector,
   SingleTaskInterface,
+  useAppDispatch,
 } from '../../interfaces/interfaces';
 import { RootState } from '../../interfaces/interfaces';
 import SortModal from '../modals/SortModal/SortModal';
 import SingleTaskContainer from '../SingleTaskContainer/SingleTaskContainer';
+import { storedTasks } from '../../redux/slices/features/storedTasks';
 
 const Tasks = ({ id }: { id: Function }) => {
   const [completedTask, setCompletedTask] = useState<boolean>(false);
@@ -19,13 +21,14 @@ const Tasks = ({ id }: { id: Function }) => {
   const [sortModal, setSortModal] = useState<boolean>(false);
 
   const isOnline = navigator.onLine;
-  const storedTasks: SingleTaskInterface[] = useAppSelector(
+  const localTasks: SingleTaskInterface[] = useAppSelector(
     (state: RootState) => state.getTaskReducer.tasks,
   );
   const dbTasks: SingleTaskInterface[] = useAppSelector(
     (state: RootState) => state?.storedTasksReducer?.tasks,
   );
-  const tasks = isOnline ? dbTasks : storedTasks;
+  // Switch between using tasks coming from server or local tasks depending if the user is online
+  const tasks = isOnline ? dbTasks : localTasks;
 
   const dark = useAppSelector(
     (state: RootState) => state.darkModeReducer.darkMode,
@@ -38,11 +41,18 @@ const Tasks = ({ id }: { id: Function }) => {
   });
   const user = useAppSelector((state: RootState) => state.userReducer.userUid);
 
+  const dispatch = useAppDispatch();
+
   const copyTasks = tasks ? [...tasks] : [];
   const completedTasks = tasks ? tasks?.filter((task) => task.completed) : [];
   const pendingTasks = tasks ? tasks?.filter((task) => !task.completed) : [];
 
   const scrollY = useScrollY();
+
+  useEffect(() => {
+    //update local tasks storage
+    dispatch(storedTasks({ userUid: user }));
+  }, [localTasks, dispatch, user]);
 
   useEffect(() => {
     id(taskId);
@@ -139,8 +149,8 @@ const Tasks = ({ id }: { id: Function }) => {
               }`}
             >
               <div
-                className={` w-full flex item-center justify-between sticky top-0 z-[40]  semiSm:border-b-[1px] transition-all px-5 ${
-                  scrollY >= 192 ? 'py-2 shadow-md ' : 'py-4'
+                className={` w-full flex item-center justify-between sticky top-0 z-[40]  semiSm:border-b-[1px] transition-all px-5 py-3 ${
+                  scrollY >= 192 ? ' shadow-md ' : ''
                 } rounded-t ${
                   dark
                     ? 'bg-secondaryColor semiSm:bg-primaryColor'

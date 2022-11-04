@@ -21,6 +21,7 @@ import {
   getTasks,
   completeTaskLocally,
   lockTaskLocally,
+  editTaskLocally,
 } from '../../../redux/slices/features/getTasksSlice';
 import { editTask } from '../../../redux/slices/features/editTaskSlice';
 import useClickOutside from '../../../hooks/useClickOutside';
@@ -35,11 +36,9 @@ import { lockTask } from '../../../redux/slices/features/lockTaskSlice';
 const SingleTaskMobile = ({
   content,
   index,
-  taskId,
 }: {
   content: SingleTaskInterface;
   index: number;
-  taskId: string;
 }) => {
   const [completeAnimation, setCompleteAnimation] = useState<boolean>(false);
   const [deleteAnimation, setDeleteAnimation] = useState<boolean>(false);
@@ -76,8 +75,6 @@ const SingleTaskMobile = ({
     setEditText(content?.content);
   });
 
-  let selectedTask = task?.id === taskId;
-
   const editHanlder = (e: SyntheticEvent) => {
     e.preventDefault();
     editText?.length === 0 || editText.length > 50
@@ -91,12 +88,12 @@ const SingleTaskMobile = ({
           }),
         );
 
-    setEdit(false);
-    setTimeout(() => {
-      dispatch(getTasks({ userUid: user }));
-    }, 150);
-  };
+    editText?.length === 0 || editText.length > 50
+      ? setEditText(content?.content)
+      : dispatch(editTaskLocally({ taskId: content?.id, taskEdit: editText }));
 
+    setEdit(false);
+  };
   const completionHandler = () => {
     dispatch(
       completedTask({
@@ -110,7 +107,7 @@ const SingleTaskMobile = ({
     setTimeout(() => {
       dispatch(completeTaskLocally({ taskId: content?.id }));
       setCompleteAnimation(false);
-    }, 300);
+    }, 200);
   };
 
   const deletionHandler = () => {
@@ -194,7 +191,11 @@ const SingleTaskMobile = ({
               deleteAnimation
                 ? 'translate-x-[-35rem] transition-all duration-300 ease-in-out'
                 : ''
-            } ${completeAnimation ? 'animate-bounce' : ''} `}
+            } ${
+                completeAnimation
+                  ? 'translate-x-[18.5rem] transition-all duration-300 ease-in-out'
+                  : ''
+              } `}
             >
               <div
                 className={`flex flex-col justify-between my-0 px-3  py-2 min-h-[10rem]  ${

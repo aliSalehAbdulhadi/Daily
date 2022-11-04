@@ -1,6 +1,4 @@
 import React, { useEffect, useRef, useState } from 'react';
-import dynamic from 'next/dynamic';
-// const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
 import ReactQuill from 'react-quill';
 import { v4 as uuidv4 } from 'uuid';
 import { AiFillCloseSquare } from 'react-icons/ai';
@@ -30,7 +28,6 @@ const AdvancedForm = ({
   setOpenAdvancedForm: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
   const [value, setValue] = useState('');
-  const [submitAnimation, setSubmitAnimation] = useState<boolean>(false);
 
   const dispatch = useAppDispatch();
   const user = useAppSelector((state: RootState) => state.userReducer.userUid);
@@ -93,9 +90,7 @@ const AdvancedForm = ({
           );
         }, 200);
 
-    setSubmitAnimation(true);
     setTimeout(() => {
-      setSubmitAnimation(false);
       dispatch(getTasks({ userUid: user }));
     }, 1000);
 

@@ -29,7 +29,7 @@ const SingleTaskContainer = ({
         </div>
       ) : (
         <div className="block semiSm:hidden ">
-          <SingleTaskMobile content={content} index={index} taskId={taskId} />
+          <SingleTaskMobile content={content} index={index} />
         </div>
       )}
     </div>

@@ -26,10 +26,19 @@ const ConfirmLogOut = ({
   const dark = useAppSelector(
     (state: RootState) => state.darkModeReducer.darkMode,
   );
+  const isOnline = navigator.onLine;
 
   return (
-    <Modal label="Want to log out?" setOpen={setOpen} open={open}>
-      <div className="flex items-center justify-evenly md:text-base text-sm w-[25vh] font-Comfortaa">
+    <Modal
+      label={
+        isOnline
+          ? 'Want to log out?'
+          : 'Changes added while offline will be removed, Continue?'
+      }
+      setOpen={setOpen}
+      open={open}
+    >
+      <div className="flex items-center justify-evenly md:text-base text-sm font-Comfortaa">
         <button
           onClick={logOutHandler}
           className="bg-red-600 hover:bg-white hover:text-red-600 text-white  py-2 px-4 rounded whitespace-nowrap"

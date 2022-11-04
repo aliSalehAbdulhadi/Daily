@@ -14,6 +14,7 @@ import sortTasksSlice from '../slices/features/sortTasksSlice';
 import sortMilestonesSlice from '../slices/features/sortMilestonesSlice';
 import milestonePunctCheckboxSlice from '../slices/features/milestonePunctCheckboxSlice';
 import storedTasks from '../slices/features/storedTasks';
+import reArrangeFirebase from '../slices/features/reArrangeTasksSlice';
 
 const rootReducer = combineReducers({
   signUpReducer: signUpSlice,
@@ -29,6 +30,7 @@ const rootReducer = combineReducers({
   sortMilestonesReducer: sortMilestonesSlice,
   milestonePunctCheckboxReducer: milestonePunctCheckboxSlice,
   storedTasksReducer: storedTasks,
+  reArrangeFirebaseReducer: reArrangeFirebase,
 });
 
 const persistConfig = {
@@ -47,16 +49,6 @@ const store = configureStore({
     }),
 });
 
-let isOnline;
-
-if (typeof window !== 'undefined') {
-  isOnline = window?.navigator?.onLine;
-}
-
 export const persistor = persistStore(store);
-
-if (isOnline) {
-  // persistor.pause();
-}
 
 export default store;
