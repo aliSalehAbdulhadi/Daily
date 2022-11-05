@@ -34,6 +34,7 @@ const CheckInternet = () => {
     window.onoffline = () => {
       setCheckInternet(false);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [localTasks, user]);
 
   return (
