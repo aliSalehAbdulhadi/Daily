@@ -7,12 +7,11 @@ import { useScrollY } from '../../hooks/useScroll';
 import {
   useAppSelector,
   SingleTaskInterface,
-  useAppDispatch,
 } from '../../interfaces/interfaces';
 import { RootState } from '../../interfaces/interfaces';
 import SortModal from '../modals/SortModal/SortModal';
 import SingleTaskContainer from '../SingleTaskContainer/SingleTaskContainer';
-import { storedTasks } from '../../redux/slices/features/storedTasks';
+import { isOnline } from '../../utilities/isOnline';
 
 const Tasks = ({ id }: { id: Function }) => {
   const [completedTask, setCompletedTask] = useState<boolean>(false);
@@ -20,17 +19,14 @@ const Tasks = ({ id }: { id: Function }) => {
   const [taskId, setTaskId] = useState<string>('');
   const [sortModal, setSortModal] = useState<boolean>(false);
 
-  const isOnline = navigator.onLine;
   const localTasks: SingleTaskInterface[] = useAppSelector(
-
     (state: RootState) => state.getTaskReducer.tasks,
   );
   const dbTasks: SingleTaskInterface[] = useAppSelector(
-    (state: RootState) => state?.storedTasksReducer?.tasks,
+    (state: RootState) => state?.dbTasksReducer?.tasks,
   );
   // Switch between using tasks coming from server or local tasks depending if the user is online
-  const tasks = isOnline ? dbTasks : localTasks;
-
+  const tasks = isOnline() ? dbTasks : localTasks;
 
   const dark = useAppSelector(
     (state: RootState) => state.darkModeReducer.darkMode,
@@ -43,18 +39,11 @@ const Tasks = ({ id }: { id: Function }) => {
   });
   const user = useAppSelector((state: RootState) => state.userReducer.userUid);
 
-  const dispatch = useAppDispatch();
-
   const copyTasks = tasks ? [...tasks] : [];
   const completedTasks = tasks ? tasks?.filter((task) => task.completed) : [];
   const pendingTasks = tasks ? tasks?.filter((task) => !task.completed) : [];
 
   const scrollY = useScrollY();
-
-  useEffect(() => {
-    //update local tasks storage
-    dispatch(storedTasks({ userUid: user }));
-  }, [localTasks, dispatch, user]);
 
   useEffect(() => {
     id(taskId);

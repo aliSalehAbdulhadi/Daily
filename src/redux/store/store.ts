@@ -13,9 +13,8 @@ import disableDragDnd from '../slices/features/disableDragDndSlice';
 import sortTasksSlice from '../slices/features/sortTasksSlice';
 import sortMilestonesSlice from '../slices/features/sortMilestonesSlice';
 import milestonePunctCheckboxSlice from '../slices/features/milestonePunctCheckboxSlice';
-import storedTasks from '../slices/features/storedTasks';
+import storedTasks from '../slices/features/dbTasks';
 import reArrangeFirebase from '../slices/features/reArrangeTasksSlice';
-
 
 const rootReducer = combineReducers({
   signUpReducer: signUpSlice,
@@ -29,15 +28,16 @@ const rootReducer = combineReducers({
   disableDragReducer: disableDragDnd,
   sortTaskReducer: sortTasksSlice,
   sortMilestonesReducer: sortMilestonesSlice,
-  milestonePunctCheckboxReducer: milestonePunctCheckboxSlice,
-  storedTasksReducer: storedTasks,
   reArrangeFirebaseReducer: reArrangeFirebase,
+  sortTasksReducer: sortTasksSlice,
+  milestonePunctCheckboxReducer: milestonePunctCheckboxSlice,
+  dbTasksReducer: storedTasks,
 });
 
 const persistConfig = {
   key: 'root',
   storage,
-  blacklist: ['storedTasksReducer'],
+  blacklist: ['dbTasksReducer'],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

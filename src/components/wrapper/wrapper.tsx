@@ -14,6 +14,8 @@ import {
 import Navbar from '../Navbar/Navbar';
 import { toggleDisableSwiper } from '../../redux/slices/features/disableSwiperSlice';
 import { sortTaskBy } from '../../redux/slices/features/sortTasksSlice';
+import { isOnline } from '../../utilities/isOnline';
+import { reArrangedbTasks } from '../../redux/slices/features/dbTasks';
 
 const Wrapper = ({ children }: { children: JSX.Element }) => {
   const dispatch = useAppDispatch();
@@ -33,19 +35,25 @@ const Wrapper = ({ children }: { children: JSX.Element }) => {
     items.splice(destination.index, 0, reorderedItem);
 
     dispatch(reArrangeTasks(items));
-    dispatch(reArrangeFirebase({ userUid: user, allTasks: items }));
+    dispatch(reArrangedbTasks(items));
+    if (isOnline()) {
+      dispatch(reArrangeFirebase({ userUid: user, allTasks: items }));
+    }
 
+    // drag and drop to complete tasks "currently disabled"
     if (destination.droppableId === 'CompletedTasks' || 'NewTasks') {
       if (source.droppableId === destination.droppableId) {
         return false;
       } else {
-        dispatch(
-          completedTask({
-            userUid: user,
-            taskId: result.draggableId,
-            allTasks: tasks,
-          }),
-        );
+        if (isOnline()) {
+          dispatch(
+            completedTask({
+              userUid: user,
+              taskId: result.draggableId,
+              allTasks: tasks,
+            }),
+          );
+        }
         dispatch(completeTaskLocally({ taskId: result.draggableId }));
       }
     }

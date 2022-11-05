@@ -11,6 +11,7 @@ import {
   useAppDispatch,
   useAppSelector,
 } from '../../../interfaces/interfaces';
+import { isOnline } from '../../../utilities/isOnline';
 
 const formSchema = Yup.object().shape({
   Form: Yup.string().max(50, 'Too Long!'),
@@ -31,23 +32,25 @@ const TaskForm = () => {
       validationSchema={formSchema}
       onSubmit={(values, { resetForm }) => {
         const newDate = new Date();
-        values.Form.length === 0 || values.Form.length > 50
-          ? false
-          : dispatch(
-              addTask({
-                task: {
-                  content: values.Form,
-                  completed: false,
-                  id: uuidv4(),
-                  taskType: 'personal',
-                  date: newDate.toISOString(),
-                  important: false,
-                  locked: false,
-                  milestones: [],
-                },
-                userUid: user,
-              }),
-            );
+        if (isOnline()) {
+          values.Form.length === 0 || values.Form.length > 50
+            ? false
+            : dispatch(
+                addTask({
+                  task: {
+                    content: values.Form,
+                    completed: false,
+                    id: uuidv4(),
+                    taskType: 'personal',
+                    date: newDate.toISOString(),
+                    important: false,
+                    locked: false,
+                    milestones: [],
+                  },
+                  userUid: user,
+                }),
+              );
+        }
 
         values.Form.length === 0 || values.Form.length > 50
           ? false

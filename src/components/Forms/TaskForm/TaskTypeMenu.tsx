@@ -18,6 +18,7 @@ import { addTaskType } from '../../../redux/slices/features/addTaskTypeSlice';
 import { addTaskTypeLocally } from '../../../redux/slices/features/getTasksSlice';
 import { dynamicIconHandler } from '../../../utilities/dynamicIconHandler';
 import { toggleDisableSwiper } from '../../../redux/slices/features/disableSwiperSlice';
+import { isOnline } from '../../../utilities/isOnline';
 
 const TaskTypeMenu = ({
   task,
@@ -45,14 +46,17 @@ const TaskTypeMenu = ({
   };
 
   useEffect(() => {
-    dispatch(
-      addTaskType({
-        userUid: user,
-        taskId: task?.id,
-        allTasks: tasks,
-        taskType: value,
-      }),
-    );
+    if (isOnline()) {
+      dispatch(
+        addTaskType({
+          userUid: user,
+          taskId: task?.id,
+          allTasks: tasks,
+          taskType: value,
+        }),
+      );
+    }
+
     dispatch(addTaskTypeLocally({ taskId: task?.id, taskType: value }));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value]);

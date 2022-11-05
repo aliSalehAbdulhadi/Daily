@@ -30,6 +30,7 @@ import {
 import { modules } from '../../utilities/quillToolBar';
 import 'react-quill/dist/quill.bubble.css';
 import 'react-quill/dist/quill.snow.css';
+import { isOnline } from '../../utilities/isOnline';
 
 const MilestoneSinglePage = ({
   taskId,
@@ -76,15 +77,18 @@ const MilestoneSinglePage = ({
     if (editText.length === 0) {
       setEditText(milestone?.milestoneContent);
     } else {
-      dispatch(
-        editMilestone({
-          userUid: user,
-          taskId: task?.id,
-          milestone: milestone,
-          milestoneEdit: editText,
-          allTasks: tasks,
-        }),
-      );
+      if (isOnline()) {
+        dispatch(
+          editMilestone({
+            userUid: user,
+            taskId: task?.id,
+            milestone: milestone,
+            milestoneEdit: editText,
+            allTasks: tasks,
+          }),
+        );
+      }
+
       dispatch(
         editMilestoneLocally({
           taskId: task?.id,
@@ -99,19 +103,21 @@ const MilestoneSinglePage = ({
   };
 
   const completeMilestoneHandler = () => {
+    if (isOnline()) {
+      dispatch(
+        completeMilestone({
+          milestone: milestone,
+          userUid: user,
+          taskId: task?.id,
+          allTasks: tasks,
+        }),
+      );
+    }
+
     dispatch(
       completeMilestoneLocally({
         milestoneId: milestone?.id,
         taskId: task?.id,
-      }),
-    );
-
-    dispatch(
-      completeMilestone({
-        milestone: milestone,
-        userUid: user,
-        taskId: task?.id,
-        allTasks: tasks,
       }),
     );
   };
@@ -120,14 +126,18 @@ const MilestoneSinglePage = ({
     setDeleteAnimation(true);
     setTimeout(() => {
       setDeleteAnimation(false);
-      dispatch(
-        deleteMilestone({
-          milestone: milestone,
-          userUid: user,
-          taskId: task?.id,
-          allTasks: tasks,
-        }),
-      );
+
+      if (isOnline()) {
+        dispatch(
+          deleteMilestone({
+            milestone: milestone,
+            userUid: user,
+            taskId: task?.id,
+            allTasks: tasks,
+          }),
+        );
+      }
+
       dispatch(
         deleteMilestoneLocally({
           milestoneId: milestone?.id,

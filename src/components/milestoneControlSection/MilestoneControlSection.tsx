@@ -16,6 +16,7 @@ import { deleteAllFinishedMilestone } from '../../redux/slices/features/Mileston
 import SortMilestoneModal from '../modals/sortMilestoneModal/SortMilestoneModal';
 import { punctCheckboxAction } from '../../redux/slices/features/milestonePunctCheckboxSlice';
 import '@djthoms/pretty-checkbox';
+import { isOnline } from '../../utilities/isOnline';
 
 const MilestoneControlSection = ({ taskId }: { taskId: any }) => {
   const [sortModal, setSortModal] = useState<boolean>(false);
@@ -43,13 +44,15 @@ const MilestoneControlSection = ({ taskId }: { taskId: any }) => {
   );
 
   const deleteAllFinishedMilestonesHandler = () => {
-    dispatch(
-      deleteAllFinishedMilestone({
-        userUid: user,
-        taskId: task?.id,
-        allTasks: tasks,
-      }),
-    );
+    if (isOnline()) {
+      dispatch(
+        deleteAllFinishedMilestone({
+          userUid: user,
+          taskId: task?.id,
+          allTasks: tasks,
+        }),
+      );
+    }
     dispatch(deleteAllFinishedMilestoneLocally({ taskId: task?.id }));
   };
   const milestonesSortTitleHandler = () => {

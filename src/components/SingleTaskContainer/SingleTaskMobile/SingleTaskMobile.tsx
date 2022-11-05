@@ -18,7 +18,6 @@ import { completedTask } from '../../../redux/slices/features/completeTaskSlice'
 import {
   changeTaskImportantStateLocally,
   deleteTask,
-  getTasks,
   completeTaskLocally,
   lockTaskLocally,
   editTaskLocally,
@@ -32,6 +31,7 @@ import TaskTypeMenu from '../../Forms/TaskForm/TaskTypeMenu';
 import { changeTaskImportantState } from '../../../redux/slices/features/changeTaskImportantStateSlice';
 import { setCardColorByTypeHandler } from '../../../utilities/setColorByTypeHandler';
 import { lockTask } from '../../../redux/slices/features/lockTaskSlice';
+import { isOnline } from '../../../utilities/isOnline';
 
 const SingleTaskMobile = ({
   content,
@@ -77,16 +77,18 @@ const SingleTaskMobile = ({
 
   const editHanlder = (e: SyntheticEvent) => {
     e.preventDefault();
-    editText?.length === 0 || editText.length > 50
-      ? setEditText(content?.content)
-      : dispatch(
-          editTask({
-            userUid: user,
-            taskId: content?.id,
-            allTasks: tasks,
-            newTask: editText,
-          }),
-        );
+    if (isOnline()) {
+      editText?.length === 0 || editText.length > 50
+        ? setEditText(content?.content)
+        : dispatch(
+            editTask({
+              userUid: user,
+              taskId: content?.id,
+              allTasks: tasks,
+              newTask: editText,
+            }),
+          );
+    }
 
     editText?.length === 0 || editText.length > 50
       ? setEditText(content?.content)
@@ -95,13 +97,16 @@ const SingleTaskMobile = ({
     setEdit(false);
   };
   const completionHandler = () => {
-    dispatch(
-      completedTask({
-        userUid: user,
-        taskId: content.id,
-        allTasks: tasks,
-      }),
-    );
+    if (isOnline()) {
+      dispatch(
+        completedTask({
+          userUid: user,
+          taskId: content.id,
+          allTasks: tasks,
+        }),
+      );
+    }
+
     setCompleteAnimation(true);
 
     setTimeout(() => {
@@ -112,13 +117,15 @@ const SingleTaskMobile = ({
 
   const deletionHandler = () => {
     if (!disableSwiper || task?.locked) return;
-    dispatch(
-      removeTask({
-        userUid: user,
-        taskId: content?.id,
-        allTasks: tasks,
-      }),
-    );
+    if (isOnline()) {
+      dispatch(
+        removeTask({
+          userUid: user,
+          taskId: content?.id,
+          allTasks: tasks,
+        }),
+      );
+    }
 
     setDeleteAnimation(true);
     setTimeout(() => {
@@ -128,25 +135,29 @@ const SingleTaskMobile = ({
   };
 
   const importantStateHandler = () => {
-    dispatch(
-      changeTaskImportantState({
-        taskId: content?.id,
-        userUid: user,
-        allTasks: tasks,
-      }),
-    );
+    if (isOnline()) {
+      dispatch(
+        changeTaskImportantState({
+          taskId: content?.id,
+          userUid: user,
+          allTasks: tasks,
+        }),
+      );
+    }
 
     dispatch(changeTaskImportantStateLocally({ taskId: content.id }));
   };
 
   const lockTaskHandler = () => {
-    dispatch(
-      lockTask({
-        userUid: user,
-        taskId: content?.id,
-        allTasks: tasks,
-      }),
-    );
+    if (isOnline()) {
+      dispatch(
+        lockTask({
+          userUid: user,
+          taskId: content?.id,
+          allTasks: tasks,
+        }),
+      );
+    }
 
     dispatch(lockTaskLocally({ taskId: content.id }));
   };
@@ -294,21 +305,23 @@ const SingleTaskMobile = ({
                     <TaskTypeMenu isVertical={false} task={content} />
                   </div>
 
-                  {task?.locked ? (
-                    <HiLockClosed
-                      title="lock task"
-                      type="button"
-                      onClick={lockTaskHandler}
-                      size={20}
-                    />
-                  ) : (
-                    <HiLockOpen
-                      title="lock task"
-                      type="button"
-                      onClick={lockTaskHandler}
-                      size={20}
-                    />
-                  )}
+                  <div className={`${edit ? 'hidden' : ''}`}>
+                    {task?.locked ? (
+                      <HiLockClosed
+                        title="lock task"
+                        type="button"
+                        onClick={lockTaskHandler}
+                        size={20}
+                      />
+                    ) : (
+                      <HiLockOpen
+                        title="lock task"
+                        type="button"
+                        onClick={lockTaskHandler}
+                        size={20}
+                      />
+                    )}
+                  </div>
                 </div>
               </div>
               <Link href={`/tasks/${content?.id}`}>

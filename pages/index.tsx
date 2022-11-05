@@ -1,5 +1,5 @@
-import type { NextPage } from 'next';
 import { useEffect } from 'react';
+import type { NextPage } from 'next';
 import TaskForm from '../src/components/Forms/TaskForm/TaskForm';
 import TasksContainer from '../src/components/TasksContainer/TasksContainer';
 import {
@@ -8,7 +8,8 @@ import {
   useAppDispatch,
   useAppSelector,
 } from '../src/interfaces/interfaces';
-import { storedTasks } from '../src/redux/slices/features/storedTasks';
+import { dbTasks } from '../src/redux/slices/features/dbTasks';
+import { isOnline } from '../src/utilities/isOnline';
 
 const Home: NextPage = () => {
   const dispatch = useAppDispatch();
@@ -18,8 +19,11 @@ const Home: NextPage = () => {
   );
 
   useEffect(() => {
-    dispatch(storedTasks({ userUid: user }));
-  }, [tasks]);
+    //update local tasks storage
+    if (isOnline()) {
+      dispatch(dbTasks({ userUid: user }));
+    }
+  }, [tasks, dispatch, user]);
 
   return (
     <>
