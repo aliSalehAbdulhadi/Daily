@@ -23,7 +23,7 @@ const Tasks = ({ id }: { id: Function }) => {
     (state: RootState) => state.getTaskReducer.tasks,
   );
   const dbTasks: SingleTaskInterface[] = useAppSelector(
-    (state: RootState) => state?.storedTasksReducer?.tasks,
+    (state: RootState) => state?.dbTasksReducer?.tasks,
   );
   // Switch between using tasks coming from server or local tasks depending if the user is online
   const tasks = isOnline() ? dbTasks : localTasks;

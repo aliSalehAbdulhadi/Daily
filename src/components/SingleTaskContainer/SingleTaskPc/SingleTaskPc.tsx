@@ -26,7 +26,6 @@ import { removeTask } from '../../../redux/slices/features/deleteTaskSlice';
 import {
   changeTaskImportantStateLocally,
   deleteTask,
-  getTasks,
   completeTaskLocally,
   lockTaskLocally,
   editTaskLocally,
@@ -120,7 +119,7 @@ const SingleTaskPc = ({
     setTimeout(() => {
       dispatch(deleteTask({ taskId: content?.id }));
       setDeleteAnimation(false);
-    }, 250);
+    }, 200);
   };
 
   const completionHandler = () => {

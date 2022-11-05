@@ -93,10 +93,6 @@ const AdvancedForm = ({
           );
         }, 200);
 
-    setTimeout(() => {
-      dispatch(getTasks({ userUid: user }));
-    }, 1000);
-
     setValue('');
   };
 

@@ -22,7 +22,6 @@ const CheckInternet = () => {
 
   useEffect((): void => {
     window.ononline = () => {
-      console.log('dispatch');
       setCheckInternet(true);
       dispatch(reArrangeFirebase({ userUid: user, allTasks: localTasks }));
       setUploadData(true);
