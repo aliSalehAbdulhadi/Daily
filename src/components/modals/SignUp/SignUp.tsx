@@ -13,6 +13,7 @@ import {
 import { signUpThunk } from '../../../redux/slices/authentication/signUpSlice';
 import { addUsername } from '../../../redux/slices/features/addUsernameSlice';
 import useCheckStatus from '../../../hooks/useCheckStatus';
+import { isOnline } from '../../../utilities/isOnline';
 
 const signUpSchema = Yup.object().shape({
   UserName: Yup.string().min(3).max(15).required('User name is required'),
@@ -48,7 +49,7 @@ const SignUp = ({ open, setOpen, setSignIn }: SignUpInterface) => {
   const [fullName, setFullName] = useState<string>(userName);
   const [submit, setSubmit] = useState<boolean>(false);
   useEffect(() => {
-    if (submit) {
+    if (submit && isOnline()) {
       dispatch(
         addUsername({
           userName: fullName,

@@ -5,6 +5,7 @@ import { auth } from '../../../container/firebase';
 import { RootState, useAppSelector } from '../../../interfaces/interfaces';
 import { persistor } from '../../../redux/store/store';
 import Modal from '../Modal/Modal';
+import { isOnline } from '../../../utilities/isOnline';
 
 const ConfirmLogOut = ({
   setOpen,
@@ -26,12 +27,11 @@ const ConfirmLogOut = ({
   const dark = useAppSelector(
     (state: RootState) => state.darkModeReducer.darkMode,
   );
-  const isOnline = navigator.onLine;
 
   return (
     <Modal
       label={
-        isOnline
+        isOnline()
           ? 'Want to log out?'
           : 'Changes added while offline will be removed, Continue?'
       }

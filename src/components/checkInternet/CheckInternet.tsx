@@ -7,22 +7,24 @@ import {
   useAppDispatch,
   useAppSelector,
 } from '../../interfaces/interfaces';
+import { reArrangeFirebase } from '../../redux/slices/features/reArrangeTasksSlice';
+import { isOnline } from '../../utilities/isOnline';
 
 const CheckInternet = () => {
   const [checkInternet, setCheckInternet] = useState<boolean>(true);
   const [uploadData, setUploadData] = useState<boolean>(false);
 
-  const tasks: SingleTaskInterface[] = useAppSelector(
+  const dispatch = useAppDispatch();
+  const localTasks: SingleTaskInterface[] = useAppSelector(
     (state: RootState) => state.getTaskReducer.tasks,
   );
   const user = useAppSelector((state: RootState) => state.userReducer.userUid);
-  const dispatch = useAppDispatch();
-
-  let isOnline = navigator?.onLine;
 
   useEffect((): void => {
     window.ononline = () => {
+      console.log('dispatch');
       setCheckInternet(true);
+      dispatch(reArrangeFirebase({ userUid: user, allTasks: localTasks }));
       setUploadData(true);
       setTimeout(() => {
         setUploadData(false);
@@ -33,11 +35,11 @@ const CheckInternet = () => {
     window.onoffline = () => {
       setCheckInternet(false);
     };
-  }, [dispatch, tasks, user]);
+  }, [localTasks, user]);
 
   return (
     <div>
-      {!checkInternet || !isOnline ? (
+      {!checkInternet || !isOnline() ? (
         <div>
           <div
             className={`flex mt-5 md:mt-0 justify-center items-center transition-all ease-in-out`}

@@ -14,6 +14,7 @@ import {
 import Navbar from '../Navbar/Navbar';
 import { toggleDisableSwiper } from '../../redux/slices/features/disableSwiperSlice';
 import { sortTaskBy } from '../../redux/slices/features/sortTasksSlice';
+import { isOnline } from '../../utilities/isOnline';
 
 const Wrapper = ({ children }: { children: JSX.Element }) => {
   const dispatch = useAppDispatch();
@@ -36,16 +37,19 @@ const Wrapper = ({ children }: { children: JSX.Element }) => {
     dispatch(reArrangeFirebase({ userUid: user, allTasks: items }));
 
     if (destination.droppableId === 'CompletedTasks' || 'NewTasks') {
+      // drag and drop to complete tasks "currently disabled"
       if (source.droppableId === destination.droppableId) {
         return false;
       } else {
-        dispatch(
-          completedTask({
-            userUid: user,
-            taskId: result.draggableId,
-            allTasks: tasks,
-          }),
-        );
+        if (isOnline()) {
+          dispatch(
+            completedTask({
+              userUid: user,
+              taskId: result.draggableId,
+              allTasks: tasks,
+            }),
+          );
+        }
         dispatch(completeTaskLocally({ taskId: result.draggableId }));
       }
     }

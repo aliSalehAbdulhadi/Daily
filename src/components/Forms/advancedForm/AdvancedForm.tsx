@@ -17,6 +17,7 @@ import {
 } from '../../../redux/slices/features/getTasksSlice';
 import { addMilestones } from '../../../redux/slices/features/MilestonesSlice';
 import { modules } from '../../../utilities/quillToolBar';
+import { isOnline } from '../../../utilities/isOnline';
 
 const AdvancedForm = ({
   taskId,
@@ -58,21 +59,23 @@ const AdvancedForm = ({
     e.preventDefault();
     const newDate = new Date();
 
-    isQuillEmpty(value)
-      ? false
-      : dispatch(
-          addMilestones({
-            userUid: user,
-            milestone: {
-              id: uuidv4(),
-              milestoneContent: value,
-              milestoneCompleted: false,
-              milestoneDate: newDate.toISOString(),
-            },
-            allTasks: tasks,
-            taskId: taskId,
-          }),
-        );
+    if (isOnline()) {
+      isQuillEmpty(value)
+        ? false
+        : dispatch(
+            addMilestones({
+              userUid: user,
+              milestone: {
+                id: uuidv4(),
+                milestoneContent: value,
+                milestoneCompleted: false,
+                milestoneDate: newDate.toISOString(),
+              },
+              allTasks: tasks,
+              taskId: taskId,
+            }),
+          );
+    }
 
     isQuillEmpty(value)
       ? false

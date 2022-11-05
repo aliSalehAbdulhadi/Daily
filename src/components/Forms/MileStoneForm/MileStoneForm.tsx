@@ -17,6 +17,7 @@ import {
 import { addMilestones } from '../../../redux/slices/features/MilestonesSlice';
 import useWindowSize from '../../../hooks/useWindowsSize';
 import { BiWindowOpen } from 'react-icons/bi';
+import { isOnline } from '../../../utilities/isOnline';
 
 const formSchema = Yup.object().shape({
   Form: Yup.string(),
@@ -45,21 +46,24 @@ const MileStoneForm = ({
       validationSchema={formSchema}
       onSubmit={(values, { resetForm }) => {
         const newDate = new Date();
-        values.milestoneForm.length === 0
-          ? false
-          : dispatch(
-              addMilestones({
-                userUid: user,
-                milestone: {
-                  id: uuidv4(),
-                  milestoneContent: values.milestoneForm,
-                  milestoneCompleted: false,
-                  milestoneDate: newDate.toISOString(),
-                },
-                allTasks: tasks,
-                taskId: taskId,
-              }),
-            );
+
+        if (isOnline()) {
+          values.milestoneForm.length === 0
+            ? false
+            : dispatch(
+                addMilestones({
+                  userUid: user,
+                  milestone: {
+                    id: uuidv4(),
+                    milestoneContent: values.milestoneForm,
+                    milestoneCompleted: false,
+                    milestoneDate: newDate.toISOString(),
+                  },
+                  allTasks: tasks,
+                  taskId: taskId,
+                }),
+              );
+        }
 
         values.milestoneForm.length === 0
           ? false

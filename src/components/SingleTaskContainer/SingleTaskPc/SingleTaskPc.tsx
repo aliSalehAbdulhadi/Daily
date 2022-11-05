@@ -38,6 +38,7 @@ import { changeTaskImportantState } from '../../../redux/slices/features/changeT
 import { setCardColorByTypeHandler } from '../../../utilities/setColorByTypeHandler';
 import 'react-step-progress-bar/styles.css';
 import { lockTask } from '../../../redux/slices/features/lockTaskSlice';
+import { isOnline } from '../../../utilities/isOnline';
 
 const SingleTaskPc = ({
   content,
@@ -83,16 +84,19 @@ const SingleTaskPc = ({
 
   const editHanlder = (e: SyntheticEvent) => {
     e.preventDefault();
-    editText?.length === 0 || editText?.length > 50
-      ? setEditText(content?.content)
-      : dispatch(
-          editTask({
-            userUid: user,
-            taskId: content?.id,
-            allTasks: tasks,
-            newTask: editText,
-          }),
-        );
+
+    if (isOnline()) {
+      editText?.length === 0 || editText?.length > 50
+        ? setEditText(content?.content)
+        : dispatch(
+            editTask({
+              userUid: user,
+              taskId: content?.id,
+              allTasks: tasks,
+              newTask: editText,
+            }),
+          );
+    }
 
     editText?.length === 0 || editText.length > 50
       ? setEditText(content?.content)
@@ -102,13 +106,15 @@ const SingleTaskPc = ({
   };
 
   const deletionHandler = () => {
-    dispatch(
-      removeTask({
-        userUid: user,
-        taskId: content?.id,
-        allTasks: tasks,
-      }),
-    );
+    if (isOnline()) {
+      dispatch(
+        removeTask({
+          userUid: user,
+          taskId: content?.id,
+          allTasks: tasks,
+        }),
+      );
+    }
 
     setDeleteAnimation(true);
     setTimeout(() => {
@@ -118,13 +124,15 @@ const SingleTaskPc = ({
   };
 
   const completionHandler = () => {
-    dispatch(
-      completedTask({
-        userUid: user,
-        taskId: content?.id,
-        allTasks: tasks,
-      }),
-    );
+    if (isOnline()) {
+      dispatch(
+        completedTask({
+          userUid: user,
+          taskId: content?.id,
+          allTasks: tasks,
+        }),
+      );
+    }
     setCompleteAnimation(true);
 
     setTimeout(() => {
@@ -134,25 +142,29 @@ const SingleTaskPc = ({
   };
 
   const importantStateHandler = () => {
-    dispatch(
-      changeTaskImportantState({
-        taskId: content?.id,
-        userUid: user,
-        allTasks: tasks,
-      }),
-    );
+    if (isOnline()) {
+      dispatch(
+        changeTaskImportantState({
+          taskId: content?.id,
+          userUid: user,
+          allTasks: tasks,
+        }),
+      );
+    }
 
     dispatch(changeTaskImportantStateLocally({ taskId: content.id }));
   };
 
   const lockTaskHandler = () => {
-    dispatch(
-      lockTask({
-        userUid: user,
-        taskId: content?.id,
-        allTasks: tasks,
-      }),
-    );
+    if (isOnline()) {
+      dispatch(
+        lockTask({
+          userUid: user,
+          taskId: content?.id,
+          allTasks: tasks,
+        }),
+      );
+    }
 
     dispatch(lockTaskLocally({ taskId: content.id }));
   };

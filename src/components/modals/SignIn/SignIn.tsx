@@ -11,6 +11,7 @@ import {
 import FormField from '../../FormField/FormField';
 import { signInThunk } from '../../../redux/slices/authentication/signInSlice';
 import useCheckStatus from '../../../hooks/useCheckStatus';
+import { isOnline } from '../../../utilities/isOnline';
 
 const signInSchema = Yup.object().shape({
   Email: Yup.string().min(3).max(24).required(),
@@ -46,9 +47,11 @@ const SignIn = ({
         initialValues={{ Email: '', Password: '' }}
         validationSchema={signInSchema}
         onSubmit={(values) => {
-          dispatch(
-            signInThunk({ email: values.Email, password: values.Password }),
-          );
+          if (isOnline()) {
+            dispatch(
+              signInThunk({ email: values.Email, password: values.Password }),
+            );
+          }
         }}
       >
         {({}) => (

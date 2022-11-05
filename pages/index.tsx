@@ -18,8 +18,9 @@ const Home: NextPage = () => {
   );
 
   useEffect(() => {
+    //update local tasks storage
     dispatch(storedTasks({ userUid: user }));
-  }, [tasks]);
+  }, [tasks, dispatch, user]);
 
   return (
     <>

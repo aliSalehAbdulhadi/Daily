@@ -10,6 +10,7 @@ import {
 } from '../../../interfaces/interfaces';
 import FormField from '../../FormField/FormField';
 import { changeUserName } from '../../../redux/slices/features/changeUserNameSlice';
+import { isOnline } from '../../../utilities/isOnline';
 
 const signInSchema = Yup.object().shape({
   username: Yup.string().min(0).max(15).required(),
@@ -35,23 +36,24 @@ const ChangeUserName = ({
         initialValues={{ username: '' }}
         validationSchema={signInSchema}
         onSubmit={(values) => {
-          if (values.username.length <= 0) return;
-          dispatch(
-            changeUserName({ newUserName: values.username, userUid: user }),
-          );
-          setAnimation(true);
-          setTimeout(() => {
-            location.reload();
-            setOpen(false);
-            setAnimation(false);
-          }, 1000);
+          if (isOnline()) {
+            if (values.username.length <= 0) return;
+            dispatch(
+              changeUserName({ newUserName: values.username, userUid: user }),
+            );
+            setAnimation(true);
+            setTimeout(() => {
+              location.reload();
+              setOpen(false);
+              setAnimation(false);
+            }, 1000);
+          }
         }}
-
       >
         {({}) => (
-          <Form className="">
+          <Form>
             <FormField
-              autoComplete="userName"
+              autoComplete=""
               className="mb-3"
               label=""
               name="username"
@@ -61,28 +63,34 @@ const ChangeUserName = ({
               classNameField="p-5 outline-none block w-full shadow-sm sm:text-sm border-gray-300 rounded py-3 font-Comfortaa text-textLight"
             />
 
-            <div className="flex justify-center items-center mt-8 px-[5rem] py-5">
-              {animation ? (
-                <button
-                  className={`flex items-center justify-center ${
-                    dark ? 'bg-primaryColor' : 'bg-secondaryLight'
-                  } py-3 px-5 md:px-5 rounded text-white  text-xs md:text-sm`}
-                  type="submit"
-                >
-                  <FaSpinner className="mr-4 animate-spin" />
-                  Submitting
-                </button>
-              ) : (
-                <button
-                  className={`${
-                    dark ? 'bg-primaryColor' : 'bg-secondaryLight'
-                  } py-3 px-[4rem] rounded text-white  text-xs md:text-sm hover:text-primaryColor hover:bg-white`}
-                  type="submit"
-                >
-                  Submit
-                </button>
-              )}
-            </div>
+            {isOnline() ? (
+              <div className="flex justify-center items-center mt-8 px-[5rem] py-5">
+                {animation ? (
+                  <button
+                    className={`flex items-center justify-center ${
+                      dark ? 'bg-primaryColor' : 'bg-secondaryLight'
+                    } py-3 px-5 md:px-5 rounded text-white  text-xs md:text-sm`}
+                    type="submit"
+                  >
+                    <FaSpinner className="mr-4 animate-spin" />
+                    Submitting
+                  </button>
+                ) : (
+                  <button
+                    className={`${
+                      dark ? 'bg-primaryColor' : 'bg-secondaryLight'
+                    } py-3 px-[4rem] rounded text-white  text-xs md:text-sm hover:text-primaryColor hover:bg-white`}
+                    type="submit"
+                  >
+                    Submit
+                  </button>
+                )}
+              </div>
+            ) : (
+              <div className="mt-8 text-sm">
+                You must be connected to change your name.
+              </div>
+            )}
           </Form>
         )}
       </Formik>
