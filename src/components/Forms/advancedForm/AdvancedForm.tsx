@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, memo } from 'react';
 import ReactQuill from 'react-quill';
 import { v4 as uuidv4 } from 'uuid';
 import { AiFillCloseSquare } from 'react-icons/ai';
@@ -11,10 +11,7 @@ import {
   useAppDispatch,
   useAppSelector,
 } from '../../../interfaces/interfaces';
-import {
-  getTasks,
-  setMilestones,
-} from '../../../redux/slices/features/getTasksSlice';
+import { setMilestones } from '../../../redux/slices/features/getTasksSlice';
 import { addMilestones } from '../../../redux/slices/features/MilestonesSlice';
 import { modules } from '../../../utilities/quillToolBar';
 import { isOnline } from '../../../utilities/isOnline';
