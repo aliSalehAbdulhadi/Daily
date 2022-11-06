@@ -54,6 +54,7 @@ const TasksContainer = () => {
                 </div>
               </Suspense>
             ) : null}
+
             {/* to hide X side navbar when taskComPc animation runs */}
             <style>{`body{overflow-x:${vw >= 840 ? 'hidden' : 'auto'}`}</style>
           </div>
