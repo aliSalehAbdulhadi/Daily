@@ -15,8 +15,6 @@ body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-
-  overflow-x: hidden;
 }
 
 a {
@@ -467,10 +465,4 @@ input::-webkit-input-placeholder {
 
 .ql-container.ql-snow {
   border: none !important;
-}
-
-@media only screen and (max-width: 840px) {
-  body {
-    overflow: auto;
-  }
 }
