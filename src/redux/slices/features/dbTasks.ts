@@ -36,6 +36,100 @@ const dbTasksSlice = createSlice({
     ) => {
       state.tasks = action.payload;
     },
+
+    dbTasksAddTask: (
+      state: any,
+      action: PayloadAction<SingleTaskInterface>,
+    ) => {
+      state.tasks?.unshift(action.payload);
+    },
+
+    dbTasksDeleteTask: (
+      state: any,
+      action: PayloadAction<{
+        taskId: string;
+      }>,
+    ) => {
+      state.tasks = state.tasks?.filter(
+        (task: SingleTaskInterface) => task.id !== action.payload.taskId,
+      );
+    },
+    dbTasksCompleteTaskLocally: (
+      state: {
+        tasks: SingleTaskInterface[];
+        error: {}[];
+        status: string;
+      },
+      action: PayloadAction<{ taskId: string }>,
+    ) => {
+      state.tasks = state.tasks?.map((task: SingleTaskInterface) => {
+        if (task.id === action.payload.taskId) {
+          task.completed = !task.completed;
+          task.important = false;
+        }
+        return task;
+      });
+    },
+    dbTasksEditTaskLocally: (
+      state: {
+        tasks: SingleTaskInterface[];
+        error: {}[];
+        status: string;
+      },
+      action: PayloadAction<{ taskId: string; taskEdit: string }>,
+    ) => {
+      state.tasks = state.tasks?.map((task: SingleTaskInterface) => {
+        if (task.id === action.payload.taskId) {
+          task.content = action.payload.taskEdit;
+        }
+        return task;
+      });
+    },
+
+    dbTasksAddTaskTypeLocally: (
+      state: {
+        tasks: SingleTaskInterface[];
+        error: {}[];
+        status: string;
+      },
+      action: PayloadAction<{ taskId: string; taskType: string }>,
+    ) => {
+      state.tasks = state.tasks?.map((task: SingleTaskInterface) => {
+        return task.id === action.payload.taskId
+          ? { ...task, taskType: action.payload.taskType }
+          : task;
+      });
+    },
+
+    dbTasksChangeTaskImportantStateLocally: (
+      state: {
+        tasks: SingleTaskInterface[];
+        error: {}[];
+        status: string;
+      },
+      action: PayloadAction<{ taskId: string }>,
+    ) => {
+      state.tasks = state.tasks?.map((task: SingleTaskInterface) => {
+        return task.id === action.payload.taskId
+          ? { ...task, important: !task.important }
+          : task;
+      });
+    },
+
+    dbTasksLockTaskLocally: (
+      state: {
+        tasks: SingleTaskInterface[];
+        error: {}[];
+        status: string;
+      },
+      action: PayloadAction<{ taskId: string }>,
+    ) => {
+      state.tasks = state.tasks?.map((task: SingleTaskInterface) => {
+        return task.id === action.payload.taskId
+          ? { ...task, locked: !task.locked }
+          : task;
+      });
+    },
   },
 
   extraReducers(build) {
@@ -55,4 +149,12 @@ const dbTasksSlice = createSlice({
 
 export default dbTasksSlice.reducer;
 
-export const { reArrangedbTasks } = dbTasksSlice.actions;
+export const {
+  reArrangedbTasks,
+  dbTasksAddTask,
+  dbTasksEditTaskLocally,
+  dbTasksDeleteTask,
+  dbTasksLockTaskLocally,
+  dbTasksCompleteTaskLocally,
+  dbTasksChangeTaskImportantStateLocally,
+} = dbTasksSlice.actions;

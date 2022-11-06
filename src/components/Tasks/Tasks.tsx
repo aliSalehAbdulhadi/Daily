@@ -12,6 +12,7 @@ import { RootState } from '../../interfaces/interfaces';
 import SortModal from '../modals/SortModal/SortModal';
 import SingleTaskContainer from '../SingleTaskContainer/SingleTaskContainer';
 import { isOnline } from '../../utilities/isOnline';
+import ErrorMessage from '../errorMessage/ErrorMessage';
 
 const Tasks = ({ id }: { id: Function }) => {
   const [completedTask, setCompletedTask] = useState<boolean>(false);
@@ -177,11 +178,15 @@ const Tasks = ({ id }: { id: Function }) => {
               </div>
               <div
                 className={`w-[100%]  semiSm:h-[67vh] px-5 py-3 semiSm:py-2 overflow-auto scrollBar flex flex-col items-center ${
-                  user ? 'min-h-[61.5vh]' : 'h-[88.6vh]'
+                  user
+                    ? tasks?.length === 0
+                      ? 'min-h-[77.2vh]'
+                      : 'min-h-[61.5vh]'
+                    : 'h-[88.6vh]'
                 } `}
               >
-                {tasks?.length > 0 ? (
-                  completedTask ? (
+                {user ? (
+                  completedTask && tasks?.length > 0 ? (
                     taskSortHandler()?.map(
                       (task: SingleTaskInterface, index: number) =>
                         task.completed ? (
@@ -200,13 +205,36 @@ const Tasks = ({ id }: { id: Function }) => {
                         ) : null,
                     )
                   ) : (
-                    taskSortHandler()?.map(
+                    <div
+                      className={`${
+                        tasks?.length <= 0 ? 'block' : 'hidden'
+                      }  mt-[7rem]`}
+                    >
+                      <ErrorMessage
+                        message="There are no tasks to display."
+                        type="noTasks"
+                      />
+                    </div>
+                  )
+                ) : (
+                  <div className="mt-[7rem]">
+                    <ErrorMessage
+                      message="Please login to start adding tasks."
+                      type="noUser"
+                      imageLink="/images/wavy.png"
+                      imageAlt="Photo of a girl sitting on a hourglass and there is a man standing next to it"
+                    />
+                  </div>
+                )}
+
+                {!completedTask && tasks && tasks?.length > 0
+                  ? taskSortHandler()?.map(
                       (task: SingleTaskInterface, index: number) =>
-                        !task?.completed ? (
+                        !task.completed ? (
                           <div
                             key={task?.id}
                             className="w-full"
-                            onClick={() => setTaskId(task?.id)}
+                            onClick={() => setTaskId(task.id)}
                           >
                             <SingleTaskContainer
                               content={task}
@@ -217,30 +245,10 @@ const Tasks = ({ id }: { id: Function }) => {
                           </div>
                         ) : null,
                     )
-                  )
-                ) : (
-                  <div className="text-white mt-[3rem] h-[100vh]">
-                    <span className={`${user ? 'block' : 'hidden'}`}>
-                      There are no tasks to display
-                    </span>
-                    <span
-                      className={`mt-10 semiSm:mt-0 ${
-                        user ? 'hidden' : 'block'
-                      } flex flex-col items-center justify-center`}
-                    >
-                      Please login to start adding tasks
-                      <Image
-                        width={450}
-                        height={450}
-                        className="opacity-70"
-                        src="/images/wavy.png"
-                        alt="Photo of a girl sitting on a hourglass and there is a man standing next to it"
-                      />
-                    </span>
-                  </div>
-                )}
+                  : null}
               </div>
             </div>
+
             {/* mobile switch buttons */}
             <div
               className={`flex items-center justify-center cursor-pointer sticky bottom-0 z-[40]  py-3 w-full semiSm:hidden border-t-[1px]  ${
