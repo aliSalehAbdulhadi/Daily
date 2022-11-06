@@ -466,3 +466,9 @@ input::-webkit-input-placeholder {
 .ql-container.ql-snow {
   border: none !important;
 }
+
+@media only screen and (max-width: 840px) {
+  body {
+    overflow: auto;
+  }
+}
