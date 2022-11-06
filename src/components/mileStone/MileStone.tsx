@@ -1,5 +1,5 @@
 import dynamic from 'next/dynamic';
-import React, { Suspense, useEffect, useRef, useState } from 'react';
+import React, { memo, Suspense, useEffect, useRef, useState } from 'react';
 import { BsPlusCircle, BsPlusCircleFill } from 'react-icons/bs';
 import useClickOutside from '../../hooks/useClickOutside';
 import {
@@ -222,4 +222,4 @@ const MileStone = ({ taskId }: { taskId: string }) => {
   );
 };
 
-export default MileStone;
+export default memo(MileStone);

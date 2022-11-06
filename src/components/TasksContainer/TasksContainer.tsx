@@ -3,6 +3,7 @@ import { ClapSpinner } from 'react-spinners-kit';
 import dynamic from 'next/dynamic';
 import { Suspense } from 'react';
 import { RootState, useAppSelector } from '../../interfaces/interfaces';
+import useWindowSize from '../../hooks/useWindowsSize';
 const MileStone = dynamic(() => import('../mileStone/MileStone'), {
   suspense: true,
 });
@@ -19,6 +20,7 @@ const TasksContainer = () => {
     (state: RootState) => state.signInReducer?.state,
   );
 
+  const vw = useWindowSize();
   return (
     <div
       className={` ${
@@ -36,17 +38,25 @@ const TasksContainer = () => {
               dark ? 'bg-secondaryColor' : 'bg-secondaryLight'
             }  flex justify-center transition-all ease-in-out `}
           >
-            <Suspense fallback={<div className="h-screen"></div>}>
-              <div className=" semiSm:w-[45%] md:w-[40%] w-full ">
+            <Suspense fallback={<div className="h-screen" />}>
+              <div
+                className={`semiSm:w-[45%] md:w-[40%] w-full transition-all `}
+              >
                 <Tasks id={(e: string) => setTaskId(e)} />
               </div>
             </Suspense>
 
-            <Suspense fallback={null}>
-              <div className="w-[55%] md:w-[60%] hidden semiSm:block">
-                <MileStone taskId={taskId} />
-              </div>
-            </Suspense>
+            {vw >= 840 && taskId ? (
+              <Suspense>
+                <div
+                  className={`w-[55%] md:w-[60%] transition-all ${
+                    taskId ? 'taskCompPc' : ''
+                  }`}
+                >
+                  <MileStone taskId={taskId} />
+                </div>
+              </Suspense>
+            ) : null}
           </div>
         )}
       </div>

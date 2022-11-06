@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React, { Suspense, useEffect, useRef, useState } from 'react';
+import React, { memo, Suspense, useEffect, useRef, useState } from 'react';
 import { BsPlusCircleFill } from 'react-icons/bs';
 import { TiArrowBack } from 'react-icons/ti';
 import dynamic from 'next/dynamic';
