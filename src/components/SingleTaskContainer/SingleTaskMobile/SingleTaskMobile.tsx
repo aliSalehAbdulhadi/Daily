@@ -32,6 +32,13 @@ import { changeTaskImportantState } from '../../../redux/slices/features/changeT
 import { setCardColorByTypeHandler } from '../../../utilities/setColorByTypeHandler';
 import { lockTask } from '../../../redux/slices/features/lockTaskSlice';
 import { isOnline } from '../../../utilities/isOnline';
+import {
+  dbTasksChangeTaskImportantStateLocally,
+  dbTasksCompleteTaskLocally,
+  dbTasksDeleteTask,
+  dbTasksEditTaskLocally,
+  dbTasksLockTaskLocally,
+} from '../../../redux/slices/features/dbTasks';
 
 const SingleTaskMobile = ({
   content,
@@ -88,6 +95,12 @@ const SingleTaskMobile = ({
               newTask: editText,
             }),
           );
+
+      editText?.length === 0 || editText.length > 50
+        ? setEditText(content?.content)
+        : dispatch(
+            dbTasksEditTaskLocally({ taskId: content?.id, taskEdit: editText }),
+          );
     }
 
     editText?.length === 0 || editText.length > 50
@@ -96,6 +109,7 @@ const SingleTaskMobile = ({
 
     setEdit(false);
   };
+
   const completionHandler = () => {
     if (isOnline()) {
       dispatch(
@@ -111,12 +125,16 @@ const SingleTaskMobile = ({
 
     setTimeout(() => {
       dispatch(completeTaskLocally({ taskId: content?.id }));
+      if (isOnline()) {
+        dispatch(dbTasksCompleteTaskLocally({ taskId: content?.id }));
+      }
       setCompleteAnimation(false);
     }, 200);
   };
 
   const deletionHandler = () => {
     if (!disableSwiper || task?.locked) return;
+
     if (isOnline()) {
       dispatch(
         removeTask({
@@ -126,10 +144,13 @@ const SingleTaskMobile = ({
         }),
       );
     }
-
     setDeleteAnimation(true);
+
     setTimeout(() => {
       dispatch(deleteTask({ taskId: content?.id }));
+      if (isOnline()) {
+        dispatch(dbTasksDeleteTask({ taskId: content?.id }));
+      }
       setDeleteAnimation(false);
     }, 250);
   };
@@ -143,6 +164,8 @@ const SingleTaskMobile = ({
           allTasks: tasks,
         }),
       );
+
+      dispatch(dbTasksChangeTaskImportantStateLocally({ taskId: content.id }));
     }
 
     dispatch(changeTaskImportantStateLocally({ taskId: content.id }));
@@ -157,6 +180,7 @@ const SingleTaskMobile = ({
           allTasks: tasks,
         }),
       );
+      dispatch(dbTasksLockTaskLocally({ taskId: content.id }));
     }
 
     dispatch(lockTaskLocally({ taskId: content.id }));

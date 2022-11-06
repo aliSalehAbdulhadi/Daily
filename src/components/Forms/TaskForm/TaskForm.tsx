@@ -12,6 +12,7 @@ import {
   useAppSelector,
 } from '../../../interfaces/interfaces';
 import { isOnline } from '../../../utilities/isOnline';
+import { dbTasksAddTask } from '../../../redux/slices/features/dbTasks';
 
 const formSchema = Yup.object().shape({
   Form: Yup.string().max(50, 'Too Long!'),
@@ -57,6 +58,19 @@ const TaskForm = () => {
           : setTimeout(() => {
               dispatch(
                 setTasks({
+                  content: values.Form,
+                  completed: false,
+                  id: uuidv4(),
+                  taskType: 'personal',
+                  date: newDate.toISOString(),
+                  important: false,
+                  locked: false,
+                  milestones: [],
+                }),
+              );
+
+              dispatch(
+                dbTasksAddTask({
                   content: values.Form,
                   completed: false,
                   id: uuidv4(),

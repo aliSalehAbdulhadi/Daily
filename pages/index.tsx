@@ -4,7 +4,6 @@ import TaskForm from '../src/components/Forms/TaskForm/TaskForm';
 import TasksContainer from '../src/components/TasksContainer/TasksContainer';
 import {
   RootState,
-  SingleTaskInterface,
   useAppDispatch,
   useAppSelector,
 } from '../src/interfaces/interfaces';
@@ -14,16 +13,13 @@ import { isOnline } from '../src/utilities/isOnline';
 const Home: NextPage = () => {
   const dispatch = useAppDispatch();
   const user = useAppSelector((state: RootState) => state.userReducer.userUid);
-  const tasks: SingleTaskInterface[] = useAppSelector(
-    (state: RootState) => state.getTaskReducer.tasks,
-  );
 
   useEffect(() => {
-    //update local tasks storage
+    // update local tasks storage
     if (isOnline()) {
       dispatch(dbTasks({ userUid: user }));
     }
-  }, [tasks, dispatch, user]);
+  }, [dispatch, user]);
 
   return (
     <>
