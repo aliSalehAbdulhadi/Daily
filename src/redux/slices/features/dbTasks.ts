@@ -101,6 +101,21 @@ const dbTasksSlice = createSlice({
       });
     },
 
+    dbTasksChangeTypeLocally: (
+      state: {
+        tasks: SingleTaskInterface[];
+        error: {}[];
+        status: string;
+      },
+      action: PayloadAction<{ taskId: string; taskType: string }>,
+    ) => {
+      state.tasks = state.tasks?.map((task: SingleTaskInterface) => {
+        return task.id === action.payload.taskId
+          ? { ...task, taskType: action.payload.taskType }
+          : task;
+      });
+    },
+
     dbTasksChangeTaskImportantStateLocally: (
       state: {
         tasks: SingleTaskInterface[];
@@ -155,6 +170,7 @@ export const {
   dbTasksEditTaskLocally,
   dbTasksDeleteTask,
   dbTasksLockTaskLocally,
+  dbTasksChangeTypeLocally,
   dbTasksCompleteTaskLocally,
   dbTasksChangeTaskImportantStateLocally,
 } = dbTasksSlice.actions;

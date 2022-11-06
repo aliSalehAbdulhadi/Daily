@@ -119,14 +119,15 @@ const SingleTaskMobile = ({
           allTasks: tasks,
         }),
       );
-
-      dispatch(dbTasksCompleteTaskLocally({ taskId: content?.id }));
     }
 
     setCompleteAnimation(true);
 
     setTimeout(() => {
       dispatch(completeTaskLocally({ taskId: content?.id }));
+      if (isOnline()) {
+        dispatch(dbTasksCompleteTaskLocally({ taskId: content?.id }));
+      }
       setCompleteAnimation(false);
     }, 200);
   };
@@ -142,13 +143,14 @@ const SingleTaskMobile = ({
           allTasks: tasks,
         }),
       );
-
-      dispatch(dbTasksDeleteTask({ taskId: content?.id }));
     }
     setDeleteAnimation(true);
 
     setTimeout(() => {
       dispatch(deleteTask({ taskId: content?.id }));
+      if (isOnline()) {
+        dispatch(dbTasksDeleteTask({ taskId: content?.id }));
+      }
       setDeleteAnimation(false);
     }, 250);
   };

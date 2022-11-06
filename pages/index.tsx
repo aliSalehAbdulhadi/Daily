@@ -4,7 +4,6 @@ import TaskForm from '../src/components/Forms/TaskForm/TaskForm';
 import TasksContainer from '../src/components/TasksContainer/TasksContainer';
 import {
   RootState,
-  SingleTaskInterface,
   useAppDispatch,
   useAppSelector,
 } from '../src/interfaces/interfaces';
