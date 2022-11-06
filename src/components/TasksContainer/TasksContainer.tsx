@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { ClapSpinner } from 'react-spinners-kit';
 import dynamic from 'next/dynamic';
 import { Suspense } from 'react';
 import { RootState, useAppSelector } from '../../interfaces/interfaces';
@@ -29,9 +28,7 @@ const TasksContainer = () => {
     >
       <div>
         {signInStatus === 'pending' ? (
-          <h1 className="font-bold">
-            Loading <ClapSpinner />
-          </h1>
+          <h1 className="font-bold">Loading...</h1>
         ) : (
           <div
             className={` sm:px-10  ${
@@ -57,6 +54,8 @@ const TasksContainer = () => {
                 </div>
               </Suspense>
             ) : null}
+            {/* to hide X side navbar when taskComPc animation runs */}
+            <style>{`body{overflow-x:${vw >= 840 ? 'hidden' : 'auto'}`}</style>
           </div>
         )}
       </div>
