@@ -43,6 +43,7 @@ const UserModalPc = ({
               setOpenSignUpModal(true);
             }}
             className="w-full text-start my-1 py-2 px-4 hover:bg-gray-50 mt-2 font-cerealMedium"
+            type="button"
           >
             Sign up
           </button>
@@ -51,24 +52,31 @@ const UserModalPc = ({
               setOpenSignInModal(true);
             }}
             className="w-full text-start my-1 pt-2 px-4 hover:bg-gray-50 mb-3"
+            type="button"
           >
             Log in
           </button>
         </div>
       )}
 
-      <div className={`flex flex-col items-center justify-center ${user ? 'block' : 'hidden'}`}>
+      <div
+        className={`flex flex-col items-center justify-center ${
+          user ? 'block' : 'hidden'
+        }`}
+      >
         <button
           onClick={() => {
             setOpenUsernameModal(true);
           }}
           className="w-full text-start my-1 py-2 px-4 hover:bg-gray-50"
+          type="button"
         >
           Change Username
         </button>
         <button
           onClick={() => setOpenPasswordModal(true)}
           className="w-full text-start my-1 py-2 px-4 hover:bg-gray-50"
+          type="button"
         >
           Change Password
         </button>
@@ -78,6 +86,7 @@ const UserModalPc = ({
             setOpenLogoutModal(true);
           }}
           className={`w-full text-start my-1 py-2 px-4 hover:bg-gray-50 `}
+          type="button"
         >
           Log Out
         </button>

@@ -42,12 +42,14 @@ const ConfirmLogOut = ({
         <button
           onClick={logOutHandler}
           className="bg-red-600 hover:bg-white hover:text-red-600 text-white  py-2 px-4 rounded whitespace-nowrap"
+          type="button"
         >
           Log Out
         </button>
 
         <button
           onClick={() => setOpen(false)}
+          type="button"
           className={`${
             dark ? 'bg-primaryColor' : 'bg-secondaryLight'
           } hover:bg-white hover:text-primaryColor text-white  py-2 px-4 rounded`}

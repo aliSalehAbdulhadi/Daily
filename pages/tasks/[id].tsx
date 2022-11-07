@@ -258,23 +258,21 @@ const MileStone = () => {
               Add milestones
             </h1>
 
-            {task?.id && !task?.completed ? (
+            {!task?.completed ? (
               <BsPlusCircleFill
                 fill="white"
                 className={`h-8 w-8  transition-all `}
               />
-            ) : (
-              <div className="mt-[5rem]">
-                {task?.completed ? (
-                  <span>Cant add milestones to finished tasks</span>
-                ) : (
-                  <span>Select task to add milestones</span>
-                )}
-              </div>
-            )}
+            ) : null}
           </div>
+          <span
+            className={`self-center mb-10 ${task?.completed ? '' : 'hidden'}`}
+          >
+            Cant add milestones to finished tasks
+          </span>
         </div>
       </div>
+
       <div
         className={`quillFormEnterAnimationMobile absolute z-50  top-0 ${
           dark ? 'bg-primaryColor' : 'bg-secondaryLight'

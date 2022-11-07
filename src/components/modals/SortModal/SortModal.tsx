@@ -22,6 +22,7 @@ const SortModal = ({
           setOpen(false);
         }}
         className="w-full my-1 py-2 px-4 hover:bg-gray-100"
+        type="submit"
       >
         Latest Tasks
       </button>
@@ -30,6 +31,7 @@ const SortModal = ({
           dispatch(sortTaskBy('oldTasks'));
           setOpen(false);
         }}
+        type="submit"
         className="w-full my-1 py-2 px-4 hover:bg-gray-100"
       >
         Oldest Tasks
@@ -40,6 +42,7 @@ const SortModal = ({
           setOpen(false);
         }}
         className="w-full my-1 py-2 px-4 hover:bg-gray-100"
+        type="submit"
       >
         Important Tasks
       </button>

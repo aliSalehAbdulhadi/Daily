@@ -116,6 +116,7 @@ const MilestoneControlSection = ({ taskId }: { taskId: any }) => {
         <button
           onClick={() => setDeleteTimer(!deleteTimer)}
           title="Delete all finished tasks"
+          type="button"
           className={`bg-white text-secondaryColor border-[1px]  semiSm:mb-0 px-2 py-1 rounded semiSm:mr-4 flex items-center transition-all opacity-90 ${
             task && milestoneCompleted === 0 ? 'invisible ' : 'visible'
           } ${

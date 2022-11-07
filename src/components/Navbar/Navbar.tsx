@@ -18,6 +18,7 @@ import { toggleDarkMode } from '../../redux/slices/features/darkModeSlice';
 import TaskForm from '../Forms/TaskForm/TaskForm';
 import CheckInternet from '../checkInternet/CheckInternet';
 import useClickOutside from '../../hooks/useClickOutside';
+import useWindowSize from '../../hooks/useWindowsSize';
 const UserModalPc = dynamic(() => import('../modals/UserModalPc/UserModalPc'), {
   suspense: true,
 });
@@ -35,6 +36,8 @@ const Navbar = () => {
       return localDarkOption === 'true' ? true : false;
     }
   };
+
+  const vw = useWindowSize();
 
   const [openUserModalPc, setOpenUserModalPc] = useState<boolean>(false);
   const [openUserModalMobile, setOpenUserModalMobile] =
@@ -69,8 +72,9 @@ const Navbar = () => {
     setTimeout(() => {
       setOpenUserModalPc(false);
       setCloseAnimation(false);
-    }, 300);
+    }, 200);
   });
+
   return (
     <nav
       className={`${dark ? 'bg-primaryColor' : 'bg-primaryLight'} ${
@@ -141,24 +145,28 @@ const Navbar = () => {
             color={dark ? 'white' : 'black'}
           />
           <IoPersonCircleSharp size={35} color={dark ? 'white' : '#696969'} />
-          <Suspense>
-            <div className="absolute top-14 right-0 z-50 hidden semiSm:block">
-              <UserModalPc
-                closeAnimation={closeAnimation}
-                open={openUserModalPc}
-              />
-            </div>
-          </Suspense>
+          {vw >= 840 ? (
+            <Suspense>
+              <div className="absolute top-14 right-0 z-50 hidden semiSm:block">
+                <UserModalPc
+                  closeAnimation={closeAnimation}
+                  open={openUserModalPc}
+                />
+              </div>
+            </Suspense>
+          ) : null}
         </div>
       </div>
-      <Suspense>
-        <div className="fixed top-0 right-0  z-50 semiSm:hidden">
-          <UserModalMobile
-            open={openUserModalMobile}
-            setOpen={setOpenUserModalMobile}
-          />
-        </div>
-      </Suspense>
+      {vw < 840 ? (
+        <Suspense>
+          <div className="fixed top-0 right-0  z-50 semiSm:hidden">
+            <UserModalMobile
+              open={openUserModalMobile}
+              setOpen={setOpenUserModalMobile}
+            />
+          </div>
+        </Suspense>
+      ) : null}
     </nav>
   );
 };

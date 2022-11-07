@@ -180,8 +180,9 @@ const MilestoneSinglePage = ({
               />
 
               <button
-                className="w-full py-2 bg-[#ebebeb] text-black mt-5 rounded-b mb-5"
+                className="w-full py-2 bg-[#ebebeb] text-black mt-5 semiSm:rounded-b mb-5"
                 onClick={editMilestoneHanlder}
+                type="submit"
               >
                 Submit
               </button>
@@ -225,6 +226,7 @@ const MilestoneSinglePage = ({
             onMouseEnter={() => setCompleteIcon(true)}
             onMouseLeave={() => setCompleteIcon(false)}
             onClick={completeMilestoneHandler}
+            type="button"
             className="container w-fit h-fit mt-2"
           >
             {milestone?.milestoneCompleted ? (
@@ -261,6 +263,7 @@ const MilestoneSinglePage = ({
               onMouseLeave={() => setDeleteIcon(false)}
               className="container w-fit h-fit mt-2"
               onClick={() => setDeleteTimer(true)}
+              type="button"
             >
               {deleteIcon ? (
                 <AiFillDelete className="h-5" />
@@ -279,6 +282,7 @@ const MilestoneSinglePage = ({
             onMouseEnter={() => setCompleteIcon(true)}
             onMouseLeave={() => setCompleteIcon(false)}
             onClick={completeMilestoneHandler}
+            type="button"
           >
             {milestone?.milestoneCompleted ? (
               <MdOutlineRemoveDone className=" h-[1.8rem] w-[1.8rem]" />

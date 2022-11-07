@@ -94,7 +94,7 @@ const TaskTypeMenu = ({
             isVertical ? 'h-[5.5rem] w-8' : 'w-[10rem] h-7'
           } bg-primaryLight rounded`}
           mousewheel={true}
-          speed={100}
+          speed={200}
         >
           <SwiperSlide>
             <button
@@ -147,6 +147,22 @@ const TaskTypeMenu = ({
             <button
               type="button"
               className="flex justify-end semiSm:ml-[.35rem]  semiSm:hover:text-white transition-all ease-in-out"
+              value="shopping"
+              onClick={(e) => iconsHandler(e)}
+            >
+              <FaShoppingCart
+                size={isVertical ? 20 : 22}
+                className={`pointer-events-none mt-[.19rem] semiSm:mt-0 semiSm:mr-0 semiSm:mb-2 fill-[#F88379] ${
+                  hidden ? 'hidden' : 'block'
+                } `}
+              />
+            </button>
+          </SwiperSlide>
+
+          <SwiperSlide>
+            <button
+              type="button"
+              className="flex justify-end semiSm:ml-[.35rem]  semiSm:hover:text-white transition-all ease-in-out"
               value="gym"
               onClick={(e) => iconsHandler(e)}
             >
@@ -169,22 +185,6 @@ const TaskTypeMenu = ({
               <FaUserFriends
                 size={isVertical ? 20 : 22}
                 className={`pointer-events-none mt-[.19rem] semiSm:mt-0 semiSm:mr-0 semiSm:mb-2 fill-teal-400 ${
-                  hidden ? 'hidden' : 'block'
-                } `}
-              />
-            </button>
-          </SwiperSlide>
-
-          <SwiperSlide>
-            <button
-              type="button"
-              className="flex justify-end semiSm:ml-[.35rem]  semiSm:hover:text-white transition-all ease-in-out"
-              value="shopping"
-              onClick={(e) => iconsHandler(e)}
-            >
-              <FaShoppingCart
-                size={isVertical ? 20 : 22}
-                className={`pointer-events-none mt-[.19rem] semiSm:mt-0 semiSm:mr-0 semiSm:mb-2 fill-[#F88379] ${
                   hidden ? 'hidden' : 'block'
                 } `}
               />

@@ -23,6 +23,7 @@ const SortMilestoneModal = ({
           setOpen(false);
         }}
         className="w-full my-1 py-2 px-4 hover:bg-gray-100"
+        type="submit"
       >
         Latest Milestones
       </button>
@@ -31,6 +32,7 @@ const SortMilestoneModal = ({
           dispatch(sortMilestonesBy('oldMilestones'));
           setOpen(false);
         }}
+        type="submit"
         className="w-full my-1 py-2 px-4 hover:bg-gray-100"
       >
         Oldest Milestones
@@ -40,6 +42,7 @@ const SortMilestoneModal = ({
           dispatch(sortMilestonesBy('completedMilestones'));
           setOpen(false);
         }}
+        type="submit"
         className="w-full my-1 py-2 px-4 hover:bg-gray-100"
       >
         Pending Milestones

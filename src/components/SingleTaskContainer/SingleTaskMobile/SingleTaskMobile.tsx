@@ -264,13 +264,16 @@ const SingleTaskMobile = ({
                       className="flex flex-col  mt-2"
                     >
                       <textarea
-                        className={`textAreaNoResize my-1 p-1 pb-5 outline-none w-full text-sm shadow-sm sm:text-base border-gray-300 rounded-md placeholder-slate-400`}
+                        className={`textAreaNoResize my-1 p-1 pb-5 outline-none w-full text-sm shadow-sm sm:text-base border-gray-300 rounded-t placeholder-slate-400`}
                         onChange={(e) => setEditText(e.target.value)}
                         value={editText}
                         ref={inputRef}
                         rows={3}
                       />
-                      <button className="text-xs bg-opacity-30 text-white bg-black border-[1px] py-2 px-4  rounded self-center mt-2 tracking-wider font-semibold w-fit transition-all ease-in-out whitespace-nowrap">
+                      <button
+                        type="submit"
+                        className="text-xs bg-opacity-30 text-white bg-black border-[1px] py-2 px-4 w-full rounded-b self-center mt-2 tracking-wider font-semibold  transition-all ease-in-out whitespace-nowrap"
+                      >
                         Submit
                       </button>
                       <span
@@ -325,7 +328,11 @@ const SingleTaskMobile = ({
                     )}
                   </div>
 
-                  <div className={`mr-[1.15rem] ${edit ? 'hidden' : ''}`}>
+                  <div
+                    className={`mr-[1.15rem] ${
+                      task?.completed ? 'opacity-60' : ''
+                    } ${edit ? 'hidden' : ''}`}
+                  >
                     <TaskTypeMenu isVertical={false} task={content} />
                   </div>
 

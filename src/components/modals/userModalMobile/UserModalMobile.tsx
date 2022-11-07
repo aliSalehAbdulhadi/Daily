@@ -47,6 +47,7 @@ const UserModalMobile = ({
                 setOpenSignInModal(true);
               }}
               className="w-full  my-1 py-2 px-4 hover:bg-gray-50 mt-2 font-cerealMedium h-[98%]"
+              type="button"
             >
               Log in
             </button>
@@ -56,6 +57,7 @@ const UserModalMobile = ({
                 setOpenSignUpModal(true);
               }}
               className="w-full  my-1 py-2 px-4 hover:bg-gray-50 mt-2 font-cerealMedium h-[98%]"
+              type="button"
             >
               Sign up
             </button>
@@ -68,12 +70,14 @@ const UserModalMobile = ({
                 setOpenUsernameModal(true);
               }}
               className="w-full text-start my-1 py-2 px-4 hover:bg-gray-50"
+              type="button"
             >
               Change Username
             </button>
             <button
               onClick={() => setOpenPasswordModal(true)}
               className="w-full text-start my-1 py-2 px-4 hover:bg-gray-50"
+              type="button"
             >
               Change Password
             </button>
@@ -83,6 +87,7 @@ const UserModalMobile = ({
                 setOpenLogoutModal(true);
               }}
               className={`w-full text-start my-1 py-2 px-4 hover:bg-gray-50  `}
+              type="button"
             >
               Log Out
             </button>

@@ -103,14 +103,14 @@ const SingleTaskPc = ({
             }),
           );
 
-      editText?.length === 0 || editText.length > 50
+      editText?.length === 0 || editText?.length > 50
         ? setEditText(content?.content)
         : dispatch(
             dbTasksEditTaskLocally({ taskId: content?.id, taskEdit: editText }),
           );
     }
 
-    editText?.length === 0 || editText.length > 50
+    editText?.length === 0 || editText?.length > 50
       ? setEditText(content?.content)
       : dispatch(editTaskLocally({ taskId: content?.id, taskEdit: editText }));
 
@@ -169,9 +169,9 @@ const SingleTaskPc = ({
         }),
       );
     }
-    dispatch(dbTasksChangeTaskImportantStateLocally({ taskId: content.id }));
+    dispatch(dbTasksChangeTaskImportantStateLocally({ taskId: content?.id }));
 
-    dispatch(changeTaskImportantStateLocally({ taskId: content.id }));
+    dispatch(changeTaskImportantStateLocally({ taskId: content?.id }));
   };
 
   const lockTaskHandler = () => {
@@ -185,9 +185,9 @@ const SingleTaskPc = ({
       );
     }
 
-    dispatch(dbTasksLockTaskLocally({ taskId: content.id }));
+    dispatch(dbTasksLockTaskLocally({ taskId: content?.id }));
 
-    dispatch(lockTaskLocally({ taskId: content.id }));
+    dispatch(lockTaskLocally({ taskId: content?.id }));
   };
 
   return (
@@ -195,7 +195,7 @@ const SingleTaskPc = ({
       {(provided) => (
         <div
           className={`text-textLight  outline-[1px] relative ${
-            content.important ? 'outline-[1px] outline outline-yellow-400' : ''
+            content?.important ? 'outline-[1px] outline outline-yellow-400' : ''
           }
            hover:transition-transform hover:ease-in-out font-Comfortaa font-semibold my-2 px-5 min-h-[10rem] relative ${
              content?.completed
@@ -207,9 +207,9 @@ const SingleTaskPc = ({
                 ? 'translate-x-[-35rem] transition-all ease-in-out'
                 : ''
             } ${completeAnimation ? 'animate-bounce' : ''} `}
-          {...provided.draggableProps}
-          {...provided.dragHandleProps}
-          ref={provided.innerRef}
+          {...provided?.draggableProps}
+          {...provided?.dragHandleProps}
+          ref={provided?.innerRef}
         >
           <div
             className={`${
@@ -219,13 +219,15 @@ const SingleTaskPc = ({
             <div className="text-xs w-fit whitespace-nowrap select-none">
               {formatDate}
             </div>
-            <div className={`${content.completed ? 'hidden' : 'block'} `}>
+            <div className={`${content?.completed ? 'hidden' : 'block'} `}>
               <HiOutlineStar
                 onClick={importantStateHandler}
                 size={20}
                 fill={content.important ? '#e8b923' : 'none'}
-                className={`transition-all hover:fill-[#e8b923] hover:text-yellow-300 ${
-                  content.important ? 'text-yellow-300' : ''
+                className={`transition-all ${
+                  content?.important ? '' : 'hover:fill-white hover:text-white'
+                } ${
+                  content?.important ? 'text-yellow-300' : ''
                 } mr-[.6rem] cursor-pointer`}
               />
             </div>
@@ -255,7 +257,9 @@ const SingleTaskPc = ({
                   />
                 )}
               </div>
-              <TaskTypeMenu isVertical={true} task={content} />
+              <div className={`${task?.completed ? 'opacity-60' : ''}`}>
+                <TaskTypeMenu isVertical={true} task={content} />
+              </div>
             </div>
 
             {edit ? (
@@ -265,17 +269,20 @@ const SingleTaskPc = ({
                 className="flex flex-col items-center justify-center w-full relative"
               >
                 <textarea
-                  className={`textAreaNoResize  my-1 pb-0 ml-5 p-2 outline-none w-[60%] shadow-sm border-gray-300 rounded-md placeholder-slate-400`}
+                  className={`textAreaNoResize p-2 outline-none w-[60%] shadow-sm rounded-t border-gray-300  placeholder-slate-400 `}
                   onChange={(e) => setEditText(e.target.value)}
                   value={editText}
                   ref={inputRef}
                   rows={3}
                 />
-                <button className=" text-xs bg-opacity-30 text-white bg-black self-start  border-[1px] py-1 px-3  rounded ml-[7.5rem] mt-1 tracking-wider font-semibold transition-all ease-in-out whitespace-nowrap ">
+                <button
+                  type="submit"
+                  className=" text-xs bg-opacity-30 text-white bg-black  py-1 rounded-b w-[60%] tracking-wider font-semibold transition-all ease-in-out whitespace-nowrap "
+                >
                   Submit
                 </button>
                 <span
-                  className={`absolute top-16 right-28 text-[.65rem] ${
+                  className={`absolute top-[4rem] right-32 text-[.65rem] ${
                     editText?.length > 50 ? 'text-red-500' : ''
                   }`}
                 >
@@ -307,7 +314,7 @@ const SingleTaskPc = ({
                         filledBackground="linear-gradient(to right, #ccedde, #86d9b8)"
                         unfilledBackground="#f5faf8"
                       />
-                      <span className="ml-5 text-[.80rem] absolute top-[-5.7px] right-[-30px]">{`${milestoneCompleted}/${task?.milestones.length}`}</span>
+                      <span className="ml-5 text-[.80rem] absolute top-[-5.7px] right-[-30px]">{`${milestoneCompleted}/${task?.milestones?.length}`}</span>
                     </div>
                   </div>
                 </div>
@@ -321,7 +328,7 @@ const SingleTaskPc = ({
                   type="button"
                   onClick={completionHandler}
                   size={20}
-                  className="cursor-pointer mb-2 mr-2 hover:text-white transition-all ease-in-out"
+                  className="cursor-pointer mb-2 mr-2 hover:text-white transition-all "
                 />
               ) : (
                 <GoCheck
@@ -329,32 +336,30 @@ const SingleTaskPc = ({
                   type="button"
                   onClick={completionHandler}
                   size={21}
-                  className="cursor-pointer mb-2 mr-2 hover:text-white transition-all ease-in-out"
+                  className="cursor-pointer mb-2 mr-2 hover:text-white transition-all "
                 />
               )}
 
               {!edit ? (
-                <MdModeEditOutline
-                  title="Edit"
-                  type="submit"
+                <button
                   onClick={() => setEdit(true)}
-                  size={20}
-                  className={`cursor-pointer mb-2 mr-2 ${
-                    content?.completed
-                      ? 'invisible'
-                      : 'visible hover:text-white transition-all ease-in-ou'
-                  }`}
-                />
+                  disabled={task?.completed}
+                >
+                  <MdModeEditOutline
+                    title="Edit"
+                    type="submit"
+                    size={20}
+                    className={`mb-2 mr-2  transition-all ${
+                      task?.completed ? 'opacity-60' : 'hover:text-white'
+                    }`}
+                  />
+                </button>
               ) : (
                 <MdEditOff
                   type="submit"
                   onClick={() => setEdit(false)}
                   size={20}
-                  className={`cursor-pointer mb-2 mr-2 ${
-                    content?.completed
-                      ? 'invisible'
-                      : 'visible hover:text-white transition-all ease-in-out'
-                  }`}
+                  className={`cursor-pointer mb-2 mr-2 hover:text-white transition-all`}
                 />
               )}
 
@@ -388,13 +393,12 @@ const SingleTaskPc = ({
                   onClick={() => setDeleteTimer(true)}
                   className={`${task?.locked ? 'cursor-default' : ''}`}
                   title="Delete"
+                  type="button"
                 >
                   <AiFillDelete
                     type="submit"
-                    className={`scale-[1.3] ml-[.10rem] h-[1.35rem] transition-all ease-in-out ${
-                      task?.locked
-                        ? 'opacity-50 '
-                        : 'hover:text-white hover:scale-150'
+                    className={`scale-[1.3] ml-[.10rem] h-[1.35rem] transition-all  ${
+                      task?.locked ? 'opacity-50 ' : 'hover:text-white '
                     }`}
                   />
                 </button>

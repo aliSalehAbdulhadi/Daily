@@ -111,6 +111,7 @@ const Tasks = ({ id }: { id: Function }) => {
           >
             <div className="items-center justify-center  cursor-pointer hidden semiSm:flex">
               <button
+                type="button"
                 title="Pending tasks"
                 onClick={() => setCompletedTask(false)}
                 className={`text-textDark mb-5 select-none py-3 px-7 rounded-tl rounded-bl text-sm semiSm:text-base whitespace-nowrap ${
@@ -122,6 +123,7 @@ const Tasks = ({ id }: { id: Function }) => {
                 Pending Tasks
               </button>
               <button
+                type="button"
                 title="Finished tasks"
                 onClick={() => setCompletedTask(true)}
                 className={`text-textDark mb-5 select-none py-3 px-5 rounded-tr rounded-br text-sm semiSm:text-base whitespace-nowrap ${
@@ -256,6 +258,7 @@ const Tasks = ({ id }: { id: Function }) => {
               } ${dark ? 'bg-secondaryColor' : 'bg-primaryColor'}`}
             >
               <button
+                type="button"
                 title="Pending tasks"
                 onClick={() => setCompletedTask(false)}
                 className={`text-textDark  select-none py-3 px-7 rounded-tl rounded-bl text-sm semiSm:text-base whitespace-nowrap ${
@@ -269,6 +272,7 @@ const Tasks = ({ id }: { id: Function }) => {
                 Pending Tasks
               </button>
               <button
+                type="button"
                 title="Finished tasks"
                 onClick={() => setCompletedTask(true)}
                 className={`text-textDark  select-none py-3 px-5 rounded-tr rounded-br text-sm semiSm:text-base whitespace-nowrap ${

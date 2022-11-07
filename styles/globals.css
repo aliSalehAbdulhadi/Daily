@@ -274,31 +274,35 @@ input::-webkit-input-placeholder {
 
 .userModalEnterPc {
   position: absolute;
-  right: 8px;
-  transform: translateY(0rem);
+  right: 0px;
+  transform: translateX(0rem);
 
   animation: userModalEnterPcAnimation 0.3s linear;
 }
 
 @keyframes userModalEnterPcAnimation {
   from {
-    transform: translateY(-10rem);
+    transform: translateX(15rem);
+    opacity: 0.5;
   }
   to {
-    transform: translateY(0rem);
+    transform: translateX(0rem);
+    opacity: 1;
   }
 }
 
 .userModalExitPc {
-  animation: userModalExitPcAnimation 0.3s linear;
+  animation: userModalExitPcAnimation 0.2s linear;
 }
 
 @keyframes userModalExitPcAnimation {
   from {
-    transform: translateY(0rem);
+    transform: translateX(0rem);
+    opacity: 1;
   }
   to {
-    transform: translateY(-10rem);
+    transform: translateX(15rem);
+    opacity: 0.5;
   }
 }
 

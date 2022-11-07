@@ -162,6 +162,11 @@ const MileStone = ({ taskId }: { taskId: string }) => {
 
             <div ref={scrollRefBottom}></div>
           </div>
+          <span
+            className={`self-center my-5 ${task?.completed ? '' : 'hidden'}`}
+          >
+            Cant add milestones to finished tasks
+          </span>
         </div>
 
         <div
@@ -207,15 +212,7 @@ const MileStone = ({ taskId }: { taskId: string }) => {
                 )}
               </div>
             </div>
-          ) : (
-            <div className="mt-[5rem] translate-x-[-50%]">
-              {task?.completed ? (
-                <span>Cant add milestones to finished tasks</span>
-              ) : (
-                <span>Select task to add milestones</span>
-              )}
-            </div>
-          )}
+          ) : null}
         </div>
       </div>
     </div>
