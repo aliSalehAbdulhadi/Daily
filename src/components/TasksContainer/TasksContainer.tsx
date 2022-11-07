@@ -32,7 +32,7 @@ const TasksContainer = () => {
         ) : (
           <div
             className={` sm:px-10  ${
-              dark ? 'bg-secondaryColor' : 'bg-secondaryLight'
+              dark ? 'bg-secondaryColor' : 'bg-primaryColor'
             }  flex justify-center transition-all ease-in-out `}
           >
             <Suspense fallback={<div className="h-screen" />}>

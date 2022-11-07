@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import Link from 'next/link';
 import { RootState, useAppSelector } from '../../../interfaces/interfaces';
 import ChangeUserName from '../changeUserName/changeUserName';
 import ResetPassword from '../resetPassword/ResetPassword';
@@ -79,6 +80,13 @@ const UserModalPc = ({
           type="button"
         >
           Change Password
+        </button>
+
+        <button
+          type="button"
+          className="w-full text-start my-1 py-2 px-4 hover:bg-gray-50"
+        >
+          <Link href="/download">Download Daily</Link>
         </button>
 
         <button

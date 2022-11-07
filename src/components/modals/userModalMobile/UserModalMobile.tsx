@@ -6,6 +6,7 @@ import ResetPassword from '../resetPassword/ResetPassword';
 import SignIn from '../SignIn/SignIn';
 import SignUp from '../SignUp/SignUp';
 import ConfirmLogOut from '../confirmLogOut/ConfirmLogOut';
+import Link from 'next/link';
 
 const UserModalMobile = ({
   open,
@@ -80,6 +81,20 @@ const UserModalMobile = ({
               type="button"
             >
               Change Password
+            </button>
+
+            <button
+              type="button"
+              className="w-full text-start my-1 py-2 px-4 hover:bg-gray-50"
+              onClick={() => {
+                setCloseAnimation(true);
+                setTimeout(() => {
+                  setOpen(false);
+                  setCloseAnimation(false);
+                }, 200);
+              }}
+            >
+              <Link href="/download">Download Daily</Link>
             </button>
 
             <button
