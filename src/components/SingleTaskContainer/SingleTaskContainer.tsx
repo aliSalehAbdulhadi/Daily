@@ -3,13 +3,17 @@ import { Suspense } from 'react';
 import useWindowSize from '../../hooks/useWindowsSize';
 import { SingleTaskInterface } from '../../interfaces/interfaces';
 import LoadingCard from '../loadingCard/LoadingCard';
-import SingleTaskPc from './SingleTaskPc/SingleTaskPc';
 const SingleTaskMobile = dynamic(
   () => import('./SingleTaskMobile/SingleTaskMobile'),
   {
     suspense: true,
   },
 );
+
+const SingleTaskPc = dynamic(() => import('./SingleTaskPc/SingleTaskPc'), {
+  suspense: true,
+});
+
 const SingleTaskContainer = ({
   content,
   index,
@@ -26,14 +30,16 @@ const SingleTaskContainer = ({
   return (
     <div>
       {width >= 840 ? (
-        <div className="hidden semiSm:block">
-          <SingleTaskPc
-            content={content}
-            index={index}
-            taskId={taskId}
-            defaultTaskId={defaultTaskId}
-          />
-        </div>
+        <Suspense fallback={<LoadingCard />}>
+          <div className="hidden semiSm:block transition-all">
+            <SingleTaskPc
+              content={content}
+              index={index}
+              taskId={taskId}
+              defaultTaskId={defaultTaskId}
+            />
+          </div>
+        </Suspense>
       ) : (
         <Suspense fallback={<LoadingCard />}>
           <div className="block semiSm:hidden ">

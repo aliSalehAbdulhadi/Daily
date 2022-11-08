@@ -64,7 +64,7 @@ const ResetPassword = ({
               value="email"
               classNameField="p-5 outline-none block w-full mt-1 shadow-sm sm:text-sm border-gray-300 rounded py-3 font-Comfortaa text-textLight "
             />
-            <div className={isOnline() ? 'px-[5rem]' : ''}>
+            <div className={isOnline() ? '' : ''}>
               <div className="py-2 h-4 w-full flex items-center justify-center ">
                 {rejected ? (
                   <h2 className="text-red-600 text-sm">{errorMessage}</h2>
@@ -79,19 +79,19 @@ const ResetPassword = ({
                 <div className="flex justify-center items-center mt-7">
                   {pending ? (
                     <button
-                      className={`flex items-center justify-center ${
+                      className={`flex items-center justify-center  relative ${
                         dark ? 'bg-primaryColor' : 'bg-secondaryLight'
-                      } py-3 px-5 md:px-5 rounded text-white  text-sm md:text-sm`}
+                      } py-3 w-[10rem] rounded text-white  text-sm md:text-sm`}
                       type="submit"
                     >
-                      <FaSpinner className="mr-4 animate-spin" />
-                      Resetting
+                      <span className='mr-5'>Resetting</span>
+                      <FaSpinner className="animate-spin absolute right-7" />
                     </button>
                   ) : (
                     <button
                       className={`${
                         dark ? 'bg-primaryColor' : 'bg-secondaryLight'
-                      } py-3 px-[4rem] rounded text-white  text-sm md:text-sm hover:text-primaryColor hover:bg-white`}
+                      } py-3  w-[10rem]  rounded text-white  text-sm md:text-sm hover:text-primaryColor hover:bg-white`}
                       type="submit"
                     >
                       Reset
