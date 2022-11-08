@@ -67,19 +67,19 @@ const ChangeUserName = ({
               <div className="flex justify-center items-center mt-8 px-[5rem] py-5">
                 {animation ? (
                   <button
-                    className={`flex items-center justify-center ${
+                    className={`flex items-center justify-center relative ${
                       dark ? 'bg-primaryColor' : 'bg-secondaryLight'
-                    } py-3 px-5 md:px-5 rounded text-white  text-xs md:text-sm`}
+                    } py-3 w-[10rem] rounded text-white  text-xs md:text-sm`}
                     type="submit"
                   >
-                    <FaSpinner className="mr-4 animate-spin" />
-                    Submitting
+                    <span className='mr-5'>Submitting</span>
+                    <FaSpinner className=" animate-spin absolute right-5" />
                   </button>
                 ) : (
                   <button
                     className={`${
                       dark ? 'bg-primaryColor' : 'bg-secondaryLight'
-                    } py-3 px-[4rem] rounded text-white  text-xs md:text-sm hover:text-primaryColor hover:bg-white`}
+                    } py-3 w-[10rem] rounded text-white  text-xs md:text-sm hover:text-primaryColor hover:bg-white`}
                     type="submit"
                   >
                     Submit
