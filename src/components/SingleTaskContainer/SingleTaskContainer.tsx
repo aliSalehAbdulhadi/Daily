@@ -9,10 +9,10 @@ const SingleTaskMobile = dynamic(
     suspense: true,
   },
 );
-
 const SingleTaskPc = dynamic(() => import('./SingleTaskPc/SingleTaskPc'), {
   suspense: true,
 });
+
 
 const SingleTaskContainer = ({
   content,
