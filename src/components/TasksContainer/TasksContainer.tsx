@@ -3,6 +3,7 @@ import dynamic from 'next/dynamic';
 import { Suspense } from 'react';
 import { RootState, useAppSelector } from '../../interfaces/interfaces';
 import useWindowSize from '../../hooks/useWindowsSize';
+import FallBackLoading from '../fallBackLoading/FallBackLoading';
 const MileStone = dynamic(() => import('../mileStone/MileStone'), {
   suspense: true,
 });
@@ -17,6 +18,10 @@ const TasksContainer = () => {
   );
   const signInStatus = useAppSelector(
     (state: RootState) => state.signInReducer?.state,
+  );
+
+  const dbTasksStatus: any = useAppSelector(
+    (state: RootState) => state?.dbTasksReducer?.status,
   );
 
   const vw = useWindowSize();
@@ -37,12 +42,16 @@ const TasksContainer = () => {
                 : 'bg-primaryColor semiSm:bg-secondaryLight'
             }  flex justify-center transition-all ease-in-out `}
           >
-            <Suspense fallback={<div className="h-screen" />}>
-              <div
-                className={`semiSm:w-[45%] md:w-[40%] w-full transition-all `}
-              >
-                <Tasks id={(e: string) => setTaskId(e)} />
-              </div>
+            <Suspense fallback={<FallBackLoading />}>
+              {dbTasksStatus === 'pending' ? (
+                <FallBackLoading />
+              ) : (
+                <div
+                  className={`semiSm:w-[45%] md:w-[40%] w-full transition-all `}
+                >
+                  <Tasks id={(e: string) => setTaskId(e)} />
+                </div>
+              )}
             </Suspense>
 
             {vw >= 840 && taskId ? (

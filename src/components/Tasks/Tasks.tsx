@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { Droppable } from 'react-beautiful-dnd';
 import { BiSortAlt2 } from 'react-icons/bi';
@@ -45,7 +44,6 @@ const Tasks = ({ id }: { id: Function }) => {
   const pendingTasks = tasks ? tasks?.filter((task) => !task.completed) : [];
 
   const scrollY = useScrollY();
-
 
   useEffect(() => {
     id(taskId);
@@ -210,7 +208,7 @@ const Tasks = ({ id }: { id: Function }) => {
                   ) : (
                     <div
                       className={`${
-                        tasks?.length <= 0 ? 'block' : 'hidden'
+                        localTasks?.length <= 0 ? 'block' : 'hidden'
                       }  mt-[7rem]`}
                     >
                       <ErrorMessage
