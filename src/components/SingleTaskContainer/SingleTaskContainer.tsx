@@ -1,8 +1,15 @@
+import dynamic from 'next/dynamic';
+import { Suspense } from 'react';
 import useWindowSize from '../../hooks/useWindowsSize';
 import { SingleTaskInterface } from '../../interfaces/interfaces';
-import SingleTaskMobile from './SingleTaskMobile/SingleTaskMobile';
+import LoadingCard from '../loadingCard/LoadingCard';
 import SingleTaskPc from './SingleTaskPc/SingleTaskPc';
-
+const SingleTaskMobile = dynamic(
+  () => import('./SingleTaskMobile/SingleTaskMobile'),
+  {
+    suspense: true,
+  },
+);
 const SingleTaskContainer = ({
   content,
   index,
@@ -28,9 +35,11 @@ const SingleTaskContainer = ({
           />
         </div>
       ) : (
-        <div className="block semiSm:hidden ">
-          <SingleTaskMobile content={content} index={index} />
-        </div>
+        <Suspense fallback={<LoadingCard />}>
+          <div className="block semiSm:hidden ">
+            <SingleTaskMobile content={content} index={index} />
+          </div>
+        </Suspense>
       )}
     </div>
   );
