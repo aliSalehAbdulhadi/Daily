@@ -12,10 +12,12 @@ export const dbTasks = createAsyncThunk(
         ...doc.data(),
       }));
 
+
       const unSub = onSnapshot(docRef, (doc) => {
         return doc.data();
       });
       const newData = new Promise(unSub).then((res) => res);
+
 
       return docData;
     } catch (err) {
