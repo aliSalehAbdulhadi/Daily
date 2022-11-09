@@ -72,7 +72,7 @@ const Navbar = () => {
     setTimeout(() => {
       setOpenUserModalPc(false);
       setCloseAnimation(false);
-    }, 200);
+    }, 180);
   });
 
   return (
@@ -82,32 +82,34 @@ const Navbar = () => {
       } w-full h-[10vh]  flex items-center justify-between px-2 whitespace-nowrap text-sm md:text-base md:px-10 font-Comfortaa`}
     >
       <div className="px-3 flex select-none relative">
-        <div className={`${dark ? 'hidden' : 'block'} cursor-pointer`}>
+        <div className={`cursor-pointer mt-2 hidden semiSm:block`}>
           <Link href="/">
             <div>
               <Image
-                className="transition-all duration-300 ease-in-out hover:rotate-[360deg]"
-                src="/logoBlack.svg"
-                width="45"
-                height="45"
+                className="transition-all duration-300 ease-in-out "
+                src="/svg/logo/daily5.svg"
+                width="100"
+                height="100"
                 alt="Daily-logo"
               />
             </div>
           </Link>
         </div>
-        <div className={`${dark ? 'block' : 'hidden'} cursor-pointer`}>
+
+        <div className={`cursor-pointer mt-2 semiSm:hidden`}>
           <Link href="/">
             <div>
               <Image
-                className="transition-all duration-300 ease-in-out hover:rotate-[360deg]"
-                src="/logo.svg"
-                width="45"
-                height="45"
+                className="transition-all duration-300 ease-in-out "
+                src="/svg/logo/daily5.svg"
+                width="65"
+                height="65"
                 alt="Daily-logo"
               />
             </div>
           </Link>
         </div>
+
         <div className="absolute top-[1.9rem] left-[4rem] semiSm:top-[.40rem] semiSm:left-32">
           <CheckInternet />
         </div>
