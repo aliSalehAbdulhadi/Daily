@@ -84,29 +84,53 @@ const Navbar = () => {
       <div className="px-3 flex select-none relative">
         <div className={`cursor-pointer mt-2 hidden semiSm:block`}>
           <Link href="/">
-            <div>
-              <Image
-                className="transition-all duration-300 ease-in-out "
-                src="/svg/logo/daily5.svg"
-                width="100"
-                height="100"
-                alt="Daily-logo"
-              />
-            </div>
+            {dark ? (
+              <div>
+                <Image
+                  className="transition-all duration-300 ease-in-out opacity-90"
+                  src="/svg/logo/daily10.svg"
+                  width="130"
+                  height="130"
+                  alt="Daily-logo"
+                />
+              </div>
+            ) : (
+              <div>
+                <Image
+                  className="transition-all duration-300 ease-in-out "
+                  src="/svg/logo/dailyDark4.svg"
+                  width="130"
+                  height="130"
+                  alt="Daily-logo"
+                />
+              </div>
+            )}
           </Link>
         </div>
 
-        <div className={`cursor-pointer mt-2 semiSm:hidden`}>
+        <div className={`cursor-pointer mt-2 semiSm:hidden `}>
           <Link href="/">
-            <div>
-              <Image
-                className="transition-all duration-300 ease-in-out "
-                src="/svg/logo/daily5.svg"
-                width="68"
-                height="68"
-                alt="Daily-logo"
-              />
-            </div>
+            {dark ? (
+              <div>
+                <Image
+                  className="transition-all duration-300 ease-in-out"
+                  src="/svg/logo/daily10.svg"
+                  width="60"
+                  height="80"
+                  alt="Daily-logo"
+                />
+              </div>
+            ) : (
+              <div>
+                <Image
+                  className="transition-all duration-300 ease-in-out "
+                  src="/svg/logo/dailyDark4.svg"
+                  width="60"
+                  height="80"
+                  alt="Daily-logo"
+                />
+              </div>
+            )}
           </Link>
         </div>
 
@@ -144,14 +168,9 @@ const Navbar = () => {
           <BsList
             className="mr-[.20rem]"
             size={20}
-            fill="#d86a62"
             color={dark ? 'white' : 'black'}
           />
-          <IoPersonCircleSharp
-            size={35}
-            fill="#d86a62e9"
-            color={dark ? 'white' : '#696969'}
-          />
+          <IoPersonCircleSharp size={35} color={dark ? 'white' : '#696969'} />
           {vw >= 840 ? (
             <Suspense>
               <div className="absolute top-14 right-0 z-50 hidden semiSm:block">
