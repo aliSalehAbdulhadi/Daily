@@ -102,8 +102,8 @@ const Navbar = () => {
               <Image
                 className="transition-all duration-300 ease-in-out "
                 src="/svg/logo/daily5.svg"
-                width="65"
-                height="65"
+                width="68"
+                height="68"
                 alt="Daily-logo"
               />
             </div>
@@ -144,9 +144,14 @@ const Navbar = () => {
           <BsList
             className="mr-[.20rem]"
             size={20}
+            fill="#d86a62"
             color={dark ? 'white' : 'black'}
           />
-          <IoPersonCircleSharp size={35} color={dark ? 'white' : '#696969'} />
+          <IoPersonCircleSharp
+            size={35}
+            fill="#d86a62e9"
+            color={dark ? 'white' : '#696969'}
+          />
           {vw >= 840 ? (
             <Suspense>
               <div className="absolute top-14 right-0 z-50 hidden semiSm:block">
