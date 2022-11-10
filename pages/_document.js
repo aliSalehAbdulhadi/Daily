@@ -18,6 +18,9 @@ class MyDocument extends Document {
             content="black-translucent"
           />
           <meta name="msapplication-starturl" content="/" />
+
+          <link rel="shortcut icon" href="/icons/browserIcon.png" />
+
           <link
             rel="apple-touch-icon"
             type="png"
