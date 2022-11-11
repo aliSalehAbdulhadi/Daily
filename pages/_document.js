@@ -81,19 +81,19 @@ class MyDocument extends Document {
             rel="icon"
             type="png"
             sizes="36x36"
-            href="/icons2/android-36x36.png"
+            href="/icons/android-36x36.png"
           />
           <link
             rel="icon"
             type="png"
             sizes="48x48"
-            href="/icons2/android-48x48.png"
+            href="/icons/android-48x48.png"
           />
           <link
             rel="icon"
             type="png"
             sizes="72x72"
-            href="/icons2/android-72x72.png"
+            href="/icons/android-72x72.png"
           />
           <link
             rel="icon"
@@ -105,13 +105,13 @@ class MyDocument extends Document {
             rel="icon"
             type="png"
             sizes="144x144"
-            href="/icons2/android-144x144.png"
+            href="/icons/android-144x144.png"
           />
           <link
             rel="icon"
             type="png"
             sizes="192x192"
-            href="/icons2/android-192x192.png"
+            href="/icons/android-192x192.png"
           />
         </Head>
         <body>
