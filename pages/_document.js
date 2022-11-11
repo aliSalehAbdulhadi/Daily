@@ -19,7 +19,7 @@ class MyDocument extends Document {
           <meta name="apple-mobile-web-app-capable" content="yes" />
           <meta name="theme-color" content="#427676" />
           <meta name="msapplication-navbutton-color" content="#427676" />
-          <meta name="msapplication-TileColor" content="#00695E" />
+          <meta name="msapplication-TileColor" content="#427676" />
           <link
             rel="mask-icon"
             href="/icons/safari-pinned-tab.svg"
