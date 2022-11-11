@@ -88,20 +88,20 @@ const Navbar = () => {
               <div>
                 <Image
                   className="transition-all duration-300 ease-in-out"
-                  src="/logo/dailyLight3.svg"
+                  src="/logo/dailyLight.svg"
                   width="85"
                   height="85"
-                  alt="Daily-logo"
+                  alt="Daily logo"
                 />
               </div>
             ) : (
               <div>
                 <Image
                   className="transition-all duration-300 ease-in-out"
-                  src="/logo/dailyDark3.svg"
+                  src="/logo/dailyDark.svg"
                   width="85"
                   height="85"
-                  alt="Daily-logo"
+                  alt="Daily logo"
                 />
               </div>
             )}
@@ -114,20 +114,20 @@ const Navbar = () => {
               <div>
                 <Image
                   className="transition-all duration-300 ease-in-out"
-                  src="/logo/dailyLight3.svg"
+                  src="/logo/dailyLight.svg"
                   width="45"
                   height="55"
-                  alt="Daily-logo"
+                  alt="Daily logo"
                 />
               </div>
             ) : (
               <div>
                 <Image
                   className="transition-all duration-300 ease-in-out "
-                  src="/logo/dailyDark3.svg"
+                  src="/logo/dailyDark.svg"
                   width="45"
                   height="55"
-                  alt="Daily-logo"
+                  alt="Daily logo"
                 />
               </div>
             )}
