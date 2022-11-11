@@ -11,18 +11,19 @@ class MyDocument extends Document {
           <meta name="apple-mobile-web-app-capable" content="yes" />
           <meta name="application-name" content="Daily" />
           <meta name="apple-mobile-web-app-title" content="Daily" />
-          <meta name="theme-color" content="#00695E" />
-          <meta name="msapplication-navbutton-color" content="#427676" />
+          <meta name="msapplication-starturl" content="/" />
           <meta
             name="apple-mobile-web-app-status-bar-style"
             content="black-translucent"
           />
-          <meta name="msapplication-starturl" content="/" />
-          <meta name="msapplication-TileColor" content="#00695E" />
+          <meta name="apple-mobile-web-app-capable" content="yes" />
+          <meta name="theme-color" content="#427676" />
+          <meta name="msapplication-navbutton-color" content="#427676" />
+          <meta name="msapplication-TileColor" content="#427676" />
           <link
             rel="mask-icon"
             href="/icons/safari-pinned-tab.svg"
-            color="#00695e"
+            color="#427676"
           />
 
           <link rel="shortcut icon" href="/icons/favicon-32x32.png" />
