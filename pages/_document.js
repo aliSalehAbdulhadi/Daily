@@ -50,37 +50,32 @@ class MyDocument extends Document {
             rel="icon"
             type="png"
             sizes="192x192"
-            href="/icons
-            /android-chrome-maskable-192x192.png"
+            href="/icons/android-chrome-maskable-192x192.png"
           />
           <link
             rel="icon"
             type="png"
             sizes="512x512"
-            href="/icons
-            /android-chrome-maskable-512x512.png"
+            href="/icons/android-chrome-maskable-512x512.png"
           />
 
           <link
             rel="icon"
             type="png"
             sizes="192x192"
-            href="/icons
-            /android-chrome-192x192.png"
+            href="/icons/android-chrome-192x192.png"
           />
           <link
             rel="icon"
             type="png"
             sizes="256x256"
-            href="/icons
-            /android-chrome-256x256.png"
+            href="/icons/android-chrome-256x256.png"
           />
           <link
             rel="icon"
             type="png"
             sizes="512x512"
-            href="/icons
-            /android-chrome-512x512.png"
+            href="/icons/android-chrome-512x512.png"
           />
 
           <link
