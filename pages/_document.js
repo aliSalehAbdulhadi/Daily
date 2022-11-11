@@ -46,7 +46,79 @@ class MyDocument extends Document {
             href="/icons
             /apple-touch-icon.png"
           />
-  
+          <link
+            rel="icon"
+            type="png"
+            sizes="192x192"
+            href="/icons
+            /android-chrome-maskable-192x192.png"
+          />
+          <link
+            rel="icon"
+            type="png"
+            sizes="512x512"
+            href="/icons
+            /android-chrome-maskable-512x512.png"
+          />
+
+          <link
+            rel="icon"
+            type="png"
+            sizes="192x192"
+            href="/icons
+            /android-chrome-192x192.png"
+          />
+          <link
+            rel="icon"
+            type="png"
+            sizes="256x256"
+            href="/icons
+            /android-chrome-256x256.png"
+          />
+          <link
+            rel="icon"
+            type="png"
+            sizes="512x512"
+            href="/icons
+            /android-chrome-512x512.png"
+          />
+
+          <link
+            rel="icon"
+            type="png"
+            sizes="36x36"
+            href="/icons/android-36x36.png"
+          />
+          <link
+            rel="icon"
+            type="png"
+            sizes="48x48"
+            href="/icons/android-48x48.png"
+          />
+          <link
+            rel="icon"
+            type="png"
+            sizes="72x72"
+            href="/icons/android-72x72.png"
+          />
+          <link
+            rel="icon"
+            type="png"
+            sizes="96x96"
+            href="/icons/android-96x96.png"
+          />
+          <link
+            rel="icon"
+            type="png"
+            sizes="144x144"
+            href="/icons/android-144x144.png"
+          />
+          <link
+            rel="icon"
+            type="png"
+            sizes="192x192"
+            href="/icons/android-192x192.png"
+          />
         </Head>
         <body>
           <Main />
