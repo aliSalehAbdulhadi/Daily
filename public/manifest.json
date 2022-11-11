@@ -5,8 +5,8 @@
   "lang": "en-US",
   "start_url": "/",
   "display": "standalone",
-  "theme_color": "#00695e",
-  "background_color": "#00695e",
+  "theme_color": "#427676",
+  "background_color": "#427676",
   "icons": [
     {
       "src": "/icons/android-chrome-maskable-192x192.png",
