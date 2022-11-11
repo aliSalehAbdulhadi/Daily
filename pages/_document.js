@@ -11,7 +11,7 @@ class MyDocument extends Document {
           <meta name="apple-mobile-web-app-capable" content="yes" />
           <meta name="application-name" content="Daily" />
           <meta name="apple-mobile-web-app-title" content="Daily" />
-          <meta name="theme-color" content="#427676" />
+          <meta name="theme-color" content="#00695E" />
           <meta name="msapplication-navbutton-color" content="#00695E" />
           <meta
             name="apple-mobile-web-app-status-bar-style"
