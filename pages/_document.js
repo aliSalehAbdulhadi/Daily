@@ -43,38 +43,44 @@ class MyDocument extends Document {
           <link
             rel="apple-touch-icon"
             type="png"
-            href="/icons2/apple-touch-icon.png"
+            href="/icons
+            /apple-touch-icon.png"
           />
           <link
             rel="icon"
             type="png"
             sizes="192x192"
-            href="/icons2/android-chrome-maskable-192x192.png"
+            href="/icons
+            /android-chrome-maskable-192x192.png"
           />
           <link
             rel="icon"
             type="png"
             sizes="512x512"
-            href="/icons2/android-chrome-maskable-512x512.png"
+            href="/icons
+            /android-chrome-maskable-512x512.png"
           />
 
           <link
             rel="icon"
             type="png"
             sizes="192x192"
-            href="/icons2/android-chrome-192x192.png"
+            href="/icons
+            /android-chrome-192x192.png"
           />
           <link
             rel="icon"
             type="png"
             sizes="256x256"
-            href="/icons2/android-chrome-256x256.png"
+            href="/icons
+            /android-chrome-256x256.png"
           />
           <link
             rel="icon"
             type="png"
             sizes="512x512"
-            href="/icons2/android-chrome-512x512.png"
+            href="/icons
+            /android-chrome-512x512.png"
           />
 
           <link
