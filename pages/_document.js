@@ -87,7 +87,7 @@ class MyDocument extends Document {
             rel="icon"
             type="png"
             sizes="36x36"
-            href="/icons/android-36x36.png"
+            href="/icons2/android-36x36.png"
           />
           <link
             rel="icon"
