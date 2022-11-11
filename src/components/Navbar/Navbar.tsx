@@ -72,7 +72,7 @@ const Navbar = () => {
     setTimeout(() => {
       setOpenUserModalPc(false);
       setCloseAnimation(false);
-    }, 200);
+    }, 180);
   });
 
   return (
@@ -82,32 +82,58 @@ const Navbar = () => {
       } w-full h-[10vh]  flex items-center justify-between px-2 whitespace-nowrap text-sm md:text-base md:px-10 font-Comfortaa`}
     >
       <div className="px-3 flex select-none relative">
-        <div className={`${dark ? 'hidden' : 'block'} cursor-pointer`}>
+        <div className={`cursor-pointer mt-2 hidden semiSm:block`}>
           <Link href="/">
-            <div>
-              <Image
-                className="transition-all duration-300 ease-in-out hover:rotate-[360deg]"
-                src="/logoBlack.svg"
-                width="45"
-                height="45"
-                alt="Daily-logo"
-              />
-            </div>
+            {dark ? (
+              <div>
+                <Image
+                  className="transition-all duration-300 ease-in-out"
+                  src="/logo/dailyLight.svg"
+                  width="85"
+                  height="85"
+                  alt="Daily logo"
+                />
+              </div>
+            ) : (
+              <div>
+                <Image
+                  className="transition-all duration-300 ease-in-out"
+                  src="/logo/dailyDark.svg"
+                  width="85"
+                  height="85"
+                  alt="Daily logo"
+                />
+              </div>
+            )}
           </Link>
         </div>
-        <div className={`${dark ? 'block' : 'hidden'} cursor-pointer`}>
+
+        <div className={`cursor-pointer mt-2 semiSm:hidden `}>
           <Link href="/">
-            <div>
-              <Image
-                className="transition-all duration-300 ease-in-out hover:rotate-[360deg]"
-                src="/logo.svg"
-                width="45"
-                height="45"
-                alt="Daily-logo"
-              />
-            </div>
+            {dark ? (
+              <div>
+                <Image
+                  className="transition-all duration-300 ease-in-out"
+                  src="/logo/dailyLight.svg"
+                  width="45"
+                  height="55"
+                  alt="Daily logo"
+                />
+              </div>
+            ) : (
+              <div>
+                <Image
+                  className="transition-all duration-300 ease-in-out "
+                  src="/logo/dailyDark.svg"
+                  width="45"
+                  height="55"
+                  alt="Daily logo"
+                />
+              </div>
+            )}
           </Link>
         </div>
+
         <div className="absolute top-[1.9rem] left-[4rem] semiSm:top-[.40rem] semiSm:left-32">
           <CheckInternet />
         </div>
@@ -118,7 +144,7 @@ const Navbar = () => {
       </div>
 
       <div className="flex items-center justify-center relative pl-[2rem]">
-        <div className={`absolute mr-36`}>
+        <div className={`absolute mr-36 ${dark ? '' : 'opacity-90'}`}>
           <input
             title="Dark and Light mode"
             type="checkbox"
@@ -137,17 +163,17 @@ const Navbar = () => {
             setOpenUserModalPc(true);
             setOpenUserModalMobile(true);
           }}
-          className="flex items-center justify-center border rounded-full py-1 pl-2 pr-1 mr-2 transition-all ease-in-out duration-200 cursor-pointer hover:shadow-lg relative"
+          className={`flex items-center justify-center border rounded-full py-1 pl-2 pr-1 mr-2 transition-all ease-in-out duration-200 cursor-pointer`}
         >
           <BsList
-            className="mr-[.20rem]"
+            className={`mr-[.20rem] ${dark ? '' : 'opacity-80'}`}
             size={20}
-            color={dark ? 'white' : 'black'}
+            color={dark ? 'white' : 'black '}
           />
-          <IoPersonCircleSharp size={35} color={dark ? 'white' : '#696969'} />
+          <IoPersonCircleSharp size={35} color={dark ? 'white' : '#707070'} />
           {vw >= 840 ? (
             <Suspense>
-              <div className="absolute top-14 right-0 z-50 hidden semiSm:block">
+              <div className="absolute top-14 right-0 z-50 hidden semiSm:block opacity-100">
                 <UserModalPc
                   closeAnimation={closeAnimation}
                   open={openUserModalPc}
