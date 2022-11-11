@@ -19,7 +19,7 @@ class MyDocument extends Document {
           />
           <meta name="msapplication-starturl" content="/" />
 
-          <link rel="shortcut icon" href="/icons/browserIcon.png" />
+          <link rel="shortcut icon" href="/favicon.ico" />
 
           <link
             rel="apple-touch-icon"

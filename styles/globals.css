@@ -27,11 +27,11 @@ a {
 }
 
 .bg-icon {
-  background-image: url('/sun3.svg');
+  background-image: url('/svg/sun.svg');
 }
 
 input:checked + .bg-icon {
-  background-image: url('/moon3.svg');
+  background-image: url('/svg/moon.svg');
 }
 
 .card-animation {
