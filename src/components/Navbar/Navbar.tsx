@@ -87,20 +87,20 @@ const Navbar = () => {
             {dark ? (
               <div>
                 <Image
-                  className="transition-all duration-300 ease-in-out opacity-90"
-                  src="/svg/logo/daily10.svg"
-                  width="130"
-                  height="130"
+                  className="transition-all duration-300 ease-in-out"
+                  src="/logo/dailyLight3.svg"
+                  width="85"
+                  height="85"
                   alt="Daily-logo"
                 />
               </div>
             ) : (
               <div>
                 <Image
-                  className="transition-all duration-300 ease-in-out "
-                  src="/svg/logo/dailyDark4.svg"
-                  width="130"
-                  height="130"
+                  className="transition-all duration-300 ease-in-out"
+                  src="/logo/dailyDark3.svg"
+                  width="85"
+                  height="85"
                   alt="Daily-logo"
                 />
               </div>
@@ -114,9 +114,9 @@ const Navbar = () => {
               <div>
                 <Image
                   className="transition-all duration-300 ease-in-out"
-                  src="/logo/dailyLight.svg"
-                  width="60"
-                  height="80"
+                  src="/logo/dailyLight3.svg"
+                  width="45"
+                  height="55"
                   alt="Daily-logo"
                 />
               </div>
@@ -124,9 +124,9 @@ const Navbar = () => {
               <div>
                 <Image
                   className="transition-all duration-300 ease-in-out "
-                  src="/logo/dailyDark.svg"
-                  width="60"
-                  height="80"
+                  src="/logo/dailyDark3.svg"
+                  width="45"
+                  height="55"
                   alt="Daily-logo"
                 />
               </div>
@@ -144,7 +144,7 @@ const Navbar = () => {
       </div>
 
       <div className="flex items-center justify-center relative pl-[2rem]">
-        <div className={`absolute mr-36`}>
+        <div className={`absolute mr-36 ${dark ? '' : 'opacity-90'}`}>
           <input
             title="Dark and Light mode"
             type="checkbox"
@@ -163,17 +163,17 @@ const Navbar = () => {
             setOpenUserModalPc(true);
             setOpenUserModalMobile(true);
           }}
-          className="flex items-center justify-center border rounded-full py-1 pl-2 pr-1 mr-2 transition-all ease-in-out duration-200 cursor-pointer hover:shadow-lg relative"
+          className={`flex items-center justify-center border rounded-full py-1 pl-2 pr-1 mr-2 transition-all ease-in-out duration-200 cursor-pointer`}
         >
           <BsList
-            className="mr-[.20rem]"
+            className={`mr-[.20rem] ${dark ? '' : 'opacity-80'}`}
             size={20}
-            color={dark ? 'white' : 'black'}
+            color={dark ? 'white' : 'black '}
           />
-          <IoPersonCircleSharp size={35} color={dark ? 'white' : '#696969'} />
+          <IoPersonCircleSharp size={35} color={dark ? 'white' : '#707070'} />
           {vw >= 840 ? (
             <Suspense>
-              <div className="absolute top-14 right-0 z-50 hidden semiSm:block">
+              <div className="absolute top-14 right-0 z-50 hidden semiSm:block opacity-100">
                 <UserModalPc
                   closeAnimation={closeAnimation}
                   open={openUserModalPc}

@@ -11,15 +11,34 @@ class MyDocument extends Document {
           <meta name="apple-mobile-web-app-capable" content="yes" />
           <meta name="application-name" content="Daily" />
           <meta name="apple-mobile-web-app-title" content="Daily" />
-          <meta name="theme-color" content="#fff" />
+          <meta name="theme-color" content="#00695e" />
           <meta name="msapplication-navbutton-color" content="#fff" />
           <meta
             name="apple-mobile-web-app-status-bar-style"
             content="black-translucent"
           />
           <meta name="msapplication-starturl" content="/" />
+          <meta name="msapplication-TileColor" content="#00aba9" />
+          <link
+            rel="mask-icon"
+            href="/icons/safari-pinned-tab.svg"
+            color="#00695e"
+          />
 
-          <link rel="shortcut icon" href="/favicon.ico" />
+          <link rel="shortcut icon" href="/icons/favicon-32x32.png" />
+
+          <link
+            rel="icon"
+            type="image/png"
+            sizes="16x16"
+            href="/icons/favicon-16x16.png"
+          />
+          <link
+            rel="icon"
+            type="image/png"
+            sizes="32x32"
+            href="/icons/favicon-32x32.png"
+          />
 
           <link
             rel="apple-touch-icon"
@@ -38,18 +57,26 @@ class MyDocument extends Document {
             sizes="512x512"
             href="/icons/android-chrome-maskable-512x512.png"
           />
-          <link
-            rel="icon"
-            type="png"
-            sizes="512x512"
-            href="/icons/android-chrome-512x512.png"
-          />
+
           <link
             rel="icon"
             type="png"
             sizes="192x192"
             href="/icons/android-chrome-192x192.png"
           />
+          <link
+            rel="icon"
+            type="png"
+            sizes="256x256"
+            href="/icons/android-chrome-256x256.png"
+          />
+          <link
+            rel="icon"
+            type="png"
+            sizes="512x512"
+            href="/icons/android-chrome-512x512.png"
+          />
+
           <link
             rel="icon"
             type="png"
