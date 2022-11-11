@@ -12,13 +12,13 @@ class MyDocument extends Document {
           <meta name="application-name" content="Daily" />
           <meta name="apple-mobile-web-app-title" content="Daily" />
           <meta name="theme-color" content="#427676" />
-          <meta name="msapplication-navbutton-color" content="#427676" />
+          <meta name="msapplication-navbutton-color" content="#00695E" />
           <meta
             name="apple-mobile-web-app-status-bar-style"
             content="black-translucent"
           />
           <meta name="msapplication-starturl" content="/" />
-          <meta name="msapplication-TileColor" content="#00aba9" />
+          <meta name="msapplication-TileColor" content="#00695E" />
           <link
             rel="mask-icon"
             href="/icons/safari-pinned-tab.svg"
@@ -43,38 +43,38 @@ class MyDocument extends Document {
           <link
             rel="apple-touch-icon"
             type="png"
-            href="/icons/apple-touch-icon.png"
+            href="/icons2/apple-touch-icon.png"
           />
           <link
             rel="icon"
             type="png"
             sizes="192x192"
-            href="/icons/android-chrome-maskable-192x192.png"
+            href="/icons2/android-chrome-maskable-192x192.png"
           />
           <link
             rel="icon"
             type="png"
             sizes="512x512"
-            href="/icons/android-chrome-maskable-512x512.png"
+            href="/icons2/android-chrome-maskable-512x512.png"
           />
 
           <link
             rel="icon"
             type="png"
             sizes="192x192"
-            href="/icons/android-chrome-192x192.png"
+            href="/icons2/android-chrome-192x192.png"
           />
           <link
             rel="icon"
             type="png"
             sizes="256x256"
-            href="/icons/android-chrome-256x256.png"
+            href="/icons2/android-chrome-256x256.png"
           />
           <link
             rel="icon"
             type="png"
             sizes="512x512"
-            href="/icons/android-chrome-512x512.png"
+            href="/icons2/android-chrome-512x512.png"
           />
 
           <link
