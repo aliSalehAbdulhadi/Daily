@@ -13,7 +13,6 @@ const SingleTaskPc = dynamic(() => import('./SingleTaskPc/SingleTaskPc'), {
   suspense: true,
 });
 
-
 const SingleTaskContainer = ({
   content,
   index,

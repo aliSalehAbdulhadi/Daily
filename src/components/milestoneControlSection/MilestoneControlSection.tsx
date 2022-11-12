@@ -4,7 +4,6 @@ import { BiSortAlt2, BiX } from 'react-icons/bi';
 import { Checkbox } from 'pretty-checkbox-react';
 import { TbListCheck } from 'react-icons/tb';
 import { MdOutlineDelete } from 'react-icons/md';
-import useClickOutside from '../../hooks/useClickOutside';
 import {
   RootState,
   SingleTaskInterface,
@@ -23,12 +22,7 @@ const MilestoneControlSection = ({ taskId }: { taskId: any }) => {
   const [deleteTimer, setDeleteTimer] = useState<boolean>(false);
   const dispatch = useAppDispatch();
   const user = useAppSelector((state: RootState) => state.userReducer.userUid);
-  const sortModalRef = useClickOutside(() => {
-    setSortModal(false);
-  });
-  const sortMilestonesBy = useAppSelector(
-    (state: RootState) => state.sortMilestonesReducer.sortMilestones,
-  );
+
   const tasks: SingleTaskInterface[] = useAppSelector(
     (state: RootState) => state.getTaskReducer.tasks,
   );
@@ -55,38 +49,13 @@ const MilestoneControlSection = ({ taskId }: { taskId: any }) => {
     }
     dispatch(deleteAllFinishedMilestoneLocally({ taskId: task?.id }));
   };
-  const milestonesSortTitleHandler = () => {
-    if (sortMilestonesBy === 'newMilestones') {
-      return 'Latest Milestones';
-    } else if (sortMilestonesBy === 'oldMilestones') {
-      return 'Oldest Milestones';
-    } else if (sortMilestonesBy === 'completedMilestones') {
-      return 'Pending Milestones';
-    } else return '';
-  };
+
   return (
     <div className="text-[.6rem] semiSm:text-xs  semiSm:scale-[1] w-full  ">
       <div className="flex items-center justify-between   md:flex-row md:items-center w-full semiSm:mt-4 semiSm:mb-4">
         <div className="flex  semiSm:mb-4 md:mb-0 items-center w-full ">
           <div className="flex items-center justify-between w-[50%]">
-            <div
-              className="relative select-none cursor-pointer w-fit "
-              ref={sortModalRef}
-            >
-              <div
-                className="semiSm:ml-0 text-white mr-4  border-[1px] px-2 md:px-3 py-2 rounded  flex items-center transition-all semiSm:hover:bg-white semiSm:hover:text-secondaryColor"
-                onClick={() => setSortModal(!sortModal)}
-              >
-                <BiSortAlt2 className="mb-1 mr-1" size={18} />
-
-                <h1 className=" w-[8rem]  semiSm:w-fit ">
-                  By {milestonesSortTitleHandler()}{' '}
-                </h1>
-              </div>
-              <div className={`absolute z-[100] top-12 left-0 `}>
-                <SortMilestoneModal open={sortModal} setOpen={setSortModal} />
-              </div>
-            </div>
+            <SortMilestoneModal open={sortModal} setOpen={setSortModal} />
 
             <div className="items-center justify-center hidden semiSm:flex ">
               <h1 className="mr-2">Milestones Progress:</h1>
