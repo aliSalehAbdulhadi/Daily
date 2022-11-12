@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 import type { NextPage } from 'next';
 import TaskForm from '../src/components/Forms/TaskForm/TaskForm';
-import TasksContainer from '../src/components/TasksContainer/TasksContainer';
 import {
   RootState,
   useAppDispatch,
@@ -9,6 +8,7 @@ import {
 } from '../src/interfaces/interfaces';
 import { dbTasks } from '../src/redux/slices/features/dbTasks';
 import { isOnline } from '../src/utilities/isOnline';
+import TasksContainer from '../src/components/TasksContainer/TasksContainer';
 
 const Home: NextPage = () => {
   const dispatch = useAppDispatch();

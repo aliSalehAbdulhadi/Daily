@@ -19,11 +19,11 @@ const Download = () => {
     <div
       className={`min-h-[90vh] font-Comfortaa flex flex-col items-center ${
         dark ? 'bg-secondaryColor' : 'bg-primaryColor'
-      } w-full`}
+      } w-full `}
     >
       <div className="mt-[5rem]  text-white">
         <div className="flex flex-col items-center">
-          <span className="text-2xl">Select your device type</span>
+          <span className="text-2xl">Select Your Platform</span>
         </div>
 
         <div className="flex items-center justify-between mt-5 ml-1">

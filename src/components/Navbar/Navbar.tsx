@@ -89,8 +89,8 @@ const Navbar = () => {
                 <Image
                   className="transition-all duration-300 ease-in-out"
                   src="/logo/dailyLight.svg"
-                  width="85"
-                  height="85"
+                  width="75"
+                  height="75"
                   alt="Daily logo"
                 />
               </div>
@@ -99,8 +99,8 @@ const Navbar = () => {
                 <Image
                   className="transition-all duration-300 ease-in-out"
                   src="/logo/dailyDark.svg"
-                  width="85"
-                  height="85"
+                  width="75"
+                  height="75"
                   alt="Daily logo"
                 />
               </div>

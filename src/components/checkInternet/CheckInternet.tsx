@@ -7,7 +7,10 @@ import {
   useAppDispatch,
   useAppSelector,
 } from '../../interfaces/interfaces';
-import { reArrangeFirebase } from '../../redux/slices/features/reArrangeTasksSlice';
+import {
+  uploadLocalDataResetStatus,
+  uploadLocalData,
+} from '../../redux/slices/features/uploadLocalData';
 import { isOnline } from '../../utilities/isOnline';
 
 const CheckInternet = () => {
@@ -19,16 +22,29 @@ const CheckInternet = () => {
     (state: RootState) => state.getTaskReducer.tasks,
   );
   const user = useAppSelector((state: RootState) => state.userReducer.userUid);
+  const uploadLocalDataStatus = useAppSelector(
+    (state: RootState) => state.uploadLocalDataReducer.state,
+  );
+
+  useEffect(() => {
+    dispatch(uploadLocalDataResetStatus());
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (uploadLocalDataStatus === 'fulfilled') {
+      setUploadData(false);
+      dispatch(uploadLocalDataResetStatus());
+      setTimeout(() => {
+        location.reload();
+      }, 200);
+    }
+  }, [uploadLocalDataStatus, dispatch]);
 
   useEffect((): void => {
     window.ononline = () => {
       setCheckInternet(true);
-      dispatch(reArrangeFirebase({ userUid: user, allTasks: localTasks }));
+      dispatch(uploadLocalData({ userUid: user, allTasks: localTasks }));
       setUploadData(true);
-      setTimeout(() => {
-        setUploadData(false);
-        location.reload();
-      }, 6000);
     };
 
     window.onoffline = () => {

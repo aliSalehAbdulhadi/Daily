@@ -14,7 +14,7 @@ import sortTasksSlice from '../slices/features/sortTasksSlice';
 import sortMilestonesSlice from '../slices/features/sortMilestonesSlice';
 import milestonePunctCheckboxSlice from '../slices/features/milestonePunctCheckboxSlice';
 import storedTasks from '../slices/features/dbTasks';
-import reArrangeFirebase from '../slices/features/reArrangeTasksSlice';
+import uploadLocalData from '../slices/features/uploadLocalData';
 
 const rootReducer = combineReducers({
   signUpReducer: signUpSlice,
@@ -28,7 +28,7 @@ const rootReducer = combineReducers({
   disableDragReducer: disableDragDnd,
   sortTaskReducer: sortTasksSlice,
   sortMilestonesReducer: sortMilestonesSlice,
-  reArrangeFirebaseReducer: reArrangeFirebase,
+  uploadLocalDataReducer: uploadLocalData,
   sortTasksReducer: sortTasksSlice,
   milestonePunctCheckboxReducer: milestonePunctCheckboxSlice,
   dbTasksReducer: storedTasks,

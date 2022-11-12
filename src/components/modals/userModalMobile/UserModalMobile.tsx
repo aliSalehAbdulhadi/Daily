@@ -62,6 +62,21 @@ const UserModalMobile = ({
             >
               Sign up
             </button>
+            <div className="border-l-[1px] h-[50%] ml-1"></div>
+
+            <button
+              className="w-full  my-1 py-2 px-4 hover:bg-gray-50 mt-2 font-cerealMedium h-[98%]"
+              type="button"
+              onClick={() => {
+                setCloseAnimation(true);
+                setTimeout(() => {
+                  setOpen(false);
+                  setCloseAnimation(false);
+                }, 200);
+              }}
+            >
+              <Link href="/download">Download</Link>
+            </button>
           </div>
         )}
         {user ? (

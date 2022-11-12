@@ -7,7 +7,7 @@ import {
 } from '../../../interfaces/interfaces';
 
 export const addMilestones = createAsyncThunk(
-  'addMilestones/bookmark',
+  'addMilestones',
   async ({
     userUid,
     taskId,

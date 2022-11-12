@@ -6,7 +6,7 @@ import { initialState } from '../../../interfaces/interfaces';
 import { SingleTaskInterface } from '../../../interfaces/interfaces';
 
 export const addTask = createAsyncThunk(
-  'addTask/bookmark',
+  'addTask',
   async ({ task, userUid }: { task: SingleTaskInterface; userUid: string }) => {
     await setDoc(
       doc(db, 'userData', userUid),
