@@ -4,7 +4,7 @@ import { db } from '../../../container/firebase';
 import { SingleTaskInterface } from '../../../interfaces/interfaces';
 
 export const changeTaskImportantState = createAsyncThunk(
-  'changeTaskImportantState/bookmark',
+  'changeTaskImportantState',
   async ({
     userUid,
     taskId,

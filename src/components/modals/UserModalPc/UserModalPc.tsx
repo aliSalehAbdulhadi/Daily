@@ -57,6 +57,12 @@ const UserModalPc = ({
           >
             Log in
           </button>
+          <button
+            type="button"
+            className="w-full text-start my-1 py-2 px-4 hover:bg-gray-50"
+          >
+            <Link href="/download">Download</Link>
+          </button>
         </div>
       )}
 

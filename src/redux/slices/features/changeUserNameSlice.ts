@@ -3,7 +3,7 @@ import { updateDoc, doc } from "firebase/firestore";
 import { db } from "../../../container/firebase";
 
 export const changeUserName = createAsyncThunk(
-  "changeUserName/bookmark",
+  "changeUserName",
   async ({
     userUid,
     newUserName,
