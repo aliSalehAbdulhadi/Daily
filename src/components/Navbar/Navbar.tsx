@@ -81,7 +81,7 @@ const Navbar = () => {
         dark ? 'text-textDark' : 'text-textLight'
       } w-full h-[10vh]  flex items-center justify-between px-2 whitespace-nowrap text-sm md:text-base md:px-10 font-Comfortaa`}
     >
-      <div className="px-3 flex select-none relative">
+      <div className="px-3 flex items-center select-none">
         <div className={`cursor-pointer mt-2 hidden semiSm:block`}>
           <Link href="/">
             {dark ? (
@@ -133,8 +133,7 @@ const Navbar = () => {
             )}
           </Link>
         </div>
-
-        <div className="absolute top-[1.9rem] left-[4rem] semiSm:top-[.40rem] semiSm:left-32">
+        <div className="ml-4 mb-4 md:mb-0 md:mt-1">
           <CheckInternet />
         </div>
       </div>
@@ -163,7 +162,7 @@ const Navbar = () => {
             setOpenUserModalPc(true);
             setOpenUserModalMobile(true);
           }}
-          className={`flex items-center justify-center border rounded-full py-1 pl-2 pr-1 mr-2 transition-all ease-in-out duration-200 cursor-pointer`}
+          className={`flex items-center justify-center border rounded-full mb-[.20rem] py-1 pl-2 pr-1 mr-2 transition-all ease-in-out duration-200 cursor-pointer`}
         >
           <BsList
             className={`mr-[.20rem] ${dark ? '' : 'opacity-80'}`}
