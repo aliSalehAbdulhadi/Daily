@@ -39,18 +39,24 @@ const SortMilestoneModal = ({
       ref={sortModalRef}
     >
       <div
-        className={` text-white border-[1px] px-2 md:px-3 py-2 rounded  flex  transition-all semiSm:hover:bg-white semiSm:hover:text-secondaryColor whitespace-nowrap absolute top-[-1.2rem] w-[150px] semiSm:w-[190px] ${
+        className={` text-white border-[1px] px-2 md:px-3 py-2 rounded  flex  transition-all semiSm:hover:bg-white semiSm:hover:text-secondaryColor whitespace-nowrap absolute top-[-1.2rem] w-[150px] semiSm:${
+          open ? 'w-[190px]' : 'w-fit'
+        } md:w-[190px] ${
           open ? 'h-[10.5rem] bg-white text-secondaryColor' : ''
         }`}
         onClick={() => setOpen(!open)}
       >
         <BiSortAlt2 className="mb-1 mr-1" size={18} />
 
-        <h1 className="semiSm:mt-[.15rem]">
+        <h1 className="semiSm:mt-[.15rem] semiSm:hidden md:block">
           By {milestonesSortTitleHandler()}{' '}
         </h1>
       </div>
-      <div className={`absolute top-5 w-[150px] semiSm:w-[190px] `}>
+      <div
+        className={`absolute top-3 semiSm:top-5 w-[150px]  semiSm:${
+          open ? 'w-[190px]' : 'w-fit'
+        } md:w-[190px] `}
+      >
         <div
           className={`${
             open ? 'flex' : 'hidden'
@@ -61,7 +67,7 @@ const SortMilestoneModal = ({
               dispatch(sortMilestonesBy('newMilestones'));
               setOpen(false);
             }}
-            className="w-full semiSm:my-1 semiSm:mb-0 mb-1 py-2 px-4 hover:bg-gray-100"
+            className="w-full semiSm:my-1 semiSm:mb-0 mb-1 py-3 semiSm:py-2 px-4 hover:bg-gray-100"
             type="submit"
           >
             Latest Milestones
@@ -72,7 +78,7 @@ const SortMilestoneModal = ({
               setOpen(false);
             }}
             type="submit"
-            className="w-full my-1 py-2 px-4 hover:bg-gray-100"
+            className="w-full my-1 py-3 semiSm:py-2 px-4 hover:bg-gray-100"
           >
             Oldest Milestones
           </button>
@@ -82,7 +88,7 @@ const SortMilestoneModal = ({
               setOpen(false);
             }}
             type="submit"
-            className="w-full my-1 py-2 px-4 hover:bg-gray-100"
+            className="w-full my-1 py-3 semiSm:py-2 px-4 hover:bg-gray-100"
           >
             Pending Milestones
           </button>

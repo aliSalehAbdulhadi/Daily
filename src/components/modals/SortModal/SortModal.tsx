@@ -1,5 +1,10 @@
 import React, { SetStateAction } from 'react';
-import { useAppDispatch } from '../../../interfaces/interfaces';
+import { BiSortAlt2 } from 'react-icons/bi';
+import {
+  RootState,
+  useAppDispatch,
+  useAppSelector,
+} from '../../../interfaces/interfaces';
 import { sortTaskBy } from '../../../redux/slices/features/sortTasksSlice';
 
 const SortModal = ({
@@ -9,43 +14,70 @@ const SortModal = ({
   open: boolean;
   setOpen: React.Dispatch<SetStateAction<boolean>>;
 }) => {
+  const sortBy = useAppSelector(
+    (state: RootState) => state.sortTaskReducer.sortTask,
+  );
+
+  const taskSortTitleHandler = () => {
+    if (sortBy === 'newTasks') {
+      return 'Latest Tasks';
+    } else if (sortBy === 'oldTasks') {
+      return 'Oldest Tasks';
+    } else if (sortBy === 'importantTasks') {
+      return 'Important Tasks';
+    } else return '';
+  };
+
   const dispatch = useAppDispatch();
   return (
     <div
-      className={`${
-        open ? 'flex' : 'hidden'
-      } flex-col items-start justify-start  py-1 w-[200px]  shadow-inner rounded-xl bg-white  font-cerealNormal text-xs text-textLight`}
+      className={` text-white border-[1px] w-[170px] semiSm:w-fit md:w-[170px]  inner-shadow py-2 rounded flex flex-col items-center  semiSm:hover:bg-white semiSm:hover:text-secondaryColor whitespace-nowrap ${
+        open ? 'text-secondaryColor bg-white' : ''
+      }`}
+      onClick={() => setOpen(!open)}
     >
-      <button
-        onClick={() => {
-          dispatch(sortTaskBy('newTasks'));
-          setOpen(false);
-        }}
-        className="w-full my-1 py-2 px-4 hover:bg-gray-100"
-        type="submit"
+      <div className="w-full flex items-center px-4 py-[0.10rem]">
+        <BiSortAlt2 className="mr-1" size={18} />
+        <h1 className="text-[.70rem] semiSm:text-xs mt-[0.17rem] semiSm:hidden md:block">
+          {sortBy ? 'By' : 'Sort by'} {taskSortTitleHandler()}
+        </h1>
+      </div>
+      <div
+        className={`px-0 semiSm:px-5 md:px-0 transition-all ${
+          open ? 'flex' : 'hidden'
+        } flex-col items-start justify-start  mt-3 w-full bg-white  font-cerealNormal text-xs text-textLight`}
       >
-        Latest Tasks
-      </button>
-      <button
-        onClick={() => {
-          dispatch(sortTaskBy('oldTasks'));
-          setOpen(false);
-        }}
-        type="submit"
-        className="w-full my-1 py-2 px-4 hover:bg-gray-100"
-      >
-        Oldest Tasks
-      </button>
-      <button
-        onClick={() => {
-          dispatch(sortTaskBy('importantTasks'));
-          setOpen(false);
-        }}
-        className="w-full my-1 py-2 px-4 hover:bg-gray-100"
-        type="submit"
-      >
-        Important Tasks
-      </button>
+        <button
+          onClick={() => {
+            dispatch(sortTaskBy('newTasks'));
+            setOpen(false);
+          }}
+          className="w-full my-1 py-2  hover:bg-gray-100"
+          type="submit"
+        >
+          Latest Tasks
+        </button>
+        <button
+          onClick={() => {
+            dispatch(sortTaskBy('oldTasks'));
+            setOpen(false);
+          }}
+          type="submit"
+          className="w-full my-1 py-2  hover:bg-gray-100"
+        >
+          Oldest Tasks
+        </button>
+        <button
+          onClick={() => {
+            dispatch(sortTaskBy('importantTasks'));
+            setOpen(false);
+          }}
+          className="w-full my-1 py-2  hover:bg-gray-100"
+          type="submit"
+        >
+          Important Tasks
+        </button>
+      </div>
     </div>
   );
 };

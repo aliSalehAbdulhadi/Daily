@@ -59,7 +59,7 @@ const TasksContainer = () => {
             {vw >= 840 && taskId ? (
               <Suspense>
                 <div
-                  className={`w-[55%] md:w-[60%] transition-all ${
+                  className={`w-[60%] md:w-[60%] transition-all ${
                     taskId ? 'taskCompPc' : ''
                   }`}
                 >

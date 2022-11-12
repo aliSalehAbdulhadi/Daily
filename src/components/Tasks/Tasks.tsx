@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { Droppable } from 'react-beautiful-dnd';
-import { BiSortAlt2 } from 'react-icons/bi';
 import useClickOutside from '../../hooks/useClickOutside';
 import { useScrollY } from '../../hooks/useScroll';
 import {
@@ -82,16 +81,6 @@ const Tasks = ({ id }: { id: Function }) => {
     } else return tasks;
   };
 
-  const taskSortTitleHandler = () => {
-    if (sortBy === 'newTasks') {
-      return 'Latest Tasks';
-    } else if (sortBy === 'oldTasks') {
-      return 'Oldest Tasks';
-    } else if (sortBy === 'importantTasks') {
-      return 'Important Tasks';
-    } else return '';
-  };
-
   return (
     <div
       className={`flex flex-col justify-center semiSm:w-[90%] rounded-t ${
@@ -141,7 +130,7 @@ const Tasks = ({ id }: { id: Function }) => {
               }`}
             >
               <div
-                className={` w-full flex item-center justify-between sticky top-0 z-[40]  semiSm:border-b-[1px] transition-all px-5 py-3 ${
+                className={` w-full flex item-center justify-between sticky top-0 z-[40]  semiSm:border-b-[1px] transition-all px-5 py-5 ${
                   scrollY >= 192 ? ' shadow-md ' : ''
                 } rounded-t ${
                   dark
@@ -152,19 +141,10 @@ const Tasks = ({ id }: { id: Function }) => {
                 }  items-center justify-between w-full`}
               >
                 <div
-                  className="relative self-start select-none cursor-pointer "
+                  className=" self-start select-none cursor-pointer "
                   ref={sortModalRef}
                 >
-                  <div
-                    className=" text-white border-[1px] px-3 py-2 rounded  flex items-center transition-all semiSm:hover:bg-white semiSm:hover:text-secondaryColor"
-                    onClick={() => setSortModal(!sortModal)}
-                  >
-                    <BiSortAlt2 className="mb-1 mr-1" size={18} />
-                    <h1 className="text-[.70rem] semiSm:text-xs">
-                      {sortBy ? 'By' : 'Sort by'} {taskSortTitleHandler()}
-                    </h1>
-                  </div>
-                  <div className={`absolute z-[100] top-12 left-0 `}>
+                  <div className={`absolute z-[100] top-2 left-5 `}>
                     <SortModal open={sortModal} setOpen={setSortModal} />
                   </div>
                 </div>
