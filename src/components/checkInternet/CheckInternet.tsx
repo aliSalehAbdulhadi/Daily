@@ -36,6 +36,7 @@ const CheckInternet = () => {
   }, [showErrorMessage]);
 
   useEffect(() => {
+
     dispatch(uploadLocalDataResetStatus());
   }, [dispatch]);
 
