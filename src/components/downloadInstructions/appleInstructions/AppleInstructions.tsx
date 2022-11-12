@@ -51,7 +51,7 @@ const AppleInstructions = () => {
         <div className="mt-5 flex flex-col items-start w-fit">
           <div className="flex items-center">
             <span>
-              4- tap <b className="underline">Add</b> option.
+              4- tap <b className="underline">Add</b>.
             </span>
           </div>
           <div className="self-center ml-5  semiSm:ml-10 mt-5 mb-10">
