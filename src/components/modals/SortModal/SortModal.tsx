@@ -31,6 +31,7 @@ const SortModal = ({
   const dispatch = useAppDispatch();
   return (
     <div
+
       className={` text-white border-[1px] semiSm:w-fit  inner-shadow py-[.40rem] mt-[0.05rem] rounded flex flex-col items-center  semiSm:hover:bg-white semiSm:hover:text-secondaryColor whitespace-nowrap ${
         !sortBy && !open ? ' w-[110px]' : ' w-[170px]'
       } ${open ? 'text-secondaryColor bg-white' : ''}`}
@@ -38,6 +39,7 @@ const SortModal = ({
     >
       <div className="w-full flex items-center justify-center mr-2 py-[0.10rem]">
         <BiSortAlt2 className="mr-1 " size={18} />
+
         <h1 className="text-[.70rem] semiSm:text-xs mt-[0.17rem] semiSm:hidden md:block">
           {sortBy ? 'By' : 'Sort by'} {taskSortTitleHandler()}
         </h1>
