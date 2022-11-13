@@ -1,5 +1,6 @@
 import React, { SetStateAction } from 'react';
 import { BiSortAlt2 } from 'react-icons/bi';
+import useClickOutside from '../../../hooks/useClickOutside';
 import {
   RootState,
   useAppDispatch,
@@ -17,6 +18,11 @@ const SortModal = ({
   const sortBy = useAppSelector(
     (state: RootState) => state.sortTaskReducer.sortTask,
   );
+  const dispatch = useAppDispatch();
+
+  const sortModalRef = useClickOutside(() => {
+    setOpen(false);
+  });
 
   const taskSortTitleHandler = () => {
     if (sortBy === 'newTasks') {
@@ -28,24 +34,23 @@ const SortModal = ({
     } else return '';
   };
 
-  const dispatch = useAppDispatch();
   return (
     <div
-
+      ref={sortModalRef}
       className={` text-white border-[1px] semiSm:w-fit  inner-shadow py-[.40rem] mt-[0.05rem] rounded flex flex-col items-center  semiSm:hover:bg-white semiSm:hover:text-secondaryColor whitespace-nowrap ${
-        !sortBy && !open ? ' w-[110px]' : ' w-[170px]'
+        !open ? ' px-2' : ''
       } ${open ? 'text-secondaryColor bg-white' : ''}`}
       onClick={() => setOpen(!open)}
     >
       <div className="w-full flex items-center justify-center mr-2 py-[0.10rem]">
         <BiSortAlt2 className="mr-1 " size={18} />
 
-        <h1 className="text-[.70rem] semiSm:text-xs mt-[0.17rem] semiSm:hidden md:block">
+        <h1 className="text-[.70rem] semiSm:text-xs mt-[0.17rem]">
           {sortBy ? 'By' : 'Sort by'} {taskSortTitleHandler()}
         </h1>
       </div>
       <div
-        className={`px-0 semiSm:px-5 md:px-0 transition-all ${
+        className={`mx-10 transition-all ${
           open ? 'flex' : 'hidden'
         } flex-col items-start justify-start  mt-3 w-full bg-white  font-cerealNormal text-xs text-textLight`}
       >

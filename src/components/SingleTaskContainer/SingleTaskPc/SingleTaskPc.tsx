@@ -388,7 +388,7 @@ const SingleTaskPc = ({
 
           {content?.id === taskId ? (
             <div>
-              <div className="selectedTask pointer-events-none bg-white h-[7rem] w-[1px] text-transparent  absolute top-[50%] translate-y-[-50%] left-[-10px]">
+              <div className="selectedTask select-none pointer-events-none bg-white h-[7rem] w-[1px] text-transparent  absolute top-[50%] translate-y-[-50%] left-[-10px]">
                 .
               </div>
             </div>
