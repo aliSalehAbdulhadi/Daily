@@ -48,6 +48,8 @@ const MileStone = () => {
 
   const [scroll, setScroll] = useState<boolean>(false);
   const [openAdvancedForm, setOpenAdvancedForm] = useState<boolean>(false);
+  const [isEditing, setIsEditing] = useState<boolean>(false);
+
   const dispatch = useAppDispatch();
   const user = useAppSelector((state: RootState) => state.userReducer.userUid);
   const tasks: SingleTaskInterface[] = useAppSelector(
@@ -75,6 +77,7 @@ const MileStone = () => {
   );
 
   const scrollY = useScrollY();
+
 
   useEffect(() => {
     setScroll(false);
@@ -202,7 +205,7 @@ const MileStone = () => {
           </div>
 
           <div
-            className={`flex w-full transition-all ${
+            className={`flex w-full transition-all py-1 ${
               scrollY >= 83 ? 'shadow-lg' : ''
             } ${dark ? 'bg-primaryColor' : 'bg-secondaryLight'}   ${
               task?.milestones.length === 0 ? 'pt-0' : 'pt-3'
@@ -232,6 +235,7 @@ const MileStone = () => {
                       index={i}
                       tasks={tasks}
                       setDeleteAnimationMobile={deleteAnimation}
+                      isEditing={setIsEditing}
                     />
                   </Swipeable>
                 </div>
@@ -245,7 +249,7 @@ const MileStone = () => {
               setScroll(true);
             }}
             className={`sticky w-fit bottom-0 mt-5 ml-2 py-3 z-30 flex flex-col items-center justify-center self-center cursor-pointer ${
-              openAdvancedForm ? 'hidden' : 'block'
+              openAdvancedForm || isEditing ? 'hidden' : 'block'
             }`}
           >
             <h1

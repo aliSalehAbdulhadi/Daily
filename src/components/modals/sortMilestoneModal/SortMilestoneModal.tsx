@@ -39,7 +39,7 @@ const SortMilestoneModal = ({
       ref={sortModalRef}
     >
       <div
-        className={` text-white border-[1px] px-2 md:px-3 py-2 rounded  flex  transition-all semiSm:hover:bg-white semiSm:hover:text-secondaryColor whitespace-nowrap absolute top-[-1.2rem] w-[150px] semiSm:${
+        className={` text-white border-[1px] px-2 md:px-3 py-[0.40rem] rounded  flex  transition-all semiSm:hover:bg-white semiSm:hover:text-secondaryColor whitespace-nowrap absolute top-[-1.2rem] w-[150px] semiSm:${
           open ? 'w-[190px]' : 'w-fit'
         } md:w-[190px] ${
           open ? 'h-[10.5rem] bg-white text-secondaryColor' : ''

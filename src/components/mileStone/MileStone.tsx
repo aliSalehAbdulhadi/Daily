@@ -23,6 +23,7 @@ const MileStone = ({ taskId }: { taskId: string }) => {
 
   const [scroll, setScroll] = useState<boolean>(false);
   const [openAdvancedForm, setOpenAdvancedForm] = useState<boolean>(false);
+  const [isEditing, setIsEditing] = useState<boolean>(false);
 
   const tasks: SingleTaskInterface[] = useAppSelector(
     (state: RootState) => state.getTaskReducer.tasks,
@@ -142,6 +143,7 @@ const MileStone = ({ taskId }: { taskId: string }) => {
                       milestone={milestone}
                       index={i}
                       tasks={tasks}
+                      isEditing={setIsEditing}
                     />
                   </div>
                 </Suspense>
@@ -195,7 +197,7 @@ const MileStone = ({ taskId }: { taskId: string }) => {
                 <BsPlusCircle
                   fill="white"
                   className={`h-8 w-8 transition-all  ${
-                    openAdvancedForm ? 'hidden' : ''
+                    openAdvancedForm || isEditing ? 'hidden' : ''
                   }`}
                   onClick={() => setScroll(true)}
                 />
