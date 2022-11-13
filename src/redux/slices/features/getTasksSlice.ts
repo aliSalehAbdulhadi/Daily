@@ -27,6 +27,10 @@ const getTasksSlice = createSlice({
     status: '',
   },
   reducers: {
+    resetTaskStatus: (state: any) => {
+      state.status = '';
+    },
+
     addTasksLocally: (
       state: any,
       action: PayloadAction<SingleTaskInterface>,
@@ -238,6 +242,7 @@ const getTasksSlice = createSlice({
 
 export default getTasksSlice.reducer;
 export const {
+  resetTaskStatus,
   addTasksLocally,
   deleteTasksLocally,
   completeTaskLocally,

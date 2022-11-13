@@ -19,12 +19,12 @@ const TasksContainer = () => {
   const signInStatus = useAppSelector(
     (state: RootState) => state.signInReducer?.state,
   );
-
-  const dbTasksStatus: any = useAppSelector(
-    (state: RootState) => state?.trickStoreReducer?.status,
+  const tasksStatus: any = useAppSelector(
+    (state: RootState) => state?.getTaskReducer.status,
   );
 
   const vw = useWindowSize();
+
   return (
     <div
       className={` ${
@@ -45,7 +45,7 @@ const TasksContainer = () => {
             }  flex justify-center transition-all ease-in-out `}
           >
             <Suspense fallback={<FallBackLoading />}>
-              {dbTasksStatus === 'pending' ? (
+              {tasksStatus === 'pending' ? (
                 <FallBackLoading />
               ) : (
                 <div

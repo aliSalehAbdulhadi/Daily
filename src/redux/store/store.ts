@@ -39,7 +39,7 @@ const rootReducer = combineReducers({
 const persistConfig = {
   key: 'root',
   storage,
-  blacklist: ['dbTasksReducer', 'uploadLocalDataReducer'],
+  blacklist: ['trickStoreReducer', 'uploadLocalDataReducer'],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
