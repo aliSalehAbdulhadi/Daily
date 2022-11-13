@@ -1,8 +1,8 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
-import { db } from '../../../container/firebase';
+import { db } from '../../../../container/firebase';
 import { doc, setDoc } from 'firebase/firestore';
-import { initialState } from '../../../interfaces/interfaces';
+import { initialState } from '../../../../interfaces/interfaces';
 
 export const addUsername = createAsyncThunk(
   'addUsername',

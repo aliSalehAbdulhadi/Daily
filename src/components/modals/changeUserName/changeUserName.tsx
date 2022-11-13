@@ -9,7 +9,7 @@ import {
   useAppSelector,
 } from '../../../interfaces/interfaces';
 import FormField from '../../FormField/FormField';
-import { changeUserName } from '../../../redux/slices/features/changeUserNameSlice';
+import { changeUserName } from '../../../redux/slices/features/fireBaseActions/changeUserNameSlice';
 import { isOnline } from '../../../utilities/isOnline';
 
 const signInSchema = Yup.object().shape({
@@ -72,7 +72,7 @@ const ChangeUserName = ({
                     } py-3 w-[10rem] rounded text-white  text-xs md:text-sm`}
                     type="submit"
                   >
-                    <span className='mr-5'>Submitting</span>
+                    <span className="mr-5">Submitting</span>
                     <FaSpinner className=" animate-spin absolute right-5" />
                   </button>
                 ) : (

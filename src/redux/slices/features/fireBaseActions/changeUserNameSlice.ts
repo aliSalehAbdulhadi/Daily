@@ -1,9 +1,9 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
-import { updateDoc, doc } from "firebase/firestore";
-import { db } from "../../../container/firebase";
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import { updateDoc, doc } from 'firebase/firestore';
+import { db } from '../../../../container/firebase';
 
 export const changeUserName = createAsyncThunk(
-  "changeUserName",
+  'changeUserName',
   async ({
     userUid,
     newUserName,
@@ -11,7 +11,7 @@ export const changeUserName = createAsyncThunk(
     userUid: string;
     newUserName: string;
   }) => {
-    const docRef = doc(db, "userData", userUid);
+    const docRef = doc(db, 'userData', userUid);
     await updateDoc(docRef, {
       userName: newUserName,
     });

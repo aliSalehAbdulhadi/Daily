@@ -27,10 +27,17 @@ const getTasksSlice = createSlice({
     status: '',
   },
   reducers: {
-    setTasks: (state: any, action: PayloadAction<SingleTaskInterface>) => {
+    resetTaskStatus: (state: any) => {
+      state.status = '';
+    },
+
+    addTasksLocally: (
+      state: any,
+      action: PayloadAction<SingleTaskInterface>,
+    ) => {
       state.tasks?.unshift(action.payload);
     },
-    deleteTask: (
+    deleteTasksLocally: (
       state: any,
       action: PayloadAction<{
         taskId: string;
@@ -118,7 +125,7 @@ const getTasksSlice = createSlice({
       });
     },
 
-    reArrangeTasks: (
+    reArrangeTasksLocally: (
       state: {
         tasks: SingleTaskInterface[];
         error: {}[];
@@ -129,7 +136,7 @@ const getTasksSlice = createSlice({
       state.tasks = action.payload;
     },
 
-    setMilestones: (
+    addMilestoneLocally: (
       state: any,
       action: PayloadAction<{
         taskId: string;
@@ -235,12 +242,13 @@ const getTasksSlice = createSlice({
 
 export default getTasksSlice.reducer;
 export const {
-  setTasks,
-  deleteTask,
+  resetTaskStatus,
+  addTasksLocally,
+  deleteTasksLocally,
   completeTaskLocally,
   editTaskLocally,
-  reArrangeTasks,
-  setMilestones,
+  reArrangeTasksLocally,
+  addMilestoneLocally,
   completeMilestoneLocally,
   lockTaskLocally,
   deleteMilestoneLocally,

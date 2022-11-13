@@ -1,11 +1,11 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { updateDoc, doc } from 'firebase/firestore';
-import { db } from '../../../container/firebase';
-import { SingleTaskInterface } from '../../../interfaces/interfaces';
-import { initialState } from '../../../interfaces/interfaces';
+import { db } from '../../../../container/firebase';
+import { SingleTaskInterface } from '../../../../interfaces/interfaces';
+import { initialState } from '../../../../interfaces/interfaces';
 
-export const uploadLocalData = createAsyncThunk(
-  'uploadLocalData',
+export const reArrangeFirebase = createAsyncThunk(
+  'reArrangeFirebase',
   async ({
     userUid,
     allTasks,
@@ -30,21 +30,17 @@ const initialState: initialState = {
 };
 
 const reArrange = createSlice({
-  name: 'uploadLocalData',
+  name: 'reArrangeFirebase',
   initialState,
-  reducers: {
-    uploadLocalDataResetStatus: (state: any) => {
-      state.state = '';
-    },
-  },
+  reducers: {},
   extraReducers(build) {
-    build.addCase(uploadLocalData.pending, (state) => {
+    build.addCase(reArrangeFirebase.pending, (state) => {
       state.state = 'pending';
     }),
-      build.addCase(uploadLocalData.fulfilled, (state) => {
+      build.addCase(reArrangeFirebase.fulfilled, (state) => {
         state.state = 'fulfilled';
       }),
-      build.addCase(uploadLocalData.rejected, (state, action: any) => {
+      build.addCase(reArrangeFirebase.rejected, (state, action: any) => {
         state.error = action;
         state.state = 'rejected';
       });
@@ -52,4 +48,3 @@ const reArrange = createSlice({
 });
 
 export default reArrange.reducer;
-export const { uploadLocalDataResetStatus } = reArrange.actions;

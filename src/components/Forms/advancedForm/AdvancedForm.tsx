@@ -11,8 +11,8 @@ import {
   useAppDispatch,
   useAppSelector,
 } from '../../../interfaces/interfaces';
-import { setMilestones } from '../../../redux/slices/features/getTasksSlice';
-import { addMilestones } from '../../../redux/slices/features/MilestonesSlice';
+import { addMilestoneLocally } from '../../../redux/slices/features/getTasksSlice';
+import { addMilestones } from '../../../redux/slices/features/fireBaseActions/MilestonesSlice';
 import { modules } from '../../../utilities/quillToolBar';
 import { isOnline } from '../../../utilities/isOnline';
 
@@ -52,6 +52,8 @@ const AdvancedForm = ({
     return false;
   }
 
+  const uuid = uuidv4();
+
   const formSubmitHandler = (e: any) => {
     e.preventDefault();
     const newDate = new Date();
@@ -63,7 +65,7 @@ const AdvancedForm = ({
             addMilestones({
               userUid: user,
               milestone: {
-                id: uuidv4(),
+                id: uuid,
                 milestoneContent: value,
                 milestoneCompleted: false,
                 milestoneDate: newDate.toISOString(),
@@ -78,9 +80,9 @@ const AdvancedForm = ({
       ? false
       : setTimeout(() => {
           dispatch(
-            setMilestones({
+            addMilestoneLocally({
               milestone: {
-                id: uuidv4(),
+                id: uuid,
                 milestoneContent: value,
                 milestoneCompleted: false,
                 milestoneDate: newDate.toISOString(),
