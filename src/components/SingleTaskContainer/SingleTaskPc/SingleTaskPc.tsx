@@ -21,30 +21,23 @@ import {
   useAppSelector,
   SingleTaskInterface,
 } from '../../../interfaces/interfaces';
-import { completedTask } from '../../../redux/slices/features/completeTaskSlice';
-import { removeTask } from '../../../redux/slices/features/deleteTaskSlice';
+import { completedTask } from '../../../redux/slices/features/fireBaseActions/completeTaskSlice';
+import { removeTask } from '../../../redux/slices/features/fireBaseActions/deleteTaskSlice';
 import {
   changeTaskImportantStateLocally,
-  deleteTask,
+  deleteTasksLocally,
   completeTaskLocally,
   lockTaskLocally,
   editTaskLocally,
 } from '../../../redux/slices/features/getTasksSlice';
-import { editTask } from '../../../redux/slices/features/editTaskSlice';
+import { editTask } from '../../../redux/slices/features/fireBaseActions/editTaskSlice';
 import useClickOutside from '../../../hooks/useClickOutside';
 import TaskTypeMenu from '../../Forms/TaskForm/TaskTypeMenu';
-import { changeTaskImportantState } from '../../../redux/slices/features/changeTaskImportantStateSlice';
+import { changeTaskImportantState } from '../../../redux/slices/features/fireBaseActions/changeTaskImportantStateSlice';
 import { setCardColorByTypeHandler } from '../../../utilities/setColorByTypeHandler';
 import 'react-step-progress-bar/styles.css';
-import { lockTask } from '../../../redux/slices/features/lockTaskSlice';
+import { lockTask } from '../../../redux/slices/features/fireBaseActions/lockTaskSlice';
 import { isOnline } from '../../../utilities/isOnline';
-import {
-  dbTasksChangeTaskImportantStateLocally,
-  dbTasksCompleteTaskLocally,
-  dbTasksDeleteTask,
-  dbTasksEditTaskLocally,
-  dbTasksLockTaskLocally,
-} from '../../../redux/slices/features/dbTasks';
 
 const SingleTaskPc = ({
   content,
@@ -102,12 +95,6 @@ const SingleTaskPc = ({
               newTask: editText,
             }),
           );
-
-      editText?.length === 0 || editText?.length > 50
-        ? setEditText(content?.content)
-        : dispatch(
-            dbTasksEditTaskLocally({ taskId: content?.id, taskEdit: editText }),
-          );
     }
 
     editText?.length === 0 || editText?.length > 50
@@ -130,10 +117,8 @@ const SingleTaskPc = ({
 
     setDeleteAnimation(true);
     setTimeout(() => {
-      dispatch(deleteTask({ taskId: content?.id }));
-      if (isOnline()) {
-        dispatch(dbTasksDeleteTask({ taskId: content?.id }));
-      }
+      dispatch(deleteTasksLocally({ taskId: content?.id }));
+
       setDeleteAnimation(false);
     }, 200);
   };
@@ -152,9 +137,7 @@ const SingleTaskPc = ({
 
     setTimeout(() => {
       dispatch(completeTaskLocally({ taskId: content?.id }));
-      if (isOnline()) {
-        dispatch(dbTasksCompleteTaskLocally({ taskId: content?.id }));
-      }
+
       setCompleteAnimation(false);
     }, 300);
   };
@@ -169,7 +152,6 @@ const SingleTaskPc = ({
         }),
       );
     }
-    dispatch(dbTasksChangeTaskImportantStateLocally({ taskId: content?.id }));
 
     dispatch(changeTaskImportantStateLocally({ taskId: content?.id }));
   };
@@ -184,8 +166,6 @@ const SingleTaskPc = ({
         }),
       );
     }
-
-    dispatch(dbTasksLockTaskLocally({ taskId: content?.id }));
 
     dispatch(lockTaskLocally({ taskId: content?.id }));
   };

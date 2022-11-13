@@ -11,7 +11,7 @@ import {
   RootState,
 } from '../../../interfaces/interfaces';
 import { signUpThunk } from '../../../redux/slices/authentication/signUpSlice';
-import { addUsername } from '../../../redux/slices/features/addUsernameSlice';
+import { addUsername } from '../../../redux/slices/features/fireBaseActions/addUsernameSlice';
 import useCheckStatus from '../../../hooks/useCheckStatus';
 import { isOnline } from '../../../utilities/isOnline';
 

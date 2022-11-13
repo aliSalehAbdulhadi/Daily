@@ -7,10 +7,11 @@ import {
   useAppDispatch,
   useAppSelector,
 } from '../../interfaces/interfaces';
+import { reArrangeFirebase } from '../../redux/slices/features/fireBaseActions/reArrangeTasksSlice';
 import {
   uploadLocalDataResetStatus,
   uploadLocalData,
-} from '../../redux/slices/features/uploadLocalData';
+} from '../../redux/slices/features/fireBaseActions/uploadLocalData';
 import { isOnline } from '../../utilities/isOnline';
 
 const CheckInternet = () => {
@@ -19,7 +20,7 @@ const CheckInternet = () => {
   const [showErrorMessage, setShowErrorMessage] = useState<boolean>(false);
 
   const dispatch = useAppDispatch();
-  const localTasks: SingleTaskInterface[] = useAppSelector(
+  const tasks: SingleTaskInterface[] = useAppSelector(
     (state: RootState) => state.getTaskReducer.tasks,
   );
   const user = useAppSelector((state: RootState) => state.userReducer.userUid);
@@ -36,7 +37,6 @@ const CheckInternet = () => {
   }, [showErrorMessage]);
 
   useEffect(() => {
-
     dispatch(uploadLocalDataResetStatus());
   }, [dispatch]);
 
@@ -53,7 +53,9 @@ const CheckInternet = () => {
   useEffect((): void => {
     window.ononline = () => {
       setCheckInternet(true);
-      dispatch(uploadLocalData({ userUid: user, allTasks: localTasks }));
+      dispatch(uploadLocalData({ userUid: user, allTasks: tasks }));
+      dispatch(reArrangeFirebase({ userUid: user, allTasks: tasks }));
+
       setUploadData(true);
     };
 
@@ -61,7 +63,7 @@ const CheckInternet = () => {
       setCheckInternet(false);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [localTasks, user]);
+  }, [tasks, user]);
 
   return (
     <div>

@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React, { memo, Suspense, useEffect, useRef, useState } from 'react';
+import React, { Suspense, useEffect, useRef, useState } from 'react';
 import { BsPlusCircleFill } from 'react-icons/bs';
 import { TiArrowBack } from 'react-icons/ti';
 import dynamic from 'next/dynamic';
@@ -16,7 +16,7 @@ import {
   singleMilestoneInterface,
 } from '../../src/interfaces/interfaces';
 import { deleteMilestoneLocally } from '../../src/redux/slices/features/getTasksSlice';
-import { deleteMilestone } from '../../src/redux/slices/features/MilestonesSlice';
+import { deleteMilestone } from '../../src/redux/slices/features/fireBaseActions/MilestonesSlice';
 import { useScrollY } from '../../src/hooks/useScroll';
 const MilestoneSinglePage = dynamic(
   () => import('../../src/components/MilestoneSinglePage/MilestoneSinglePage'),
@@ -167,7 +167,9 @@ const MileStone = () => {
       />
       <div className={`${openAdvancedForm ? 'hidden' : 'block'}`}>
         <div
-          className={`flex flex-col items-center justify-center w-full border-b-[1px] sticky top-0 z-[40]`}
+          className={`flex flex-col items-center justify-center w-full sticky top-0 z-[40] ${
+            task?.milestones.length === 0 ? '' : 'border-b-[1px]'
+          }`}
         >
           <div
             className={`flex  px-3 w-full transition-all py-4 ${
@@ -205,7 +207,7 @@ const MileStone = () => {
           </div>
 
           <div
-            className={`flex w-full transition-all py-1 ${
+            className={`flex w-full transition-all py-1 mt-1 ${
               scrollY >= 83 ? 'shadow-lg' : ''
             } ${dark ? 'bg-primaryColor' : 'bg-secondaryLight'}   ${
               task?.milestones.length === 0 ? 'pt-0' : 'pt-3'
@@ -248,7 +250,7 @@ const MileStone = () => {
               setOpenAdvancedForm(!task?.completed);
               setScroll(true);
             }}
-            className={`sticky w-fit bottom-0 mt-5 ml-2 py-3 z-30 flex flex-col items-center justify-center self-center cursor-pointer ${
+            className={`sticky w-fit bottom-10 mt-5 ml-2 py-3 z-30 flex flex-col items-center justify-center self-center cursor-pointer ${
               openAdvancedForm || isEditing ? 'hidden' : 'block'
             }`}
           >
@@ -265,7 +267,7 @@ const MileStone = () => {
             {!task?.completed ? (
               <BsPlusCircleFill
                 fill="white"
-                className={`h-8 w-8  transition-all `}
+                className={`h-8 w-8  transition-all opacity-80`}
               />
             ) : null}
           </div>

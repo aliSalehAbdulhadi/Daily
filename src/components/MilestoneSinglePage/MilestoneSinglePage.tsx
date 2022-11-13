@@ -1,4 +1,4 @@
-import React, { Suspense, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import dynamic from 'next/dynamic';
 const ReactQuill = dynamic(() => import('react-quill'), {
   ssr: false,
@@ -26,7 +26,7 @@ import {
   completeMilestone,
   deleteMilestone,
   editMilestone,
-} from '../../redux/slices/features/MilestonesSlice';
+} from '../../redux/slices/features/fireBaseActions/MilestonesSlice';
 import { modules } from '../../utilities/quillToolBar';
 import 'react-quill/dist/quill.bubble.css';
 import 'react-quill/dist/quill.snow.css';
