@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { Droppable } from 'react-beautiful-dnd';
-import useClickOutside from '../../hooks/useClickOutside';
 import { useScrollY } from '../../hooks/useScroll';
 import {
   useAppSelector,
@@ -27,9 +26,7 @@ const Tasks = ({ id }: { id: Function }) => {
   const sortBy = useAppSelector(
     (state: RootState) => state.sortTaskReducer.sortTask,
   );
-  const sortModalRef = useClickOutside(() => {
-    setSortModal(false);
-  });
+
   const user = useAppSelector((state: RootState) => state.userReducer.userUid);
 
   const copyTasks = tasks ? [...tasks] : [];
@@ -125,9 +122,7 @@ const Tasks = ({ id }: { id: Function }) => {
               }`}
             >
               <div
-
                 className={` w-full flex item-center justify-between sticky mt-1 top-0 z-[40]  semiSm:border-b-[1px] transition-all px-5 py-5 ${
-
                   scrollY >= 192 ? ' shadow-md ' : ''
                 } rounded-t ${
                   dark
@@ -137,15 +132,12 @@ const Tasks = ({ id }: { id: Function }) => {
                   tasks?.length > 0 ? 'flex' : 'hidden'
                 }  items-center justify-between w-full`}
               >
-                <div
-                  className=" self-start select-none cursor-pointer "
-                  ref={sortModalRef}
-                >
-                  <div className={`absolute z-[100] top-2 left-5 `}>
+                <div className=" self-start select-none cursor-pointer">
+                  <div className={`absolute z-[100] top-2 left-5`}>
                     <SortModal open={sortModal} setOpen={setSortModal} />
                   </div>
                 </div>
-                <div className="text-white self-center text-xs mr-2">
+                <div className="text-white self-center text-xs mr-2 select-none">
                   {completedTask ? (
                     <span>Total tasks: {completedTasks?.length}</span>
                   ) : (

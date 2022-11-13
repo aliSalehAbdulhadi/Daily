@@ -284,7 +284,8 @@ const SingleTaskMobile = ({
                   )}
                 </div>
                 <div className="flex items-center ml-[.31rem]">
-                  <div
+                  <button
+                    type="button"
                     className={` h-[2rem] w-fit flex items-center ${
                       edit ? 'hidden' : 'flex'
                     }`}
@@ -292,19 +293,17 @@ const SingleTaskMobile = ({
                     {content?.completed ? (
                       <MdOutlineRemoveDone
                         title="Incomplete"
-                        type="button"
                         onClick={completionHandler}
                         className="cursor-pointer mr-5 scale-[1.8] transition-all ease-in-out"
                       />
                     ) : (
                       <GoCheck
                         title="Complete task"
-                        type="button"
                         onClick={completionHandler}
                         className="cursor-pointer  mr-5 scale-[1.8] transition-all ease-in-out"
                       />
                     )}
-                  </div>
+                  </button>
 
                   <div
                     className={`mr-[1.15rem] ${
@@ -314,23 +313,21 @@ const SingleTaskMobile = ({
                     <TaskTypeMenu isVertical={false} task={content} />
                   </div>
 
-                  <div className={`${edit ? 'hidden' : ''}`}>
+                  <button type="button" className={`${edit ? 'hidden' : ''}`}>
                     {task?.locked ? (
                       <HiLockClosed
                         title="lock task"
-                        type="button"
                         onClick={lockTaskHandler}
                         size={20}
                       />
                     ) : (
                       <HiLockOpen
                         title="lock task"
-                        type="button"
                         onClick={lockTaskHandler}
                         size={20}
                       />
                     )}
-                  </div>
+                  </button>
                 </div>
               </div>
               <Link href={`/tasks/${content?.id}`}>

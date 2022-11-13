@@ -91,7 +91,7 @@ const MileStone = ({ taskId }: { taskId: string }) => {
 
   return (
     <div className="m-5 flex flex-col  font-Comfortaa transition-all text-white  relative">
-      <h1 className="mb-[1.3rem] py-3 self-center px-5 bg-white text-primaryColor rounded">
+      <h1 className="mb-[1.3rem] py-3 self-center px-5 bg-white text-primaryColor rounded select-none">
         Milestones
       </h1>
 
