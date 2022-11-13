@@ -1,10 +1,10 @@
 import { DragDropContext, DropResult } from 'react-beautiful-dnd';
-import { completedTask } from '../../redux/slices/features/completeTaskSlice';
+import { completedTask } from '../../redux/slices/features/fireBaseActions/completeTaskSlice';
 import {
-  reArrangeTasks,
+  reArrangeTasksLocally,
   completeTaskLocally,
 } from '../../redux/slices/features/getTasksSlice';
-import { reArrangeFirebase } from '../../redux/slices/features/reArrangeTasksSlice';
+import { reArrangeFirebase } from '../../redux/slices/features/fireBaseActions/reArrangeTasksSlice';
 import {
   useAppDispatch,
   useAppSelector,
@@ -15,7 +15,6 @@ import Navbar from '../Navbar/Navbar';
 import { toggleDisableSwiper } from '../../redux/slices/features/disableSwiperSlice';
 import { sortTaskBy } from '../../redux/slices/features/sortTasksSlice';
 import { isOnline } from '../../utilities/isOnline';
-import { reArrangedbTasks } from '../../redux/slices/features/dbTasks';
 
 const Wrapper = ({ children }: { children: JSX.Element }) => {
   const dispatch = useAppDispatch();
@@ -34,8 +33,7 @@ const Wrapper = ({ children }: { children: JSX.Element }) => {
     const [reorderedItem] = items.splice(source.index, 1);
     items.splice(destination.index, 0, reorderedItem);
 
-    dispatch(reArrangeTasks(items));
-    dispatch(reArrangedbTasks(items));
+    dispatch(reArrangeTasksLocally(items));
     if (isOnline()) {
       dispatch(reArrangeFirebase({ userUid: user, allTasks: items }));
     }

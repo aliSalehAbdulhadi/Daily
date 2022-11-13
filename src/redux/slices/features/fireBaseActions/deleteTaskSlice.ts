@@ -1,10 +1,10 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { updateDoc, doc } from 'firebase/firestore';
-import { db } from '../../../container/firebase';
+import { db } from '../../../../container/firebase';
 import {
   initialState,
   SingleTaskInterface,
-} from '../../../interfaces/interfaces';
+} from '../../../../interfaces/interfaces';
 
 export const removeTask = createAsyncThunk(
   'removeTask',

@@ -6,7 +6,7 @@ import {
   useAppDispatch,
   useAppSelector,
 } from '../src/interfaces/interfaces';
-import { dbTasks } from '../src/redux/slices/features/dbTasks';
+import { trickStore } from '../src/redux/slices/features/trickStore';
 import { isOnline } from '../src/utilities/isOnline';
 import TasksContainer from '../src/components/TasksContainer/TasksContainer';
 
@@ -15,9 +15,9 @@ const Home: NextPage = () => {
   const user = useAppSelector((state: RootState) => state.userReducer.userUid);
 
   useEffect(() => {
-    // update local tasks storage
+    // trick redux store to refresh its data so it will sync between multiple opened devices at the same time
     if (isOnline()) {
-      dispatch(dbTasks({ userUid: user }));
+      dispatch(trickStore({ trick: 'trick store to refresh' }));
     }
   }, [dispatch, user]);
 

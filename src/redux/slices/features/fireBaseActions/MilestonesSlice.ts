@@ -1,10 +1,10 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { updateDoc, doc } from 'firebase/firestore';
-import { db } from '../../../container/firebase';
+import { db } from '../../../../container/firebase';
 import {
   singleMilestoneInterface,
   SingleTaskInterface,
-} from '../../../interfaces/interfaces';
+} from '../../../../interfaces/interfaces';
 
 export const addMilestones = createAsyncThunk(
   'addMilestones',

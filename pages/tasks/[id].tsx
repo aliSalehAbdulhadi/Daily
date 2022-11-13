@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React, { memo, Suspense, useEffect, useRef, useState } from 'react';
+import React, { Suspense, useEffect, useRef, useState } from 'react';
 import { BsPlusCircleFill } from 'react-icons/bs';
 import { TiArrowBack } from 'react-icons/ti';
 import dynamic from 'next/dynamic';
@@ -16,7 +16,7 @@ import {
   singleMilestoneInterface,
 } from '../../src/interfaces/interfaces';
 import { deleteMilestoneLocally } from '../../src/redux/slices/features/getTasksSlice';
-import { deleteMilestone } from '../../src/redux/slices/features/MilestonesSlice';
+import { deleteMilestone } from '../../src/redux/slices/features/fireBaseActions/MilestonesSlice';
 import { useScrollY } from '../../src/hooks/useScroll';
 const MilestoneSinglePage = dynamic(
   () => import('../../src/components/MilestoneSinglePage/MilestoneSinglePage'),
@@ -77,7 +77,6 @@ const MileStone = () => {
   );
 
   const scrollY = useScrollY();
-
 
   useEffect(() => {
     setScroll(false);

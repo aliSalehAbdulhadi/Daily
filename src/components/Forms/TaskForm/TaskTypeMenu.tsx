@@ -14,12 +14,11 @@ import {
   useAppDispatch,
   useAppSelector,
 } from '../../../interfaces/interfaces';
-import { addTaskType } from '../../../redux/slices/features/addTaskTypeSlice';
+import { addTaskType } from '../../../redux/slices/features/fireBaseActions/addTaskTypeSlice';
 import { addTaskTypeLocally } from '../../../redux/slices/features/getTasksSlice';
 import { dynamicIconHandler } from '../../../utilities/dynamicIconHandler';
 import { toggleDisableSwiper } from '../../../redux/slices/features/disableSwiperSlice';
 import { isOnline } from '../../../utilities/isOnline';
-import { dbTasksChangeTypeLocally } from '../../../redux/slices/features/dbTasks';
 
 const TaskTypeMenu = ({
   task,
@@ -56,8 +55,6 @@ const TaskTypeMenu = ({
           taskType: value,
         }),
       );
-
-      dispatch(dbTasksChangeTypeLocally({ taskId: task?.id, taskType: value }));
     }
 
     dispatch(addTaskTypeLocally({ taskId: task?.id, taskType: value }));

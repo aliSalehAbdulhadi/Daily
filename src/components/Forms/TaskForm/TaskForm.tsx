@@ -4,15 +4,14 @@ import { v4 as uuidv4 } from 'uuid';
 import { BsPlusCircleDotted } from 'react-icons/bs';
 import { useState } from 'react';
 import FormField from '../../FormField/FormField';
-import { addTask } from '../../../redux/slices/features/addTaskSlice';
-import { setTasks } from '../../../redux/slices/features/getTasksSlice';
+import { addTask } from '../../../redux/slices/features/fireBaseActions/addTaskSlice';
+import { addTasksLocally } from '../../../redux/slices/features/getTasksSlice';
 import {
   RootState,
   useAppDispatch,
   useAppSelector,
 } from '../../../interfaces/interfaces';
 import { isOnline } from '../../../utilities/isOnline';
-import { dbTasksAddTask } from '../../../redux/slices/features/dbTasks';
 
 const formSchema = Yup.object().shape({
   Form: Yup.string().max(50, 'Too Long!'),
@@ -59,20 +58,7 @@ const TaskForm = () => {
           ? false
           : setTimeout(() => {
               dispatch(
-                setTasks({
-                  content: values.Form,
-                  completed: false,
-                  id: uuid,
-                  taskType: 'personal',
-                  date: newDate.toISOString(),
-                  important: false,
-                  locked: false,
-                  milestones: [],
-                }),
-              );
-
-              dispatch(
-                dbTasksAddTask({
+                addTasksLocally({
                   content: values.Form,
                   completed: false,
                   id: uuid,

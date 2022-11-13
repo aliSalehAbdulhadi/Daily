@@ -4,7 +4,7 @@ import storage from 'redux-persist/lib/storage';
 import signUpSlice from '../slices/authentication/signUpSlice';
 import signInSlice from '../slices/authentication/signInSlice';
 import userSlice from '../slices/authentication/userSlice';
-import addTaskSlice from '../slices/features/addTaskSlice';
+import addTaskSlice from '../slices/features/fireBaseActions/addTaskSlice';
 import getTaskSlice from '../slices/features/getTasksSlice';
 import darkMode from '../slices/features/darkModeSlice';
 import resetPasswordSlice from '../slices/authentication/resetPasswordSlice';
@@ -13,9 +13,9 @@ import disableDragDnd from '../slices/features/disableDragDndSlice';
 import sortTasksSlice from '../slices/features/sortTasksSlice';
 import sortMilestonesSlice from '../slices/features/sortMilestonesSlice';
 import milestonePunctCheckboxSlice from '../slices/features/milestonePunctCheckboxSlice';
-import storedTasks from '../slices/features/dbTasks';
-import uploadLocalData from '../slices/features/uploadLocalData';
-import removeTaskStatus from '../slices/features/deleteTaskSlice';
+import trickStore from '../slices/features/trickStore';
+import uploadLocalData from '../slices/features/fireBaseActions/uploadLocalData';
+import removeTaskStatus from '../slices/features/fireBaseActions/deleteTaskSlice';
 
 const rootReducer = combineReducers({
   signUpReducer: signUpSlice,
@@ -32,14 +32,14 @@ const rootReducer = combineReducers({
   uploadLocalDataReducer: uploadLocalData,
   sortTasksReducer: sortTasksSlice,
   milestonePunctCheckboxReducer: milestonePunctCheckboxSlice,
-  dbTasksReducer: storedTasks,
   removeTaskStatusReducer: removeTaskStatus,
+  trickStoreReducer: trickStore,
 });
 
 const persistConfig = {
   key: 'root',
   storage,
-  // blacklist: ['dbTasksReducer'],
+  blacklist: ['dbTasksReducer', 'uploadLocalDataReducer'],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

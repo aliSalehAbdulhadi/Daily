@@ -9,7 +9,6 @@ import {
 import { RootState } from '../../interfaces/interfaces';
 import SortModal from '../modals/SortModal/SortModal';
 import SingleTaskContainer from '../SingleTaskContainer/SingleTaskContainer';
-import { isOnline } from '../../utilities/isOnline';
 import ErrorMessage from '../errorMessage/ErrorMessage';
 
 const Tasks = ({ id }: { id: Function }) => {
@@ -18,14 +17,10 @@ const Tasks = ({ id }: { id: Function }) => {
   const [taskId, setTaskId] = useState<string>('');
   const [sortModal, setSortModal] = useState<boolean>(false);
 
-  const localTasks: SingleTaskInterface[] = useAppSelector(
+  const tasks: SingleTaskInterface[] = useAppSelector(
     (state: RootState) => state.getTaskReducer.tasks,
   );
-  const dataBaseTasks: SingleTaskInterface[] = useAppSelector(
-    (state: RootState) => state?.dbTasksReducer?.tasks,
-  );
-  // Switch between using tasks coming from server or local tasks depending if the user is online
-  const tasks = isOnline() ? dataBaseTasks : localTasks;
+
   const dark = useAppSelector(
     (state: RootState) => state.darkModeReducer.darkMode,
   );
@@ -187,7 +182,7 @@ const Tasks = ({ id }: { id: Function }) => {
                   ) : (
                     <div
                       className={`${
-                        localTasks?.length <= 0 ? 'block' : 'hidden'
+                        tasks?.length <= 0 ? 'block' : 'hidden'
                       }  mt-[7rem]`}
                     >
                       <ErrorMessage

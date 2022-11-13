@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { CountdownCircleTimer } from 'react-countdown-circle-timer';
-import { BiSortAlt2, BiX } from 'react-icons/bi';
+import { BiX } from 'react-icons/bi';
 import { Checkbox } from 'pretty-checkbox-react';
 import { TbListCheck } from 'react-icons/tb';
 import { MdOutlineDelete } from 'react-icons/md';
@@ -11,7 +11,7 @@ import {
   useAppSelector,
 } from '../../interfaces/interfaces';
 import { deleteAllFinishedMilestoneLocally } from '../../redux/slices/features/getTasksSlice';
-import { deleteAllFinishedMilestone } from '../../redux/slices/features/MilestonesSlice';
+import { deleteAllFinishedMilestone } from '../../redux/slices/features/fireBaseActions/MilestonesSlice';
 import SortMilestoneModal from '../modals/sortMilestoneModal/SortMilestoneModal';
 import { punctCheckboxAction } from '../../redux/slices/features/milestonePunctCheckboxSlice';
 import '@djthoms/pretty-checkbox';

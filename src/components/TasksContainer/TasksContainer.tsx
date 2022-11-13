@@ -21,7 +21,7 @@ const TasksContainer = () => {
   );
 
   const dbTasksStatus: any = useAppSelector(
-    (state: RootState) => state?.dbTasksReducer?.status,
+    (state: RootState) => state?.trickStoreReducer?.status,
   );
 
   const vw = useWindowSize();
