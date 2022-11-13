@@ -130,7 +130,9 @@ const Tasks = ({ id }: { id: Function }) => {
               }`}
             >
               <div
+
                 className={` w-full flex item-center justify-between sticky mt-1 top-0 z-[40]  semiSm:border-b-[1px] transition-all px-5 py-5 ${
+
                   scrollY >= 192 ? ' shadow-md ' : ''
                 } rounded-t ${
                   dark
