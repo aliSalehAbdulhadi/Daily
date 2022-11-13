@@ -37,12 +37,14 @@ const MilestoneSinglePage = ({
   milestone,
   index,
   tasks,
+  isEditing,
   setDeleteAnimationMobile,
 }: {
   taskId: string;
   milestone: singleMilestoneInterface;
   index: number;
   tasks: SingleTaskInterface[];
+  isEditing: Function;
   setDeleteAnimationMobile?: {
     animation: boolean;
     deletedMilestoneId: string;
@@ -73,6 +75,10 @@ const MilestoneSinglePage = ({
   useEffect(() => {
     editRef?.current?.focus();
   });
+
+  useEffect(() => {
+    isEditing(edit);
+  }, [edit, isEditing]);
   const editMilestoneHanlder = () => {
     if (editText.length === 0) {
       setEditText(milestone?.milestoneContent);

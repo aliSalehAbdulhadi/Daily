@@ -15,6 +15,7 @@ import sortMilestonesSlice from '../slices/features/sortMilestonesSlice';
 import milestonePunctCheckboxSlice from '../slices/features/milestonePunctCheckboxSlice';
 import storedTasks from '../slices/features/dbTasks';
 import uploadLocalData from '../slices/features/uploadLocalData';
+import removeTaskStatus from '../slices/features/deleteTaskSlice';
 
 const rootReducer = combineReducers({
   signUpReducer: signUpSlice,
@@ -32,12 +33,13 @@ const rootReducer = combineReducers({
   sortTasksReducer: sortTasksSlice,
   milestonePunctCheckboxReducer: milestonePunctCheckboxSlice,
   dbTasksReducer: storedTasks,
+  removeTaskStatusReducer: removeTaskStatus,
 });
 
 const persistConfig = {
   key: 'root',
   storage,
-  blacklist: ['dbTasksReducer'],
+  // blacklist: ['dbTasksReducer'],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

@@ -27,6 +27,8 @@ const TaskForm = () => {
   const dispatch = useAppDispatch();
   const user = useAppSelector((state: RootState) => state.userReducer.userUid);
 
+  const uuid = uuidv4();
+
   return (
     <Formik
       initialValues={{ Form: '' }}
@@ -41,7 +43,7 @@ const TaskForm = () => {
                   task: {
                     content: values.Form,
                     completed: false,
-                    id: uuidv4(),
+                    id: uuid,
                     taskType: 'personal',
                     date: newDate.toISOString(),
                     important: false,
@@ -60,7 +62,7 @@ const TaskForm = () => {
                 setTasks({
                   content: values.Form,
                   completed: false,
-                  id: uuidv4(),
+                  id: uuid,
                   taskType: 'personal',
                   date: newDate.toISOString(),
                   important: false,
@@ -73,7 +75,7 @@ const TaskForm = () => {
                 dbTasksAddTask({
                   content: values.Form,
                   completed: false,
-                  id: uuidv4(),
+                  id: uuid,
                   taskType: 'personal',
                   date: newDate.toISOString(),
                   important: false,
