@@ -18,6 +18,7 @@ import {
 import { deleteMilestoneLocally } from '../../src/redux/slices/features/getTasksSlice';
 import { deleteMilestone } from '../../src/redux/slices/features/fireBaseActions/MilestonesSlice';
 import { useScrollY } from '../../src/hooks/useScroll';
+import MoveMilestoneModalMobile from '../../src/components/modals/moveMilestoneModal/moveMilestoneModalMobile/MoveMilestoneModalMobile';
 const MilestoneSinglePage = dynamic(
   () => import('../../src/components/MilestoneSinglePage/MilestoneSinglePage'),
   { suspense: true },
@@ -76,8 +77,15 @@ const MileStone = () => {
     (state: RootState) => state.sortMilestonesReducer.sortMilestones,
   );
 
-  const scrollY = useScrollY();
+  const isOpenMoveModal = useAppSelector(
+    (state: RootState) =>
+      state.openMoveMilestoneReducer.isMoveMilestoneModalOpen,
+  );
+  const currentSelectedMilestone = useAppSelector(
+    (state: RootState) => state.selectedMilestoneReducer.selectedMilestone,
+  );
 
+  const scrollY = useScrollY();
 
   useEffect(() => {
     setScroll(false);
@@ -106,7 +114,7 @@ const MileStone = () => {
       });
       dispatch(
         deleteMilestone({
-          milestone: milestone,
+          milestoneId: milestone?.id,
           userUid: user,
           taskId: task?.id,
           allTasks: tasks,
@@ -167,7 +175,7 @@ const MileStone = () => {
       />
       <div className={`${openAdvancedForm ? 'hidden' : 'block'}`}>
         <div
-          className={`flex flex-col items-center justify-center w-full sticky top-0 z-[40] ${
+          className={`flex flex-col items-center justify-center w-full sticky top-0 z-40  ${
             task?.milestones.length === 0 ? '' : 'border-b-[1px]'
           }`}
         >
@@ -207,7 +215,7 @@ const MileStone = () => {
           </div>
 
           <div
-            className={`flex w-full transition-all py-1 mt-1 ${
+            className={`flex w-full transition-all  ${
               scrollY >= 83 ? 'shadow-lg' : ''
             } ${dark ? 'bg-primaryColor' : 'bg-secondaryLight'}   ${
               task?.milestones.length === 0 ? 'pt-0' : 'pt-3'
@@ -215,7 +223,7 @@ const MileStone = () => {
           >
             <Suspense>
               <div
-                className={`w-full px-3 pb-3 mr-1   ${
+                className={`w-full px-3 pb-3 pt-[0.15rem] mr-1 ${
                   task && task?.milestones.length > 0 ? 'block ' : 'hidden'
                 }`}
               >
@@ -229,18 +237,16 @@ const MileStone = () => {
           {milestonesSortHandler()?.map((milestone: any, i) => {
             return (
               <Suspense key={milestone?.id}>
-                <div>
-                  <Swipeable handler={() => deleteMilestoneHandler(milestone)}>
-                    <MilestoneSinglePage
-                      taskId={String(id)}
-                      milestone={milestone}
-                      index={i}
-                      tasks={tasks}
-                      setDeleteAnimationMobile={deleteAnimation}
-                      isEditing={setIsEditing}
-                    />
-                  </Swipeable>
-                </div>
+                <Swipeable handler={() => deleteMilestoneHandler(milestone)}>
+                  <MilestoneSinglePage
+                    taskId={String(id)}
+                    milestone={milestone}
+                    index={i}
+                    tasks={tasks}
+                    setDeleteAnimationMobile={deleteAnimation}
+                    isEditing={setIsEditing}
+                  />
+                </Swipeable>
               </Suspense>
             );
           })}
@@ -277,6 +283,16 @@ const MileStone = () => {
             Cant add milestones to finished tasks
           </span>
         </div>
+      </div>
+      <div
+        className={`fixed top-0 right-0 w-full  z-50 ${
+          isOpenMoveModal ? '' : 'hidden'
+        }`}
+      >
+        <MoveMilestoneModalMobile
+          taskId={task?.id}
+          milestone={currentSelectedMilestone}
+        />
       </div>
 
       <div

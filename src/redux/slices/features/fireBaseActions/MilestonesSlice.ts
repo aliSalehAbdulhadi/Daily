@@ -78,11 +78,11 @@ export const deleteMilestone = createAsyncThunk(
     userUid,
     taskId,
     allTasks,
-    milestone,
+    milestoneId,
   }: {
     userUid: string;
     taskId: any;
-    milestone: singleMilestoneInterface;
+    milestoneId: string;
     allTasks: SingleTaskInterface[];
   }) => {
     const docRef = doc(db, 'userData', userUid);
@@ -93,7 +93,7 @@ export const deleteMilestone = createAsyncThunk(
             ? {
                 ...task,
                 milestones: task.milestones.filter((ms: any) => {
-                  if (milestone.id === ms.id) {
+                  if (milestoneId === ms.id) {
                     return false;
                   } else {
                     return true;

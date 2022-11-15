@@ -50,7 +50,7 @@ const Swipeable = ({
   });
 
   return (
-    <div className="z-50" {...handlers}>
+    <div {...handlers}>
       <Swiper
         spaceBetween={0}
         modules={[Navigation, Pagination, Scrollbar, A11y]}

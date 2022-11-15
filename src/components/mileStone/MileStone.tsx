@@ -5,8 +5,10 @@ import useClickOutside from '../../hooks/useClickOutside';
 import {
   RootState,
   SingleTaskInterface,
+  useAppDispatch,
   useAppSelector,
 } from '../../interfaces/interfaces';
+import { toggleOpenMoveMilestone } from '../../redux/slices/features/openMoveMilestoneSlice';
 import MilestoneControlSection from '../milestoneControlSection/MilestoneControlSection';
 import ProgressBar from '../progressBar/ProgressBar';
 const MilestoneSinglePage = dynamic(
@@ -20,10 +22,11 @@ const AdvancedForm = dynamic(
 
 const MileStone = ({ taskId }: { taskId: string }) => {
   const [plusIcon, setPlusIcon] = useState<boolean>(false);
-
   const [scroll, setScroll] = useState<boolean>(false);
   const [openAdvancedForm, setOpenAdvancedForm] = useState<boolean>(false);
   const [isEditing, setIsEditing] = useState<boolean>(false);
+
+  const dispatch = useAppDispatch();
 
   const tasks: SingleTaskInterface[] = useAppSelector(
     (state: RootState) => state.getTaskReducer.tasks,
@@ -51,6 +54,7 @@ const MileStone = ({ taskId }: { taskId: string }) => {
   const sortMilestonesBy = useAppSelector(
     (state: RootState) => state.sortMilestonesReducer.sortMilestones,
   );
+
 
   useEffect(() => {
     setScroll(false);
@@ -124,7 +128,7 @@ const MileStone = ({ taskId }: { taskId: string }) => {
           ) : null}
 
           <div
-            className={`z-50 mx-5  ${
+            className={`z-[50] mx-5  ${
               task && task?.milestones.length > 0 ? 'block ' : 'hidden'
             }`}
           >
@@ -133,7 +137,7 @@ const MileStone = ({ taskId }: { taskId: string }) => {
         </div>
 
         <div className="flex flex-col items-center mx-5 overflow-auto scrollBar h-[59vh]">
-          <div className="w-full mb-10">
+          <div className="w-full mb-10 ">
             {milestonesSortHandler()?.map((milestone: any, i) => {
               return (
                 <Suspense key={milestone.id}>
@@ -185,7 +189,7 @@ const MileStone = ({ taskId }: { taskId: string }) => {
                 setOpenAdvancedForm(true);
                 setPlusIcon(false);
               }}
-              className={`cursor-pointer self-center sticky w-fit `}
+              className={`cursor-pointer self-center sticky semiSm:block w-fit `}
             >
               {plusIcon ? (
                 <BsPlusCircleFill
