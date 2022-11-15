@@ -165,7 +165,7 @@ const TaskTypeMenu = ({
             >
               <RiCheckboxBlankCircleFill
                 size={isVertical ? 20 : 22}
-                className={`pointer-events-none mt-[.19rem] semiSm:mt-0 semiSm:mr-0 semiSm:mb-2 fill-[#F88379] ${
+                className={`pointer-events-none mt-[.19rem] semiSm:mt-0 semiSm:mr-0 semiSm:mb-2 fill-[#e28780] ${
                   hidden ? 'hidden' : 'block'
                 } `}
               />

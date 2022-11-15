@@ -5,10 +5,8 @@ import useClickOutside from '../../hooks/useClickOutside';
 import {
   RootState,
   SingleTaskInterface,
-  useAppDispatch,
   useAppSelector,
 } from '../../interfaces/interfaces';
-import { toggleOpenMoveMilestone } from '../../redux/slices/features/openMoveMilestoneSlice';
 import MilestoneControlSection from '../milestoneControlSection/MilestoneControlSection';
 import ProgressBar from '../progressBar/ProgressBar';
 const MilestoneSinglePage = dynamic(
@@ -25,8 +23,6 @@ const MileStone = ({ taskId }: { taskId: string }) => {
   const [scroll, setScroll] = useState<boolean>(false);
   const [openAdvancedForm, setOpenAdvancedForm] = useState<boolean>(false);
   const [isEditing, setIsEditing] = useState<boolean>(false);
-
-  const dispatch = useAppDispatch();
 
   const tasks: SingleTaskInterface[] = useAppSelector(
     (state: RootState) => state.getTaskReducer.tasks,
@@ -54,7 +50,6 @@ const MileStone = ({ taskId }: { taskId: string }) => {
   const sortMilestonesBy = useAppSelector(
     (state: RootState) => state.sortMilestonesReducer.sortMilestones,
   );
-
 
   useEffect(() => {
     setScroll(false);

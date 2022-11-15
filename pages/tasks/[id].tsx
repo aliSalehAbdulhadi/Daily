@@ -18,7 +18,6 @@ import {
 import { deleteMilestoneLocally } from '../../src/redux/slices/features/getTasksSlice';
 import { deleteMilestone } from '../../src/redux/slices/features/fireBaseActions/MilestonesSlice';
 import { useScrollY } from '../../src/hooks/useScroll';
-import MoveMilestoneModalMobile from '../../src/components/modals/moveMilestoneModal/moveMilestoneModalMobile/MoveMilestoneModalMobile';
 const MilestoneSinglePage = dynamic(
   () => import('../../src/components/MilestoneSinglePage/MilestoneSinglePage'),
   { suspense: true },
@@ -32,6 +31,14 @@ const MilestoneControlSection = dynamic(
   () =>
     import(
       '../../src/components/milestoneControlSection/MilestoneControlSection'
+    ),
+  { suspense: true },
+);
+
+const MoveMilestoneModalMobile = dynamic(
+  () =>
+    import(
+      '../../src/components/modals/moveMilestoneModal/moveMilestoneModalMobile/MoveMilestoneModalMobile'
     ),
   { suspense: true },
 );
@@ -284,16 +291,19 @@ const MileStone = () => {
           </span>
         </div>
       </div>
-      <div
-        className={`fixed top-0 right-0 w-full  z-50 ${
-          isOpenMoveModal ? '' : 'hidden'
-        }`}
-      >
-        <MoveMilestoneModalMobile
-          taskId={task?.id}
-          milestone={currentSelectedMilestone}
-        />
-      </div>
+
+      <Suspense>
+        <div
+          className={`fixed top-0 right-0 w-full  z-50 ${
+            isOpenMoveModal ? '' : 'hidden'
+          }`}
+        >
+          <MoveMilestoneModalMobile
+            taskId={task?.id}
+            milestone={currentSelectedMilestone}
+          />
+        </div>
+      </Suspense>
 
       <div
         className={`quillFormEnterAnimationMobile absolute z-50  top-0 ${

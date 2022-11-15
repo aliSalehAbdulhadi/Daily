@@ -37,7 +37,7 @@ const MoveMilestoneModalMobile = ({
     <div className="flex items-center">
       <div
         ref={openMoveModalRef}
-        className={`h-screen w-[75%]  ${
+        className={`h-screen w-[78%]  ${
           dark ? 'bg-black' : 'bg-white'
         } bg-opacity-40 py-6 overflow-auto`}
       >

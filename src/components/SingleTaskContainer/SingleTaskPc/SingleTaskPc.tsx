@@ -180,7 +180,7 @@ const SingleTaskPc = ({
            hover:transition-transform hover:ease-in-out font-Comfortaa font-semibold my-2 px-5 min-h-[10rem] relative ${
              content?.completed
                ? 'bg-red-400 shadow-2xl'
-               : setCardColorByTypeHandler(true, content)
+               : setCardColorByTypeHandler(true, content?.taskType)
            } flex flex-col justify-center items-center rounded ease-in-out
             ${
               deleteAnimation
@@ -358,7 +358,7 @@ const SingleTaskPc = ({
                     trailColor={
                       content?.completed
                         ? '#f87171'
-                        : setCardColorByTypeHandler(false, content)
+                        : setCardColorByTypeHandler(false, content?.taskType)
                     }
                     colors="#ffff"
                     onComplete={() => {
