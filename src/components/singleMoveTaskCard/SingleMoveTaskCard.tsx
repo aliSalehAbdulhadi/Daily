@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { RiSendPlane2Fill, RiSendPlane2Line } from 'react-icons/ri';
-import { IoMdDoneAll } from 'react-icons/io';
+import { MdDone } from 'react-icons/md';
 import {
   RootState,
   singleMilestoneInterface,
@@ -20,11 +20,6 @@ import {
   deleteMilestoneLocally,
 } from '../../redux/slices/features/getTasksSlice';
 import { toggleOpenMoveMilestone } from '../../redux/slices/features/openMoveMilestoneSlice';
-import { MdDone, MdDoneOutline, MdFileDownloadDone } from 'react-icons/md';
-import {
-  IoCheckmarkDoneCircle,
-  IoCheckmarkDoneCircleSharp,
-} from 'react-icons/io5';
 
 const SingleMoveTaskCard = ({
   moveToTask,
@@ -141,7 +136,7 @@ const SingleMoveTaskCard = ({
             {moveToTask?.content}
           </span>
           <MdDone
-          size={13}
+            size={13}
             className={`mr-3 text-black opacity-70 rounded-full border-[1px] border-black mb-[3.3rem] ${
               moveToTask?.completed ? '' : 'hidden'
             }`}
