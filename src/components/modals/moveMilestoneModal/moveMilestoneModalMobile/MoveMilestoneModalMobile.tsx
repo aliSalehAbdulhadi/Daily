@@ -38,6 +38,7 @@ const MoveMilestoneModalMobile = ({
       <div
         ref={openMoveModalRef}
         className={`h-screen w-[78%]  ${
+
           dark ? 'bg-black' : 'bg-white'
         } bg-opacity-40 py-6 overflow-auto`}
       >
