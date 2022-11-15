@@ -3,74 +3,89 @@ import { MdPark, MdWork } from 'react-icons/md';
 import { IoGameController } from 'react-icons/io5';
 import { FaShoppingCart, FaUserFriends } from 'react-icons/fa';
 import { CgGym } from 'react-icons/cg';
+import { RiCheckboxBlankCircleFill } from 'react-icons/ri';
 
 export const dynamicIconHandler = (value: string, hidden: boolean) => {
   if (value === 'personal' || !value) {
     return (
-      <BsFillPersonFill
+      <RiCheckboxBlankCircleFill
         size={21}
         title="Task Type"
-        className={`${!hidden ? 'hidden' : 'block'} `}
+        className={`${
+          !hidden ? 'hidden' : 'block'
+        } text-white fill-green-200 opacity-70 border-white border-[2px] rounded-full`}
       />
     );
   }
 
   if (value === 'work') {
     return (
-      <MdWork
-        size={20}
+      <RiCheckboxBlankCircleFill
+        size={21}
         title="Task Type"
-        className={`${!hidden ? 'hidden' : 'block'} `}
+        className={`${
+          !hidden ? 'hidden' : 'block'
+        } text-white fill-blue-600 opacity-80 border-white border-[2px] p-[.15rem] rounded-full`}
       />
     );
   }
 
   if (value === 'fun') {
     return (
-      <IoGameController
+      <RiCheckboxBlankCircleFill
         size={21}
         title="Task Type"
-        className={`${!hidden ? 'hidden' : 'block'} `}
+        className={`${
+          !hidden ? 'hidden' : 'block'
+        } text-white fill-purple-200 opacity-70 border-white border-[2px] rounded-full`}
       />
     );
   }
 
   if (value === 'gym') {
     return (
-      <CgGym
+      <RiCheckboxBlankCircleFill
         size={21}
         title="Task Type"
-        className={`${!hidden ? 'hidden' : 'block'} `}
+        className={`${
+          !hidden ? 'hidden' : 'block'
+        } text-white fill-pink-200 opacity-70 border-white border-[2px] rounded-full`}
       />
     );
   }
 
   if (value === 'friends') {
     return (
-      <FaUserFriends
+      <RiCheckboxBlankCircleFill
         size={21}
         title="Task Type"
-        className={`${!hidden ? 'hidden' : 'block'} `}
+        className={`${
+          !hidden ? 'hidden' : 'block'
+        } text-white fill-teal-200 opacity-70 border-white border-[2px] rounded-full`}
       />
     );
   }
 
   if (value === 'shopping') {
     return (
-      <FaShoppingCart
+      <RiCheckboxBlankCircleFill
         size={21}
         title="Task Type"
-        className={`${!hidden ? 'hidden' : 'block'} `}
+        className={`${
+          !hidden ? 'hidden' : 'block'
+        } text-white fill-[#f8aea7] opacity-70 border-white border-[2px] rounded-full`}
       />
     );
   }
 
   if (value === 'nature') {
     return (
-      <MdPark
+      <RiCheckboxBlankCircleFill
         size={21}
         title="Task Type"
-        className={`${!hidden ? 'hidden' : 'block'} `}
+        className={`${
+          !hidden ? 'hidden' : 'block'
+        } text-white fill-emerald-200 opacity-70 border-white border-[2px] rounded-full`}
       />
     );
   }

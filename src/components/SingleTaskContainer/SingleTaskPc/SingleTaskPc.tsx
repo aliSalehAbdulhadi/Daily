@@ -199,7 +199,7 @@ const SingleTaskPc = ({
             <div className="text-xs w-fit whitespace-nowrap select-none">
               {formatDate}
             </div>
-            <div className={`${content?.completed ? 'hidden' : 'block'} `}>
+            <div className={` ${content?.completed ? 'hidden' : 'block'} `}>
               <HiOutlineStar
                 onClick={importantStateHandler}
                 size={20}
