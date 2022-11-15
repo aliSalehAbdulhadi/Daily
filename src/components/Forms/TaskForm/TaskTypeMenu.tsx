@@ -1,10 +1,8 @@
 import { SyntheticEvent, useEffect, useState } from 'react';
-import { BsFillPersonFill } from 'react-icons/bs';
-import { MdPark, MdWork } from 'react-icons/md';
-import { IoGameController } from 'react-icons/io5';
+import { IoColorFill } from 'react-icons/io5';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { FaShoppingCart, FaUserFriends } from 'react-icons/fa';
-import { CgGym } from 'react-icons/cg';
+import { RiCheckboxBlankCircleFill } from 'react-icons/ri';
+
 //@ts-ignore
 import SwiperCore, { Keyboard, Mousewheel } from 'swiper/core';
 import useClickOutside from '../../../hooks/useClickOutside';
@@ -16,7 +14,6 @@ import {
 } from '../../../interfaces/interfaces';
 import { addTaskType } from '../../../redux/slices/features/fireBaseActions/addTaskTypeSlice';
 import { addTaskTypeLocally } from '../../../redux/slices/features/getTasksSlice';
-import { dynamicIconHandler } from '../../../utilities/dynamicIconHandler';
 import { toggleDisableSwiper } from '../../../redux/slices/features/disableSwiperSlice';
 import { isOnline } from '../../../utilities/isOnline';
 
@@ -64,7 +61,6 @@ const TaskTypeMenu = ({
   useEffect(() => {
     dispatch(toggleDisableSwiper(hidden));
   }, [dispatch, hidden]);
-
   return (
     <div
       ref={domNode}
@@ -78,7 +74,11 @@ const TaskTypeMenu = ({
         }`}
         onClick={() => setHidden(false || task?.completed)}
       >
-        {dynamicIconHandler(value, hidden)}
+        <IoColorFill
+          size={21}
+          title="Task Type"
+          className={`${!hidden ? 'hidden' : 'block'} `}
+        />
       </button>
 
       <div className={`${hidden ? 'hidden' : 'block'}`}>
@@ -97,10 +97,10 @@ const TaskTypeMenu = ({
             <button
               type="button"
               className="flex justify-end semiSm:ml-[.35rem] semiSm:hover:text-white transition-all ease-in-out"
-              value="personal"
+              value="green-4"
               onClick={(e) => iconsHandler(e)}
             >
-              <BsFillPersonFill
+              <RiCheckboxBlankCircleFill
                 size={isVertical ? 20 : 22}
                 className={`pointer-events-none mt-[.19rem] semiSm:mt-0 semiSm:mr-0 semiSm:mb-2 fill-green-400 ${
                   hidden ? 'hidden' : 'block'
@@ -112,13 +112,13 @@ const TaskTypeMenu = ({
           <SwiperSlide>
             <button
               type="button"
-              className="flex justify-end semiSm:ml-[.35rem]  semiSm:hover:text-white transition-all ease-in-out"
-              value="work"
+              className="flex justify-end semiSm:ml-[.35rem] bg-  semiSm:hover:text-white transition-all ease-in-out"
+              value="blue-4"
               onClick={(e) => iconsHandler(e)}
             >
-              <MdWork
+              <RiCheckboxBlankCircleFill
                 size={isVertical ? 20 : 22}
-                className={`pointer-events-none mt-[.19rem] semiSm:mt-0 semiSm:mr-0 semiSm:mb-2   fill-blue-400 ${
+                className={`pointer-events-none mt-[.19rem] semiSm:mt-0 semiSm:mr-0 semiSm:mb-2 fill-blue-400 ${
                   hidden ? 'hidden' : 'block'
                 } `}
               />
@@ -129,10 +129,10 @@ const TaskTypeMenu = ({
             <button
               type="button"
               className="flex justify-end semiSm:ml-[.35rem] semiSm:hover:text-white transition-all ease-in-out"
-              value="fun"
+              value="purple-4"
               onClick={(e) => iconsHandler(e)}
             >
-              <IoGameController
+              <RiCheckboxBlankCircleFill
                 size={isVertical ? 20 : 22}
                 className={`pointer-events-none mt-[.19rem] semiSm:mt-0 fill-purple-400
                   ${hidden ? 'hidden' : 'block'} `}
@@ -144,12 +144,12 @@ const TaskTypeMenu = ({
             <button
               type="button"
               className="flex justify-end semiSm:ml-[.35rem]  semiSm:hover:text-white transition-all ease-in-out"
-              value="shopping"
+              value="amber-2"
               onClick={(e) => iconsHandler(e)}
             >
-              <FaShoppingCart
+              <RiCheckboxBlankCircleFill
                 size={isVertical ? 20 : 22}
-                className={`pointer-events-none mt-[.19rem] semiSm:mt-0 semiSm:mr-0 semiSm:mb-2 fill-[#F88379] ${
+                className={`pointer-events-none mt-[.19rem] semiSm:mt-0 semiSm:mr-0 semiSm:mb-2 fill-amber-200 ${
                   hidden ? 'hidden' : 'block'
                 } `}
               />
@@ -160,10 +160,26 @@ const TaskTypeMenu = ({
             <button
               type="button"
               className="flex justify-end semiSm:ml-[.35rem]  semiSm:hover:text-white transition-all ease-in-out"
-              value="gym"
+              value="salmon"
               onClick={(e) => iconsHandler(e)}
             >
-              <CgGym
+              <RiCheckboxBlankCircleFill
+                size={isVertical ? 20 : 22}
+                className={`pointer-events-none mt-[.19rem] semiSm:mt-0 semiSm:mr-0 semiSm:mb-2 fill-[#e28780] ${
+                  hidden ? 'hidden' : 'block'
+                } `}
+              />
+            </button>
+          </SwiperSlide>
+
+          <SwiperSlide>
+            <button
+              type="button"
+              className="flex justify-end semiSm:ml-[.35rem]  semiSm:hover:text-white transition-all ease-in-out"
+              value="pink-4"
+              onClick={(e) => iconsHandler(e)}
+            >
+              <RiCheckboxBlankCircleFill
                 size={isVertical ? 20 : 22}
                 className={`pointer-events-none mt-[.19rem] semiSm:mt-0 semiSm:mr-0 semiSm:mb-2 text-pink-400 ${
                   hidden ? 'hidden' : 'block'
@@ -176,10 +192,10 @@ const TaskTypeMenu = ({
             <button
               type="button"
               className="flex justify-end semiSm:ml-[.35rem]  semiSm:hover:text-white transition-all ease-in-out"
-              value="friends"
+              value="teal-4"
               onClick={(e) => iconsHandler(e)}
             >
-              <FaUserFriends
+              <RiCheckboxBlankCircleFill
                 size={isVertical ? 20 : 22}
                 className={`pointer-events-none mt-[.19rem] semiSm:mt-0 semiSm:mr-0 semiSm:mb-2 fill-teal-400 ${
                   hidden ? 'hidden' : 'block'
@@ -192,10 +208,10 @@ const TaskTypeMenu = ({
             <button
               type="button"
               className="flex justify-end semiSm:ml-[.35rem]  semiSm:hover:text-white transition-all ease-in-out"
-              value="nature"
+              value="emerald-5"
               onClick={(e) => iconsHandler(e)}
             >
-              <MdPark
+              <RiCheckboxBlankCircleFill
                 size={isVertical ? 20 : 22}
                 className={`pointer-events-none mt-[.19rem] semiSm:mt-0 semiSm:mr-0 semiSm:mb-2 fill-emerald-500 ${
                   hidden ? 'hidden' : 'block'

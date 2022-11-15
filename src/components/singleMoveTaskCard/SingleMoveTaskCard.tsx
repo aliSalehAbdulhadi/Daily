@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { RiSendPlane2Fill, RiSendPlane2Line } from 'react-icons/ri';
+import { MdDone } from 'react-icons/md';
 import {
   RootState,
   singleMilestoneInterface,
@@ -120,21 +121,34 @@ const SingleMoveTaskCard = ({
       }`}
     >
       <div
-        className={`flex items-center w-[90%] h-[80px] shadow-md pl-1 rounded my-1 scrollBar ${setCardColorByTypeHandler(
-          true,
-          moveToTask,
-        )}`}
+        className={`flex items-center w-[90%] h-[80px] shadow-md pl-1 rounded my-1 scrollBar ${
+          moveToTask?.completed
+            ? 'bg-red-400'
+            : setCardColorByTypeHandler(true, moveToTask?.taskType)
+        }`}
       >
-        <span className="text-sm w-[90%] whitespace-pre-wrap">
-          {moveToTask?.content}
-        </span>
+        <div className="flex items-center justify-between w-full">
+          <span
+            className={`text-sm w-[90%] whitespace-pre-wrap ${
+              moveToTask?.completed ? 'line-through opacity-60' : ''
+            }`}
+          >
+            {moveToTask?.content}
+          </span>
+          <MdDone
+            size={13}
+            className={`mr-3 text-black opacity-70 rounded-full border-[1px] border-black mb-[3.3rem] ${
+              moveToTask?.completed ? '' : 'hidden'
+            }`}
+          />
+        </div>
         <button
           onMouseEnter={() => setMoveIcon(true)}
           onMouseLeave={() => setMoveIcon(false)}
           onClick={moveMilestoneHandler}
-          className={`bg-blue-100 h-[100%] w-[30%] semiSm:w-[15%] flex items-center justify-center rounded-r bg-opacity-60 hover:bg-opacity-100 ${setCardColorByTypeHandler(
+          className={`bg-green-200 h-[100%] w-[30%] semiSm:w-[15%] flex items-center justify-center rounded-r bg-opacity-60 hover:bg-opacity-70 ${setCardColorByTypeHandler(
             true,
-            moveToTask,
+            moveToTask?.taskType,
           )}`}
         >
           <div className="hidden semiSm:block">

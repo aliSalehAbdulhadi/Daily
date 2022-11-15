@@ -190,7 +190,10 @@ const SingleTaskMobile = ({
               ? 'border-[1px] border-yellow-400'
               : content?.completed
               ? ''
-              : `border-[1px] ${setCardColorByTypeHandler(false, content)}`
+              : `border-[1px] ${setCardColorByTypeHandler(
+                  false,
+                  content?.taskType,
+                )}`
           }
 
 
@@ -198,7 +201,7 @@ const SingleTaskMobile = ({
           ${
             content?.completed
               ? 'bg-red-400'
-              : setCardColorByTypeHandler(true, content)
+              : setCardColorByTypeHandler(true, content?.taskType)
           }  rounded text-sm ease-in-out 
             ${
               deleteAnimation
