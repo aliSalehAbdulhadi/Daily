@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { Suspense, useEffect, useRef, useState } from 'react';
 import dynamic from 'next/dynamic';
 const ReactQuill = dynamic(() => import('react-quill'), {
   ssr: false,
@@ -9,6 +9,7 @@ import { CountdownCircleTimer } from 'react-countdown-circle-timer';
 import { BiX } from 'react-icons/bi';
 import { MdOutlineRemoveDone } from 'react-icons/md';
 import { FaWindowClose } from 'react-icons/fa';
+import { RiSendPlaneLine, RiSendPlaneFill } from 'react-icons/ri';
 import useClickOutside from '../../hooks/useClickOutside';
 import {
   RootState,
@@ -31,6 +32,15 @@ import { modules } from '../../utilities/quillToolBar';
 import 'react-quill/dist/quill.bubble.css';
 import 'react-quill/dist/quill.snow.css';
 import { isOnline } from '../../utilities/isOnline';
+import useWindowSize from '../../hooks/useWindowsSize';
+import { toggleOpenMoveMilestone } from '../../redux/slices/features/openMoveMilestoneSlice';
+import { setSelectedMilestone } from '../../redux/slices/features/selectedMilestone';
+const MoveMilestoneModal = dynamic(
+  () => import('../modals/moveMilestoneModal/MoveMilestoneModal'),
+  {
+    suspense: true,
+  },
+);
 
 const MilestoneSinglePage = ({
   taskId,
@@ -57,6 +67,7 @@ const MilestoneSinglePage = ({
   const [initialAnimation, setInitialAnimation] = useState<boolean>(false);
   const [deleteIcon, setDeleteIcon] = useState<boolean>(false);
   const [completeIcon, setCompleteIcon] = useState<boolean>(false);
+  const [moveMilestoneIcon, setMoveMilestoneIcon] = useState<boolean>(false);
 
   const editRef = useRef<HTMLTextAreaElement>(null);
   const user = useAppSelector((state: RootState) => state.userReducer.userUid);
@@ -67,14 +78,28 @@ const MilestoneSinglePage = ({
     setEdit(false);
     setEditText(milestone?.milestoneContent);
   });
-
   const punctCheckbox = useAppSelector(
     (state) => state.milestonePunctCheckboxReducer.milestonePunctCheckbox,
   );
 
+  const currentSelectedMilestone = useAppSelector(
+    (state: RootState) => state.selectedMilestoneReducer.selectedMilestone,
+  );
+  const isOpenMoveModal = useAppSelector(
+    (state: RootState) =>
+      state.openMoveMilestoneReducer.isMoveMilestoneModalOpen,
+  );
+
+  //@ts-ignore
+  const isCurrentMilestone = currentSelectedMilestone.id === milestone.id;
+
+  const vw = useWindowSize();
+
   useEffect(() => {
     editRef?.current?.focus();
   });
+
+  useEffect(() => {}, [dispatch, milestone, isOpenMoveModal]);
 
   useEffect(() => {
     isEditing(edit);
@@ -136,7 +161,7 @@ const MilestoneSinglePage = ({
       if (isOnline()) {
         dispatch(
           deleteMilestone({
-            milestone: milestone,
+            milestoneId: milestone?.id,
             userUid: user,
             taskId: task?.id,
             allTasks: tasks,
@@ -161,7 +186,7 @@ const MilestoneSinglePage = ({
   }, []);
 
   return (
-    <div className="flex justify-between my-5 font-Comfortaa">
+    <div className="flex justify-between my-5 font-Comfortaa relative">
       <div className="flex justify-between items-end w-full">
         <div
           className={`${
@@ -227,13 +252,14 @@ const MilestoneSinglePage = ({
             </div>
           )}
         </div>
-        <div className="flex-col items-end mr-5 md:ml-5 h-full hidden semiSm:flex">
+
+        <div className="flex-col items-center justify-center mr-5 md:ml-5 h-full hidden semiSm:flex">
           <button
             onMouseEnter={() => setCompleteIcon(true)}
             onMouseLeave={() => setCompleteIcon(false)}
             onClick={completeMilestoneHandler}
             type="button"
-            className="container w-fit h-fit mt-2"
+            className="container w-fit h-fit mt-1"
           >
             {milestone?.milestoneCompleted ? (
               <MdOutlineRemoveDone className=" h-[1.15rem]" />
@@ -244,9 +270,26 @@ const MilestoneSinglePage = ({
             )}
           </button>
 
+          <button
+            onMouseEnter={() => setMoveMilestoneIcon(true)}
+            onMouseLeave={() => setMoveMilestoneIcon(false)}
+            onClick={() => {
+              dispatch(toggleOpenMoveMilestone(true));
+              dispatch(setSelectedMilestone(milestone));
+            }}
+            className="container w-fit h-fit "
+            type="button"
+          >
+            {moveMilestoneIcon || (isOpenMoveModal && isCurrentMilestone) ? (
+              <RiSendPlaneFill className="h-5 " />
+            ) : (
+              <RiSendPlaneLine className="h-5" />
+            )}
+          </button>
+
           {deleteTimer ? (
             <div
-              className="relative cursor-pointer w-fit h-fit mt-2 mb-3 "
+              className="relative cursor-pointer w-fit h-fit mb-3 "
               onClick={() => setDeleteTimer(false)}
             >
               <BiX className="absolute h-4 w-4 top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]" />
@@ -267,9 +310,10 @@ const MilestoneSinglePage = ({
             <button
               onMouseEnter={() => setDeleteIcon(true)}
               onMouseLeave={() => setDeleteIcon(false)}
-              className="container w-fit h-fit mt-2"
+              className="container w-fit h-fit"
               onClick={() => setDeleteTimer(true)}
               type="button"
+              title="move milestone button"
             >
               {deleteIcon ? (
                 <AiFillDelete className="h-5" />
@@ -280,7 +324,7 @@ const MilestoneSinglePage = ({
           )}
         </div>
         <div
-          className={`flex items-center justify-center h-full ml-3 mr-4 semiSm:hidden ${
+          className={`flex flex-col items-center justify-center h-full ml-3 mr-4 semiSm:hidden ${
             edit && !milestone?.milestoneCompleted ? 'hidden' : ''
           }`}
         >
@@ -291,13 +335,42 @@ const MilestoneSinglePage = ({
             type="button"
           >
             {milestone?.milestoneCompleted ? (
-              <MdOutlineRemoveDone className=" h-[1.8rem] w-[1.8rem]" />
+              <MdOutlineRemoveDone className=" h-[1.5rem] w-[1.5rem]" />
             ) : (
-              <BsCheckCircle className="h-[1.8rem] w-[1.8rem]" />
+              <BsCheckCircle className="h-[1.5rem] w-[1.5rem]" />
+            )}
+          </button>
+
+          <button
+            onClick={() => {
+              dispatch(toggleOpenMoveMilestone(true));
+              dispatch(setSelectedMilestone(milestone));
+            }}
+            className="mt-5"
+            type="button"
+            title="move milestone button"
+          >
+            {isOpenMoveModal && isCurrentMilestone ? (
+              <RiSendPlaneFill className="h-[1.5rem] w-[1.5rem]" />
+            ) : (
+              <RiSendPlaneLine className="h-[1.5rem] w-[1.5rem]" />
             )}
           </button>
         </div>
       </div>
+      {vw <= 840 ? (
+        ''
+      ) : (
+        <Suspense>
+          <div
+            className={`  top-[-20px] right-14 z-40 ${
+              isOpenMoveModal && isCurrentMilestone ? 'absolute' : 'hidden'
+            }`}
+          >
+            <MoveMilestoneModal taskId={taskId} />
+          </div>
+        </Suspense>
+      )}
     </div>
   );
 };

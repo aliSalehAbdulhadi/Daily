@@ -16,6 +16,8 @@ import milestonePunctCheckboxSlice from '../slices/features/milestonePunctCheckb
 import trickStore from '../slices/features/trickStore';
 import uploadLocalData from '../slices/features/fireBaseActions/uploadLocalData';
 import removeTaskStatus from '../slices/features/fireBaseActions/deleteTaskSlice';
+import openMoveMilestoneSlice from '../slices/features/openMoveMilestoneSlice';
+import selectedMilestone from '../slices/features/selectedMilestone';
 
 const rootReducer = combineReducers({
   signUpReducer: signUpSlice,
@@ -34,12 +36,21 @@ const rootReducer = combineReducers({
   milestonePunctCheckboxReducer: milestonePunctCheckboxSlice,
   removeTaskStatusReducer: removeTaskStatus,
   trickStoreReducer: trickStore,
+  openMoveMilestoneReducer: openMoveMilestoneSlice,
+  selectedMilestoneReducer: selectedMilestone,
 });
 
 const persistConfig = {
   key: 'root',
   storage,
-  blacklist: ['trickStoreReducer', 'uploadLocalDataReducer'],
+  blacklist: [
+    'trickStoreReducer',
+    'uploadLocalDataReducer',
+    'openMoveMilestoneReducer',
+    'disableSwiperReducer',
+    'disableDragReducer',
+    'selectedMilestoneReducer',
+  ],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
