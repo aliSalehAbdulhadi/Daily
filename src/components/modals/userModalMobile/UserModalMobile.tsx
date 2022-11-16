@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import Link from 'next/link';
 import useClickOutside from '../../../hooks/useClickOutside';
 import { RootState, useAppSelector } from '../../../interfaces/interfaces';
 import ChangeUserName from '../changeUserName/changeUserName';
@@ -6,7 +7,7 @@ import ResetPassword from '../resetPassword/ResetPassword';
 import SignIn from '../SignIn/SignIn';
 import SignUp from '../SignUp/SignUp';
 import ConfirmLogOut from '../confirmLogOut/ConfirmLogOut';
-import Link from 'next/link';
+import { DecryptedUserName } from '../../../utilities/EncryptedData';
 
 const UserModalMobile = ({
   open,
@@ -25,9 +26,7 @@ const UserModalMobile = ({
   const userModalRef = useClickOutside(() => {
     setOpen(false);
   });
-  const userName = useAppSelector(
-    (state: RootState) => state.getTaskReducer.userName,
-  );
+  const userName = DecryptedUserName();
   const user = useAppSelector((state: RootState) => state.userReducer.userUid);
 
   return (

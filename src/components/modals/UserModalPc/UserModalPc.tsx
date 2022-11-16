@@ -6,7 +6,7 @@ import ResetPassword from '../resetPassword/ResetPassword';
 import SignIn from '../SignIn/SignIn';
 import SignUp from '../SignUp/SignUp';
 import ConfirmLogOut from '../confirmLogOut/ConfirmLogOut';
-import {UserKey} from '../../../utilities/EncryptedData';
+import { DecryptedUserName, UserKey } from '../../../utilities/EncryptedData';
 
 const UserModalPc = ({
   open,
@@ -21,9 +21,8 @@ const UserModalPc = ({
   const [openSignUpModal, setOpenSignUpModal] = useState<boolean>(false);
   const [openLogoutModal, setOpenLogoutModal] = useState<boolean>(false);
 
-  const userName = useAppSelector(
-    (state: RootState) => state.getTaskReducer.userName,
-  );
+  const userName = DecryptedUserName();
+
   const user = UserKey();
 
   return (
