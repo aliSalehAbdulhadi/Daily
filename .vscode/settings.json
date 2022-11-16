@@ -6,6 +6,7 @@
     "firestore",
     "formik",
     "headlessui",
+    "krypta",
     "persistor",
     "primarycolor",
     "punct",

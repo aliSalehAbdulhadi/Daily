@@ -15,6 +15,7 @@ import Navbar from '../Navbar/Navbar';
 import { toggleDisableSwiper } from '../../redux/slices/features/disableSwiperSlice';
 import { sortTaskBy } from '../../redux/slices/features/sortTasksSlice';
 import { isOnline } from '../../utilities/isOnline';
+import {UserKey} from '../../utilities/EncryptedData';
 
 const Wrapper = ({ children }: { children: JSX.Element }) => {
   const dispatch = useAppDispatch();
@@ -22,7 +23,7 @@ const Wrapper = ({ children }: { children: JSX.Element }) => {
   const tasks: SingleTaskInterface[] = useAppSelector(
     (state: RootState) => state.getTaskReducer.tasks,
   );
-  const user = useAppSelector((state: RootState) => state.userReducer.userUid);
+  const user = UserKey();
 
   const onDragEndHandler = (result: DropResult) => {
     dispatch(toggleDisableSwiper(true));

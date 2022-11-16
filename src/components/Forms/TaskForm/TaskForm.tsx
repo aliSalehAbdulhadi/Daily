@@ -12,6 +12,7 @@ import {
   useAppSelector,
 } from '../../../interfaces/interfaces';
 import { isOnline } from '../../../utilities/isOnline';
+import {UserKey} from '../../../utilities/EncryptedData';
 
 const formSchema = Yup.object().shape({
   Form: Yup.string().max(50, 'Too Long!'),
@@ -24,7 +25,7 @@ const TaskForm = () => {
     (state: RootState) => state.darkModeReducer.darkMode,
   );
   const dispatch = useAppDispatch();
-  const user = useAppSelector((state: RootState) => state.userReducer.userUid);
+  const user = UserKey();
 
   const uuid = uuidv4();
 

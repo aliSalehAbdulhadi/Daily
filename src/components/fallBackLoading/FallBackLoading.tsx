@@ -1,9 +1,9 @@
 import React from 'react';
 import { ClapSpinner } from 'react-spinners-kit';
-import { RootState, useAppSelector } from '../../interfaces/interfaces';
+import { UserKey } from '../../utilities/EncryptedData';
 
 const FallBackLoading = () => {
-  const user = useAppSelector((state: RootState) => state.userReducer.userUid);
+  const user = UserKey();
 
   return (
     <div

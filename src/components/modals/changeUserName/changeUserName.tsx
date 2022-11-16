@@ -11,6 +11,7 @@ import {
 import FormField from '../../FormField/FormField';
 import { changeUserName } from '../../../redux/slices/features/fireBaseActions/changeUserNameSlice';
 import { isOnline } from '../../../utilities/isOnline';
+import {UserKey} from '../../../utilities/EncryptedData';
 
 const signInSchema = Yup.object().shape({
   username: Yup.string().min(0).max(15).required(),
@@ -25,7 +26,8 @@ const ChangeUserName = ({
 }) => {
   const [animation, setAnimation] = useState<boolean>(false);
   const dispatch = useAppDispatch();
-  const user = useAppSelector((state: RootState) => state.userReducer.userUid);
+  const user = UserKey();
+
   const dark = useAppSelector(
     (state: RootState) => state.darkModeReducer.darkMode,
   );

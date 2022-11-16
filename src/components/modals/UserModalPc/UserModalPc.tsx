@@ -6,6 +6,7 @@ import ResetPassword from '../resetPassword/ResetPassword';
 import SignIn from '../SignIn/SignIn';
 import SignUp from '../SignUp/SignUp';
 import ConfirmLogOut from '../confirmLogOut/ConfirmLogOut';
+import {UserKey} from '../../../utilities/EncryptedData';
 
 const UserModalPc = ({
   open,
@@ -23,7 +24,7 @@ const UserModalPc = ({
   const userName = useAppSelector(
     (state: RootState) => state.getTaskReducer.userName,
   );
-  const user = useAppSelector((state: RootState) => state.userReducer.userUid);
+  const user = UserKey();
 
   return (
     <div

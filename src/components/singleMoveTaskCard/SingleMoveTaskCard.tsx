@@ -20,6 +20,7 @@ import {
   deleteMilestoneLocally,
 } from '../../redux/slices/features/getTasksSlice';
 import { toggleOpenMoveMilestone } from '../../redux/slices/features/openMoveMilestoneSlice';
+import {UserKey} from '../../utilities/EncryptedData';
 
 const SingleMoveTaskCard = ({
   moveToTask,
@@ -35,7 +36,7 @@ const SingleMoveTaskCard = ({
   const [cardMoveAnimation, setCardMoveAnimation] = useState<boolean>(false);
 
   const dispatch = useAppDispatch();
-  const user = useAppSelector((state: RootState) => state.userReducer.userUid);
+  const user = UserKey();
 
   const tasks: SingleTaskInterface[] = useAppSelector(
     (state: RootState) => state.getTaskReducer.tasks,

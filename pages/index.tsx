@@ -1,19 +1,16 @@
 import { useEffect } from 'react';
 import type { NextPage } from 'next';
 import TaskForm from '../src/components/Forms/TaskForm/TaskForm';
-import {
-  RootState,
-  useAppDispatch,
-  useAppSelector,
-} from '../src/interfaces/interfaces';
+import { useAppDispatch } from '../src/interfaces/interfaces';
 import { trickStore } from '../src/redux/slices/features/trickStore';
 import { isOnline } from '../src/utilities/isOnline';
 import TasksContainer from '../src/components/TasksContainer/TasksContainer';
+import { UserKey } from '../src/utilities/EncryptedData';
 
 const Home: NextPage = () => {
   const dispatch = useAppDispatch();
-  const user = useAppSelector((state: RootState) => state.userReducer.userUid);
-
+  const user = UserKey();
+  console.log('a');
   useEffect(() => {
     // trick redux store to refresh its data so it will sync between multiple opened devices at the same time
     if (isOnline()) {

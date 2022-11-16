@@ -15,6 +15,7 @@ import { addMilestoneLocally } from '../../../redux/slices/features/getTasksSlic
 import { addMilestones } from '../../../redux/slices/features/fireBaseActions/MilestonesSlice';
 import { modules } from '../../../utilities/quillToolBar';
 import { isOnline } from '../../../utilities/isOnline';
+import { UserKey } from '../../../utilities/EncryptedData';
 
 const AdvancedForm = ({
   taskId,
@@ -28,7 +29,8 @@ const AdvancedForm = ({
   const [value, setValue] = useState('');
 
   const dispatch = useAppDispatch();
-  const user = useAppSelector((state: RootState) => state.userReducer.userUid);
+  const user = UserKey();
+
   const tasks: SingleTaskInterface[] = useAppSelector(
     (state: RootState) => state.getTaskReducer.tasks,
   );

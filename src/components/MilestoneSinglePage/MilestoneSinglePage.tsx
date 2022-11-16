@@ -35,6 +35,7 @@ import { isOnline } from '../../utilities/isOnline';
 import useWindowSize from '../../hooks/useWindowsSize';
 import { toggleOpenMoveMilestone } from '../../redux/slices/features/openMoveMilestoneSlice';
 import { setSelectedMilestone } from '../../redux/slices/features/selectedMilestone';
+import {UserKey} from '../../utilities/EncryptedData';
 const MoveMilestoneModal = dynamic(
   () => import('../modals/moveMilestoneModal/MoveMilestoneModal'),
   {
@@ -70,7 +71,8 @@ const MilestoneSinglePage = ({
   const [moveMilestoneIcon, setMoveMilestoneIcon] = useState<boolean>(false);
 
   const editRef = useRef<HTMLTextAreaElement>(null);
-  const user = useAppSelector((state: RootState) => state.userReducer.userUid);
+  const user = UserKey();
+
   const task = tasks?.find((task) => task?.id === taskId);
   const dispatch = useAppDispatch();
 
