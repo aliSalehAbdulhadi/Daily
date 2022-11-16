@@ -112,13 +112,12 @@ const Tasks = ({ id }: { id: Function }) => {
               </button>
             </div>
             <div
-              className={` w-full flex item-center justify-between sticky semiSm:mt-1 top-0 z-[40]  semiSm:rounded-t  semiSm:border-b-[1px] transition-all px-5 py-5 ${
-                scrollY >= 192 ? 'shadow-md' : 'shadow-md'
-              } ${
-                dark
-                  ? 'bg-secondaryColor semiSm:bg-primaryColor'
-                  : 'bg-primaryColor'
-              }  ${
+              className={` w-full flex item-center justify-between sticky semiSm:mt-1 top-0 z-[40]  semiSm:rounded-t  semiSm:border-b-[1px] transition-all px-5 py-5 shadow-md
+            ${
+              dark
+                ? 'bg-secondaryColor semiSm:bg-primaryColor'
+                : 'bg-primaryColor'
+            }  ${
                 tasks?.length > 0 ? 'flex' : 'hidden'
               }  items-center justify-between w-full`}
             >
@@ -136,20 +135,18 @@ const Tasks = ({ id }: { id: Function }) => {
               </div>
             </div>
             <div
-              className={`relative semiSm:rounded-b h-[63vh] overflow-auto semiSm:h-[68.8vh] pb-1 ${
+              className={`relative semiSm:rounded-b  pb-1 ${
+                tasks?.length === 0
+                  ? 'semiSm:h-[75.1vh] rounded-t'
+                  : 'semiSm:h-[68.8vh]'
+              } ${user ? 'h-[63vh] overflow-auto' : ''} ${
                 dark
                   ? 'bg-secondaryColor semiSm:bg-primaryColor'
                   : 'bg-primaryColor'
               }`}
             >
               <div
-                className={`w-[100%]  semiSm:h-[67vh] px-5 py-3 semiSm:py-2 overflow-auto scrollBar flex flex-col items-center ${
-                  user
-                    ? tasks?.length === 0
-                      ? 'min-h-[77.2vh]'
-                      : 'min-h-[62.4vh]'
-                    : 'h-[88.6vh]'
-                } `}
+                className={`w-[100%]  semiSm:h-[67vh] px-5 py-3 semiSm:py-2 overflow-auto scrollBar flex flex-col items-center  `}
               >
                 {user ? (
                   completedTask && tasks?.length > 0 ? (
