@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { getDoc, doc, onSnapshot } from 'firebase/firestore';
+import { getDoc, doc } from 'firebase/firestore';
 import { db } from '../../../container/firebase';
 import { SingleTaskInterface } from '../../../interfaces/interfaces';
 
@@ -12,12 +12,10 @@ export const dbTasks = createAsyncThunk(
         ...doc.data(),
       }));
 
-
       // const unSub = onSnapshot(docRef, (doc) => {
       //   return doc.data();
       // });
       // const newData = new Promise(unSub).then((res) => res);
-
 
       return docData;
     } catch (err) {
