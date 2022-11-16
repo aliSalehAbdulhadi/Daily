@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, memo } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import ReactQuill from 'react-quill';
 import { v4 as uuidv4 } from 'uuid';
 import { AiFillCloseSquare } from 'react-icons/ai';
