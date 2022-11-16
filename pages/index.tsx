@@ -8,8 +8,6 @@ import TasksContainer from '../src/components/TasksContainer/TasksContainer';
 import { UserKey } from '../src/utilities/EncryptedData';
 
 const Home: NextPage = () => {
-  console.log(process.env.NEXT_PUBLIC_MY_NAME);
-
   const dispatch = useAppDispatch();
   const user = UserKey();
   useEffect(() => {
