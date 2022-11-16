@@ -35,7 +35,7 @@ const SortMilestoneModal = ({
   };
   return (
     <div
-      className="relative select-none cursor-pointer w-fit"
+      className="relative select-none cursor-pointer w-fit shadow-md"
       ref={sortModalRef}
     >
       <div

@@ -49,7 +49,7 @@ const TasksContainer = () => {
                 <FallBackLoading />
               ) : (
                 <div
-                  className={`semiSm:w-[45%] md:w-[40%] w-full transition-all `}
+                  className={`semiSm:w-[45%] h-[75vh] semiSm:h-fit md:w-[40%] w-full transition-all `}
                 >
                   <Tasks id={(e: string) => setTaskId(e)} />
                 </div>

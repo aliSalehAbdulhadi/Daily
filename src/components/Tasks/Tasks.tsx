@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { Droppable } from 'react-beautiful-dnd';
-import { useScrollY } from '../../hooks/useScroll';
 import {
   useAppSelector,
   SingleTaskInterface,
@@ -32,8 +31,6 @@ const Tasks = ({ id }: { id: Function }) => {
   const copyTasks = tasks ? [...tasks] : [];
   const completedTasks = tasks ? tasks?.filter((task) => task.completed) : [];
   const pendingTasks = tasks ? tasks?.filter((task) => !task.completed) : [];
-
-  const scrollY = useScrollY();
 
   useEffect(() => {
     id(taskId);
@@ -88,7 +85,7 @@ const Tasks = ({ id }: { id: Function }) => {
             ref={provided.innerRef}
             {...provided.droppableProps}
           >
-            <div className="items-center justify-center  cursor-pointer hidden semiSm:flex">
+            <div className="items-center justify-center  cursor-pointer hidden semiSm:flex ">
               <button
                 type="button"
                 title="Pending tasks"
@@ -115,36 +112,36 @@ const Tasks = ({ id }: { id: Function }) => {
               </button>
             </div>
             <div
-              className={`relative semiSm:rounded semiSm:h-[75vh] ${
+              className={` w-full flex item-center justify-between sticky semiSm:mt-1 top-0 z-[40]  semiSm:rounded-t  semiSm:border-b-[1px] transition-all px-5 py-5 ${
+                scrollY >= 192 ? 'shadow-md' : 'shadow-md'
+              } ${
+                dark
+                  ? 'bg-secondaryColor semiSm:bg-primaryColor'
+                  : 'bg-primaryColor'
+              }  ${
+                tasks?.length > 0 ? 'flex' : 'hidden'
+              }  items-center justify-between w-full`}
+            >
+              <div className=" self-start select-none cursor-pointer">
+                <div className={`absolute z-[100] top-2 left-5`}>
+                  <SortModal open={sortModal} setOpen={setSortModal} />
+                </div>
+              </div>
+              <div className="text-white self-center text-xs mr-2 select-none">
+                {completedTask ? (
+                  <span>Total tasks: {completedTasks?.length}</span>
+                ) : (
+                  <span>Total tasks: {pendingTasks?.length}</span>
+                )}
+              </div>
+            </div>
+            <div
+              className={`relative semiSm:rounded-b h-[63vh] overflow-auto semiSm:h-[68.8vh] pb-1 ${
                 dark
                   ? 'bg-secondaryColor semiSm:bg-primaryColor'
                   : 'bg-primaryColor'
               }`}
             >
-              <div
-                className={` w-full flex item-center justify-between sticky mt-1 top-0 z-[40]  semiSm:border-b-[1px] transition-all px-5 py-5 ${
-                  scrollY >= 192 ? ' shadow-md ' : ''
-                } rounded-t ${
-                  dark
-                    ? 'bg-secondaryColor semiSm:bg-primaryColor'
-                    : 'bg-primaryColor'
-                }  ${
-                  tasks?.length > 0 ? 'flex' : 'hidden'
-                }  items-center justify-between w-full`}
-              >
-                <div className=" self-start select-none cursor-pointer">
-                  <div className={`absolute z-[100] top-2 left-5`}>
-                    <SortModal open={sortModal} setOpen={setSortModal} />
-                  </div>
-                </div>
-                <div className="text-white self-center text-xs mr-2 select-none">
-                  {completedTask ? (
-                    <span>Total tasks: {completedTasks?.length}</span>
-                  ) : (
-                    <span>Total tasks: {pendingTasks?.length}</span>
-                  )}
-                </div>
-              </div>
               <div
                 className={`w-[100%]  semiSm:h-[67vh] px-5 py-3 semiSm:py-2 overflow-auto scrollBar flex flex-col items-center ${
                   user
@@ -220,7 +217,7 @@ const Tasks = ({ id }: { id: Function }) => {
 
             {/* mobile switch buttons */}
             <div
-              className={`flex items-center justify-center cursor-pointer sticky bottom-0 z-[40]  py-3 w-full semiSm:hidden border-t-[1px]  ${
+              className={`flex items-center  justify-center cursor-pointer absolute bottom-0 py-[0.70rem] z-[40] w-full semiSm:hidden border-t-[1px]  ${
                 tasks?.length > 0 ? 'block' : 'hidden'
               } ${dark ? 'bg-secondaryColor' : 'bg-primaryColor'}`}
             >

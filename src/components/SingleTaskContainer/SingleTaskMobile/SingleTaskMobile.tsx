@@ -214,7 +214,7 @@ const SingleTaskMobile = ({
               } `}
             >
               <div
-                className={`flex flex-col justify-between my-0 px-3  py-2 min-h-[10rem]  ${
+                className={`flex flex-col justify-between my-0 px-3  py-2 min-h-[9.5rem]  ${
                   task && task?.milestones?.length <= 0 && task?.completed
                     ? 'w-full'
                     : 'w-[75%] mobileTaskCardBoxShadow'
