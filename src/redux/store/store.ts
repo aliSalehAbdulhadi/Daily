@@ -2,7 +2,6 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { persistReducer, persistStore } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import { encryptTransform } from 'redux-persist-transform-encrypt';
-
 import signUpSlice from '../slices/authentication/signUpSlice';
 import signInSlice from '../slices/authentication/signInSlice';
 import userSlice from '../slices/authentication/userSlice';
@@ -20,7 +19,6 @@ import uploadLocalData from '../slices/features/fireBaseActions/uploadLocalData'
 import removeTaskStatus from '../slices/features/fireBaseActions/deleteTaskSlice';
 import openMoveMilestoneSlice from '../slices/features/openMoveMilestoneSlice';
 import selectedMilestone from '../slices/features/selectedMilestone';
-import { key } from '../../utilities/encryptKey';
 
 const rootReducer = combineReducers({
   signUpReducer: signUpSlice,
