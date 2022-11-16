@@ -16,12 +16,13 @@ import SortMilestoneModal from '../modals/sortMilestoneModal/SortMilestoneModal'
 import { punctCheckboxAction } from '../../redux/slices/features/milestonePunctCheckboxSlice';
 import '@djthoms/pretty-checkbox';
 import { isOnline } from '../../utilities/isOnline';
+import {UserKey} from '../../utilities/EncryptedData';
 
 const MilestoneControlSection = ({ taskId }: { taskId: any }) => {
   const [sortModal, setSortModal] = useState<boolean>(false);
   const [deleteTimer, setDeleteTimer] = useState<boolean>(false);
   const dispatch = useAppDispatch();
-  const user = useAppSelector((state: RootState) => state.userReducer.userUid);
+  const user = UserKey();
 
   const tasks: SingleTaskInterface[] = useAppSelector(
     (state: RootState) => state.getTaskReducer.tasks,

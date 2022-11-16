@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-
+import { encrypt } from 'n-krypta';
+import { encryptKey } from '../../../utilities/encryptKey';
 const initialState = {
   userUid: '',
 };
@@ -9,7 +10,7 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     setUserUid: (state: any, action: PayloadAction<any>) => {
-      state.userUid = action.payload;
+      state.userUid = action.payload ? encrypt(action.payload, encryptKey) : '';
     },
   },
 });

@@ -43,13 +43,11 @@ const rootReducer = combineReducers({
 const persistConfig = {
   key: 'root',
   storage,
-  blacklist: [
-    'trickStoreReducer',
-    'uploadLocalDataReducer',
-    'openMoveMilestoneReducer',
-    'disableSwiperReducer',
-    'disableDragReducer',
-    'selectedMilestoneReducer',
+  whitelist: [
+    'getTaskReducer',
+    'userReducer',
+    'milestonePunctCheckboxReducer',
+    'darkModeReducer',
   ],
 };
 

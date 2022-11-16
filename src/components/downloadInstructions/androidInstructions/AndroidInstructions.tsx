@@ -1,7 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
 import { ImChrome } from 'react-icons/im';
-import { BiDotsVerticalRounded } from 'react-icons/bi';
 
 const AndroidInstructions = () => {
   return (

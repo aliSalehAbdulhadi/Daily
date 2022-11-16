@@ -19,6 +19,7 @@ import TaskForm from '../Forms/TaskForm/TaskForm';
 import CheckInternet from '../checkInternet/CheckInternet';
 import useClickOutside from '../../hooks/useClickOutside';
 import useWindowSize from '../../hooks/useWindowsSize';
+import { UserKey } from '../../utilities/EncryptedData';
 const UserModalPc = dynamic(() => import('../modals/UserModalPc/UserModalPc'), {
   suspense: true,
 });
@@ -46,12 +47,14 @@ const Navbar = () => {
 
   const [darkMode, setSetDarkMode] = useState<boolean>(darkModeFunction);
   const dispatch = useAppDispatch();
-  const user = useAppSelector((state: RootState) => state.userReducer.userUid);
   const dark = useAppSelector(
     (state: RootState) => state.darkModeReducer.darkMode,
   );
+  const user = UserKey();
+
   useEffect(() => {
     onAuthStateChanged(auth, (user) => dispatch(setUserUid(user?.uid)));
+
     dispatch(getTasks({ userUid: user }));
   }, [dispatch, user]);
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, memo } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import ReactQuill from 'react-quill';
 import { v4 as uuidv4 } from 'uuid';
 import { AiFillCloseSquare } from 'react-icons/ai';
@@ -15,6 +15,7 @@ import { addMilestoneLocally } from '../../../redux/slices/features/getTasksSlic
 import { addMilestones } from '../../../redux/slices/features/fireBaseActions/MilestonesSlice';
 import { modules } from '../../../utilities/quillToolBar';
 import { isOnline } from '../../../utilities/isOnline';
+import { UserKey } from '../../../utilities/EncryptedData';
 
 const AdvancedForm = ({
   taskId,
@@ -28,7 +29,8 @@ const AdvancedForm = ({
   const [value, setValue] = useState('');
 
   const dispatch = useAppDispatch();
-  const user = useAppSelector((state: RootState) => state.userReducer.userUid);
+  const user = UserKey();
+
   const tasks: SingleTaskInterface[] = useAppSelector(
     (state: RootState) => state.getTaskReducer.tasks,
   );
