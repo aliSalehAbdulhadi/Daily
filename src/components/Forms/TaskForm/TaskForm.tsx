@@ -84,7 +84,7 @@ const TaskForm = () => {
           onChange={(e: any) => setValue(e?.target.value)}
           className={` ${dark ? 'bg-primaryColor' : 'bg-primaryLight'} pt-3 ${
             dark ? 'text-textDark' : 'text-textLight'
-          } flex items-center justify-center select-none h-fit`}
+          } flex items-center justify-center select-none  h-[15vh] semiSm:h-fit`}
         >
           {user ? (
             <div className=" flex flex-col mb-5 semiSm:mb-0 ml-7 semiSm:ml-0 xl:w-[40%] md:w-[50%] w-[70%] relative">

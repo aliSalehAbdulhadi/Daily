@@ -37,7 +37,7 @@ const SortModal = ({
   return (
     <div
       ref={sortModalRef}
-      className={` text-white border-[1px] semiSm:w-fit  inner-shadow py-[.40rem] mt-[0.05rem] rounded flex flex-col items-center  semiSm:hover:bg-white semiSm:hover:text-secondaryColor whitespace-nowrap ${
+      className={` text-white border-[1px] semiSm:w-fit shadow-md  inner-shadow py-[.40rem] mt-[0.05rem] rounded flex flex-col items-center  semiSm:hover:bg-white semiSm:hover:text-secondaryColor whitespace-nowrap ${
         !open ? ' px-2' : ''
       } ${open ? 'text-secondaryColor bg-white' : ''}`}
       onClick={() => setOpen(!open)}
