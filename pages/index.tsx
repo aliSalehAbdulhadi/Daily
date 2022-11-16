@@ -8,9 +8,10 @@ import TasksContainer from '../src/components/TasksContainer/TasksContainer';
 import { UserKey } from '../src/utilities/EncryptedData';
 
 const Home: NextPage = () => {
+  console.log(process.env.NEXT_PUBLIC_MY_NAME);
+
   const dispatch = useAppDispatch();
   const user = UserKey();
-  console.log('a');
   useEffect(() => {
     // trick redux store to refresh its data so it will sync between multiple opened devices at the same time
     if (isOnline()) {
