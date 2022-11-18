@@ -5,11 +5,12 @@ import { useAppDispatch } from '../src/interfaces/interfaces';
 import { trickStore } from '../src/redux/slices/features/trickStore';
 import { isOnline } from '../src/utilities/isOnline';
 import TasksContainer from '../src/components/TasksContainer/TasksContainer';
-import { UserKey } from '../src/utilities/EncryptedData';
+import { UserKey } from '../src/utilities/globalImports';
 
 const Home: NextPage = () => {
   const dispatch = useAppDispatch();
   const user = UserKey();
+
   useEffect(() => {
     // trick redux store to refresh its data so it will sync between multiple opened devices at the same time
     if (isOnline()) {

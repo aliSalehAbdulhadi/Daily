@@ -7,6 +7,7 @@ import {
   useAppSelector,
 } from '../../../../interfaces/interfaces';
 import { toggleOpenMoveMilestone } from '../../../../redux/slices/features/openMoveMilestoneSlice';
+import { Tasks } from '../../../../utilities/globalImports';
 import SingleMoveTaskCard from '../../../singleMoveTaskCard/SingleMoveTaskCard';
 
 const MoveMilestoneModalMobile = ({
@@ -22,11 +23,9 @@ const MoveMilestoneModalMobile = ({
     dispatch(toggleOpenMoveMilestone(false));
   });
 
-  const tasks: SingleTaskInterface[] = useAppSelector(
-    (state: RootState) => state.getTaskReducer.tasks,
-  );
+  const tasks: SingleTaskInterface[] = Tasks();
 
-  const moveToTasks: SingleTaskInterface[] = tasks.filter(
+  const moveToTasks: SingleTaskInterface[] = tasks?.filter(
     (task) => task.id !== taskId,
   );
 
@@ -38,11 +37,10 @@ const MoveMilestoneModalMobile = ({
       <div
         ref={openMoveModalRef}
         className={`h-screen w-[78%]  ${
-
           dark ? 'bg-black' : 'bg-white'
         } bg-opacity-40 py-6 overflow-auto`}
       >
-        {moveToTasks.map((task) => {
+        {moveToTasks?.map((task) => {
           return (
             <div className="taskCompPc " key={task.id}>
               <SingleMoveTaskCard

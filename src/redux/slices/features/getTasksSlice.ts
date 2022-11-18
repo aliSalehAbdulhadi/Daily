@@ -1,7 +1,10 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { getDoc, doc } from 'firebase/firestore';
+import { stat } from 'fs';
+import { encrypt } from 'n-krypta';
 import { db } from '../../../container/firebase';
 import { SingleTaskInterface } from '../../../interfaces/interfaces';
+import { encryptKey } from '../../../utilities/encryptKey';
 
 export const getTasks = createAsyncThunk(
   'getTasks',
@@ -11,6 +14,7 @@ export const getTasks = createAsyncThunk(
       const docData = getDoc(docRef).then((doc) => ({
         ...doc.data(),
       }));
+
       return docData;
     } catch (err) {
       return err;
@@ -25,6 +29,7 @@ const getTasksSlice = createSlice({
     tasks: [],
     error: [],
     status: '',
+    isAddingTask: false,
   },
   reducers: {
     resetTaskStatus: (state: any) => {
@@ -36,6 +41,7 @@ const getTasksSlice = createSlice({
       action: PayloadAction<SingleTaskInterface>,
     ) => {
       state.tasks?.unshift(action.payload);
+      state.isAddingTask = !state.isAddingTask;
     },
     deleteTasksLocally: (
       state: any,
@@ -231,7 +237,9 @@ const getTasksSlice = createSlice({
       build.addCase(getTasks.fulfilled, (state, action: any) => {
         state.status = 'fulfilled';
         state.tasks = action.payload?.userData?.tasks;
-        state.userName = action.payload?.userName;
+        state.userName = action.payload?.userName
+          ? encrypt(action.payload?.userName, encryptKey)
+          : '';
       }),
       build.addCase(getTasks.rejected, (state, action: any) => {
         state.error = action.error.message;

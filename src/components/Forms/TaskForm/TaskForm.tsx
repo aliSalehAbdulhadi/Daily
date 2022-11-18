@@ -12,7 +12,7 @@ import {
   useAppSelector,
 } from '../../../interfaces/interfaces';
 import { isOnline } from '../../../utilities/isOnline';
-import {UserKey} from '../../../utilities/EncryptedData';
+import { UserKey } from '../../../utilities/globalImports';
 
 const formSchema = Yup.object().shape({
   Form: Yup.string().max(50, 'Too Long!'),

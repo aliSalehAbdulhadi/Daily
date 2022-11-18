@@ -27,7 +27,9 @@ const Swipeable = ({
   );
   const router = useRouter();
   const { id } = router.query;
-  const [bgColor, setBgColor] = useState(dark ? '#427676' : '#56a691');
+  const [bgColor, setBgColor] = useState<string>(dark ? '#427676' : '#56a691');
+  const [isDeleting, setIsDeleting] = useState<boolean>(false);
+
   const dispatch = useAppDispatch();
   const handlers = useSwipeable({
     delta: { left: 280 },
@@ -38,13 +40,15 @@ const Swipeable = ({
     },
     onTap: () => {
       setBgColor(`${dark ? '#427676' : '#56a691'}`);
+      setIsDeleting(false);
     },
     onSwiped: () => {
       setBgColor(`${dark ? '#427676' : '#56a691'}`);
     },
+
     onTouchStartOrOnMouseDown: () => {
       dispatch(toggleDisableDragDnd(false));
-
+      setIsDeleting(true);
       setBgColor('#C41E3A');
     },
   });
@@ -75,6 +79,9 @@ const Swipeable = ({
         }
           `}</style>
         <style>{`.swiper{border-color:${dark ? '#427676' : '#56a691'}`}</style>
+        <style>{`.swiper::after{${
+          isDeleting ? "background-image: url('/svg/delete.svg')" : ''
+        }`}</style>
       </Swiper>
     </div>
   );

@@ -38,7 +38,7 @@ const TasksContainer = () => {
           </h1>
         ) : (
           <div
-            className={` sm:px-10  ${
+            className={`sm:px-10  ${
               dark
                 ? 'bg-secondaryColor'
                 : 'bg-primaryColor semiSm:bg-secondaryLight'

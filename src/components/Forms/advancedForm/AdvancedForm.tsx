@@ -15,7 +15,7 @@ import { addMilestoneLocally } from '../../../redux/slices/features/getTasksSlic
 import { addMilestones } from '../../../redux/slices/features/fireBaseActions/MilestonesSlice';
 import { modules } from '../../../utilities/quillToolBar';
 import { isOnline } from '../../../utilities/isOnline';
-import { UserKey } from '../../../utilities/EncryptedData';
+import { Tasks, UserKey } from '../../../utilities/globalImports';
 
 const AdvancedForm = ({
   taskId,
@@ -31,9 +31,7 @@ const AdvancedForm = ({
   const dispatch = useAppDispatch();
   const user = UserKey();
 
-  const tasks: SingleTaskInterface[] = useAppSelector(
-    (state: RootState) => state.getTaskReducer.tasks,
-  );
+  const tasks: SingleTaskInterface[] = Tasks();
   const dark = useAppSelector(
     (state: RootState) => state.darkModeReducer.darkMode,
   );

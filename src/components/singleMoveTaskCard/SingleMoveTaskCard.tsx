@@ -3,11 +3,9 @@ import { v4 as uuidv4 } from 'uuid';
 import { RiSendPlane2Fill, RiSendPlane2Line } from 'react-icons/ri';
 import { MdDone } from 'react-icons/md';
 import {
-  RootState,
   singleMilestoneInterface,
   SingleTaskInterface,
   useAppDispatch,
-  useAppSelector,
 } from '../../interfaces/interfaces';
 import { setCardColorByTypeHandler } from '../../utilities/setColorByTypeHandler';
 import { isOnline } from '../../utilities/isOnline';
@@ -20,7 +18,7 @@ import {
   deleteMilestoneLocally,
 } from '../../redux/slices/features/getTasksSlice';
 import { toggleOpenMoveMilestone } from '../../redux/slices/features/openMoveMilestoneSlice';
-import {UserKey} from '../../utilities/EncryptedData';
+import { Tasks, UserKey } from '../../utilities/globalImports';
 
 const SingleMoveTaskCard = ({
   moveToTask,
@@ -38,9 +36,7 @@ const SingleMoveTaskCard = ({
   const dispatch = useAppDispatch();
   const user = UserKey();
 
-  const tasks: SingleTaskInterface[] = useAppSelector(
-    (state: RootState) => state.getTaskReducer.tasks,
-  );
+  const tasks: SingleTaskInterface[] = Tasks();
 
   const uuid = uuidv4();
 

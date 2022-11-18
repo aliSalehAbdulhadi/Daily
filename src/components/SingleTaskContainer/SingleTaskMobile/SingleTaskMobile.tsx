@@ -32,7 +32,7 @@ import { changeTaskImportantState } from '../../../redux/slices/features/fireBas
 import { setCardColorByTypeHandler } from '../../../utilities/setColorByTypeHandler';
 import { lockTask } from '../../../redux/slices/features/fireBaseActions/lockTaskSlice';
 import { isOnline } from '../../../utilities/isOnline';
-import { UserKey } from '../../../utilities/EncryptedData';
+import { Tasks, UserKey } from '../../../utilities/globalImports';
 
 const SingleTaskMobile = ({
   content,
@@ -47,9 +47,7 @@ const SingleTaskMobile = ({
   const [editText, setEditText] = useState<string>(content?.content);
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const dispatch = useAppDispatch();
-  const tasks: SingleTaskInterface[] = useAppSelector(
-    (state: RootState) => state.getTaskReducer.tasks,
-  );
+  const tasks: SingleTaskInterface[] = Tasks();
   const user = UserKey();
 
   useEffect(() => {

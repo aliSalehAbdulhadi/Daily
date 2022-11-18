@@ -19,7 +19,7 @@ import TaskForm from '../Forms/TaskForm/TaskForm';
 import CheckInternet from '../checkInternet/CheckInternet';
 import useClickOutside from '../../hooks/useClickOutside';
 import useWindowSize from '../../hooks/useWindowsSize';
-import { UserKey } from '../../utilities/EncryptedData';
+import { UserKey } from '../../utilities/globalImports';
 const UserModalPc = dynamic(() => import('../modals/UserModalPc/UserModalPc'), {
   suspense: true,
 });

@@ -35,7 +35,7 @@ import { isOnline } from '../../utilities/isOnline';
 import useWindowSize from '../../hooks/useWindowsSize';
 import { toggleOpenMoveMilestone } from '../../redux/slices/features/openMoveMilestoneSlice';
 import { setSelectedMilestone } from '../../redux/slices/features/selectedMilestone';
-import {UserKey} from '../../utilities/EncryptedData';
+import { UserKey } from '../../utilities/globalImports';
 const MoveMilestoneModal = dynamic(
   () => import('../modals/moveMilestoneModal/MoveMilestoneModal'),
   {
