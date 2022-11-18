@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Droppable } from 'react-beautiful-dnd';
 import {
   useAppSelector,
@@ -8,10 +8,7 @@ import { RootState } from '../../interfaces/interfaces';
 import SortModal from '../modals/SortModal/SortModal';
 import SingleTaskContainer from '../SingleTaskContainer/SingleTaskContainer';
 import ErrorMessage from '../errorMessage/ErrorMessage';
-import {
-  UserKey,
-  Tasks as decryptedTasks,
-} from '../../utilities/EncryptedData';
+import { UserKey, Tasks as allTasks } from '../../utilities/globalImports';
 
 const Tasks = ({ id }: { id: Function }) => {
   const [completedTask, setCompletedTask] = useState<boolean>(false);
@@ -19,7 +16,7 @@ const Tasks = ({ id }: { id: Function }) => {
   const [taskId, setTaskId] = useState<string>('');
   const [sortModal, setSortModal] = useState<boolean>(false);
 
-  const tasks: SingleTaskInterface[] = decryptedTasks();
+  const tasks: SingleTaskInterface[] = allTasks();
 
   const dark = useAppSelector(
     (state: RootState) => state.darkModeReducer.darkMode,
@@ -27,12 +24,16 @@ const Tasks = ({ id }: { id: Function }) => {
   const sortBy = useAppSelector(
     (state: RootState) => state.sortTaskReducer.sortTask,
   );
+  const isAddingTask = useAppSelector(
+    (state: RootState) => state.getTaskReducer.isAddingTask,
+  );
 
   const user = UserKey();
 
   const copyTasks = tasks ? [...tasks] : [];
   const completedTasks = tasks ? tasks?.filter((task) => task.completed) : [];
   const pendingTasks = tasks ? tasks?.filter((task) => !task.completed) : [];
+  const scrollRefTop = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     id(taskId);
@@ -49,6 +50,23 @@ const Tasks = ({ id }: { id: Function }) => {
       setCompletedTask(false);
     }
   }, [completedTasks?.length, tasks?.length]);
+
+  useEffect(() => {
+    if (sortBy !== 'oldTasks') {
+      scrollRefTop?.current?.scrollTo({
+        top: 0,
+        behavior: 'smooth',
+      });
+    }
+
+    if (sortBy === 'oldTasks') {
+      scrollRefTop?.current?.scrollTo({
+        top: 10000,
+        behavior: 'smooth',
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isAddingTask]);
 
   const taskSortHandler = () => {
     if (sortBy === 'newTasks') {
@@ -137,11 +155,12 @@ const Tasks = ({ id }: { id: Function }) => {
               </div>
             </div>
             <div
+              ref={scrollRefTop}
               className={`relative semiSm:rounded-b  pb-1 ${
                 tasks?.length === 0
                   ? 'semiSm:h-[75.1vh] rounded-t'
                   : 'semiSm:h-[68.8vh]'
-              } ${user ? 'h-[63vh] overflow-auto' : ''} ${
+              } ${user ? 'h-[61.5vh] overflow-auto' : ''} ${
                 dark
                   ? 'bg-secondaryColor semiSm:bg-primaryColor'
                   : 'bg-primaryColor'

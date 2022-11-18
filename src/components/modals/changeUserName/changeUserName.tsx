@@ -11,7 +11,7 @@ import {
 import FormField from '../../FormField/FormField';
 import { changeUserName } from '../../../redux/slices/features/fireBaseActions/changeUserNameSlice';
 import { isOnline } from '../../../utilities/isOnline';
-import { UserKey } from '../../../utilities/EncryptedData';
+import { UserKey } from '../../../utilities/globalImports';
 
 const signInSchema = Yup.object().shape({
   username: Yup.string().min(0).max(15).required(),

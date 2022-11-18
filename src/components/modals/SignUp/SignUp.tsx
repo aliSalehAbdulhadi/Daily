@@ -14,7 +14,7 @@ import { signUpThunk } from '../../../redux/slices/authentication/signUpSlice';
 import { addUsername } from '../../../redux/slices/features/fireBaseActions/addUsernameSlice';
 import useCheckStatus from '../../../hooks/useCheckStatus';
 import { isOnline } from '../../../utilities/isOnline';
-import {UserKey} from '../../../utilities/EncryptedData';
+import { UserKey } from '../../../utilities/globalImports';
 
 const signUpSchema = Yup.object().shape({
   UserName: Yup.string().min(3).max(15).required('User name is required'),

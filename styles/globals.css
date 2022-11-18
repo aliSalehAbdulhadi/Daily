@@ -438,7 +438,6 @@ input::-webkit-input-placeholder {
 
 .swiper::after {
   content: '';
-  background-image: url('/svg/delete.svg');
   background-repeat: no-repeat;
   position: absolute;
   transform: translate(-17%, -65%);

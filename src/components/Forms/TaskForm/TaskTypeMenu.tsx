@@ -16,7 +16,7 @@ import { addTaskType } from '../../../redux/slices/features/fireBaseActions/addT
 import { addTaskTypeLocally } from '../../../redux/slices/features/getTasksSlice';
 import { toggleDisableSwiper } from '../../../redux/slices/features/disableSwiperSlice';
 import { isOnline } from '../../../utilities/isOnline';
-import { Tasks, UserKey } from '../../../utilities/EncryptedData';
+import { Tasks, UserKey } from '../../../utilities/globalImports';
 
 const TaskTypeMenu = ({
   task,

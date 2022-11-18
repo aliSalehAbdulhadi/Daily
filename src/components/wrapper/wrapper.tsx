@@ -15,7 +15,7 @@ import Navbar from '../Navbar/Navbar';
 import { toggleDisableSwiper } from '../../redux/slices/features/disableSwiperSlice';
 import { sortTaskBy } from '../../redux/slices/features/sortTasksSlice';
 import { isOnline } from '../../utilities/isOnline';
-import { Tasks, UserKey } from '../../utilities/EncryptedData';
+import { Tasks, UserKey } from '../../utilities/globalImports';
 
 const Wrapper = ({ children }: { children: JSX.Element }) => {
   const dispatch = useAppDispatch();

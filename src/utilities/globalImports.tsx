@@ -21,10 +21,9 @@ export const DecryptedUserName = () => {
 };
 
 export const Tasks = () => {
-  const encryptedTasks = useAppSelector(
+  const tasks = useAppSelector(
     (state: RootState) => state.getTaskReducer?.tasks,
   );
-  // const tasks = decrypt(encryptedTasks, encryptKey);
 
-  return encryptedTasks;
+  return tasks;
 };

@@ -38,7 +38,7 @@ import { setCardColorByTypeHandler } from '../../../utilities/setColorByTypeHand
 import 'react-step-progress-bar/styles.css';
 import { lockTask } from '../../../redux/slices/features/fireBaseActions/lockTaskSlice';
 import { isOnline } from '../../../utilities/isOnline';
-import { Tasks } from '../../../utilities/EncryptedData';
+import { Tasks, UserKey } from '../../../utilities/globalImports';
 
 const SingleTaskPc = ({
   content,
@@ -59,7 +59,7 @@ const SingleTaskPc = ({
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const dispatch = useAppDispatch();
   const tasks: SingleTaskInterface[] = Tasks();
-  const user = useAppSelector((state: RootState) => state.userReducer.userUid);
+  const user = UserKey();
   useEffect(() => {
     inputRef?.current?.focus();
   }, [edit]);
@@ -117,9 +117,8 @@ const SingleTaskPc = ({
     setDeleteAnimation(true);
     setTimeout(() => {
       dispatch(deleteTasksLocally({ taskId: content?.id }));
-
       setDeleteAnimation(false);
-    }, 200);
+    }, 250);
   };
 
   const completionHandler = () => {
@@ -190,6 +189,8 @@ const SingleTaskPc = ({
           {...provided?.dragHandleProps}
           ref={provided?.innerRef}
         >
+          <button onClick={() => deletionHandler()}>delete</button>
+
           <div
             className={`${
               edit ? 'hidden' : 'flex'

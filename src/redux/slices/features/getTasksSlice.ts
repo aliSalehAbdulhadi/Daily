@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { getDoc, doc } from 'firebase/firestore';
+import { stat } from 'fs';
 import { encrypt } from 'n-krypta';
 import { db } from '../../../container/firebase';
 import { SingleTaskInterface } from '../../../interfaces/interfaces';
@@ -28,6 +29,7 @@ const getTasksSlice = createSlice({
     tasks: [],
     error: [],
     status: '',
+    isAddingTask: false,
   },
   reducers: {
     resetTaskStatus: (state: any) => {
@@ -39,6 +41,7 @@ const getTasksSlice = createSlice({
       action: PayloadAction<SingleTaskInterface>,
     ) => {
       state.tasks?.unshift(action.payload);
+      state.isAddingTask = !state.isAddingTask;
     },
     deleteTasksLocally: (
       state: any,

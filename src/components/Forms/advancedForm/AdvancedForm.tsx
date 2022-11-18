@@ -15,7 +15,7 @@ import { addMilestoneLocally } from '../../../redux/slices/features/getTasksSlic
 import { addMilestones } from '../../../redux/slices/features/fireBaseActions/MilestonesSlice';
 import { modules } from '../../../utilities/quillToolBar';
 import { isOnline } from '../../../utilities/isOnline';
-import { Tasks, UserKey } from '../../../utilities/EncryptedData';
+import { Tasks, UserKey } from '../../../utilities/globalImports';
 
 const AdvancedForm = ({
   taskId,

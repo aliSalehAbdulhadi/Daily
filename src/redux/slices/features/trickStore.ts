@@ -1,17 +1,12 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { getDoc, doc } from 'firebase/firestore';
-import { db } from '../../../container/firebase';
 
 export const trickStore = createAsyncThunk(
   'trickStore',
   async ({ trick }: { trick: string }) => {
     try {
-      const docRef = doc(db, 'trickStore', trick);
-      const docData = getDoc(docRef).then((doc) => ({
-        ...doc.data(),
-      }));
+      const trickData = await trick;
 
-      return docData;
+      return trickData;
     } catch (err) {
       return err;
     }

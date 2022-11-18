@@ -1,12 +1,11 @@
 import { useState } from 'react';
 import Link from 'next/link';
-import { RootState, useAppSelector } from '../../../interfaces/interfaces';
 import ChangeUserName from '../changeUserName/changeUserName';
 import ResetPassword from '../resetPassword/ResetPassword';
 import SignIn from '../SignIn/SignIn';
 import SignUp from '../SignUp/SignUp';
 import ConfirmLogOut from '../confirmLogOut/ConfirmLogOut';
-import { DecryptedUserName, UserKey } from '../../../utilities/EncryptedData';
+import { DecryptedUserName, UserKey } from '../../../utilities/globalImports';
 
 const UserModalPc = ({
   open,

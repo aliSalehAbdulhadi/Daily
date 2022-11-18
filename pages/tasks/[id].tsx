@@ -18,7 +18,7 @@ import {
 import { deleteMilestoneLocally } from '../../src/redux/slices/features/getTasksSlice';
 import { deleteMilestone } from '../../src/redux/slices/features/fireBaseActions/MilestonesSlice';
 import { useScrollY } from '../../src/hooks/useScroll';
-import { Tasks, UserKey } from '../../src/utilities/EncryptedData';
+import { Tasks, UserKey } from '../../src/utilities/globalImports';
 
 const MilestoneSinglePage = dynamic(
   () => import('../../src/components/MilestoneSinglePage/MilestoneSinglePage'),

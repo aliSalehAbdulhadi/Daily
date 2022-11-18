@@ -13,7 +13,7 @@ import {
   uploadLocalData,
 } from '../../redux/slices/features/fireBaseActions/uploadLocalData';
 import { isOnline } from '../../utilities/isOnline';
-import { Tasks, UserKey } from '../../utilities/EncryptedData';
+import { Tasks, UserKey } from '../../utilities/globalImports';
 
 const CheckInternet = () => {
   const [checkInternet, setCheckInternet] = useState<boolean>(true);
