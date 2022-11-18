@@ -8,7 +8,10 @@ import { RootState } from '../../interfaces/interfaces';
 import SortModal from '../modals/SortModal/SortModal';
 import SingleTaskContainer from '../SingleTaskContainer/SingleTaskContainer';
 import ErrorMessage from '../errorMessage/ErrorMessage';
-import { UserKey } from '../../utilities/EncryptedData';
+import {
+  UserKey,
+  Tasks as decryptedTasks,
+} from '../../utilities/EncryptedData';
 
 const Tasks = ({ id }: { id: Function }) => {
   const [completedTask, setCompletedTask] = useState<boolean>(false);
@@ -16,9 +19,7 @@ const Tasks = ({ id }: { id: Function }) => {
   const [taskId, setTaskId] = useState<string>('');
   const [sortModal, setSortModal] = useState<boolean>(false);
 
-  const tasks: SingleTaskInterface[] = useAppSelector(
-    (state: RootState) => state.getTaskReducer.tasks,
-  );
+  const tasks: SingleTaskInterface[] = decryptedTasks();
 
   const dark = useAppSelector(
     (state: RootState) => state.darkModeReducer.darkMode,
@@ -137,7 +138,9 @@ const Tasks = ({ id }: { id: Function }) => {
             </div>
             <div
               className={`relative semiSm:rounded-b  pb-1 ${
-                tasks?.length === 0 ? 'semiSm:h-[75.1vh] rounded-t' : 'semiSm:h-[68.8vh]'
+                tasks?.length === 0
+                  ? 'semiSm:h-[75.1vh] rounded-t'
+                  : 'semiSm:h-[68.8vh]'
               } ${user ? 'h-[63vh] overflow-auto' : ''} ${
                 dark
                   ? 'bg-secondaryColor semiSm:bg-primaryColor'

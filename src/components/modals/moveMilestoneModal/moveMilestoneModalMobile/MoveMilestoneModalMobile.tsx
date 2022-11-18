@@ -7,6 +7,7 @@ import {
   useAppSelector,
 } from '../../../../interfaces/interfaces';
 import { toggleOpenMoveMilestone } from '../../../../redux/slices/features/openMoveMilestoneSlice';
+import { Tasks } from '../../../../utilities/EncryptedData';
 import SingleMoveTaskCard from '../../../singleMoveTaskCard/SingleMoveTaskCard';
 
 const MoveMilestoneModalMobile = ({
@@ -22,9 +23,7 @@ const MoveMilestoneModalMobile = ({
     dispatch(toggleOpenMoveMilestone(false));
   });
 
-  const tasks: SingleTaskInterface[] = useAppSelector(
-    (state: RootState) => state.getTaskReducer.tasks,
-  );
+  const tasks: SingleTaskInterface[] = Tasks()
 
   const moveToTasks: SingleTaskInterface[] = tasks?.filter(
     (task) => task.id !== taskId,

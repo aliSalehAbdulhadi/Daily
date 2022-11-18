@@ -10,20 +10,18 @@ import {
 import { trickStore } from '../src/redux/slices/features/trickStore';
 import { isOnline } from '../src/utilities/isOnline';
 import TasksContainer from '../src/components/TasksContainer/TasksContainer';
-import { UserKey } from '../src/utilities/EncryptedData';
+import { Tasks, UserKey } from '../src/utilities/EncryptedData';
 import { decrypt, encrypt } from 'n-krypta';
 import { encryptKey } from '../src/utilities/encryptKey';
 
 const Home: NextPage = () => {
   const dispatch = useAppDispatch();
   const user = UserKey();
-  const tasks: SingleTaskInterface[] = useAppSelector(
-    (state: RootState) => state.getTaskReducer.tasks,
-  );
+  const tasks: SingleTaskInterface[] = Tasks();
 
-  const encryptedTasks = encrypt(tasks, encryptKey);
-  const decryptedTasks = decrypt(encryptedTasks, encryptKey);
-  console.log(JSON.stringify([encryptedTasks]));
+  // const encryptedTasks = encrypt(tasks, encryptKey);
+  // const decryptedTasks = decrypt(encryptedTasks, encryptKey);
+  // console.log(decryptedTasks);
   useEffect(() => {
     // trick redux store to refresh its data so it will sync between multiple opened devices at the same time
     if (isOnline()) {

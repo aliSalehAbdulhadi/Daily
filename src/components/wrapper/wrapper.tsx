@@ -15,14 +15,12 @@ import Navbar from '../Navbar/Navbar';
 import { toggleDisableSwiper } from '../../redux/slices/features/disableSwiperSlice';
 import { sortTaskBy } from '../../redux/slices/features/sortTasksSlice';
 import { isOnline } from '../../utilities/isOnline';
-import {UserKey} from '../../utilities/EncryptedData';
+import { Tasks, UserKey } from '../../utilities/EncryptedData';
 
 const Wrapper = ({ children }: { children: JSX.Element }) => {
   const dispatch = useAppDispatch();
 
-  const tasks: SingleTaskInterface[] = useAppSelector(
-    (state: RootState) => state.getTaskReducer.tasks,
-  );
+  const tasks: SingleTaskInterface[] = Tasks();
   const user = UserKey();
 
   const onDragEndHandler = (result: DropResult) => {

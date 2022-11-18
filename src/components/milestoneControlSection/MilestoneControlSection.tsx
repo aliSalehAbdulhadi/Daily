@@ -16,7 +16,7 @@ import SortMilestoneModal from '../modals/sortMilestoneModal/SortMilestoneModal'
 import { punctCheckboxAction } from '../../redux/slices/features/milestonePunctCheckboxSlice';
 import '@djthoms/pretty-checkbox';
 import { isOnline } from '../../utilities/isOnline';
-import {UserKey} from '../../utilities/EncryptedData';
+import {Tasks, UserKey} from '../../utilities/EncryptedData';
 
 const MilestoneControlSection = ({ taskId }: { taskId: any }) => {
   const [sortModal, setSortModal] = useState<boolean>(false);
@@ -24,9 +24,7 @@ const MilestoneControlSection = ({ taskId }: { taskId: any }) => {
   const dispatch = useAppDispatch();
   const user = UserKey();
 
-  const tasks: SingleTaskInterface[] = useAppSelector(
-    (state: RootState) => state.getTaskReducer.tasks,
-  );
+  const tasks: SingleTaskInterface[] = Tasks()
 
   const task = tasks?.find((task) => task?.id === taskId);
 

@@ -38,6 +38,7 @@ import { setCardColorByTypeHandler } from '../../../utilities/setColorByTypeHand
 import 'react-step-progress-bar/styles.css';
 import { lockTask } from '../../../redux/slices/features/fireBaseActions/lockTaskSlice';
 import { isOnline } from '../../../utilities/isOnline';
+import { Tasks } from '../../../utilities/EncryptedData';
 
 const SingleTaskPc = ({
   content,
@@ -57,9 +58,7 @@ const SingleTaskPc = ({
   const [editText, setEditText] = useState<string>(content?.content);
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const dispatch = useAppDispatch();
-  const tasks: SingleTaskInterface[] = useAppSelector(
-    (state: RootState) => state.getTaskReducer.tasks,
-  );
+  const tasks: SingleTaskInterface[] = Tasks();
   const user = useAppSelector((state: RootState) => state.userReducer.userUid);
   useEffect(() => {
     inputRef?.current?.focus();

@@ -16,7 +16,7 @@ import { addTaskType } from '../../../redux/slices/features/fireBaseActions/addT
 import { addTaskTypeLocally } from '../../../redux/slices/features/getTasksSlice';
 import { toggleDisableSwiper } from '../../../redux/slices/features/disableSwiperSlice';
 import { isOnline } from '../../../utilities/isOnline';
-import {UserKey} from '../../../utilities/EncryptedData';
+import { Tasks, UserKey } from '../../../utilities/EncryptedData';
 
 const TaskTypeMenu = ({
   task,
@@ -29,9 +29,7 @@ const TaskTypeMenu = ({
   const [hidden, setHidden] = useState<boolean>(true);
   const [value, setValue] = useState<string>(task?.taskType);
   const dispatch = useAppDispatch();
-  const tasks: SingleTaskInterface[] = useAppSelector(
-    (state: RootState) => state.getTaskReducer.tasks,
-  );
+  const tasks: SingleTaskInterface[] = Tasks();
   const user = UserKey();
 
   let domNode = useClickOutside(() => {

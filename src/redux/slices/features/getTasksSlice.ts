@@ -13,6 +13,7 @@ export const getTasks = createAsyncThunk(
       const docData = getDoc(docRef).then((doc) => ({
         ...doc.data(),
       }));
+
       return docData;
     } catch (err) {
       return err;

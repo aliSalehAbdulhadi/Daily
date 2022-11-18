@@ -7,6 +7,7 @@ import {
   SingleTaskInterface,
   useAppSelector,
 } from '../../interfaces/interfaces';
+import { Tasks } from '../../utilities/EncryptedData';
 import MilestoneControlSection from '../milestoneControlSection/MilestoneControlSection';
 import ProgressBar from '../progressBar/ProgressBar';
 const MilestoneSinglePage = dynamic(
@@ -25,9 +26,7 @@ const MileStone = ({ taskId }: { taskId: string }) => {
   const [isEditing, setIsEditing] = useState<boolean>(false);
 
 
-  const tasks: SingleTaskInterface[] = useAppSelector(
-    (state: RootState) => state.getTaskReducer.tasks,
-  );
+  const tasks: SingleTaskInterface[] = Tasks()
   const task = tasks?.find((task) => task?.id === taskId);
 
   const milestoneAdvancedFormRef = useClickOutside(() => {

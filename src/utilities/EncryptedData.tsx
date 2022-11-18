@@ -19,3 +19,12 @@ export const DecryptedUserName = () => {
 
   return userName;
 };
+
+export const Tasks = () => {
+  const encryptedTasks = useAppSelector(
+    (state: RootState) => state.getTaskReducer?.tasks,
+  );
+  // const tasks = decrypt(encryptedTasks, encryptKey);
+
+  return encryptedTasks;
+};

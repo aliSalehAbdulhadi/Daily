@@ -18,7 +18,7 @@ import {
 import { deleteMilestoneLocally } from '../../src/redux/slices/features/getTasksSlice';
 import { deleteMilestone } from '../../src/redux/slices/features/fireBaseActions/MilestonesSlice';
 import { useScrollY } from '../../src/hooks/useScroll';
-import { UserKey } from '../../src/utilities/EncryptedData';
+import { Tasks, UserKey } from '../../src/utilities/EncryptedData';
 
 const MilestoneSinglePage = dynamic(
   () => import('../../src/components/MilestoneSinglePage/MilestoneSinglePage'),
@@ -63,9 +63,7 @@ const MileStone = () => {
   const dispatch = useAppDispatch();
   const user = UserKey();
 
-  const tasks: SingleTaskInterface[] = useAppSelector(
-    (state: RootState) => state.getTaskReducer.tasks,
-  );
+  const tasks: SingleTaskInterface[] = Tasks();
   const task = tasks?.find((task) => task?.id === id);
 
   const milestoneAdvancedFormRef = useClickOutside(() => {
