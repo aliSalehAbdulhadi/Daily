@@ -37,6 +37,7 @@ import { setCardColorByTypeHandler } from '../../../utilities/setColorByTypeHand
 import 'react-step-progress-bar/styles.css';
 import { lockTask } from '../../../redux/slices/features/fireBaseActions/lockTaskSlice';
 import { isOnline } from '../../../utilities/isOnline';
+import { Tasks, UserKey } from '../../../utilities/globalImports';
 
 const SingleTaskPc = ({
   task,

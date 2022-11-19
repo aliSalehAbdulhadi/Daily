@@ -16,6 +16,7 @@ import useCheckStatus from '../../../hooks/useCheckStatus';
 import { isOnline } from '../../../utilities/isOnline';
 import { Dark, UserKey } from '../../../utilities/globalImports';
 
+
 const signUpSchema = Yup.object().shape({
   UserName: Yup.string().min(3).max(15).required('User name is required'),
   Email: Yup.string().min(3).max(24).required('Email is required'),

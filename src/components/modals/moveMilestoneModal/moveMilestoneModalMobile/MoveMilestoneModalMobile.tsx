@@ -5,6 +5,7 @@ import {
 } from '../../../../interfaces/interfaces';
 import { toggleOpenMoveMilestone } from '../../../../redux/slices/features/openMoveMilestoneSlice';
 import { Dark } from '../../../../utilities/globalImports';
+
 import SingleMoveTaskCard from '../../../singleMoveTaskCard/SingleMoveTaskCard';
 
 const MoveMilestoneModalMobile = ({
@@ -21,6 +22,7 @@ const MoveMilestoneModalMobile = ({
   const openMoveModalRef = useClickOutside(() => {
     dispatch(toggleOpenMoveMilestone(false));
   });
+
 
   const moveToTasks: SingleTaskInterface[] = tasks?.filter(
     (task) => task.id !== taskId,

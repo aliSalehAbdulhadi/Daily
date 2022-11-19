@@ -22,6 +22,7 @@ const SingleTaskContainer = dynamic(
   },
 );
 
+
 const Tasks = ({ id }: { id: Function }) => {
   const [completedTask, setCompletedTask] = useState<boolean>(false);
   const [taskId, setTaskId] = useState<string>('');
@@ -29,18 +30,21 @@ const Tasks = ({ id }: { id: Function }) => {
 
   const tasks: SingleTaskInterface[] = allTasks();
   const dark = Dark();
+
   const sortBy = useAppSelector(
     (state: RootState) => state.sortTaskReducer.sortTask,
   );
   const isAddingTask = useAppSelector(
     (state: RootState) => state.getTaskReducer.isAddingTask,
   );
+
   const user = UserKey();
 
   const copyTasks = tasks ? [...tasks] : [];
   const completedTasks = tasks ? tasks?.filter((task) => task.completed) : [];
   const pendingTasks = tasks ? tasks?.filter((task) => !task.completed) : [];
   const scrollRefTop = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
     id(taskId);
   }, [taskId, id]);
