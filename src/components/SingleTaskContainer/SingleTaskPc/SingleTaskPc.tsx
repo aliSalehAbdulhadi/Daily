@@ -118,7 +118,7 @@ const SingleTaskPc = ({
 
       setDeleteAnimation(true);
       setTimeout(() => {
-        dispatch(deleteTasksLocally({ taskId: task?.id }));
+        dispatch(deleteTasksLocally({ index: index }));
         setDeleteAnimation(false);
       }, 250);
     });
