@@ -12,7 +12,9 @@ const MoveMilestoneModalMobile = ({
   taskId,
   milestone,
   tasks,
+  user,
 }: {
+  user: string;
   taskId: any;
   milestone: any;
   tasks: SingleTaskInterface[];
@@ -22,7 +24,6 @@ const MoveMilestoneModalMobile = ({
   const openMoveModalRef = useClickOutside(() => {
     dispatch(toggleOpenMoveMilestone(false));
   });
-
 
   const moveToTasks: SingleTaskInterface[] = tasks?.filter(
     (task) => task.id !== taskId,
@@ -41,6 +42,7 @@ const MoveMilestoneModalMobile = ({
           return (
             <div className="taskCompPc " key={task.id}>
               <SingleMoveTaskCard
+                user={user}
                 tasks={tasks}
                 moveToTask={task}
                 taskId={taskId}

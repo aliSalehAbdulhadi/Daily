@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { RiSendPlane2Fill, RiSendPlane2Line } from 'react-icons/ri';
 import { MdDone } from 'react-icons/md';
+import { batch } from 'react-redux';
 import {
   singleMilestoneInterface,
   SingleTaskInterface,
@@ -18,26 +19,25 @@ import {
   deleteMilestoneLocally,
 } from '../../redux/slices/features/getTasksSlice';
 import { toggleOpenMoveMilestone } from '../../redux/slices/features/openMoveMilestoneSlice';
-import { UserKey } from '../../utilities/globalImports';
-import { batch } from 'react-redux';
 
 const SingleMoveTaskCard = ({
   moveToTask,
   taskId,
   milestone,
   tasks,
+  user,
 }: {
   moveToTask: SingleTaskInterface;
   taskId: string;
   milestone: singleMilestoneInterface;
   tasks: SingleTaskInterface[];
+  user: string;
 }) => {
   const [moveIcon, setMoveIcon] = useState<boolean>(false);
   const [isDelete, setIsDelete] = useState<boolean>(false);
   const [cardMoveAnimation, setCardMoveAnimation] = useState<boolean>(false);
 
   const dispatch = useAppDispatch();
-  const user = UserKey();
 
   const uuid = uuidv4();
 

@@ -370,7 +370,7 @@ const MilestoneSinglePage = ({
             isOpenMoveModal && isCurrentMilestone ? 'absolute' : 'hidden'
           }`}
         >
-          <MoveMilestoneModal tasks={tasks} taskId={taskId} />
+          <MoveMilestoneModal user={user} tasks={tasks} taskId={taskId} />
         </div>
       </Suspense>
     </div>

@@ -21,7 +21,6 @@ import { deleteMilestone } from '../../src/redux/slices/features/fireBaseActions
 
 import { Dark, Tasks, UserKey } from '../../src/utilities/globalImports';
 
-
 const MilestoneSinglePage = dynamic(
   () => import('../../src/components/MilestoneSinglePage/MilestoneSinglePage'),
   { suspense: true },
@@ -303,6 +302,7 @@ const MileStone = () => {
           }`}
         >
           <MoveMilestoneModalMobile
+            user={user}
             tasks={tasks}
             taskId={task?.id}
             milestone={currentSelectedMilestone}
