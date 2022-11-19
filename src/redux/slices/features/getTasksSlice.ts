@@ -46,12 +46,14 @@ const getTasksSlice = createSlice({
     deleteTasksLocally: (
       state: any,
       action: PayloadAction<{
-        taskId: string;
+        index: number;
       }>,
     ) => {
-      state.tasks = state.tasks?.filter(
-        (task: SingleTaskInterface) => task.id !== action.payload.taskId,
-      );
+      const array = state.tasks;
+      if (array?.length > -1) {
+        state.tasks?.splice(action.payload.index, 1);
+      }
+      state.tasks = array;
     },
     completeTaskLocally: (
       state: {
