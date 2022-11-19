@@ -8,18 +8,14 @@ import dynamic from 'next/dynamic';
 import { Suspense } from 'react';
 import { auth } from '../../container/firebase';
 import { setUserUid } from '../../redux/slices/authentication/userSlice';
-import {
-  RootState,
-  useAppDispatch,
-  useAppSelector,
-} from '../../interfaces/interfaces';
+import { useAppDispatch } from '../../interfaces/interfaces';
 import { getTasks } from '../../redux/slices/features/getTasksSlice';
 import { toggleDarkMode } from '../../redux/slices/features/darkModeSlice';
 import TaskForm from '../Forms/TaskForm/TaskForm';
-import CheckInternet from '../checkInternet/CheckInternet';
 import useClickOutside from '../../hooks/useClickOutside';
 import useWindowSize from '../../hooks/useWindowsSize';
-import { UserKey } from '../../utilities/globalImports';
+import { Dark, UserKey } from '../../utilities/globalImports';
+
 const UserModalPc = dynamic(() => import('../modals/UserModalPc/UserModalPc'), {
   suspense: true,
 });
@@ -29,6 +25,10 @@ const UserModalMobile = dynamic(
     suspense: true,
   },
 );
+
+const CheckInternet = dynamic(() => import('../checkInternet/CheckInternet'), {
+  suspense: true,
+});
 
 const Navbar = () => {
   const darkModeFunction = (): any => {
@@ -47,9 +47,7 @@ const Navbar = () => {
 
   const [darkMode, setSetDarkMode] = useState<boolean>(darkModeFunction);
   const dispatch = useAppDispatch();
-  const dark = useAppSelector(
-    (state: RootState) => state.darkModeReducer.darkMode,
-  );
+  const dark = Dark();
   const user = UserKey();
 
   useEffect(() => {
@@ -136,9 +134,11 @@ const Navbar = () => {
             )}
           </Link>
         </div>
-        <div className="ml-4 mb-4 md:mb-0 md:mt-1">
-          <CheckInternet />
-        </div>
+        <Suspense>
+          <div className="ml-4 mb-4 md:mb-0 md:mt-1">
+            <CheckInternet />
+          </div>
+        </Suspense>
       </div>
 
       <div className="hidden semiSm:block w-full  ">

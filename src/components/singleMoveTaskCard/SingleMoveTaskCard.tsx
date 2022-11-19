@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { RiSendPlane2Fill, RiSendPlane2Line } from 'react-icons/ri';
 import { MdDone } from 'react-icons/md';
+import { batch } from 'react-redux';
 import {
   singleMilestoneInterface,
   SingleTaskInterface,
@@ -18,85 +19,89 @@ import {
   deleteMilestoneLocally,
 } from '../../redux/slices/features/getTasksSlice';
 import { toggleOpenMoveMilestone } from '../../redux/slices/features/openMoveMilestoneSlice';
-import { Tasks, UserKey } from '../../utilities/globalImports';
 
 const SingleMoveTaskCard = ({
   moveToTask,
   taskId,
   milestone,
+  tasks,
+  user,
 }: {
   moveToTask: SingleTaskInterface;
   taskId: string;
   milestone: singleMilestoneInterface;
+  tasks: SingleTaskInterface[];
+  user: string;
 }) => {
   const [moveIcon, setMoveIcon] = useState<boolean>(false);
   const [isDelete, setIsDelete] = useState<boolean>(false);
   const [cardMoveAnimation, setCardMoveAnimation] = useState<boolean>(false);
 
   const dispatch = useAppDispatch();
-  const user = UserKey();
-
-  const tasks: SingleTaskInterface[] = Tasks();
 
   const uuid = uuidv4();
 
   const moveMilestoneHandler = () => {
-    if (isOnline()) {
+    batch(() => {
+      if (isOnline()) {
+        dispatch(
+          addMilestones({
+            userUid: user,
+            milestone: {
+              id: uuid,
+              milestoneContent: milestone?.milestoneContent,
+              milestoneCompleted: milestone?.milestoneCompleted,
+              milestoneDate: milestone?.milestoneDate,
+            },
+            allTasks: tasks,
+            taskId: moveToTask?.id,
+          }),
+        );
+      }
+
       dispatch(
-        addMilestones({
-          userUid: user,
+        addMilestoneLocally({
           milestone: {
             id: uuid,
             milestoneContent: milestone?.milestoneContent,
             milestoneCompleted: milestone?.milestoneCompleted,
             milestoneDate: milestone?.milestoneDate,
           },
-          allTasks: tasks,
           taskId: moveToTask?.id,
         }),
       );
-    }
 
-    dispatch(
-      addMilestoneLocally({
-        milestone: {
-          id: uuid,
-          milestoneContent: milestone?.milestoneContent,
-          milestoneCompleted: milestone?.milestoneCompleted,
-          milestoneDate: milestone?.milestoneDate,
-        },
-        taskId: moveToTask?.id,
-      }),
-    );
+      setTimeout(() => {
+        setIsDelete(true);
+        setCardMoveAnimation(false);
+        dispatch(toggleOpenMoveMilestone(false));
+      }, 220);
+    });
 
     setCardMoveAnimation(true);
-
-    setTimeout(() => {
-      setIsDelete(true);
-      setCardMoveAnimation(false);
-      dispatch(toggleOpenMoveMilestone(false));
-    }, 220);
   };
 
   useEffect(() => {
     const deleteMilestoneHandler = () => {
-      if (isOnline()) {
+      batch(() => {
+        if (isOnline()) {
+          dispatch(
+            deleteMilestone({
+              milestoneId: milestone?.id,
+              userUid: user,
+              taskId: taskId,
+              allTasks: tasks,
+            }),
+          );
+        }
+
         dispatch(
-          deleteMilestone({
+          deleteMilestoneLocally({
             milestoneId: milestone?.id,
-            userUid: user,
             taskId: taskId,
-            allTasks: tasks,
           }),
         );
-      }
-
-      dispatch(
-        deleteMilestoneLocally({
-          milestoneId: milestone?.id,
-          taskId: taskId,
-        }),
-      );
+      });
     };
 
     if (isDelete) {

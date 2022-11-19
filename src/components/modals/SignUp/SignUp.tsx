@@ -14,7 +14,8 @@ import { signUpThunk } from '../../../redux/slices/authentication/signUpSlice';
 import { addUsername } from '../../../redux/slices/features/fireBaseActions/addUsernameSlice';
 import useCheckStatus from '../../../hooks/useCheckStatus';
 import { isOnline } from '../../../utilities/isOnline';
-import { UserKey } from '../../../utilities/globalImports';
+import { Dark, UserKey } from '../../../utilities/globalImports';
+
 
 const signUpSchema = Yup.object().shape({
   UserName: Yup.string().min(3).max(15).required('User name is required'),
@@ -35,9 +36,7 @@ const SignUp = ({ open, setOpen, setSignIn }: SignUpInterface) => {
   const signUpStatus = useAppSelector(
     (state: any) => state.signUpReducer?.state,
   );
-  const dark = useAppSelector(
-    (state: RootState) => state.darkModeReducer.darkMode,
-  );
+  const dark = Dark()
   const [pending, fulfilled, rejected, errorMessage] = useCheckStatus({
     setOpen,
     status: signUpStatus,

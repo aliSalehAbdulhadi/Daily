@@ -2,17 +2,14 @@ import * as Yup from 'yup';
 import { Formik, Form } from 'formik';
 import { v4 as uuidv4 } from 'uuid';
 import { BsPlusCircleDotted } from 'react-icons/bs';
-import { useState } from 'react';
+import { memo, useState } from 'react';
 import FormField from '../../FormField/FormField';
 import { addTask } from '../../../redux/slices/features/fireBaseActions/addTaskSlice';
 import { addTasksLocally } from '../../../redux/slices/features/getTasksSlice';
-import {
-  RootState,
-  useAppDispatch,
-  useAppSelector,
-} from '../../../interfaces/interfaces';
+import { useAppDispatch } from '../../../interfaces/interfaces';
 import { isOnline } from '../../../utilities/isOnline';
-import { UserKey } from '../../../utilities/globalImports';
+import { Dark, UserKey } from '../../../utilities/globalImports';
+
 
 const formSchema = Yup.object().shape({
   Form: Yup.string().max(50, 'Too Long!'),
@@ -21,9 +18,7 @@ const TaskForm = () => {
   const [submitAnimation, setSubmitAnimation] = useState<boolean>(false);
   const [value, setValue] = useState<string>('');
 
-  const dark = useAppSelector(
-    (state: RootState) => state.darkModeReducer.darkMode,
-  );
+  const dark = Dark();
   const dispatch = useAppDispatch();
   const user = UserKey();
 
@@ -152,4 +147,4 @@ const TaskForm = () => {
   );
 };
 
-export default TaskForm;
+export default memo(TaskForm);

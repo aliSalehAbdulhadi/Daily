@@ -1,4 +1,5 @@
 import { DragDropContext, DropResult } from 'react-beautiful-dnd';
+import { batch } from 'react-redux';
 import { completedTask } from '../../redux/slices/features/fireBaseActions/completeTaskSlice';
 import {
   reArrangeTasksLocally,
@@ -7,8 +8,6 @@ import {
 import { reArrangeFirebase } from '../../redux/slices/features/fireBaseActions/reArrangeTasksSlice';
 import {
   useAppDispatch,
-  useAppSelector,
-  RootState,
   SingleTaskInterface,
 } from '../../interfaces/interfaces';
 import Navbar from '../Navbar/Navbar';
@@ -32,10 +31,12 @@ const Wrapper = ({ children }: { children: JSX.Element }) => {
     const [reorderedItem] = items.splice(source.index, 1);
     items.splice(destination.index, 0, reorderedItem);
 
-    dispatch(reArrangeTasksLocally(items));
-    if (isOnline()) {
-      dispatch(reArrangeFirebase({ userUid: user, allTasks: items }));
-    }
+    batch(() => {
+      dispatch(reArrangeTasksLocally(items));
+      if (isOnline()) {
+        dispatch(reArrangeFirebase({ userUid: user, allTasks: items }));
+      }
+    });
 
     // drag and drop to complete tasks "currently disabled"
     if (destination.droppableId === 'CompletedTasks' || 'NewTasks') {

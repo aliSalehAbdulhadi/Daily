@@ -1,10 +1,11 @@
 /* eslint-disable @next/next/no-img-element */
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React, { Suspense, useEffect, useRef, useState } from 'react';
+import { Suspense, useEffect, useMemo, useRef, useState } from 'react';
 import { BsPlusCircleFill } from 'react-icons/bs';
 import { TiArrowBack } from 'react-icons/ti';
 import dynamic from 'next/dynamic';
+import { batch } from 'react-redux';
 import ProgressBar from '../../src/components/progressBar/ProgressBar';
 import Swipeable from '../../src/components/swipeable/Swipeable';
 import useClickOutside from '../../src/hooks/useClickOutside';
@@ -17,8 +18,8 @@ import {
 } from '../../src/interfaces/interfaces';
 import { deleteMilestoneLocally } from '../../src/redux/slices/features/getTasksSlice';
 import { deleteMilestone } from '../../src/redux/slices/features/fireBaseActions/MilestonesSlice';
-import { useScrollY } from '../../src/hooks/useScroll';
-import { Tasks, UserKey } from '../../src/utilities/globalImports';
+
+import { Dark, Tasks, UserKey } from '../../src/utilities/globalImports';
 
 const MilestoneSinglePage = dynamic(
   () => import('../../src/components/MilestoneSinglePage/MilestoneSinglePage'),
@@ -74,13 +75,8 @@ const MileStone = () => {
   const milestoneCompleted = task?.milestones?.filter(
     (ms: any) => ms?.milestoneCompleted === true,
   ).length;
-  const percentage =
-    milestoneCompleted && task.milestones.length > 0
-      ? Math.round((milestoneCompleted / task?.milestones?.length) * 100)
-      : 0;
-  const dark = useAppSelector(
-    (state: RootState) => state.darkModeReducer.darkMode,
-  );
+
+  const dark = Dark();
   const sortMilestonesBy = useAppSelector(
     (state: RootState) => state.sortMilestonesReducer.sortMilestones,
   );
@@ -93,7 +89,11 @@ const MileStone = () => {
     (state: RootState) => state.selectedMilestoneReducer.selectedMilestone,
   );
 
-  const scrollY = useScrollY();
+  const percentage = useMemo(() => {
+    return milestoneCompleted && task.milestones.length > 0
+      ? Math.round((milestoneCompleted / task?.milestones?.length) * 100)
+      : 0;
+  }, [milestoneCompleted, task?.milestones.length]);
 
   useEffect(() => {
     setScroll(false);
@@ -120,20 +120,23 @@ const MileStone = () => {
         animation: false,
         deletedMilestoneId: milestone.id,
       });
-      dispatch(
-        deleteMilestone({
-          milestoneId: milestone?.id,
-          userUid: user,
-          taskId: task?.id,
-          allTasks: tasks,
-        }),
-      );
-      dispatch(
-        deleteMilestoneLocally({
-          milestoneId: milestone?.id,
-          taskId: task?.id,
-        }),
-      );
+
+      batch(() => {
+        dispatch(
+          deleteMilestone({
+            milestoneId: milestone?.id,
+            userUid: user,
+            taskId: task?.id,
+            allTasks: tasks,
+          }),
+        );
+        dispatch(
+          deleteMilestoneLocally({
+            milestoneId: milestone?.id,
+            taskId: task?.id,
+          }),
+        );
+      });
     }, 500);
   };
 
@@ -223,9 +226,8 @@ const MileStone = () => {
           </div>
 
           <div
-            className={`flex w-full transition-all  ${
-              scrollY >= 83 ? 'shadow-lg' : ''
-            } ${dark ? 'bg-primaryColor' : 'bg-secondaryLight'}   ${
+            className={`flex w-full transition-all shadow-md
+             ${dark ? 'bg-primaryColor' : 'bg-secondaryLight'}   ${
               task?.milestones.length === 0 ? 'pt-0' : 'pt-3'
             }`}
           >
@@ -300,6 +302,8 @@ const MileStone = () => {
           }`}
         >
           <MoveMilestoneModalMobile
+            user={user}
+            tasks={tasks}
             taskId={task?.id}
             milestone={currentSelectedMilestone}
           />

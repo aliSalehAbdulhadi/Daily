@@ -1,10 +1,7 @@
 import { ErrorMessage, Field } from 'formik';
 import { useEffect } from 'react';
-import {
-  FieldPropsInterface,
-  RootState,
-  useAppSelector,
-} from '../../interfaces/interfaces';
+import { FieldPropsInterface } from '../../interfaces/interfaces';
+import { Dark } from '../../utilities/globalImports';
 
 function FormField({
   autoComplete = '',
@@ -16,9 +13,7 @@ function FormField({
   value,
   placeholder,
 }: FieldPropsInterface) {
-  const dark = useAppSelector(
-    (state: RootState) => state.darkModeReducer.darkMode,
-  );
+  const dark = Dark();
   useEffect(() => {
     document.getElementsByName('milestoneForm')[0]?.focus();
   });

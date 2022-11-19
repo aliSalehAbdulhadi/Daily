@@ -1,4 +1,3 @@
-import React from 'react';
 import { ClapSpinner } from 'react-spinners-kit';
 import { UserKey } from '../../utilities/globalImports';
 

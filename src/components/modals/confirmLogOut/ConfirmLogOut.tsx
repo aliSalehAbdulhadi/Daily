@@ -2,10 +2,10 @@ import { signOut } from 'firebase/auth';
 import { useRouter } from 'next/router';
 import React from 'react';
 import { auth } from '../../../container/firebase';
-import { RootState, useAppSelector } from '../../../interfaces/interfaces';
 import { persistor } from '../../../redux/store/store';
 import Modal from '../Modal/Modal';
 import { isOnline } from '../../../utilities/isOnline';
+import { Dark } from '../../../utilities/globalImports';
 
 const ConfirmLogOut = ({
   setOpen,
@@ -24,9 +24,7 @@ const ConfirmLogOut = ({
       router.push('/');
     }, 500);
   };
-  const dark = useAppSelector(
-    (state: RootState) => state.darkModeReducer.darkMode,
-  );
+  const dark = Dark();
 
   return (
     <Modal

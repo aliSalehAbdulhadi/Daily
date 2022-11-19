@@ -27,3 +27,11 @@ export const Tasks = () => {
 
   return tasks;
 };
+
+export const Dark = () => {
+  const dark = useAppSelector(
+    (state: RootState) => state.darkModeReducer.darkMode,
+  );
+  return dark;
+};
+

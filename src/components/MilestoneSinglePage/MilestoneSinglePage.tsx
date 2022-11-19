@@ -1,4 +1,4 @@
-import React, { Suspense, useEffect, useRef, useState } from 'react';
+import { Suspense, useEffect, useRef, useState } from 'react';
 import dynamic from 'next/dynamic';
 const ReactQuill = dynamic(() => import('react-quill'), {
   ssr: false,
@@ -10,6 +10,7 @@ import { BiX } from 'react-icons/bi';
 import { MdOutlineRemoveDone } from 'react-icons/md';
 import { FaWindowClose } from 'react-icons/fa';
 import { RiSendPlaneLine, RiSendPlaneFill } from 'react-icons/ri';
+import { batch } from 'react-redux';
 import useClickOutside from '../../hooks/useClickOutside';
 import {
   RootState,
@@ -32,7 +33,6 @@ import { modules } from '../../utilities/quillToolBar';
 import 'react-quill/dist/quill.bubble.css';
 import 'react-quill/dist/quill.snow.css';
 import { isOnline } from '../../utilities/isOnline';
-import useWindowSize from '../../hooks/useWindowsSize';
 import { toggleOpenMoveMilestone } from '../../redux/slices/features/openMoveMilestoneSlice';
 import { setSelectedMilestone } from '../../redux/slices/features/selectedMilestone';
 import { UserKey } from '../../utilities/globalImports';
@@ -95,89 +95,92 @@ const MilestoneSinglePage = ({
   //@ts-ignore
   const isCurrentMilestone = currentSelectedMilestone.id === milestone.id;
 
-  const vw = useWindowSize();
-
   useEffect(() => {
     editRef?.current?.focus();
   });
 
-  useEffect(() => {}, [dispatch, milestone, isOpenMoveModal]);
-
   useEffect(() => {
     isEditing(edit);
   }, [edit, isEditing]);
+
   const editMilestoneHanlder = () => {
-    if (editText.length === 0) {
-      setEditText(milestone?.milestoneContent);
-    } else {
+    batch(() => {
+      if (editText.length === 0) {
+        setEditText(milestone?.milestoneContent);
+      } else {
+        if (isOnline()) {
+          dispatch(
+            editMilestone({
+              userUid: user,
+              taskId: task?.id,
+              milestone: milestone,
+              milestoneEdit: editText,
+              allTasks: tasks,
+            }),
+          );
+        }
+
+        dispatch(
+          editMilestoneLocally({
+            taskId: task?.id,
+            milestoneEdit: editText,
+            milestoneId: milestone?.id,
+          }),
+        ),
+          setTimeout(() => {
+            setEdit(false);
+          }, 500);
+      }
+    });
+  };
+
+  const completeMilestoneHandler = () => {
+    batch(() => {
       if (isOnline()) {
         dispatch(
-          editMilestone({
+          completeMilestone({
+            milestone: milestone,
             userUid: user,
             taskId: task?.id,
-            milestone: milestone,
-            milestoneEdit: editText,
             allTasks: tasks,
           }),
         );
       }
 
       dispatch(
-        editMilestoneLocally({
-          taskId: task?.id,
-          milestoneEdit: editText,
+        completeMilestoneLocally({
           milestoneId: milestone?.id,
-        }),
-      ),
-        setTimeout(() => {
-          setEdit(false);
-        }, 500);
-    }
-  };
-
-  const completeMilestoneHandler = () => {
-    if (isOnline()) {
-      dispatch(
-        completeMilestone({
-          milestone: milestone,
-          userUid: user,
           taskId: task?.id,
-          allTasks: tasks,
         }),
       );
-    }
-
-    dispatch(
-      completeMilestoneLocally({
-        milestoneId: milestone?.id,
-        taskId: task?.id,
-      }),
-    );
+    });
   };
 
   const deleteMilestoneHanlder = () => {
     setDeleteAnimation(true);
-    setTimeout(() => {
-      setDeleteAnimation(false);
+    batch(() => {
+      setTimeout(() => {
+        setDeleteAnimation(false);
 
-      if (isOnline()) {
+        if (isOnline()) {
+          dispatch(
+            deleteMilestone({
+              milestoneId: milestone?.id,
+              userUid: user,
+              taskId: task?.id,
+              allTasks: tasks,
+            }),
+          );
+        }
+
         dispatch(
-          deleteMilestone({
+          deleteMilestoneLocally({
             milestoneId: milestone?.id,
-            userUid: user,
             taskId: task?.id,
-            allTasks: tasks,
           }),
         );
-      }
-
-      dispatch(
-        deleteMilestoneLocally({
-          milestoneId: milestone?.id,
-          taskId: task?.id,
-        }),
-      );
-    }, 300);
+      }, 300);
+    });
   };
 
   useEffect(() => {
@@ -360,19 +363,16 @@ const MilestoneSinglePage = ({
           </button>
         </div>
       </div>
-      {vw <= 840 ? (
-        ''
-      ) : (
-        <Suspense>
-          <div
-            className={`  top-[-20px] right-14 z-40 ${
-              isOpenMoveModal && isCurrentMilestone ? 'absolute' : 'hidden'
-            }`}
-          >
-            <MoveMilestoneModal taskId={taskId} />
-          </div>
-        </Suspense>
-      )}
+
+      <Suspense>
+        <div
+          className={`top-[-20px] right-14 z-40 ${
+            isOpenMoveModal && isCurrentMilestone ? 'absolute' : 'hidden'
+          }`}
+        >
+          <MoveMilestoneModal user={user} tasks={tasks} taskId={taskId} />
+        </div>
+      </Suspense>
     </div>
   );
 };

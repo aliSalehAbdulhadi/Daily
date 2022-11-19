@@ -1,53 +1,45 @@
-import dynamic from 'next/dynamic';
-import { Suspense } from 'react';
+import { memo } from 'react';
 import useWindowSize from '../../hooks/useWindowsSize';
 import { SingleTaskInterface } from '../../interfaces/interfaces';
-import LoadingCard from '../loadingCard/LoadingCard';
-const SingleTaskMobile = dynamic(
-  () => import('./SingleTaskMobile/SingleTaskMobile'),
-  {
-    suspense: true,
-  },
-);
-const SingleTaskPc = dynamic(() => import('./SingleTaskPc/SingleTaskPc'), {
-  suspense: true,
-});
+import { Tasks, UserKey } from '../../utilities/globalImports';
+import SingleTaskMobile from './SingleTaskMobile/SingleTaskMobile';
+import SingleTaskPc from './SingleTaskPc/SingleTaskPc';
 
 const SingleTaskContainer = ({
-  content,
+  task,
   index,
   taskId,
-  defaultTaskId,
 }: {
-  content: SingleTaskInterface;
+  task: SingleTaskInterface;
   index: number;
   taskId: string;
-  defaultTaskId?: string;
 }) => {
   const width = useWindowSize();
 
   return (
     <div>
       {width >= 840 ? (
-        <Suspense fallback={<LoadingCard />}>
-          <div className="hidden semiSm:block transition-all">
-            <SingleTaskPc
-              content={content}
-              index={index}
-              taskId={taskId}
-              defaultTaskId={defaultTaskId}
-            />
-          </div>
-        </Suspense>
+        <div className="hidden semiSm:block transition-all">
+          <SingleTaskPc
+            task={task}
+            tasks={Tasks()}
+            index={index}
+            taskId={taskId}
+            user={UserKey()}
+          />
+        </div>
       ) : (
-        <Suspense fallback={<LoadingCard />}>
-          <div className="block semiSm:hidden ">
-            <SingleTaskMobile content={content} index={index} />
-          </div>
-        </Suspense>
+        <div className="block semiSm:hidden ">
+          <SingleTaskMobile
+            tasks={Tasks()}
+            user={UserKey()}
+            task={task}
+            index={index}
+          />
+        </div>
       )}
     </div>
   );
 };
 
-export default SingleTaskContainer;
+export default memo(SingleTaskContainer);

@@ -1,15 +1,12 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useSwipeable } from 'react-swipeable';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
 import { useRouter } from 'next/router';
 import 'swiper/css';
-import {
-  RootState,
-  useAppDispatch,
-  useAppSelector,
-} from '../../interfaces/interfaces';
+import { useAppDispatch } from '../../interfaces/interfaces';
 import { toggleDisableDragDnd } from '../../redux/slices/features/disableDragDndSlice';
+import { Dark } from '../../utilities/globalImports';
 
 const Swipeable = ({
   children,
@@ -22,9 +19,7 @@ const Swipeable = ({
   taskLocked?: any;
   disableSwiper?: boolean;
 }) => {
-  const dark = useAppSelector(
-    (state: RootState) => state.darkModeReducer.darkMode,
-  );
+  const dark = Dark();
   const router = useRouter();
   const { id } = router.query;
   const [bgColor, setBgColor] = useState<string>(dark ? '#427676' : '#56a691');

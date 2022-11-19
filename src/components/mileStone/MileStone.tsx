@@ -1,5 +1,5 @@
 import dynamic from 'next/dynamic';
-import React, { memo, Suspense, useEffect, useRef, useState } from 'react';
+import { memo, Suspense, useEffect, useRef, useState } from 'react';
 import { BsPlusCircle, BsPlusCircleFill } from 'react-icons/bs';
 import useClickOutside from '../../hooks/useClickOutside';
 import {

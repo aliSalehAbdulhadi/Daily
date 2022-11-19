@@ -1,4 +1,4 @@
-import { SyntheticEvent } from 'react';
+import { memo, SyntheticEvent } from 'react';
 import { GoCheck } from 'react-icons/go';
 import { MdOutlineRemoveDone } from 'react-icons/md';
 import { HiOutlineStar } from 'react-icons/hi';
@@ -8,6 +8,7 @@ import { useState, useEffect, useRef } from 'react';
 import { Draggable } from 'react-beautiful-dnd';
 import moment from 'moment';
 import Link from 'next/link';
+import { batch } from 'react-redux';
 import {
   RootState,
   useAppDispatch,
@@ -32,36 +33,36 @@ import { changeTaskImportantState } from '../../../redux/slices/features/fireBas
 import { setCardColorByTypeHandler } from '../../../utilities/setColorByTypeHandler';
 import { lockTask } from '../../../redux/slices/features/fireBaseActions/lockTaskSlice';
 import { isOnline } from '../../../utilities/isOnline';
-import { Tasks, UserKey } from '../../../utilities/globalImports';
 
 const SingleTaskMobile = ({
-  content,
+  task,
+  tasks,
+  user,
   index,
 }: {
-  content: SingleTaskInterface;
+  task: SingleTaskInterface;
+  tasks: SingleTaskInterface[];
+  user: string;
   index: number;
 }) => {
   const [completeAnimation, setCompleteAnimation] = useState<boolean>(false);
   const [deleteAnimation, setDeleteAnimation] = useState<boolean>(false);
   const [edit, setEdit] = useState<boolean>(false);
-  const [editText, setEditText] = useState<string>(content?.content);
+  const [editText, setEditText] = useState<string>(task?.content);
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const dispatch = useAppDispatch();
-  const tasks: SingleTaskInterface[] = Tasks();
-  const user = UserKey();
 
   useEffect(() => {
     inputRef?.current?.focus();
   }, [edit]);
 
-  const formatDate = moment(content?.date).format('MMM/D/YYYY');
+  const formatDate = moment(task?.date).format('MMM/D/YYYY');
   const disableSwiper = useAppSelector(
     (state: RootState) => state.disableSwiperReducer.disableSwiper,
   );
   const disableDrag = useAppSelector(
     (state: RootState) => state.disableDragReducer.disableDragDnd,
   );
-  const task = tasks?.find((task) => task?.id === content?.id);
   const milestoneCompleted = task?.milestones?.filter(
     (ms: any) => ms?.milestoneCompleted === true,
   ).length;
@@ -72,102 +73,111 @@ const SingleTaskMobile = ({
 
   let textareaRef = useClickOutside(() => {
     setEdit(false);
-    setEditText(content?.content);
+    setEditText(task?.content);
   });
 
   const editHanlder = (e: SyntheticEvent) => {
     e.preventDefault();
-    if (isOnline()) {
-      editText?.length === 0 || editText.length > 50
-        ? setEditText(content?.content)
-        : dispatch(
-            editTask({
-              userUid: user,
-              taskId: content?.id,
-              allTasks: tasks,
-              newTask: editText,
-            }),
-          );
-    }
+    batch(() => {
+      if (isOnline()) {
+        editText?.length === 0 || editText.length > 50
+          ? setEditText(task?.content)
+          : dispatch(
+              editTask({
+                userUid: user,
+                taskId: task?.id,
+                allTasks: tasks,
+                newTask: editText,
+              }),
+            );
+      }
 
-    editText?.length === 0 || editText.length > 50
-      ? setEditText(content?.content)
-      : dispatch(editTaskLocally({ taskId: content?.id, taskEdit: editText }));
+      editText?.length === 0 || editText.length > 50
+        ? setEditText(task?.content)
+        : dispatch(editTaskLocally({ taskId: task?.id, taskEdit: editText }));
+    });
 
     setEdit(false);
   };
 
   const completionHandler = () => {
-    if (isOnline()) {
-      dispatch(
-        completedTask({
-          userUid: user,
-          taskId: content.id,
-          allTasks: tasks,
-        }),
-      );
-    }
-
     setCompleteAnimation(true);
+    batch(() => {
+      if (isOnline()) {
+        dispatch(
+          completedTask({
+            userUid: user,
+            taskId: task?.id,
+            allTasks: tasks,
+          }),
+        );
+      }
 
-    setTimeout(() => {
-      dispatch(completeTaskLocally({ taskId: content?.id }));
-      setCompleteAnimation(false);
-    }, 200);
+      setTimeout(() => {
+        dispatch(completeTaskLocally({ taskId: task?.id }));
+        setCompleteAnimation(false);
+      }, 200);
+    });
   };
 
   const deletionHandler = () => {
     if (!disableSwiper || task?.locked) return;
 
-    if (isOnline()) {
-      dispatch(
-        removeTask({
-          userUid: user,
-          taskId: content?.id,
-          allTasks: tasks,
-        }),
-      );
-    }
     setDeleteAnimation(true);
+    batch(() => {
+      if (isOnline()) {
+        dispatch(
+          removeTask({
+            userUid: user,
+            taskId: task?.id,
+            allTasks: tasks,
+          }),
+        );
+      }
 
-    setTimeout(() => {
-      dispatch(deleteTasksLocally({ taskId: content?.id }));
-      setDeleteAnimation(false);
-    }, 250);
+      setTimeout(() => {
+        dispatch(deleteTasksLocally({ taskId: task?.id }));
+        setDeleteAnimation(false);
+      }, 250);
+    });
   };
 
   const importantStateHandler = () => {
-    if (isOnline()) {
-      dispatch(
-        changeTaskImportantState({
-          taskId: content?.id,
-          userUid: user,
-          allTasks: tasks,
-        }),
-      );
-    }
+    batch(() => {
+      if (isOnline()) {
+        dispatch(
+          changeTaskImportantState({
+            taskId: task?.id,
+            userUid: user,
+            allTasks: tasks,
+          }),
+        );
+      }
 
-    dispatch(changeTaskImportantStateLocally({ taskId: content.id }));
+      dispatch(changeTaskImportantStateLocally({ taskId: task?.id }));
+    });
   };
 
   const lockTaskHandler = () => {
-    if (isOnline()) {
-      dispatch(
-        lockTask({
-          userUid: user,
-          taskId: content?.id,
-          allTasks: tasks,
-        }),
-      );
-    }
+    batch(() => {
+      if (isOnline()) {
+        dispatch(
+          lockTask({
+            userUid: user,
+            taskId: task?.id,
+            allTasks: tasks,
+          }),
+        );
+      }
 
-    dispatch(lockTaskLocally({ taskId: content.id }));
+      dispatch(lockTaskLocally({ taskId: task?.id }));
+    });
   };
 
   return (
     <Draggable
-      key={content?.id}
-      draggableId={content?.id}
+      key={task?.id}
+      draggableId={task?.id}
       index={index}
       isDragDisabled={disableDrag}
     >
@@ -186,22 +196,22 @@ const SingleTaskMobile = ({
             <div
               className={` taskMobileEnter  flex text-textLight
           font-Comfortaa font-semibold ${
-            content?.important && !content.completed
+            task?.important && !task?.completed
               ? 'border-[1px] border-yellow-400'
-              : content?.completed
+              : task?.completed
               ? ''
               : `border-[1px] ${setCardColorByTypeHandler(
                   false,
-                  content?.taskType,
+                  task?.taskType,
                 )}`
           }
 
 
           
           ${
-            content?.completed
+            task?.completed
               ? 'bg-red-400'
-              : setCardColorByTypeHandler(true, content?.taskType)
+              : setCardColorByTypeHandler(true, task?.taskType)
           }  rounded text-sm ease-in-out 
             ${
               deleteAnimation
@@ -228,10 +238,10 @@ const SingleTaskMobile = ({
                   <HiOutlineStar
                     onClick={importantStateHandler}
                     size={20}
-                    fill={content?.important ? '#e8b923' : 'none'}
-                    className={`${
-                      content?.important ? 'text-yellow-300' : ''
-                    } ${task?.completed ? 'invisible' : 'visible'}`}
+                    fill={task?.important ? '#e8b923' : 'none'}
+                    className={`${task?.important ? 'text-yellow-300' : ''} ${
+                      task?.completed ? 'invisible' : 'visible'
+                    }`}
                   />
                   <div className="text-[.65rem]  w-fit whitespace-nowrap select-none">
                     {formatDate}
@@ -269,17 +279,17 @@ const SingleTaskMobile = ({
                     <div className="w-full ">
                       <div
                         className={`flex w-full  h-full flex-col items-center ${
-                          content?.completed ? 'strike opacity-60' : ''
+                          task?.completed ? 'strike opacity-60' : ''
                         }`}
                       >
                         <div className="self-start w-full ">
                           <span
                             onClick={() =>
-                              content?.completed ? null : setEdit(true)
+                              task?.completed ? null : setEdit(true)
                             }
                             className="wrapWord"
                           >
-                            {content?.content}
+                            {task?.content}
                           </span>
                         </div>
                       </div>
@@ -293,7 +303,7 @@ const SingleTaskMobile = ({
                       edit ? 'hidden' : 'flex'
                     }`}
                   >
-                    {content?.completed ? (
+                    {task?.completed ? (
                       <MdOutlineRemoveDone
                         title="Incomplete"
                         onClick={completionHandler}
@@ -313,7 +323,12 @@ const SingleTaskMobile = ({
                       task?.completed ? 'opacity-60' : ''
                     } ${edit ? 'hidden' : ''}`}
                   >
-                    <TaskTypeMenu isVertical={false} task={content} />
+                    <TaskTypeMenu
+                      user={user}
+                      tasks={tasks}
+                      isVertical={false}
+                      task={task}
+                    />
                   </div>
 
                   <button type="button" className={`${edit ? 'hidden' : ''}`}>
@@ -333,7 +348,7 @@ const SingleTaskMobile = ({
                   </button>
                 </div>
               </div>
-              <Link href={`/tasks/${content?.id}`}>
+              <Link href={`/tasks/${task?.id}`}>
                 {task && task?.milestones?.length > 0 ? (
                   <div className=" w-[25%] flex flex-col items-center justify-center  bg-[#64f5c56c] rounded-tr rounded-br">
                     <div className="scale-[.8]">
@@ -342,7 +357,7 @@ const SingleTaskMobile = ({
                     <div className="flex items-center mt-1">
                       <h1>{milestoneCompleted}</h1>
                       <span className="scale-[.80]">/</span>
-                      <span>{content?.milestones.length}</span>
+                      <span>{task?.milestones.length}</span>
                     </div>
                   </div>
                 ) : (
@@ -365,4 +380,4 @@ const SingleTaskMobile = ({
   );
 };
 
-export default SingleTaskMobile;
+export default memo(SingleTaskMobile);

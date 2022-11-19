@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import ReactQuill from 'react-quill';
 import { v4 as uuidv4 } from 'uuid';
 import { AiFillCloseSquare } from 'react-icons/ai';
@@ -6,16 +6,15 @@ import { MdClose } from 'react-icons/md';
 import 'react-quill/dist/quill.snow.css';
 import 'react-quill/dist/quill.bubble.css';
 import {
-  RootState,
   SingleTaskInterface,
   useAppDispatch,
-  useAppSelector,
 } from '../../../interfaces/interfaces';
 import { addMilestoneLocally } from '../../../redux/slices/features/getTasksSlice';
 import { addMilestones } from '../../../redux/slices/features/fireBaseActions/MilestonesSlice';
 import { modules } from '../../../utilities/quillToolBar';
 import { isOnline } from '../../../utilities/isOnline';
-import { Tasks, UserKey } from '../../../utilities/globalImports';
+import { Dark, Tasks, UserKey } from '../../../utilities/globalImports';
+
 
 const AdvancedForm = ({
   taskId,
@@ -30,11 +29,9 @@ const AdvancedForm = ({
 
   const dispatch = useAppDispatch();
   const user = UserKey();
-
   const tasks: SingleTaskInterface[] = Tasks();
-  const dark = useAppSelector(
-    (state: RootState) => state.darkModeReducer.darkMode,
-  );
+  const dark = Dark();
+
 
   const quillRef = useRef(null);
   useEffect(() => {
