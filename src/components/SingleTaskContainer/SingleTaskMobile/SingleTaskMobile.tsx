@@ -27,12 +27,13 @@ import { editTask } from '../../../redux/slices/features/fireBaseActions/editTas
 import useClickOutside from '../../../hooks/useClickOutside';
 import ProgressBar from '../../progressBar/ProgressBar';
 import Swipeable from '../../swipeable/Swipeable';
-import { removeTask } from '../../../redux/slices/features/fireBaseActions/deleteTaskSlice';
 import TaskTypeMenu from '../../Forms/TaskForm/TaskTypeMenu';
 import { changeTaskImportantState } from '../../../redux/slices/features/fireBaseActions/changeTaskImportantStateSlice';
 import { setCardColorByTypeHandler } from '../../../utilities/setColorByTypeHandler';
 import { lockTask } from '../../../redux/slices/features/fireBaseActions/lockTaskSlice';
 import { isOnline } from '../../../utilities/isOnline';
+import { removeTask } from '../../../redux/slices/features/fireBaseActions/deleteTaskSlice';
+
 
 const SingleTaskMobile = ({
   task,
@@ -136,7 +137,7 @@ const SingleTaskMobile = ({
       }
 
       setTimeout(() => {
-        dispatch(deleteTasksLocally({ taskId: task?.id }));
+        dispatch(deleteTasksLocally({ index: index }));
         setDeleteAnimation(false);
       }, 250);
     });

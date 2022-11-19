@@ -14,6 +14,7 @@ import {
 } from '../../redux/slices/features/fireBaseActions/uploadLocalData';
 import { isOnline } from '../../utilities/isOnline';
 import { Tasks, UserKey } from '../../utilities/globalImports';
+import { batch } from 'react-redux';
 
 const CheckInternet = () => {
   const [checkInternet, setCheckInternet] = useState<boolean>(true);
@@ -53,8 +54,10 @@ const CheckInternet = () => {
   useEffect((): void => {
     window.ononline = () => {
       setCheckInternet(true);
-      dispatch(uploadLocalData({ userUid: user, allTasks: tasks }));
-      dispatch(reArrangeFirebase({ userUid: user, allTasks: tasks }));
+      batch(() => {
+        dispatch(uploadLocalData({ userUid: user, allTasks: tasks }));
+        dispatch(reArrangeFirebase({ userUid: user, allTasks: tasks }));
+      });
 
       setUploadData(true);
     };
