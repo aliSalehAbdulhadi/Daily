@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { Suspense, useEffect, useMemo, useRef, useState } from 'react';
 import { Droppable } from 'react-beautiful-dnd';
 import {
   useAppSelector,
@@ -6,35 +6,41 @@ import {
 } from '../../interfaces/interfaces';
 import { RootState } from '../../interfaces/interfaces';
 import SortModal from '../modals/SortModal/SortModal';
-import SingleTaskContainer from '../SingleTaskContainer/SingleTaskContainer';
 import ErrorMessage from '../errorMessage/ErrorMessage';
-import { UserKey, Tasks as allTasks } from '../../utilities/globalImports';
+import {
+  UserKey,
+  Tasks as allTasks,
+  Dark,
+} from '../../utilities/globalImports';
+import dynamic from 'next/dynamic';
+import LoadingCard from '../loadingCard/LoadingCard';
+
+const SingleTaskContainer = dynamic(
+  () => import('../SingleTaskContainer/SingleTaskContainer'),
+  {
+    suspense: true,
+  },
+);
 
 const Tasks = ({ id }: { id: Function }) => {
   const [completedTask, setCompletedTask] = useState<boolean>(false);
-
   const [taskId, setTaskId] = useState<string>('');
   const [sortModal, setSortModal] = useState<boolean>(false);
 
   const tasks: SingleTaskInterface[] = allTasks();
-
-  const dark = useAppSelector(
-    (state: RootState) => state.darkModeReducer.darkMode,
-  );
+  const dark = Dark();
   const sortBy = useAppSelector(
     (state: RootState) => state.sortTaskReducer.sortTask,
   );
   const isAddingTask = useAppSelector(
     (state: RootState) => state.getTaskReducer.isAddingTask,
   );
-
   const user = UserKey();
 
   const copyTasks = tasks ? [...tasks] : [];
   const completedTasks = tasks ? tasks?.filter((task) => task.completed) : [];
   const pendingTasks = tasks ? tasks?.filter((task) => !task.completed) : [];
   const scrollRefTop = useRef<HTMLDivElement>(null);
-
   useEffect(() => {
     id(taskId);
   }, [taskId, id]);
@@ -65,6 +71,7 @@ const Tasks = ({ id }: { id: Function }) => {
         behavior: 'smooth',
       });
     }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAddingTask]);
 
@@ -90,14 +97,11 @@ const Tasks = ({ id }: { id: Function }) => {
     } else return tasks;
   };
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const sortedTasks = useMemo(() => taskSortHandler(), [tasks, tasks?.length]);
+
   return (
-    <div
-      className={`flex flex-col justify-center semiSm:w-[90%] rounded-t ${
-        dark
-          ? 'bg-primaryColor semiSm:bg-secondaryColor'
-          : ' bg-primaryLight semiSm:bg-secondaryLight'
-      }`}
-    >
+    <div className={`flex flex-col justify-center semiSm:w-[90%] rounded-t`}>
       <Droppable droppableId="NewTasks">
         {(provided) => (
           <div
@@ -167,25 +171,26 @@ const Tasks = ({ id }: { id: Function }) => {
               }`}
             >
               <div
+                ref={scrollRefTop}
                 className={`w-[100%]  semiSm:h-[67vh] px-5 py-3 semiSm:py-2 overflow-auto scrollBar flex flex-col items-center  `}
               >
                 {user ? (
                   completedTask && tasks?.length > 0 ? (
-                    taskSortHandler()?.map(
+                    sortedTasks?.map(
                       (task: SingleTaskInterface, index: number) =>
                         task.completed ? (
-                          <div
-                            key={task?.id}
-                            className="w-full"
-                            onClick={() => setTaskId(task.id)}
-                          >
-                            <SingleTaskContainer
-                              content={task}
-                              index={index}
-                              taskId={taskId}
-                              defaultTaskId={task?.id}
-                            />
-                          </div>
+                          <Suspense key={task?.id} fallback={<LoadingCard />}>
+                            <div
+                              className="w-full"
+                              onClick={() => setTaskId(task.id)}
+                            >
+                              <SingleTaskContainer
+                                task={task}
+                                index={index}
+                                taskId={taskId}
+                              />
+                            </div>
+                          </Suspense>
                         ) : null,
                     )
                   ) : (
@@ -212,21 +217,21 @@ const Tasks = ({ id }: { id: Function }) => {
                 )}
 
                 {!completedTask && tasks && tasks?.length > 0
-                  ? taskSortHandler()?.map(
+                  ? sortedTasks?.map(
                       (task: SingleTaskInterface, index: number) =>
                         !task.completed ? (
-                          <div
-                            key={task?.id}
-                            className="w-full"
-                            onClick={() => setTaskId(task.id)}
-                          >
-                            <SingleTaskContainer
-                              content={task}
-                              index={index}
-                              taskId={taskId}
-                              defaultTaskId={task?.id}
-                            />
-                          </div>
+                          <Suspense key={task?.id} fallback={<LoadingCard />}>
+                            <div
+                              className="w-full"
+                              onClick={() => setTaskId(task.id)}
+                            >
+                              <SingleTaskContainer
+                                task={task}
+                                index={index}
+                                taskId={taskId}
+                              />
+                            </div>
+                          </Suspense>
                         ) : null,
                     )
                   : null}

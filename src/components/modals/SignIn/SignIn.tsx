@@ -3,7 +3,6 @@ import { Formik, Form } from 'formik';
 import { FaSpinner } from 'react-icons/fa';
 import Modal from '../Modal/Modal';
 import {
-  RootState,
   SignInInterface,
   useAppDispatch,
   useAppSelector,
@@ -12,6 +11,7 @@ import FormField from '../../FormField/FormField';
 import { signInThunk } from '../../../redux/slices/authentication/signInSlice';
 import useCheckStatus from '../../../hooks/useCheckStatus';
 import { isOnline } from '../../../utilities/isOnline';
+import { Dark } from '../../../utilities/globalImports';
 
 const signInSchema = Yup.object().shape({
   Email: Yup.string().min(3).max(24).required(),
@@ -37,9 +37,7 @@ const SignIn = ({
     error: signInError,
   });
 
-  const dark = useAppSelector(
-    (state: RootState) => state.darkModeReducer.darkMode,
-  );
+  const dark = Dark()
 
   return (
     <Modal label="Sign In" setOpen={setOpen} open={open}>

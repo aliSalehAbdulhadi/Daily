@@ -1,4 +1,4 @@
-import React, { SetStateAction } from 'react';
+import { SetStateAction } from 'react';
 import { BiSortAlt2 } from 'react-icons/bi';
 import useClickOutside from '../../../hooks/useClickOutside';
 import {

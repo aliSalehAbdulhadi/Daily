@@ -3,7 +3,6 @@ import { Formik, Form } from 'formik';
 import { FaSpinner } from 'react-icons/fa';
 import Modal from '../Modal/Modal';
 import {
-  RootState,
   useAppDispatch,
   useAppSelector,
 } from '../../../interfaces/interfaces';
@@ -11,6 +10,7 @@ import FormField from '../../FormField/FormField';
 import useCheckStatus from '../../../hooks/useCheckStatus';
 import { resetPasswordThunk } from '../../../redux/slices/authentication/resetPasswordSlice';
 import { isOnline } from '../../../utilities/isOnline';
+import { Dark } from '../../../utilities/globalImports';
 
 const signInSchema = Yup.object().shape({
   Email: Yup.string().min(3).max(24).required(),
@@ -37,9 +37,7 @@ const ResetPassword = ({
     status: passwordState,
     error: passwordError,
   });
-  const dark = useAppSelector(
-    (state: RootState) => state.darkModeReducer.darkMode,
-  );
+  const dark = Dark()
 
   return (
     <Modal label="Reset Password" setOpen={setOpen} open={open}>

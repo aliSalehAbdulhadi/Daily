@@ -1,5 +1,3 @@
-import { SingleTaskInterface } from '../interfaces/interfaces';
-
 export const setCardColorByTypeHandler = (isBg: boolean, taskType: string) => {
   if (taskType === 'green-4') {
     return isBg ? 'bg-green-400' : 'border-green-400';

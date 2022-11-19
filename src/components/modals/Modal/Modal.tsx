@@ -1,10 +1,7 @@
 import { Fragment, useRef } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
-import {
-  ModalInterface,
-  RootState,
-  useAppSelector,
-} from '../../../interfaces/interfaces';
+import { ModalInterface } from '../../../interfaces/interfaces';
+import { Dark } from '../../../utilities/globalImports';
 
 function Modal({
   children,
@@ -14,9 +11,7 @@ function Modal({
 }: ModalInterface): JSX.Element {
   const cancelButtonRef = useRef(null);
 
-  const dark = useAppSelector(
-    (state: RootState) => state.darkModeReducer.darkMode,
-  );
+  const dark = Dark();
   return (
     <Transition.Root show={open} as={Fragment}>
       <Dialog

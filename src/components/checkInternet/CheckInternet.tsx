@@ -61,6 +61,10 @@ const CheckInternet = () => {
 
     window.onoffline = () => {
       setCheckInternet(false);
+      setShowErrorMessage(true);
+      setTimeout(() => {
+        setShowErrorMessage(false);
+      }, 3000);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tasks, user]);

@@ -4,6 +4,7 @@ import { Suspense } from 'react';
 import { RootState, useAppSelector } from '../../interfaces/interfaces';
 import useWindowSize from '../../hooks/useWindowsSize';
 import FallBackLoading from '../fallBackLoading/FallBackLoading';
+import { Dark } from '../../utilities/globalImports';
 const MileStone = dynamic(() => import('../mileStone/MileStone'), {
   suspense: true,
 });
@@ -13,9 +14,7 @@ const Tasks = dynamic(() => import('../Tasks/Tasks'), {
 
 const TasksContainer = () => {
   const [taskId, setTaskId] = useState<string>('');
-  const dark = useAppSelector(
-    (state: RootState) => state.darkModeReducer.darkMode,
-  );
+  const dark = Dark()
   const signInStatus = useAppSelector(
     (state: RootState) => state.signInReducer?.state,
   );

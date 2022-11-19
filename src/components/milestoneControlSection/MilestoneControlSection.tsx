@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { CountdownCircleTimer } from 'react-countdown-circle-timer';
 import { BiX } from 'react-icons/bi';
 import { Checkbox } from 'pretty-checkbox-react';
 import { TbListCheck } from 'react-icons/tb';
 import { MdOutlineDelete } from 'react-icons/md';
+import { batch } from 'react-redux';
 import {
-  RootState,
   SingleTaskInterface,
   useAppDispatch,
   useAppSelector,
@@ -37,16 +37,18 @@ const MilestoneControlSection = ({ taskId }: { taskId: any }) => {
   );
 
   const deleteAllFinishedMilestonesHandler = () => {
-    if (isOnline()) {
-      dispatch(
-        deleteAllFinishedMilestone({
-          userUid: user,
-          taskId: task?.id,
-          allTasks: tasks,
-        }),
-      );
-    }
-    dispatch(deleteAllFinishedMilestoneLocally({ taskId: task?.id }));
+    batch(() => {
+      if (isOnline()) {
+        dispatch(
+          deleteAllFinishedMilestone({
+            userUid: user,
+            taskId: task?.id,
+            allTasks: tasks,
+          }),
+        );
+      }
+      dispatch(deleteAllFinishedMilestoneLocally({ taskId: task?.id }));
+    });
   };
 
   return (

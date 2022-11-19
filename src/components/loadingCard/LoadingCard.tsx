@@ -1,11 +1,8 @@
-import React from 'react';
 import useWindowSize from '../../hooks/useWindowsSize';
-import { RootState, useAppSelector } from '../../interfaces/interfaces';
+import { Dark } from '../../utilities/globalImports';
 
 const LoadingCard = () => {
-  const dark = useAppSelector(
-    (state: RootState) => state.darkModeReducer.darkMode,
-  );
+  const dark = Dark();
 
   const vw = useWindowSize();
   return (

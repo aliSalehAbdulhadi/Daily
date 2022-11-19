@@ -7,30 +7,29 @@ import { RiCheckboxBlankCircleFill } from 'react-icons/ri';
 import SwiperCore, { Keyboard, Mousewheel } from 'swiper/core';
 import useClickOutside from '../../../hooks/useClickOutside';
 import {
-  RootState,
   SingleTaskInterface,
   useAppDispatch,
-  useAppSelector,
 } from '../../../interfaces/interfaces';
 import { addTaskType } from '../../../redux/slices/features/fireBaseActions/addTaskTypeSlice';
 import { addTaskTypeLocally } from '../../../redux/slices/features/getTasksSlice';
 import { toggleDisableSwiper } from '../../../redux/slices/features/disableSwiperSlice';
 import { isOnline } from '../../../utilities/isOnline';
-import { Tasks, UserKey } from '../../../utilities/globalImports';
 
 const TaskTypeMenu = ({
   task,
   isVertical,
+  tasks,
+  user,
 }: {
+  tasks: SingleTaskInterface[];
   task: SingleTaskInterface;
   isVertical: boolean;
+  user: string;
 }) => {
   SwiperCore.use([Keyboard, Mousewheel]);
   const [hidden, setHidden] = useState<boolean>(true);
   const [value, setValue] = useState<string>(task?.taskType);
   const dispatch = useAppDispatch();
-  const tasks: SingleTaskInterface[] = Tasks();
-  const user = UserKey();
 
   let domNode = useClickOutside(() => {
     setHidden(true);
@@ -61,6 +60,7 @@ const TaskTypeMenu = ({
   useEffect(() => {
     dispatch(toggleDisableSwiper(hidden));
   }, [dispatch, hidden]);
+
   return (
     <div
       ref={domNode}

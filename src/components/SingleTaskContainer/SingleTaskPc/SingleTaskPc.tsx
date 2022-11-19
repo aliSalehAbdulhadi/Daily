@@ -1,4 +1,4 @@
-import { SyntheticEvent } from 'react';
+import { memo, SyntheticEvent } from 'react';
 import { AiFillDelete } from 'react-icons/ai';
 import { GoCheck } from 'react-icons/go';
 import {
@@ -15,10 +15,9 @@ import { CountdownCircleTimer } from 'react-countdown-circle-timer';
 import { HiOutlineStar } from 'react-icons/hi';
 //@ts-ignore
 import { ProgressBar } from 'react-step-progress-bar';
+import { batch } from 'react-redux';
 import {
-  RootState,
   useAppDispatch,
-  useAppSelector,
   SingleTaskInterface,
 } from '../../../interfaces/interfaces';
 import { completedTask } from '../../../redux/slices/features/fireBaseActions/completeTaskSlice';
@@ -38,35 +37,34 @@ import { setCardColorByTypeHandler } from '../../../utilities/setColorByTypeHand
 import 'react-step-progress-bar/styles.css';
 import { lockTask } from '../../../redux/slices/features/fireBaseActions/lockTaskSlice';
 import { isOnline } from '../../../utilities/isOnline';
-import { Tasks, UserKey } from '../../../utilities/globalImports';
 
 const SingleTaskPc = ({
-  content,
+  task,
+  tasks,
   index,
   taskId,
-  defaultTaskId,
+  user,
 }: {
-  content: SingleTaskInterface;
+  task: SingleTaskInterface;
+  tasks: SingleTaskInterface[];
   index: number;
   taskId: string;
-  defaultTaskId: any;
+  user: string;
 }) => {
   const [deleteAnimation, setDeleteAnimation] = useState<boolean>(false);
   const [deleteTimer, setDeleteTimer] = useState<boolean>(false);
   const [completeAnimation, setCompleteAnimation] = useState<boolean>(false);
   const [edit, setEdit] = useState<boolean>(false);
-  const [editText, setEditText] = useState<string>(content?.content);
+  const [editText, setEditText] = useState<string>(task?.content);
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const dispatch = useAppDispatch();
-  const tasks: SingleTaskInterface[] = Tasks();
-  const user = UserKey();
+
   useEffect(() => {
     inputRef?.current?.focus();
   }, [edit]);
 
-  const formatDate = moment(content?.date).format('MMM/D/YYYY');
+  const formatDate = moment(task?.date).format('MMM/D/YYYY');
 
-  const task = tasks?.find((task) => task?.id === defaultTaskId);
   const milestoneCompleted = task?.milestones?.filter(
     (ms: any) => ms?.milestoneCompleted === true,
   ).length;
@@ -77,108 +75,118 @@ const SingleTaskPc = ({
 
   let textareaRef = useClickOutside(() => {
     setEdit(false);
-    setEditText(content?.content);
+    setEditText(task?.content);
   });
 
   const editHanlder = (e: SyntheticEvent) => {
     e.preventDefault();
 
-    if (isOnline()) {
-      editText?.length === 0 || editText?.length > 50
-        ? setEditText(content?.content)
-        : dispatch(
-            editTask({
-              userUid: user,
-              taskId: content?.id,
-              allTasks: tasks,
-              newTask: editText,
-            }),
-          );
-    }
+    batch(() => {
+      if (isOnline()) {
+        editText?.length === 0 || editText?.length > 50
+          ? setEditText(task?.content)
+          : dispatch(
+              editTask({
+                userUid: user,
+                taskId: task?.id,
+                allTasks: tasks,
+                newTask: editText,
+              }),
+            );
+      }
 
-    editText?.length === 0 || editText?.length > 50
-      ? setEditText(content?.content)
-      : dispatch(editTaskLocally({ taskId: content?.id, taskEdit: editText }));
+      editText?.length === 0 || editText?.length > 50
+        ? setEditText(task?.content)
+        : dispatch(editTaskLocally({ taskId: task?.id, taskEdit: editText }));
+    });
 
     setEdit(false);
   };
 
   const deletionHandler = () => {
-    if (isOnline()) {
-      dispatch(
-        removeTask({
-          userUid: user,
-          taskId: content?.id,
-          allTasks: tasks,
-        }),
-      );
-    }
+    batch(() => {
+      if (isOnline()) {
+        dispatch(
+          removeTask({
+            userUid: user,
+            taskId: task?.id,
+            allTasks: tasks,
+          }),
+        );
+      }
 
-    setDeleteAnimation(true);
-    setTimeout(() => {
-      dispatch(deleteTasksLocally({ taskId: content?.id }));
-      setDeleteAnimation(false);
-    }, 250);
+      setDeleteAnimation(true);
+      setTimeout(() => {
+        dispatch(deleteTasksLocally({ taskId: task?.id }));
+        setDeleteAnimation(false);
+      }, 250);
+    });
   };
 
   const completionHandler = () => {
-    if (isOnline()) {
-      dispatch(
-        completedTask({
-          userUid: user,
-          taskId: content?.id,
-          allTasks: tasks,
-        }),
-      );
-    }
-    setCompleteAnimation(true);
+    batch(() => {
+      if (isOnline()) {
+        dispatch(
+          completedTask({
+            userUid: user,
+            taskId: task?.id,
+            allTasks: tasks,
+          }),
+        );
+      }
+      setCompleteAnimation(true);
 
-    setTimeout(() => {
-      dispatch(completeTaskLocally({ taskId: content?.id }));
+      setTimeout(() => {
+        dispatch(completeTaskLocally({ taskId: task?.id }));
 
-      setCompleteAnimation(false);
-    }, 300);
+        setCompleteAnimation(false);
+      }, 300);
+    });
   };
 
   const importantStateHandler = () => {
-    if (isOnline()) {
-      dispatch(
-        changeTaskImportantState({
-          taskId: content?.id,
-          userUid: user,
-          allTasks: tasks,
-        }),
-      );
-    }
+    batch(() => {
+      if (isOnline()) {
+        dispatch(
+          changeTaskImportantState({
+            taskId: task?.id,
+            userUid: user,
+            allTasks: tasks,
+          }),
+        );
+      }
 
-    dispatch(changeTaskImportantStateLocally({ taskId: content?.id }));
+      dispatch(changeTaskImportantStateLocally({ taskId: task?.id }));
+    });
   };
 
   const lockTaskHandler = () => {
-    if (isOnline()) {
-      dispatch(
-        lockTask({
-          userUid: user,
-          taskId: content?.id,
-          allTasks: tasks,
-        }),
-      );
-    }
+    batch(() => {
+      if (isOnline()) {
+        dispatch(
+          lockTask({
+            userUid: user,
+            taskId: task?.id,
+            allTasks: tasks,
+          }),
+        );
+      }
 
-    dispatch(lockTaskLocally({ taskId: content?.id }));
+      dispatch(lockTaskLocally({ taskId: task?.id }));
+    });
   };
 
   return (
-    <Draggable key={content?.id} draggableId={content?.id} index={index}>
+    <Draggable key={task?.id} draggableId={task?.id} index={index}>
       {(provided) => (
         <div
           className={`text-textLight  outline-[1px] relative ${
-            content?.important ? 'outline-[1px] outline outline-yellow-400' : ''
+            task?.important ? 'outline-[1px] outline outline-yellow-400' : ''
           }
            hover:transition-transform hover:ease-in-out font-Comfortaa font-semibold my-2 px-5 min-h-[10rem] relative ${
-             content?.completed
+             task?.completed
                ? 'bg-red-400 shadow-2xl'
-               : setCardColorByTypeHandler(true, content?.taskType)
+               : setCardColorByTypeHandler(true, task?.taskType)
            } flex flex-col justify-center items-center rounded ease-in-out
             ${
               deleteAnimation
@@ -199,15 +207,15 @@ const SingleTaskPc = ({
             <div className="text-xs w-fit whitespace-nowrap select-none">
               {formatDate}
             </div>
-            <div className={` ${content?.completed ? 'hidden' : 'block'} `}>
+            <div className={` ${task?.completed ? 'hidden' : 'block'} `}>
               <HiOutlineStar
                 onClick={importantStateHandler}
                 size={20}
-                fill={content.important ? '#e8b923' : 'none'}
+                fill={task?.important ? '#e8b923' : 'none'}
                 className={`transition-all ${
-                  content?.important ? '' : 'hover:fill-white hover:text-white'
+                  task?.important ? '' : 'hover:fill-white hover:text-white'
                 } ${
-                  content?.important ? 'text-yellow-300' : ''
+                  task?.important ? 'text-yellow-300' : ''
                 } mr-[.6rem] cursor-pointer`}
               />
             </div>
@@ -238,7 +246,12 @@ const SingleTaskPc = ({
                 )}
               </div>
               <div className={`${task?.completed ? 'opacity-60' : ''}`}>
-                <TaskTypeMenu isVertical={true} task={content} />
+                <TaskTypeMenu
+                  user={user}
+                  tasks={tasks}
+                  isVertical={true}
+                  task={task}
+                />
               </div>
             </div>
 
@@ -273,11 +286,11 @@ const SingleTaskPc = ({
               <div className="w-full ml-5 ">
                 <div
                   className={` flex-col  items-center flex ${
-                    content?.completed ? 'strike opacity-60' : ''
+                    task?.completed ? 'strike opacity-60' : ''
                   }`}
                 >
                   <div>
-                    <span className="wrapWord">{content?.content}</span>
+                    <span className="wrapWord">{task?.content}</span>
                   </div>
 
                   <div
@@ -302,7 +315,7 @@ const SingleTaskPc = ({
             )}
 
             <div className={` ${edit ? 'hidden' : 'flex'} flex-col pl-10 mt-2`}>
-              {content?.completed ? (
+              {task?.completed ? (
                 <MdOutlineRemoveDone
                   title="Incomplete"
                   type="button"
@@ -356,9 +369,9 @@ const SingleTaskPc = ({
                     duration={1.5}
                     // @ts-ignore
                     trailColor={
-                      content?.completed
+                      task?.completed
                         ? '#f87171'
-                        : setCardColorByTypeHandler(false, content?.taskType)
+                        : setCardColorByTypeHandler(false, task?.taskType)
                     }
                     colors="#ffff"
                     onComplete={() => {
@@ -386,7 +399,7 @@ const SingleTaskPc = ({
             </div>
           </div>
 
-          {content?.id === taskId ? (
+          {task?.id === taskId ? (
             <div>
               <div className="selectedTask select-none pointer-events-none bg-white h-[7rem] w-[1px] text-transparent  absolute top-[50%] translate-y-[-50%] left-[-10px]">
                 .
@@ -401,4 +414,4 @@ const SingleTaskPc = ({
   );
 };
 
-export default SingleTaskPc;
+export default memo(SingleTaskPc);

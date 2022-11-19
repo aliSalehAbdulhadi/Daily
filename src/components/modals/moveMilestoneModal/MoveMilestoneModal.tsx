@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   RootState,
   singleMilestoneInterface,
@@ -7,12 +6,15 @@ import {
   useAppSelector,
 } from '../../../interfaces/interfaces';
 import { toggleOpenMoveMilestone } from '../../../redux/slices/features/openMoveMilestoneSlice';
-import { Tasks } from '../../../utilities/globalImports';
 import SingleMoveTaskCard from '../../singleMoveTaskCard/SingleMoveTaskCard';
 
-const MoveMilestoneModal = ({ taskId }: { taskId: string }) => {
-  const tasks: SingleTaskInterface[] = Tasks();
-
+const MoveMilestoneModal = ({
+  taskId,
+  tasks,
+}: {
+  taskId: string;
+  tasks: SingleTaskInterface[];
+}) => {
   const moveToTasks: SingleTaskInterface[] = tasks.filter(
     (task) => task.id !== taskId,
   );
@@ -24,7 +26,7 @@ const MoveMilestoneModal = ({ taskId }: { taskId: string }) => {
   const dispatch = useAppDispatch();
 
   return (
-    <div className="rounded flex flex-col bg-white bg-opacity-80 w-[300px] semiSm:w-[350px] h-[290px] my-5 overflow-auto scrollBar py-2 overflow-x-hidden shadow-lg">
+    <div className="rounded hidden semiSm:flex flex-col bg-white bg-opacity-80 w-[300px] semiSm:w-[350px] h-[290px] my-5 overflow-auto scrollBar py-2 overflow-x-hidden shadow-lg">
       <div
         onClick={() => dispatch(toggleOpenMoveMilestone(false))}
         className="self-end mr-6 mb-3 mt-1 text-red-500 cursor-pointer"
@@ -36,6 +38,7 @@ const MoveMilestoneModal = ({ taskId }: { taskId: string }) => {
           return (
             <div className="taskCompPc" key={task.id}>
               <SingleMoveTaskCard
+                tasks={tasks}
                 moveToTask={task}
                 taskId={taskId}
                 milestone={milestone}

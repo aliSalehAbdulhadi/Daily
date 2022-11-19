@@ -1,5 +1,4 @@
 import { Suspense, useState } from 'react';
-import { RootState, useAppSelector } from '../src/interfaces/interfaces';
 import { RiComputerFill } from 'react-icons/ri';
 import { AiFillAndroid, AiFillApple } from 'react-icons/ai';
 
@@ -7,12 +6,11 @@ import PcInstructions from '../src/components/downloadInstructions/pcInstruction
 import AndroidInstructions from '../src/components/downloadInstructions/androidInstructions/AndroidInstructions';
 import AppleInstructions from '../src/components/downloadInstructions/appleInstructions/AppleInstructions';
 import useWindowSize from '../src/hooks/useWindowsSize';
+import { Dark } from '../src/utilities/globalImports';
 
 const Download = () => {
   const [instruction, setInstruction] = useState<string>('');
-  const dark = useAppSelector(
-    (state: RootState) => state.darkModeReducer.darkMode,
-  );
+  const dark = Dark()
   const vw = useWindowSize();
 
   return (

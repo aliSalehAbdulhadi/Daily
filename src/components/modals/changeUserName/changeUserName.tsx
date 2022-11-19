@@ -3,15 +3,11 @@ import * as Yup from 'yup';
 import { Formik, Form } from 'formik';
 import { FaSpinner } from 'react-icons/fa';
 import Modal from '../Modal/Modal';
-import {
-  RootState,
-  useAppDispatch,
-  useAppSelector,
-} from '../../../interfaces/interfaces';
+import { useAppDispatch } from '../../../interfaces/interfaces';
 import FormField from '../../FormField/FormField';
 import { changeUserName } from '../../../redux/slices/features/fireBaseActions/changeUserNameSlice';
 import { isOnline } from '../../../utilities/isOnline';
-import { UserKey } from '../../../utilities/globalImports';
+import { Dark, UserKey } from '../../../utilities/globalImports';
 
 const signInSchema = Yup.object().shape({
   username: Yup.string().min(0).max(15).required(),
@@ -28,9 +24,7 @@ const ChangeUserName = ({
   const dispatch = useAppDispatch();
   const user = UserKey();
 
-  const dark = useAppSelector(
-    (state: RootState) => state.darkModeReducer.darkMode,
-  );
+  const dark = Dark();
 
   return (
     <Modal label="Change User Name" setOpen={setOpen} open={open}>

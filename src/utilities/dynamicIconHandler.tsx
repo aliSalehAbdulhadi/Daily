@@ -1,8 +1,3 @@
-import { BsFillPersonFill } from 'react-icons/bs';
-import { MdPark, MdWork } from 'react-icons/md';
-import { IoGameController } from 'react-icons/io5';
-import { FaShoppingCart, FaUserFriends } from 'react-icons/fa';
-import { CgGym } from 'react-icons/cg';
 import { RiCheckboxBlankCircleFill } from 'react-icons/ri';
 
 export const dynamicIconHandler = (value: string, hidden: boolean) => {

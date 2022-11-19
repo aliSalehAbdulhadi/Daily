@@ -1,21 +1,20 @@
-import React from 'react';
 import useClickOutside from '../../../../hooks/useClickOutside';
 import {
-  RootState,
   SingleTaskInterface,
   useAppDispatch,
-  useAppSelector,
 } from '../../../../interfaces/interfaces';
 import { toggleOpenMoveMilestone } from '../../../../redux/slices/features/openMoveMilestoneSlice';
-import { Tasks } from '../../../../utilities/globalImports';
+import { Dark } from '../../../../utilities/globalImports';
 import SingleMoveTaskCard from '../../../singleMoveTaskCard/SingleMoveTaskCard';
 
 const MoveMilestoneModalMobile = ({
   taskId,
   milestone,
+  tasks,
 }: {
   taskId: any;
   milestone: any;
+  tasks: SingleTaskInterface[];
 }) => {
   const dispatch = useAppDispatch();
 
@@ -23,15 +22,11 @@ const MoveMilestoneModalMobile = ({
     dispatch(toggleOpenMoveMilestone(false));
   });
 
-  const tasks: SingleTaskInterface[] = Tasks();
-
   const moveToTasks: SingleTaskInterface[] = tasks?.filter(
     (task) => task.id !== taskId,
   );
 
-  const dark = useAppSelector(
-    (state: RootState) => state.darkModeReducer.darkMode,
-  );
+  const dark = Dark();
   return (
     <div className="flex items-center">
       <div
@@ -44,6 +39,7 @@ const MoveMilestoneModalMobile = ({
           return (
             <div className="taskCompPc " key={task.id}>
               <SingleMoveTaskCard
+                tasks={tasks}
                 moveToTask={task}
                 taskId={taskId}
                 milestone={milestone}
