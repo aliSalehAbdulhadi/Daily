@@ -34,6 +34,7 @@ import { lockTask } from '../../../redux/slices/features/fireBaseActions/lockTas
 import { isOnline } from '../../../utilities/isOnline';
 import { removeTask } from '../../../redux/slices/features/fireBaseActions/deleteTaskSlice';
 
+
 const SingleTaskMobile = ({
   task,
   tasks,
