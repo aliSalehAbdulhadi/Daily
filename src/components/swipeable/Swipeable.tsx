@@ -50,7 +50,7 @@ const Swipeable = ({
 
   return (
     <div {...handlers}>
-      <Swiper
+      {/* <Swiper
         spaceBetween={0}
         modules={[Navigation, Pagination, Scrollbar, A11y]}
         navigation
@@ -77,7 +77,8 @@ const Swipeable = ({
         <style>{`.swiper::after{${
           isDeleting ? "background-image: url('/svg/delete.svg')" : ''
         }`}</style>
-      </Swiper>
+      </Swiper> */}
+      {children}
     </div>
   );
 };

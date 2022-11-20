@@ -18,12 +18,10 @@ const Home: NextPage = () => {
     if (isOnline()) {
       // trick redux store to refresh its data so it will sync between multiple opened devices at the same time
       dispatch(trickStore({ trick: 'trick store to refresh' }));
-      dispatch(uploadLocalData({ userUid: user, allTasks: tasks }));
-      dispatch(reArrangeFirebase({ userUid: user, allTasks: tasks }));
+      // dispatch(uploadLocalData({ userUid: user, allTasks: tasks }));
+      // dispatch(reArrangeFirebase({ userUid: user, allTasks: tasks }));
     }
   }, [dispatch, tasks, user]);
-
-  useEffect(() => {}, [dispatch, tasks, user]);
 
   return (
     <>

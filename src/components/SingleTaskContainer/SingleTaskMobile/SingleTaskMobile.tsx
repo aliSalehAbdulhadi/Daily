@@ -125,6 +125,16 @@ const SingleTaskMobile = ({
 
     setDeleteAnimation(true);
     batch(() => {
+      if (isOnline()) {
+        dispatch(
+          removeTask({
+            userUid: user,
+            taskId: task?.id,
+            allTasks: tasks,
+          }),
+        );
+      }
+
       setTimeout(() => {
         dispatch(deleteTasksLocally({ index: index }));
         setDeleteAnimation(false);
