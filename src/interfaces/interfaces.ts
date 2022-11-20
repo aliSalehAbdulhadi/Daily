@@ -53,7 +53,6 @@ export interface SingleTaskInterface {
   important: boolean;
   locked: boolean;
   milestones: object[];
-  isDeleted: boolean;
 }
 
 export interface singleMilestoneInterface {
