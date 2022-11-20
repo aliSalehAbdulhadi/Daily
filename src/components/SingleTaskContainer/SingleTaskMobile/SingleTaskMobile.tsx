@@ -34,7 +34,6 @@ import { lockTask } from '../../../redux/slices/features/fireBaseActions/lockTas
 import { isOnline } from '../../../utilities/isOnline';
 import { removeTask } from '../../../redux/slices/features/fireBaseActions/deleteTaskSlice';
 
-
 const SingleTaskMobile = ({
   task,
   tasks,
@@ -126,15 +125,15 @@ const SingleTaskMobile = ({
 
     setDeleteAnimation(true);
     batch(() => {
-      if (isOnline()) {
-        dispatch(
-          removeTask({
-            userUid: user,
-            taskId: task?.id,
-            allTasks: tasks,
-          }),
-        );
-      }
+      // if (isOnline()) {
+      //   dispatch(
+      //     removeTask({
+      //       userUid: user,
+      //       taskId: task?.id,
+      //       allTasks: tasks,
+      //     }),
+      //   );
+      // }
 
       setTimeout(() => {
         dispatch(deleteTasksLocally({ index: index }));
