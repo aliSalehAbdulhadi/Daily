@@ -1,84 +1,66 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSwipeable } from 'react-swipeable';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
-import { useRouter } from 'next/router';
 import 'swiper/css';
 import { useAppDispatch } from '../../interfaces/interfaces';
 import { toggleDisableDragDnd } from '../../redux/slices/features/disableDragDndSlice';
-import { Dark } from '../../utilities/globalImports';
+import { AiFillDelete } from 'react-icons/ai';
+import useClickOutside from '../../hooks/useClickOutside';
 
 const Swipeable = ({
   children,
   handler,
-  taskLocked,
-  disableSwiper,
+  isDeletingOpen,
+  isMilestone,
 }: {
   children: JSX.Element;
   handler: Function;
-  taskLocked?: any;
-  disableSwiper?: boolean;
+  isDeletingOpen: Function;
+  isMilestone?: boolean;
 }) => {
-  const dark = Dark();
-  const router = useRouter();
-  const { id } = router.query;
-  const [bgColor, setBgColor] = useState<string>(dark ? '#427676' : '#56a691');
   const [isDeleting, setIsDeleting] = useState<boolean>(false);
 
   const dispatch = useAppDispatch();
   const handlers = useSwipeable({
-    delta: { left: 280 },
-    swipeDuration: 3000,
+    delta: { left: 150 },
     onSwipedLeft: () => {
       dispatch(toggleDisableDragDnd(true));
-      handler();
+      setIsDeleting(true);
     },
-    onTap: () => {
-      setBgColor(`${dark ? '#427676' : '#56a691'}`);
+    onSwipedRight: () => {
       setIsDeleting(false);
-    },
-    onSwiped: () => {
-      setBgColor(`${dark ? '#427676' : '#56a691'}`);
     },
 
     onTouchStartOrOnMouseDown: () => {
       dispatch(toggleDisableDragDnd(false));
-      setIsDeleting(true);
-      setBgColor('#C41E3A');
     },
+  });
+  useEffect(() => {
+    isDeletingOpen(isDeleting);
+  }, [isDeleting, isDeletingOpen]);
+
+  const deleteRef = useClickOutside(() => {
+    setIsDeleting(false);
   });
 
   return (
-    <div {...handlers}>
-      {/* <Swiper
-        spaceBetween={0}
-        modules={[Navigation, Pagination, Scrollbar, A11y]}
-        navigation
-        slidesPerView={1}
-        threshold={0}
-        edgeSwipeThreshold={0}
-        initialSlide={1}
-        allowSlidePrev={false}
-        allowSlideNext={disableSwiper && !taskLocked}
-        style={{ backgroundColor: bgColor }}
-        observer
+    <div className="flex overflow-x-hidden" {...handlers}>
+      <div className={`transition-all ${isDeleting ? 'w-[80%]' : 'w-full'} `}>
+        {children}
+      </div>
+      <div
+        ref={deleteRef}
+        onClick={() => {
+          setIsDeleting(false);
+          setTimeout(() => {
+            handler();
+          }, 100);
+        }}
+        className={`bg-red-500 opacity-90 transition-all flex items-center justify-center w-[20%]  h-fill ${
+          isMilestone ? '' : 'rounded-r'
+        } ${isDeleting ? 'block' : 'hidden'}`}
       >
-        <SwiperSlide>
-          <div>placeholder div to fill the fist slide</div>
-        </SwiperSlide>
-        <SwiperSlide>
-          <div className="rounded">{children}</div>
-        </SwiperSlide>
-        <style>{`.swiper-slide-active{background-color:${
-          !id ? ' ' : dark ? '#427676' : '#56a691'
-        }
-          `}</style>
-        <style>{`.swiper{border-color:${dark ? '#427676' : '#56a691'}`}</style>
-        <style>{`.swiper::after{${
-          isDeleting ? "background-image: url('/svg/delete.svg')" : ''
-        }`}</style>
-      </Swiper> */}
-      {children}
+        <AiFillDelete size={35} fill="white" />
+      </div>
     </div>
   );
 };

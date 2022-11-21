@@ -430,22 +430,6 @@ input::-webkit-input-placeholder {
   }
 }
 
-.swiper {
-  position: relative;
-  overflow: hidden;
-  border-radius: 0.25rem;
-}
-
-.swiper::after {
-  content: '';
-  background-repeat: no-repeat;
-  position: absolute;
-  transform: translate(-17%, -65%);
-  left: 100%;
-  height: 100%;
-  width: 100%;
-}
-
 #quill {
   min-height: 350px;
   overflow: hidden;
