@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useSwipeable } from 'react-swipeable';
-import 'swiper/css';
+import { AiFillDelete } from 'react-icons/ai';
 import { useAppDispatch } from '../../interfaces/interfaces';
 import { toggleDisableDragDnd } from '../../redux/slices/features/disableDragDndSlice';
-import { AiFillDelete } from 'react-icons/ai';
 import useClickOutside from '../../hooks/useClickOutside';
 
 const Swipeable = ({
