@@ -1,5 +1,6 @@
 import { Suspense, useEffect, useMemo, useRef, useState } from 'react';
 import { Droppable } from 'react-beautiful-dnd';
+import dynamic from 'next/dynamic';
 import {
   useAppSelector,
   SingleTaskInterface,
@@ -12,7 +13,6 @@ import {
   Tasks as allTasks,
   Dark,
 } from '../../utilities/globalImports';
-import dynamic from 'next/dynamic';
 import LoadingCard from '../loadingCard/LoadingCard';
 
 const SingleTaskContainer = dynamic(
@@ -21,7 +21,6 @@ const SingleTaskContainer = dynamic(
     suspense: true,
   },
 );
-
 
 const Tasks = ({ id }: { id: Function }) => {
   const [completedTask, setCompletedTask] = useState<boolean>(false);

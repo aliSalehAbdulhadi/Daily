@@ -247,7 +247,11 @@ const MileStone = () => {
           {milestonesSortHandler()?.map((milestone: any, i) => {
             return (
               <Suspense key={milestone?.id}>
-                <Swipeable handler={() => deleteMilestoneHandler(milestone)}>
+                <Swipeable
+                  isDeletingOpen={(e: boolean) => e}
+                  isMilestone={true}
+                  handler={() => deleteMilestoneHandler(milestone)}
+                >
                   <MilestoneSinglePage
                     taskId={String(id)}
                     milestone={milestone}

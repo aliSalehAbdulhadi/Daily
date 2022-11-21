@@ -34,7 +34,6 @@ import { lockTask } from '../../../redux/slices/features/fireBaseActions/lockTas
 import { isOnline } from '../../../utilities/isOnline';
 import { removeTask } from '../../../redux/slices/features/fireBaseActions/deleteTaskSlice';
 
-
 const SingleTaskMobile = ({
   task,
   tasks,
@@ -48,6 +47,8 @@ const SingleTaskMobile = ({
 }) => {
   const [completeAnimation, setCompleteAnimation] = useState<boolean>(false);
   const [deleteAnimation, setDeleteAnimation] = useState<boolean>(false);
+  const [isDeleteOpen, setIsDeleteOpen] = useState<boolean>(false);
+
   const [edit, setEdit] = useState<boolean>(false);
   const [editText, setEditText] = useState<string>(task?.content);
   const inputRef = useRef<HTMLTextAreaElement>(null);
@@ -190,8 +191,8 @@ const SingleTaskMobile = ({
           className="pb-3"
         >
           <Swipeable
-            disableSwiper={disableSwiper}
-            taskLocked={task?.locked}
+            isLocked={task?.locked}
+            isDeletingOpen={(e: boolean) => setIsDeleteOpen(e)}
             handler={deletionHandler}
           >
             <div
@@ -213,7 +214,7 @@ const SingleTaskMobile = ({
             task?.completed
               ? 'bg-red-400'
               : setCardColorByTypeHandler(true, task?.taskType)
-          }  rounded text-sm ease-in-out 
+          }  ${isDeleteOpen ? 'rounded-l' : 'rounded'} text-sm ease-in-out 
             ${
               deleteAnimation
                 ? 'translate-x-[-35rem] transition-all duration-300 ease-in-out'
