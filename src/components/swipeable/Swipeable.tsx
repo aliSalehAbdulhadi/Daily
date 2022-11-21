@@ -11,20 +11,23 @@ const Swipeable = ({
   handler,
   isDeletingOpen,
   isMilestone,
+  isLocked,
 }: {
   children: JSX.Element;
   handler: Function;
   isDeletingOpen: Function;
   isMilestone?: boolean;
+  isLocked?: boolean;
 }) => {
   const [isDeleting, setIsDeleting] = useState<boolean>(false);
+  const [isLockedAnimation, setIsLockedAnimation] = useState<boolean>(false);
 
   const dispatch = useAppDispatch();
   const handlers = useSwipeable({
-    delta: { left: 150 },
+    delta: { left: 130 },
     onSwipedLeft: () => {
       dispatch(toggleDisableDragDnd(true));
-      setIsDeleting(true);
+      isLocked ? setIsLockedAnimation(true) : setIsDeleting(true);
     },
     onSwipedRight: () => {
       setIsDeleting(false);
@@ -38,13 +41,23 @@ const Swipeable = ({
     isDeletingOpen(isDeleting);
   }, [isDeleting, isDeletingOpen]);
 
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLockedAnimation(false);
+    }, 200);
+  });
+
   const deleteRef = useClickOutside(() => {
     setIsDeleting(false);
   });
 
   return (
-    <div className="flex overflow-x-hidden" {...handlers}>
-      <div className={`transition-all ${isDeleting ? 'w-[80%]' : 'w-full'} `}>
+    <div className="flex overflow-hidden" {...handlers}>
+      <div
+        className={`transition-all ${isDeleting ? 'w-[80%]' : 'w-full'} ${
+          isLockedAnimation ? ' shakeAnimation' : ''
+        }`}
+      >
         {children}
       </div>
       <div

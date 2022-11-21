@@ -191,6 +191,7 @@ const SingleTaskMobile = ({
           className="pb-3"
         >
           <Swipeable
+            isLocked={task?.locked}
             isDeletingOpen={(e: boolean) => setIsDeleteOpen(e)}
             handler={deletionHandler}
           >

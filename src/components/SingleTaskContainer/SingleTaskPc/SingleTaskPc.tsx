@@ -198,8 +198,6 @@ const SingleTaskPc = ({
           {...provided?.dragHandleProps}
           ref={provided?.innerRef}
         >
-          <button onClick={() => deletionHandler()}>delete</button>
-
           <div
             className={`${
               edit ? 'hidden' : 'flex'
