@@ -23,7 +23,7 @@ const Swipeable = ({
 
   const dispatch = useAppDispatch();
   const handlers = useSwipeable({
-    delta: { left: 130 },
+    delta: { left: 120 },
     onSwipedLeft: () => {
       dispatch(toggleDisableDragDnd(true));
       isLocked ? setIsLockedAnimation(true) : setIsDeleting(true);
@@ -43,7 +43,7 @@ const Swipeable = ({
   useEffect(() => {
     setTimeout(() => {
       setIsLockedAnimation(false);
-    }, 200);
+    }, 220);
   });
 
   const deleteRef = useClickOutside(() => {
@@ -51,27 +51,27 @@ const Swipeable = ({
   });
 
   return (
-    <div className="flex overflow-hidden" {...handlers}>
+    <div className="flex overflow-hidden  " {...handlers}>
       <div
-        className={`transition-all ${isDeleting ? 'w-[80%]' : 'w-full'} ${
-          isLockedAnimation ? ' shakeAnimation' : ''
-        }`}
+        className={`transition-all  flex items-center w-full relative  ${
+          isDeleting ? 'translate-x-[-5rem]' : ''
+        } ${isLockedAnimation ? ' shakeAnimation' : ''}`}
       >
-        {children}
-      </div>
-      <div
-        ref={deleteRef}
-        onClick={() => {
-          setIsDeleting(false);
-          setTimeout(() => {
-            handler();
-          }, 100);
-        }}
-        className={`bg-red-500 opacity-90 transition-all flex items-center justify-center w-[20%]  h-fill ${
-          isMilestone ? '' : 'rounded-r'
-        } ${isDeleting ? 'block' : 'hidden'}`}
-      >
-        <AiFillDelete size={35} fill="white" />
+        <div className="w-full shrink-0">{children}</div>
+        <div
+          ref={deleteRef}
+          onClick={() => {
+            setIsDeleting(false);
+            setTimeout(() => {
+              handler();
+            }, 140);
+          }}
+          className={`bg-red-500 opacity-90 transition-all flex items-center justify-center absolute right-[-4.95rem] w-[5rem] h-full  ${
+            isMilestone ? '' : 'rounded-r'
+          } ${isDeleting ? 'block' : 'hidden'}`}
+        >
+          <AiFillDelete size={32} fill="white" />
+        </div>
       </div>
     </div>
   );

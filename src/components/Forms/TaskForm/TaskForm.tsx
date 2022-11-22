@@ -2,14 +2,13 @@ import * as Yup from 'yup';
 import { Formik, Form } from 'formik';
 import { v4 as uuidv4 } from 'uuid';
 import { BsPlusCircleDotted } from 'react-icons/bs';
-import { memo, useState } from 'react';
+import { memo, useEffect, useRef, useState } from 'react';
 import FormField from '../../FormField/FormField';
 import { addTask } from '../../../redux/slices/features/fireBaseActions/addTaskSlice';
 import { addTasksLocally } from '../../../redux/slices/features/getTasksSlice';
 import { useAppDispatch } from '../../../interfaces/interfaces';
 import { isOnline } from '../../../utilities/isOnline';
 import { Dark, UserKey } from '../../../utilities/globalImports';
-
 
 const formSchema = Yup.object().shape({
   Form: Yup.string().max(50, 'Too Long!'),
@@ -23,6 +22,12 @@ const TaskForm = () => {
   const user = UserKey();
 
   const uuid = uuidv4();
+
+  const formRef = useRef<HTMLFormElement>(null);
+
+  useEffect(() => {
+    formRef.current?.blur();
+  }, [submitAnimation]);
 
   return (
     <Formik
@@ -77,6 +82,7 @@ const TaskForm = () => {
     >
       {({}) => (
         <Form
+          ref={formRef}
           onChange={(e: any) => setValue(e?.target.value)}
           className={` ${dark ? 'bg-primaryColor' : 'bg-primaryLight'} pt-3 ${
             dark ? 'text-textDark' : 'text-textLight'

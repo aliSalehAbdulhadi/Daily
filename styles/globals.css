@@ -430,6 +430,13 @@ input::-webkit-input-placeholder {
   }
 }
 
+.swiper {
+  position: relative;
+  overflow: hidden;
+  border-radius: 0.25rem;
+}
+
+
 #quill {
   min-height: 350px;
   overflow: hidden;
@@ -456,8 +463,6 @@ input::-webkit-input-placeholder {
 
 .shakeAnimation {
   animation: shake 0.4s;
-
-
 }
 
 @keyframes shake {
