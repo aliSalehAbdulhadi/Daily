@@ -429,6 +429,11 @@ input::-webkit-input-placeholder {
     transform: translateX(0rem);
   }
 }
+.swiper {
+  position: relative;
+  overflow: hidden;
+  border-radius: 0.25rem;
+}
 
 #quill {
   min-height: 350px;
