@@ -39,22 +39,22 @@ const Wrapper = ({ children }: { children: JSX.Element }) => {
     });
 
     // drag and drop to complete tasks "currently disabled"
-    if (destination.droppableId === 'CompletedTasks' || 'NewTasks') {
-      if (source.droppableId === destination.droppableId) {
-        return false;
-      } else {
-        if (isOnline()) {
-          dispatch(
-            completedTask({
-              userUid: user,
-              taskId: result.draggableId,
-              allTasks: tasks,
-            }),
-          );
-        }
-        dispatch(completeTaskLocally({ taskId: result.draggableId }));
-      }
-    }
+    // if (destination.droppableId === 'CompletedTasks' || 'NewTasks') {
+    //   if (source.droppableId === destination.droppableId) {
+    //     return false;
+    //   } else {
+    //     if (isOnline()) {
+    //       dispatch(
+    //         completedTask({
+    //           userUid: user,
+    //           taskId: result.draggableId,
+    //           allTasks: tasks,
+    //         }),
+    //       );
+    //     }
+    //     dispatch(completeTaskLocally({ taskId: result.draggableId }));
+    //   }
+    // }
   };
 
   return (

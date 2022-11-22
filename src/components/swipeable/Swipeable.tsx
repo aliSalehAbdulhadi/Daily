@@ -66,11 +66,11 @@ const Swipeable = ({
               handler();
             }, 140);
           }}
-          className={`bg-red-500 opacity-90 transition-all flex items-center justify-center absolute right-[-5rem] w-[5rem] h-full  ${
+          className={`bg-red-500 opacity-90 transition-all flex items-center justify-center absolute right-[-4.95rem] w-[5rem] h-full  ${
             isMilestone ? '' : 'rounded-r'
           } ${isDeleting ? 'block' : 'hidden'}`}
         >
-          <AiFillDelete size={35} fill="white" />
+          <AiFillDelete size={32} fill="white" />
         </div>
       </div>
     </div>

@@ -25,19 +25,11 @@ const UserModalMobile = dynamic(
     suspense: true,
   },
 );
-
 const CheckInternet = dynamic(() => import('../checkInternet/CheckInternet'), {
   suspense: true,
 });
 
 const Navbar = () => {
-  const darkModeFunction = (): any => {
-    if (typeof window !== 'undefined') {
-      const localDarkOption = localStorage.getItem('darkMode');
-      return localDarkOption === 'true' ? true : false;
-    }
-  };
-
   const vw = useWindowSize();
 
   const [openUserModalPc, setOpenUserModalPc] = useState<boolean>(false);
@@ -45,23 +37,15 @@ const Navbar = () => {
     useState<boolean>(false);
   const [closeAnimation, setCloseAnimation] = useState<boolean>(false);
 
-  const [darkMode, setSetDarkMode] = useState<boolean>(darkModeFunction);
   const dispatch = useAppDispatch();
   const dark = Dark();
   const user = UserKey();
-
+  
   useEffect(() => {
     onAuthStateChanged(auth, (user) => dispatch(setUserUid(user?.uid)));
 
     dispatch(getTasks({ userUid: user }));
   }, [dispatch, user]);
-
-  if (typeof window !== 'undefined') {
-    localStorage?.setItem('darkMode', JSON.stringify(darkMode));
-  }
-  useEffect(() => {
-    dispatch(toggleDarkMode(darkMode));
-  }, [darkMode, dispatch]);
 
   useEffect(() => {
     setOpenUserModalPc(false);
@@ -154,7 +138,7 @@ const Navbar = () => {
             name="dark_mode_switch"
             className=" cursor-pointer select-none opacity-0 outline-none scale-75 mt-1"
             onChange={() => {
-              setSetDarkMode(!darkMode);
+              dispatch(toggleDarkMode(!dark));
             }}
           />
           <div className="bg-icon w-8 h-6 bg-no-repeat absolute pointer-events-none top-[-1px] right-[-12px] sm:top-[-1.2px] sm:right-[-14px] sm:w-8 sm:h-6" />
