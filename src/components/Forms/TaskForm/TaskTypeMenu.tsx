@@ -2,7 +2,6 @@ import { SyntheticEvent, useEffect, useState } from 'react';
 import { IoColorFill } from 'react-icons/io5';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { RiCheckboxBlankCircleFill } from 'react-icons/ri';
-
 //@ts-ignore
 import SwiperCore, { Keyboard, Mousewheel } from 'swiper/core';
 import useClickOutside from '../../../hooks/useClickOutside';
@@ -14,6 +13,7 @@ import { addTaskType } from '../../../redux/slices/features/fireBaseActions/addT
 import { addTaskTypeLocally } from '../../../redux/slices/features/getTasksSlice';
 import { toggleDisableSwiper } from '../../../redux/slices/features/disableSwiperSlice';
 import { isOnline } from '../../../utilities/isOnline';
+import 'swiper/css';
 
 const TaskTypeMenu = ({
   task,
