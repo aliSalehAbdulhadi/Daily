@@ -456,8 +456,6 @@ input::-webkit-input-placeholder {
 
 .shakeAnimation {
   animation: shake 0.4s;
-
-
 }
 
 @keyframes shake {
