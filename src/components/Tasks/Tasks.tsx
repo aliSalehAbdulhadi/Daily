@@ -1,4 +1,5 @@
-import { Suspense, useEffect, useMemo, useRef, useState } from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import { memo, Suspense, useEffect, useMemo, useRef, useState } from 'react';
 import { Droppable } from 'react-beautiful-dnd';
 import dynamic from 'next/dynamic';
 import {
@@ -39,9 +40,15 @@ const Tasks = ({ id }: { id: Function }) => {
 
   const user = UserKey();
 
-  const copyTasks = tasks ? [...tasks] : [];
-  const completedTasks = tasks ? tasks?.filter((task) => task.completed) : [];
-  const pendingTasks = tasks ? tasks?.filter((task) => !task.completed) : [];
+  const copyTasks = useMemo(() => (tasks ? [...tasks] : []), [tasks, sortBy]);
+  const completedTasks = useMemo(
+    () => (tasks ? tasks?.filter((task) => task.completed) : []),
+    [tasks, sortBy],
+  );
+  const pendingTasks = useMemo(
+    () => (tasks ? tasks?.filter((task) => !task.completed) : []),
+    [tasks, sortBy],
+  );
   const scrollRefTop = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -74,8 +81,6 @@ const Tasks = ({ id }: { id: Function }) => {
         behavior: 'smooth',
       });
     }
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAddingTask]);
 
   const taskSortHandler = () => {
@@ -100,8 +105,10 @@ const Tasks = ({ id }: { id: Function }) => {
     } else return tasks;
   };
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const sortedTasks = useMemo(() => taskSortHandler(), [tasks, tasks?.length]);
+  const sortedTasks = useMemo(
+    () => taskSortHandler(),
+    [tasks, tasks?.length, sortBy],
+  );
 
   return (
     <div className={`flex flex-col justify-center semiSm:w-[90%] rounded-t`}>
@@ -283,4 +290,4 @@ const Tasks = ({ id }: { id: Function }) => {
   );
 };
 
-export default Tasks;
+export default memo(Tasks);
