@@ -13,6 +13,8 @@ import {
   UserKey,
   Tasks as allTasks,
   Dark,
+  PendingTasks,
+  CompletedTasks,
 } from '../../utilities/globalImports';
 import LoadingCard from '../loadingCard/LoadingCard';
 
@@ -27,6 +29,7 @@ const Tasks = ({ id }: { id: Function }) => {
   const [completedTask, setCompletedTask] = useState<boolean>(false);
   const [taskId, setTaskId] = useState<string>('');
   const [sortModal, setSortModal] = useState<boolean>(false);
+  const [loadInView, setLoadInView] = useState<number>(10);
 
   const tasks: SingleTaskInterface[] = allTasks();
   const dark = Dark();
@@ -37,19 +40,29 @@ const Tasks = ({ id }: { id: Function }) => {
   const isAddingTask = useAppSelector(
     (state: RootState) => state.getTaskReducer.isAddingTask,
   );
-
   const user = UserKey();
 
-  const copyTasks = useMemo(() => (tasks ? [...tasks] : []), [tasks, sortBy]);
-  const completedTasks = useMemo(
-    () => (tasks ? tasks?.filter((task) => task.completed) : []),
-    [tasks, sortBy],
-  );
-  const pendingTasks = useMemo(
-    () => (tasks ? tasks?.filter((task) => !task.completed) : []),
-    [tasks, sortBy],
-  );
   const scrollRefTop = useRef<HTMLDivElement>(null);
+
+  const completedTasks = CompletedTasks();
+  const pendingTasks = PendingTasks();
+
+  const copyCompletedTasks = useMemo(
+    () => (completedTasks ? [...completedTasks] : []),
+    [tasks, sortBy],
+  );
+  const copyPendingTasks = useMemo(
+    () => (pendingTasks ? [...pendingTasks] : []),
+    [tasks, sortBy],
+  );
+
+  useEffect(() => {
+    setLoadInView(10);
+    scrollRefTop?.current?.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  }, [completedTask]);
 
   useEffect(() => {
     id(taskId);
@@ -83,32 +96,27 @@ const Tasks = ({ id }: { id: Function }) => {
     }
   }, [isAddingTask]);
 
-  const taskSortHandler = () => {
+  const taskSortHandler = (tasks: SingleTaskInterface[]) => {
     if (sortBy === 'newTasks') {
-      const sortedTasks = copyTasks?.sort(
+      const sortedTasks = tasks?.sort(
         (a: any, b: any) => +new Date(b.date) - +new Date(a.date),
       );
 
       return sortedTasks;
     } else if (sortBy === 'oldTasks') {
-      const sortedTasks = copyTasks?.sort(
+      const sortedTasks = tasks?.sort(
         (a: any, b: any) => +new Date(a.date) - +new Date(b.date),
       );
 
       return sortedTasks;
     } else if (sortBy === 'importantTasks') {
-      const sortedTasks = copyTasks?.sort(
+      const sortedTasks = tasks?.sort(
         (a: any, b: any) => Number(b?.important) - Number(a?.important),
       );
 
       return sortedTasks;
     } else return tasks;
   };
-
-  const sortedTasks = useMemo(
-    () => taskSortHandler(),
-    [tasks, tasks?.length, sortBy],
-  );
 
   return (
     <div className={`flex flex-col justify-center semiSm:w-[90%] rounded-t`}>
@@ -186,9 +194,9 @@ const Tasks = ({ id }: { id: Function }) => {
               >
                 {user ? (
                   completedTask && tasks?.length > 0 ? (
-                    sortedTasks?.map(
+                    taskSortHandler(copyCompletedTasks)?.map(
                       (task: SingleTaskInterface, index: number) =>
-                        task.completed ? (
+                        index <= loadInView ? (
                           <Suspense key={task?.id} fallback={<LoadingCard />}>
                             <div
                               className="w-full"
@@ -198,6 +206,8 @@ const Tasks = ({ id }: { id: Function }) => {
                                 task={task}
                                 index={index}
                                 taskId={taskId}
+                                setLoadInView={setLoadInView}
+                                loadInView={loadInView}
                               />
                             </div>
                           </Suspense>
@@ -227,9 +237,9 @@ const Tasks = ({ id }: { id: Function }) => {
                 )}
 
                 {!completedTask && tasks && tasks?.length > 0
-                  ? sortedTasks?.map(
+                  ? taskSortHandler(copyPendingTasks)?.map(
                       (task: SingleTaskInterface, index: number) =>
-                        !task.completed ? (
+                        index <= loadInView ? (
                           <Suspense key={task?.id} fallback={<LoadingCard />}>
                             <div
                               className="w-full"
@@ -239,6 +249,8 @@ const Tasks = ({ id }: { id: Function }) => {
                                 task={task}
                                 index={index}
                                 taskId={taskId}
+                                setLoadInView={setLoadInView}
+                                loadInView={loadInView}
                               />
                             </div>
                           </Suspense>

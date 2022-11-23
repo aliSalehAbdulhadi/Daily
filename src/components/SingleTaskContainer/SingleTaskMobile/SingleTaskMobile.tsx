@@ -9,6 +9,7 @@ import { Draggable } from 'react-beautiful-dnd';
 import moment from 'moment';
 import Link from 'next/link';
 import { batch } from 'react-redux';
+import { useInViewport } from 'react-in-viewport';
 import {
   RootState,
   useAppDispatch,
@@ -33,17 +34,22 @@ import { setCardColorByTypeHandler } from '../../../utilities/setColorByTypeHand
 import { lockTask } from '../../../redux/slices/features/fireBaseActions/lockTaskSlice';
 import { isOnline } from '../../../utilities/isOnline';
 import { removeTask } from '../../../redux/slices/features/fireBaseActions/deleteTaskSlice';
+import { CompletedTasks, PendingTasks } from '../../../utilities/globalImports';
 
 const SingleTaskMobile = ({
   task,
   tasks,
   user,
   index,
+  setLoadInView,
+  loadInView,
 }: {
   task: SingleTaskInterface;
   tasks: SingleTaskInterface[];
   user: string;
   index: number;
+  setLoadInView: any;
+  loadInView: number;
 }) => {
   const [completeAnimation, setCompleteAnimation] = useState<boolean>(false);
   const [deleteAnimation, setDeleteAnimation] = useState<boolean>(false);
@@ -54,6 +60,25 @@ const SingleTaskMobile = ({
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const dispatch = useAppDispatch();
 
+  const inViewPortRef = useRef(null);
+
+  const pendingTasks = PendingTasks();
+  const completedTasks = CompletedTasks();
+
+  const { enterCount } = useInViewport(inViewPortRef);
+
+  useEffect(() => {
+    if (enterCount === 1 && index === loadInView - 5) {
+      setLoadInView(loadInView + 1);
+    } else if (index === pendingTasks.length - 5) {
+      setLoadInView(pendingTasks?.length);
+    } else if (index === completedTasks?.length - 10) {
+      setLoadInView(completedTasks?.length);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [index]);
+
+  console.log(index);
   useEffect(() => {
     inputRef?.current?.focus();
   }, [edit]);
@@ -196,6 +221,7 @@ const SingleTaskMobile = ({
             handler={deletionHandler}
           >
             <div
+              ref={inViewPortRef}
               className={` taskMobileEnter  flex text-textLight
           font-Comfortaa font-semibold ${
             task?.important && !task?.completed
@@ -232,6 +258,7 @@ const SingleTaskMobile = ({
                     : 'w-[75%] mobileTaskCardBoxShadow'
                 }`}
               >
+                <div>{index}</div>
                 <div
                   className={`${
                     edit ? 'hidden' : 'block'

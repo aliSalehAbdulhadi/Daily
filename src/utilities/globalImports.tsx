@@ -1,5 +1,9 @@
 import { decrypt } from 'n-krypta';
-import { RootState, useAppSelector } from '../interfaces/interfaces';
+import {
+  RootState,
+  SingleTaskInterface,
+  useAppSelector,
+} from '../interfaces/interfaces';
 import { encryptKey } from './encryptKey';
 
 export const UserKey = () => {
@@ -20,6 +24,13 @@ export const DecryptedUserName = () => {
   return userName;
 };
 
+export const Dark = () => {
+  const dark = useAppSelector(
+    (state: RootState) => state.darkModeReducer.darkMode,
+  );
+  return dark;
+};
+
 export const Tasks = () => {
   const tasks = useAppSelector(
     (state: RootState) => state.getTaskReducer?.tasks,
@@ -28,10 +39,18 @@ export const Tasks = () => {
   return tasks;
 };
 
-export const Dark = () => {
-  const dark = useAppSelector(
-    (state: RootState) => state.darkModeReducer.darkMode,
-  );
-  return dark;
+export const PendingTasks = () => {
+  const pendingTasks = Tasks()
+    ? Tasks()?.filter((task: SingleTaskInterface) => !task?.completed)
+    : [];
+
+  return pendingTasks;
 };
 
+export const CompletedTasks = () => {
+  const completedTasks = Tasks()
+    ? Tasks()?.filter((task: SingleTaskInterface) => task?.completed)
+    : [];
+
+  return completedTasks;
+};
