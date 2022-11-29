@@ -9,10 +9,14 @@ const SingleTaskContainer = ({
   task,
   index,
   taskId,
+  setLoadInView,
+  loadInView,
 }: {
   task: SingleTaskInterface;
   index: number;
   taskId: string;
+  setLoadInView: any;
+  loadInView: number;
 }) => {
   const width = useWindowSize();
 
@@ -26,6 +30,8 @@ const SingleTaskContainer = ({
             index={index}
             taskId={taskId}
             user={UserKey()}
+            setLoadInView={setLoadInView}
+            loadInView={loadInView}
           />
         </div>
       ) : (
@@ -35,6 +41,8 @@ const SingleTaskContainer = ({
             user={UserKey()}
             task={task}
             index={index}
+            setLoadInView={setLoadInView}
+            loadInView={loadInView}
           />
         </div>
       )}

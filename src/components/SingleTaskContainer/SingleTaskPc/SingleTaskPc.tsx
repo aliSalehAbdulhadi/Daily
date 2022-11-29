@@ -16,6 +16,7 @@ import { HiOutlineStar } from 'react-icons/hi';
 //@ts-ignore
 import { ProgressBar } from 'react-step-progress-bar';
 import { batch } from 'react-redux';
+import { useInViewport } from 'react-in-viewport';
 import {
   useAppDispatch,
   SingleTaskInterface,
@@ -37,7 +38,6 @@ import { setCardColorByTypeHandler } from '../../../utilities/setColorByTypeHand
 import 'react-step-progress-bar/styles.css';
 import { lockTask } from '../../../redux/slices/features/fireBaseActions/lockTaskSlice';
 import { isOnline } from '../../../utilities/isOnline';
-import { Tasks, UserKey } from '../../../utilities/globalImports';
 
 const SingleTaskPc = ({
   task,
@@ -45,12 +45,16 @@ const SingleTaskPc = ({
   index,
   taskId,
   user,
+  setLoadInView,
+  loadInView,
 }: {
   task: SingleTaskInterface;
   tasks: SingleTaskInterface[];
   index: number;
   taskId: string;
   user: string;
+  setLoadInView: any;
+  loadInView: number;
 }) => {
   const [deleteAnimation, setDeleteAnimation] = useState<boolean>(false);
   const [deleteTimer, setDeleteTimer] = useState<boolean>(false);
@@ -59,6 +63,16 @@ const SingleTaskPc = ({
   const [editText, setEditText] = useState<string>(task?.content);
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const dispatch = useAppDispatch();
+
+  const inViewPortRef = useRef(null);
+
+  const { inViewport } = useInViewport(inViewPortRef);
+
+  useEffect(() => {
+    if (inViewport && index >= loadInView - 3) {
+      setLoadInView(loadInView + 10);
+    }
+  }, [index, inViewport, loadInView, setLoadInView]);
 
   useEffect(() => {
     inputRef?.current?.focus();
@@ -199,6 +213,7 @@ const SingleTaskPc = ({
           ref={provided?.innerRef}
         >
           <div
+            ref={inViewPortRef}
             className={`${
               edit ? 'hidden' : 'flex'
             } items-center justify-between w-full absolute top-[12px]  px-5 `}

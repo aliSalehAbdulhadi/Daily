@@ -1,6 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { getDoc, doc } from 'firebase/firestore';
-import { stat } from 'fs';
 import { encrypt } from 'n-krypta';
 import { db } from '../../../container/firebase';
 import { SingleTaskInterface } from '../../../interfaces/interfaces';

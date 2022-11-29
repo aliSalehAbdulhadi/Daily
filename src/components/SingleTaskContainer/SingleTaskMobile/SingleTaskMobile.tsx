@@ -9,6 +9,7 @@ import { Draggable } from 'react-beautiful-dnd';
 import moment from 'moment';
 import Link from 'next/link';
 import { batch } from 'react-redux';
+import { useInViewport } from 'react-in-viewport';
 import {
   RootState,
   useAppDispatch,
@@ -39,11 +40,15 @@ const SingleTaskMobile = ({
   tasks,
   user,
   index,
+  setLoadInView,
+  loadInView,
 }: {
   task: SingleTaskInterface;
   tasks: SingleTaskInterface[];
   user: string;
   index: number;
+  setLoadInView: any;
+  loadInView: number;
 }) => {
   const [completeAnimation, setCompleteAnimation] = useState<boolean>(false);
   const [deleteAnimation, setDeleteAnimation] = useState<boolean>(false);
@@ -53,6 +58,16 @@ const SingleTaskMobile = ({
   const [editText, setEditText] = useState<string>(task?.content);
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const dispatch = useAppDispatch();
+
+  const inViewPortRef = useRef(null);
+
+  const { inViewport } = useInViewport(inViewPortRef);
+
+  useEffect(() => {
+    if (inViewport && index >= loadInView - 3) {
+      setLoadInView(loadInView + 10);
+    }
+  }, [index, inViewport, loadInView, setLoadInView]);
 
   useEffect(() => {
     inputRef?.current?.focus();
@@ -196,6 +211,7 @@ const SingleTaskMobile = ({
             handler={deletionHandler}
           >
             <div
+              ref={inViewPortRef}
               className={` taskMobileEnter  flex text-textLight
           font-Comfortaa font-semibold ${
             task?.important && !task?.completed
