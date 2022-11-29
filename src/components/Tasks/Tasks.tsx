@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { memo, Suspense, useEffect, useMemo, useRef, useState } from 'react';
 import { Droppable } from 'react-beautiful-dnd';
 import dynamic from 'next/dynamic';
@@ -30,6 +29,7 @@ const Tasks = ({ id }: { id: Function }) => {
   const [taskId, setTaskId] = useState<string>('');
   const [sortModal, setSortModal] = useState<boolean>(false);
   const [loadInView, setLoadInView] = useState<number>(10);
+  console.log(loadInView);
 
   const tasks: SingleTaskInterface[] = allTasks();
   const dark = Dark();
@@ -49,10 +49,12 @@ const Tasks = ({ id }: { id: Function }) => {
 
   const copyCompletedTasks = useMemo(
     () => (completedTasks ? [...completedTasks] : []),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [tasks, sortBy],
   );
   const copyPendingTasks = useMemo(
     () => (pendingTasks ? [...pendingTasks] : []),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [tasks, sortBy],
   );
 
@@ -94,6 +96,7 @@ const Tasks = ({ id }: { id: Function }) => {
         behavior: 'smooth',
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAddingTask]);
 
   const taskSortHandler = (tasks: SingleTaskInterface[]) => {

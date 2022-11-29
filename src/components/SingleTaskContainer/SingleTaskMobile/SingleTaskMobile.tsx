@@ -62,23 +62,14 @@ const SingleTaskMobile = ({
 
   const inViewPortRef = useRef(null);
 
-  const pendingTasks = PendingTasks();
-  const completedTasks = CompletedTasks();
-
-  const { enterCount } = useInViewport(inViewPortRef);
+  const { inViewport } = useInViewport(inViewPortRef);
 
   useEffect(() => {
-    if (enterCount === 1 && index === loadInView - 5) {
-      setLoadInView(loadInView + 1);
-    } else if (index === pendingTasks.length - 5) {
-      setLoadInView(pendingTasks?.length);
-    } else if (index === completedTasks?.length - 10) {
-      setLoadInView(completedTasks?.length);
+    if (inViewport && index >= loadInView - 3) {
+      setLoadInView(loadInView + 10);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [index]);
+  }, [index, inViewport, loadInView, setLoadInView]);
 
-  console.log(index);
   useEffect(() => {
     inputRef?.current?.focus();
   }, [edit]);
