@@ -29,7 +29,6 @@ const Tasks = ({ id }: { id: Function }) => {
   const [taskId, setTaskId] = useState<string>('');
   const [sortModal, setSortModal] = useState<boolean>(false);
   const [loadInView, setLoadInView] = useState<number>(10);
-  console.log(loadInView);
 
   const tasks: SingleTaskInterface[] = allTasks();
   const dark = Dark();
@@ -44,25 +43,13 @@ const Tasks = ({ id }: { id: Function }) => {
 
   const scrollRefTop = useRef<HTMLDivElement>(null);
 
-  const completedTasks = CompletedTasks();
-  const pendingTasks = PendingTasks();
-
-  const copyCompletedTasks = useMemo(
-    () => (completedTasks ? [...completedTasks] : []),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [tasks, sortBy],
-  );
-  const copyPendingTasks = useMemo(
-    () => (pendingTasks ? [...pendingTasks] : []),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [tasks, sortBy],
-  );
+  const completedTasks = CompletedTasks() ? [...CompletedTasks()] : [];
+  const pendingTasks = PendingTasks() ? [...PendingTasks()] : [];
 
   useEffect(() => {
     setLoadInView(10);
     scrollRefTop?.current?.scrollTo({
       top: 0,
-      behavior: 'smooth',
     });
   }, [completedTask]);
 
@@ -173,9 +160,9 @@ const Tasks = ({ id }: { id: Function }) => {
               </div>
               <div className="text-white self-center text-xs mr-2 select-none">
                 {completedTask ? (
-                  <span>Total tasks: {completedTasks?.length}</span>
+                  <span>Total tasks: {CompletedTasks()?.length}</span>
                 ) : (
-                  <span>Total tasks: {pendingTasks?.length}</span>
+                  <span>Total tasks: {PendingTasks()?.length}</span>
                 )}
               </div>
             </div>
@@ -197,7 +184,7 @@ const Tasks = ({ id }: { id: Function }) => {
               >
                 {user ? (
                   completedTask && tasks?.length > 0 ? (
-                    taskSortHandler(copyCompletedTasks)?.map(
+                    taskSortHandler(completedTasks)?.map(
                       (task: SingleTaskInterface, index: number) =>
                         index <= loadInView ? (
                           <Suspense key={task?.id} fallback={<LoadingCard />}>
@@ -240,7 +227,7 @@ const Tasks = ({ id }: { id: Function }) => {
                 )}
 
                 {!completedTask && tasks && tasks?.length > 0
-                  ? taskSortHandler(copyPendingTasks)?.map(
+                  ? taskSortHandler(pendingTasks)?.map(
                       (task: SingleTaskInterface, index: number) =>
                         index <= loadInView ? (
                           <Suspense key={task?.id} fallback={<LoadingCard />}>

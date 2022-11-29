@@ -34,7 +34,6 @@ import { setCardColorByTypeHandler } from '../../../utilities/setColorByTypeHand
 import { lockTask } from '../../../redux/slices/features/fireBaseActions/lockTaskSlice';
 import { isOnline } from '../../../utilities/isOnline';
 import { removeTask } from '../../../redux/slices/features/fireBaseActions/deleteTaskSlice';
-import { CompletedTasks, PendingTasks } from '../../../utilities/globalImports';
 
 const SingleTaskMobile = ({
   task,
@@ -249,7 +248,6 @@ const SingleTaskMobile = ({
                     : 'w-[75%] mobileTaskCardBoxShadow'
                 }`}
               >
-                <div>{index}</div>
                 <div
                   className={`${
                     edit ? 'hidden' : 'block'
