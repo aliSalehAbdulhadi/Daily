@@ -8,13 +8,16 @@ import { Dark } from '../../utilities/globalImports';
 const MileStone = dynamic(() => import('../mileStone/MileStone'), {
   suspense: true,
 });
-const Tasks = dynamic(() => import('../Tasks/Tasks'), {
+const MobileTasks = dynamic(() => import('../MobileTasks/MobileTasks'), {
+  suspense: true,
+});
+const PcTasks = dynamic(() => import('../PcTasks/PcTasks'), {
   suspense: true,
 });
 
 const TasksContainer = () => {
   const [taskId, setTaskId] = useState<string>('');
-  const dark = Dark()
+  const dark = Dark();
   const signInStatus = useAppSelector(
     (state: RootState) => state.signInReducer?.state,
   );
@@ -37,35 +40,45 @@ const TasksContainer = () => {
           </h1>
         ) : (
           <div
-            className={`sm:px-10  ${
+            className={`sm:px-10 semiSm:px-0  ${
               dark
                 ? 'bg-secondaryColor'
                 : 'bg-primaryColor semiSm:bg-secondaryLight'
             }  flex justify-center transition-all ease-in-out `}
           >
-            <Suspense fallback={<FallBackLoading />}>
-              {tasksStatus === 'pending' ? (
-                <FallBackLoading />
-              ) : (
-                <div
-                  className={`semiSm:w-[45%] h-[75vh] semiSm:h-fit md:w-[40%] w-full transition-all `}
-                >
-                  <Tasks id={(e: string) => setTaskId(e)} />
-                </div>
-              )}
-            </Suspense>
+            {vw >= 840 ? (
+              <Suspense fallback={<FallBackLoading />}>
+                {tasksStatus === 'pending' ? (
+                  <FallBackLoading />
+                ) : (
+                  <div className={`w-full transition-all`}>
+                    <PcTasks id={(e: string) => setTaskId(e)} />
+                  </div>
+                )}
+              </Suspense>
+            ) : (
+              <Suspense fallback={<FallBackLoading />}>
+                {tasksStatus === 'pending' ? (
+                  <FallBackLoading />
+                ) : (
+                  <div className={`h-[75vh] w-full transition-all`}>
+                    <MobileTasks id={(e: string) => setTaskId(e)} />
+                  </div>
+                )}
+              </Suspense>
+            )}
 
-            {vw >= 840 && taskId ? (
+            {/* {vw >= 840 && taskId ? (
               <Suspense>
                 <div
-                  className={`w-[60%] md:w-[60%] transition-all ${
+                  className={`w-[60%] md:w-[60%] transition-all fixed top-18 right-24 z-40 ${
                     taskId ? 'taskCompPc' : ''
                   }`}
                 >
                   <MileStone taskId={taskId} />
                 </div>
               </Suspense>
-            ) : null}
+            ) : null} */}
             {/* to hide X side navbar when taskComPc animation runs */}
             <style>{`body{overflow-x:${vw >= 840 ? 'hidden' : 'auto'}`}</style>
           </div>

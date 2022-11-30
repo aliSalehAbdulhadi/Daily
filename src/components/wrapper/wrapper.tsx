@@ -1,10 +1,5 @@
-import { DragDropContext, DropResult } from 'react-beautiful-dnd';
 import { batch } from 'react-redux';
-import { completedTask } from '../../redux/slices/features/fireBaseActions/completeTaskSlice';
-import {
-  reArrangeTasksLocally,
-  completeTaskLocally,
-} from '../../redux/slices/features/getTasksSlice';
+import { reArrangeTasksLocally } from '../../redux/slices/features/getTasksSlice';
 import { reArrangeFirebase } from '../../redux/slices/features/fireBaseActions/reArrangeTasksSlice';
 import {
   useAppDispatch,
@@ -15,59 +10,68 @@ import { toggleDisableSwiper } from '../../redux/slices/features/disableSwiperSl
 import { sortTaskBy } from '../../redux/slices/features/sortTasksSlice';
 import { isOnline } from '../../utilities/isOnline';
 import { Tasks, UserKey } from '../../utilities/globalImports';
+import {
+  DndContext,
+  closestCenter,
+  useSensor,
+  MouseSensor,
+  useSensors,
+} from '@dnd-kit/core';
+import { useEffect, useState } from 'react';
+import { arrayMove } from '@dnd-kit/sortable';
 
 const Wrapper = ({ children }: { children: JSX.Element }) => {
   const dispatch = useAppDispatch();
 
   const tasks: SingleTaskInterface[] = Tasks();
   const user = UserKey();
+  const [tasksItems, setTasksItems] = useState(tasks);
 
-  const onDragEndHandler = (result: DropResult) => {
-    dispatch(toggleDisableSwiper(true));
-    const { destination, source } = result;
-    if (!destination) return;
+  const mouseSensor = useSensor(MouseSensor, {
+    activationConstraint: {
+      distance: 10,
+    },
+  });
 
-    const items = Array.from(tasks);
-    const [reorderedItem] = items.splice(source.index, 1);
-    items.splice(destination.index, 0, reorderedItem);
+  const sensors = useSensors(mouseSensor);
 
+  useEffect(() => {
     batch(() => {
-      dispatch(reArrangeTasksLocally(items));
+      dispatch(reArrangeTasksLocally(tasksItems));
       if (isOnline()) {
-        dispatch(reArrangeFirebase({ userUid: user, allTasks: items }));
+        dispatch(reArrangeFirebase({ userUid: user, allTasks: tasksItems }));
       }
     });
+  }, [dispatch, tasksItems, user]);
+  const handleDragEnd = (event: any) => {
+    const { active, over } = event;
 
-    // drag and drop to complete tasks "currently disabled"
-    // if (destination.droppableId === 'CompletedTasks' || 'NewTasks') {
-    //   if (source.droppableId === destination.droppableId) {
-    //     return false;
-    //   } else {
-    //     if (isOnline()) {
-    //       dispatch(
-    //         completedTask({
-    //           userUid: user,
-    //           taskId: result.draggableId,
-    //           allTasks: tasks,
-    //         }),
-    //       );
-    //     }
-    //     dispatch(completeTaskLocally({ taskId: result.draggableId }));
-    //   }
-    // }
+    if (active.id !== over.id) {
+      const items = Array.from(tasks);
+      const activeIndex = items
+        .map((item: SingleTaskInterface) => item.id)
+        .indexOf(active.id);
+      const overIndex = items
+        .map((item: SingleTaskInterface) => item.id)
+        .indexOf(over.id);
+      setTasksItems(arrayMove(items, activeIndex, overIndex));
+    }
   };
 
   return (
-    <DragDropContext
-      onDragEnd={onDragEndHandler}
+    <DndContext
       onDragStart={() => {
         dispatch(toggleDisableSwiper(false));
         dispatch(sortTaskBy(''));
       }}
+      onDragEnd={handleDragEnd}
+      sensors={sensors}
+      collisionDetection={closestCenter}
     >
       <Navbar />
+
       {children}
-    </DragDropContext>
+    </DndContext>
   );
 };
 
