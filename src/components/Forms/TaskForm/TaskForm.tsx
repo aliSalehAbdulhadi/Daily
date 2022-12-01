@@ -5,7 +5,10 @@ import { BsPlusCircleDotted } from 'react-icons/bs';
 import { memo, useEffect, useRef, useState } from 'react';
 import FormField from '../../FormField/FormField';
 import { addTask } from '../../../redux/slices/features/fireBaseActions/addTaskSlice';
-import { addTasksLocally } from '../../../redux/slices/features/getTasksSlice';
+import {
+  addTasksDatesLocally,
+  addTasksLocally,
+} from '../../../redux/slices/features/getTasksSlice';
 import {
   RootState,
   useAppDispatch,
@@ -15,6 +18,7 @@ import { isOnline } from '../../../utilities/isOnline';
 import { Dark, UserKey } from '../../../utilities/globalImports';
 import { batch } from 'react-redux';
 import { increaseAllTasksCount } from '../../../redux/slices/features/fireBaseActions/increaseAllTasksCount';
+import { addTasksDates } from '../../../redux/slices/features/fireBaseActions/addTasksDates';
 
 const formSchema = Yup.object().shape({
   Form: Yup.string().max(50, 'Too Long!'),
@@ -25,6 +29,7 @@ const TaskForm = () => {
   const allTasksCount = useAppSelector(
     (state: RootState) => state.getTaskReducer?.allTasksCount,
   );
+
 
   const dark = Dark();
   const dispatch = useAppDispatch();
@@ -69,24 +74,40 @@ const TaskForm = () => {
                     allTasksCount: allTasksCount + 1,
                   }),
                 );
+
+                dispatch(
+                  addTasksDates({
+                    userUid: user,
+                    tasksDates: { date: newDate.toISOString(), id: uuid },
+                  }),
+                );
               });
         }
 
         values.Form.length === 0 || values.Form.length > 50
           ? false
           : setTimeout(() => {
-              dispatch(
-                addTasksLocally({
-                  content: values.Form,
-                  completed: false,
-                  id: uuid,
-                  taskType: 'green-4',
-                  date: newDate.toISOString(),
-                  important: false,
-                  locked: false,
-                  milestones: [],
-                }),
-              );
+              batch(() => {
+                dispatch(
+                  addTasksLocally({
+                    content: values.Form,
+                    completed: false,
+                    id: uuid,
+                    taskType: 'green-4',
+                    date: newDate.toISOString(),
+                    important: false,
+                    locked: false,
+                    milestones: [],
+                  }),
+                );
+
+                dispatch(
+                  addTasksDatesLocally({
+                    date: newDate.toISOString(),
+                    id: uuid,
+                  }),
+                );
+              });
             }, 200);
 
         setSubmitAnimation(true);

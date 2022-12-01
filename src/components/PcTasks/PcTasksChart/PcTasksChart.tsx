@@ -3,8 +3,12 @@ import { RiMapPinTimeLine } from 'react-icons/ri';
 import {
   RootState,
   SingleTaskInterface,
+  useAppDispatch,
   useAppSelector,
 } from '../../../interfaces/interfaces';
+import { deleteTaskDate } from '../../../redux/slices/features/fireBaseActions/addTasksDates';
+import { deleteTaskDateLocally } from '../../../redux/slices/features/getTasksSlice';
+import { UserKey } from '../../../utilities/globalImports';
 
 const PcTasksChart = ({
   pendingTasks,
@@ -17,6 +21,61 @@ const PcTasksChart = ({
 }) => {
   const allTasksCount = useAppSelector(
     (state: RootState) => state.getTaskReducer?.allTasksCount,
+  );
+
+  const dispatch = useAppDispatch();
+  const user = UserKey();
+  const tasksDates = useAppSelector(
+    (state: RootState) => state.getTaskReducer?.tasksDates,
+  );
+
+  const removeDateHandler = (id: string) => {
+    dispatch(
+      deleteTaskDate({
+        userUid: user,
+        allTasksDates: tasksDates,
+        dateId: id,
+      }),
+    );
+
+    dispatch(
+      deleteTaskDateLocally({
+        dateId: id,
+      }),
+    );
+  };
+
+  const now = new Date();
+
+  const lessThanMonth = tasksDates?.filter(
+    (taskDate: { date: any; id: string }) => {
+      const pastTime = new Date(taskDate?.date);
+
+      const thirtyDaysInMs = 30 * 24 * 60 * 60 * 1000;
+
+      const timeDiffInMs = +now.getTime() - +pastTime.getTime();
+      if (timeDiffInMs >= thirtyDaysInMs) {
+        //'Date is older than 30 days'
+        removeDateHandler(taskDate?.id);
+      } else {
+        //'Date is not older than 30 days'
+        return taskDate;
+      }
+    },
+  );
+
+  const lessThanWeek = tasksDates?.filter(
+    (taskDate: { date: any; id: string }) => {
+      const pastTime = new Date(taskDate?.date);
+
+      const thirtyDaysInMs = 7 * 24 * 60 * 60 * 1000;
+
+      const timeDiffInMs = +now?.getTime() - +pastTime?.getTime();
+      if (timeDiffInMs >= thirtyDaysInMs) {
+      } else {
+        return taskDate;
+      }
+    },
   );
 
   return (
@@ -51,12 +110,12 @@ const PcTasksChart = ({
 
         <div className="flex flex-col ml-[2rem] mt-8">
           <div className="flex items-center justify-between w-[75%]">
-            <span>Total tasks added this week: </span>
-            <span>50</span>
+            <span>Tasks added last 7 days: </span>
+            <span>{lessThanWeek?.length}</span>
           </div>
           <div className="flex items-center justify-between w-[75%] my-2">
-            <span>Total tasks added this Month: </span>
-            <span>50</span>
+            <span>Tasks added last 30 days: </span>
+            <span>{lessThanMonth?.length}</span>
           </div>
           <div className="flex items-center justify-between w-[75%]">
             <span>Total tasks added: </span>

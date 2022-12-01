@@ -26,6 +26,7 @@ const getTasksSlice = createSlice({
   initialState: {
     userName: '',
     tasks: [],
+    tasksDates: [],
     allTasksCount: 0,
     error: [],
     status: '',
@@ -142,6 +143,19 @@ const getTasksSlice = createSlice({
     ) => {
       state.tasks = action.payload;
     },
+    addTasksDatesLocally: (state: any, action: any) => {
+      state?.tasksDates?.unshift(action?.payload);
+    },
+    deleteTaskDateLocally: (
+      state: any,
+      action: PayloadAction<{
+        dateId: string;
+      }>,
+    ) => {
+      state.tasksDates = state.tasksDates?.filter(
+        (task: SingleTaskInterface) => task.id !== action.payload.dateId,
+      );
+    },
 
     addMilestoneLocally: (
       state: any,
@@ -239,6 +253,7 @@ const getTasksSlice = createSlice({
         state.status = 'fulfilled';
         state.tasks = action?.payload?.userData?.tasks;
         state.allTasksCount = action?.payload?.allTasksCount;
+        state.tasksDates = action?.payload?.tasksDates;
         state.userName = action?.payload?.userName
           ? encrypt(action?.payload?.userName, encryptKey)
           : '';
@@ -258,6 +273,8 @@ export const {
   completeTaskLocally,
   editTaskLocally,
   reArrangeTasksLocally,
+  addTasksDatesLocally,
+  deleteTaskDateLocally,
   addMilestoneLocally,
   completeMilestoneLocally,
   lockTaskLocally,
