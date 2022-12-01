@@ -13,6 +13,8 @@ import {
 } from '../../../interfaces/interfaces';
 import { isOnline } from '../../../utilities/isOnline';
 import { Dark, UserKey } from '../../../utilities/globalImports';
+import { batch } from 'react-redux';
+import { increaseAllTasksCount } from '../../../redux/slices/features/fireBaseActions/increaseAllTasksCount';
 
 const formSchema = Yup.object().shape({
   Form: Yup.string().max(50, 'Too Long!'),
@@ -20,6 +22,9 @@ const formSchema = Yup.object().shape({
 const TaskForm = () => {
   const [submitAnimation, setSubmitAnimation] = useState<boolean>(false);
   const [value, setValue] = useState<string>('');
+  const allTasksCount = useAppSelector(
+    (state: RootState) => state.getTaskReducer?.allTasksCount,
+  );
 
   const dark = Dark();
   const dispatch = useAppDispatch();
@@ -42,21 +47,29 @@ const TaskForm = () => {
         if (isOnline()) {
           values.Form.length === 0 || values.Form.length > 50
             ? false
-            : dispatch(
-                addTask({
-                  task: {
-                    content: values.Form,
-                    completed: false,
-                    id: uuid,
-                    taskType: 'green-4',
-                    date: newDate.toISOString(),
-                    important: false,
-                    locked: false,
-                    milestones: [],
-                  },
-                  userUid: user,
-                }),
-              );
+            : batch(() => {
+                dispatch(
+                  addTask({
+                    task: {
+                      content: values.Form,
+                      completed: false,
+                      id: uuid,
+                      taskType: 'green-4',
+                      date: newDate.toISOString(),
+                      important: false,
+                      locked: false,
+                      milestones: [],
+                    },
+                    userUid: user,
+                  }),
+                );
+                dispatch(
+                  increaseAllTasksCount({
+                    userUid: user,
+                    allTasksCount: allTasksCount + 1,
+                  }),
+                );
+              });
         }
 
         values.Form.length === 0 || values.Form.length > 50

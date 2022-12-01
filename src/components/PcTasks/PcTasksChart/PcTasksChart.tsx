@@ -1,6 +1,10 @@
 import { FaHistory } from 'react-icons/fa';
 import { RiMapPinTimeLine } from 'react-icons/ri';
-import { SingleTaskInterface } from '../../../interfaces/interfaces';
+import {
+  RootState,
+  SingleTaskInterface,
+  useAppSelector,
+} from '../../../interfaces/interfaces';
 
 const PcTasksChart = ({
   pendingTasks,
@@ -11,6 +15,10 @@ const PcTasksChart = ({
   completedTasks: SingleTaskInterface[];
   tasks: SingleTaskInterface[];
 }) => {
+  const allTasksCount = useAppSelector(
+    (state: RootState) => state.getTaskReducer?.allTasksCount,
+  );
+
   return (
     <div className="h-[88.3vh] bg-blue-100 bg-opacity-20 flex flex-col text-white opacity-90 text-[.9rem]">
       <div className="mt-[8rem] self-center">chart graph</div>
@@ -52,7 +60,7 @@ const PcTasksChart = ({
           </div>
           <div className="flex items-center justify-between w-[75%]">
             <span>Total tasks added: </span>
-            <span>50</span>
+            <span>{allTasksCount}</span>
           </div>
         </div>
       </div>
