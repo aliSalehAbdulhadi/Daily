@@ -26,6 +26,7 @@ const getTasksSlice = createSlice({
   initialState: {
     userName: '',
     tasks: [],
+    totalTasksCount: 0,
     error: [],
     status: '',
     isAddingTask: false,
@@ -45,14 +46,12 @@ const getTasksSlice = createSlice({
     deleteTasksLocally: (
       state: any,
       action: PayloadAction<{
-        index: number;
+        taskId: string;
       }>,
     ) => {
-      const array = state.tasks;
-      if (array?.length > -1) {
-        state.tasks?.splice(action.payload.index, 1);
-      }
-      state.tasks = array;
+      state.tasks = state.tasks?.filter(
+        (task: SingleTaskInterface) => task.id !== action.payload.taskId,
+      );
     },
     completeTaskLocally: (
       state: {
@@ -232,17 +231,18 @@ const getTasksSlice = createSlice({
   },
 
   extraReducers(build) {
-    build.addCase(getTasks.pending, (state) => {
+    build.addCase(getTasks?.pending, (state) => {
       state.status = 'pending';
     }),
-      build.addCase(getTasks.fulfilled, (state, action: any) => {
+      build.addCase(getTasks?.fulfilled, (state, action: any) => {
         state.status = 'fulfilled';
-        state.tasks = action.payload?.userData?.tasks;
-        state.userName = action.payload?.userName
-          ? encrypt(action.payload?.userName, encryptKey)
+        state.tasks = action?.payload?.userData?.tasks;
+
+        state.userName = action?.payload?.userName
+          ? encrypt(action?.payload?.userName, encryptKey)
           : '';
       }),
-      build.addCase(getTasks.rejected, (state, action: any) => {
+      build.addCase(getTasks?.rejected, (state, action: any) => {
         state.error = action.error.message;
         state.status = 'rejected';
       });

@@ -152,7 +152,7 @@ const SingleTaskMobile = ({
       }
 
       setTimeout(() => {
-        dispatch(deleteTasksLocally({ index: index }));
+        dispatch(deleteTasksLocally({ taskId: task?.id }));
         setDeleteAnimation(false);
       }, 250);
     });

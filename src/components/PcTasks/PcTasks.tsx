@@ -111,21 +111,21 @@ const PcTasks = ({ id }: { id: Function }) => {
   };
 
   return (
-    <div className="">
-      <div className="self-start flex  bg-primaryColor shadow-md">
-        <PcSwitchButtons
-          completedTask={completedTask}
-          setCompletedTask={setCompletedTask}
-        />
-        <div className="ml-5 h-full">
-          <SortModal open={sortModal} setOpen={setSortModal} />
+    <div className="flex w-full">
+      <div className="flex flex-col font-Comfortaa font-bold w-[80%] mobileTaskCardBoxShadow">
+        <div className="self-start flex  bg-primaryColor shadow-md  w-full">
+          <PcSwitchButtons
+            completedTask={completedTask}
+            setCompletedTask={setCompletedTask}
+          />
+          <div className="h-full">
+            <SortModal open={sortModal} setOpen={setSortModal} />
+          </div>
         </div>
-      </div>
-      <div className="flex font-Comfortaa font-bold ml-5">
         <div
           ref={scrollRefTop}
-          className={`relative  scrollBar overflow-x-hidden pb-1 w-[85%]  ${
-            user ? 'h-[83.4vh] overflow-auto rounded-b' : 'overflow-hidden'
+          className={`relative  scrollBar overflow-x-hidden pb-1 w-full   ${
+            user ? 'h-[83.4vh] overflow-auto ' : 'overflow-hidden'
           } `}
         >
           <div
@@ -143,7 +143,7 @@ const PcTasks = ({ id }: { id: Function }) => {
                       index <= loadInView ? (
                         <Suspense key={task?.id} fallback={<LoadingCard />}>
                           <div
-                            className="mr-2 h-fit w-[18rem]"
+                            className="mr-2 h-fit w-[19rem] md:w-[23rem] lg:w-[17.7rem]"
                             onClick={() => setTaskId(task.id)}
                           >
                             <SingleTaskContainer
@@ -209,9 +209,13 @@ const PcTasks = ({ id }: { id: Function }) => {
             ) : null}
           </div>
         </div>
-        <div className="w-[25%] self-center ml-1">
-          <PcTasksChart />
-        </div>
+      </div>
+      <div className="w-[20%] self-center ">
+        <PcTasksChart
+          pendingTasks={pendingTasks}
+          completedTasks={completedTasks}
+          tasks={tasks}
+        />
       </div>
     </div>
   );
