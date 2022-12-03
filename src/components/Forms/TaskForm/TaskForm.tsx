@@ -50,7 +50,7 @@ const TaskForm = () => {
       onSubmit={(values, { resetForm }) => {
         const newDate = new Date();
         if (isOnline()) {
-          values.Form.length === 0 || values.Form.length > 50
+          values.Form?.length === 0 || values.Form?.length > 50
             ? false
             : batch(() => {
                 dispatch(
@@ -84,7 +84,7 @@ const TaskForm = () => {
               });
         }
 
-        values.Form.length === 0 || values.Form.length > 50
+        values.Form?.length === 0 || values.Form?.length > 50
           ? false
           : setTimeout(() => {
               batch(() => {
@@ -158,7 +158,7 @@ const TaskForm = () => {
                       : 'text-black'
                   }`}
                 >
-                  <span>{value.length}</span>
+                  <span>{value?.length}</span>
                   <span>/</span>
                   <span>50</span>
                 </div>

@@ -54,3 +54,11 @@ export const CompletedTasks = () => {
 
   return completedTasks;
 };
+
+export const ImportantTasks = () => {
+  const importantTasks = Tasks()?.filter(
+    (task: SingleTaskInterface) => task?.important,
+  );
+
+  return importantTasks;
+};

@@ -81,9 +81,9 @@ const SingleTaskMobile = ({
   );
   const milestoneCompleted = task?.milestones?.filter(
     (ms: any) => ms?.milestoneCompleted === true,
-  ).length;
+  )?.length;
   const percentage =
-    milestoneCompleted && task?.milestones.length > 0
+    milestoneCompleted && task?.milestones?.length > 0
       ? Math.round((milestoneCompleted / task?.milestones?.length) * 100)
       : 0;
 
@@ -357,7 +357,7 @@ const SingleTaskMobile = ({
                 <div className="flex items-center mt-1">
                   <h1>{milestoneCompleted}</h1>
                   <span className="scale-[.80]">/</span>
-                  <span>{task?.milestones.length}</span>
+                  <span>{task?.milestones?.length}</span>
                 </div>
               </div>
             ) : (

@@ -5,6 +5,7 @@ import { RootState, useAppSelector } from '../../interfaces/interfaces';
 import useWindowSize from '../../hooks/useWindowsSize';
 import FallBackLoading from '../fallBackLoading/FallBackLoading';
 import { Dark } from '../../utilities/globalImports';
+import useClickOutside from '../../hooks/useClickOutside';
 const MileStone = dynamic(() => import('../mileStone/MileStone'), {
   suspense: true,
 });
@@ -16,7 +17,6 @@ const PcTasks = dynamic(() => import('../PcTasks/PcTasks'), {
 });
 
 const TasksContainer = () => {
-  const [taskId, setTaskId] = useState<string>('');
   const dark = Dark();
   const signInStatus = useAppSelector(
     (state: RootState) => state.signInReducer?.state,
@@ -52,7 +52,7 @@ const TasksContainer = () => {
                   <FallBackLoading />
                 ) : (
                   <div className={`w-full transition-all`}>
-                    <PcTasks id={(e: string) => setTaskId(e)} />
+                    <PcTasks />
                   </div>
                 )}
               </Suspense>
@@ -62,23 +62,12 @@ const TasksContainer = () => {
                   <FallBackLoading />
                 ) : (
                   <div className={`h-[75vh] w-full transition-all`}>
-                    <MobileTasks id={(e: string) => setTaskId(e)} />
+                    <MobileTasks />
                   </div>
                 )}
               </Suspense>
             )}
 
-            {/* {vw >= 840 && taskId ? (
-              <Suspense>
-                <div
-                  className={`w-[60%] md:w-[60%] transition-all fixed top-18 right-24 z-40 ${
-                    taskId ? 'taskCompPc' : ''
-                  }`}
-                >
-                  <MileStone taskId={taskId} />
-                </div>
-              </Suspense>
-            ) : null} */}
             {/* to hide X side navbar when taskComPc animation runs */}
             <style>{`body{overflow-x:${vw >= 840 ? 'hidden' : 'auto'}`}</style>
           </div>

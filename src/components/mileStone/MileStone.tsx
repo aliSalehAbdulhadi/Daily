@@ -1,6 +1,16 @@
 import dynamic from 'next/dynamic';
-import { memo, Suspense, useEffect, useRef, useState } from 'react';
+import {
+  Dispatch,
+  FC,
+  memo,
+  SetStateAction,
+  Suspense,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import { BsPlusCircle, BsPlusCircleFill } from 'react-icons/bs';
+import { TiArrowBack } from 'react-icons/ti';
 import useClickOutside from '../../hooks/useClickOutside';
 import {
   RootState,
@@ -19,7 +29,16 @@ const AdvancedForm = dynamic(
   { ssr: false },
 );
 
-const MileStone = ({ taskId }: { taskId: string }) => {
+const MileStone: FC<{
+  taskId: string;
+  setTaskId: Dispatch<SetStateAction<string>>;
+}> = ({
+  taskId,
+  setTaskId,
+}: {
+  taskId: string;
+  setTaskId: Dispatch<SetStateAction<string>>;
+}) => {
   const [plusIcon, setPlusIcon] = useState<boolean>(false);
   const [scroll, setScroll] = useState<boolean>(false);
   const [openAdvancedForm, setOpenAdvancedForm] = useState<boolean>(false);
@@ -38,9 +57,9 @@ const MileStone = ({ taskId }: { taskId: string }) => {
 
   const milestoneCompleted = task?.milestones?.filter(
     (ms: any) => ms?.milestoneCompleted === true,
-  ).length;
+  )?.length;
   const percentage =
-    milestoneCompleted && task.milestones.length > 0
+    milestoneCompleted && task.milestones?.length > 0
       ? Math.round((milestoneCompleted / task?.milestones?.length) * 100)
       : 0;
 
@@ -89,44 +108,49 @@ const MileStone = ({ taskId }: { taskId: string }) => {
 
   return (
     <div className="m-5 flex flex-col  font-Comfortaa transition-all text-white  relative">
-      <h1 className="mb-[1.3rem] py-3 self-center px-5 bg-white text-primaryColor rounded select-none">
-        Milestones
-      </h1>
-
       <div className="bg-primaryColor rounded overflow-hidden scrollBar w-full relative h-[75vh]">
         <div
-          className={`flex flex-col mt-3 ${
-            task && task?.milestones.length > 0
+          className={`flex h-[19%] ${
+            task && task?.milestones?.length > 0
               ? 'border-b-[1px] shadow-lg'
               : ''
           }`}
         >
-          {taskId && task && task?.milestones.length > 0 ? (
-            <div className="flex items-center justify-between mx-5">
-              <div>
-                <span className="text-secondaryLight text-base">Task:</span>
-                <h1
-                  className={`text-textDark text-xl wrapWord ${
-                    task?.completed ? 'strike opacity-60' : ''
-                  }`}
-                >
-                  {task?.content}
-                </h1>
-              </div>
-              <div className="flex items-start justify-end relative mr-1 ">
-                <div className="w-[4rem]">
-                  <ProgressBar percentage={percentage} />
+          <div
+            onClick={() => setTaskId('')}
+            className="cursor-pointer  bg-primaryLight w-fit px-3 h-full flex items-center justify-center hover:bg-opacity-90 transition-all"
+          >
+            <TiArrowBack fill="#2c5252" size={22} />
+          </div>
+
+          <div className="flex flex-col w-full mt-3">
+            {taskId && task && task?.milestones?.length > 0 ? (
+              <div className="flex items-center justify-between mx-5">
+                <div>
+                  <span className="text-secondaryLight text-base">Task:</span>
+                  <h1
+                    className={`text-textDark text-xl wrapWord ${
+                      task?.completed ? 'strike opacity-60' : ''
+                    }`}
+                  >
+                    {task?.content}
+                  </h1>
+                </div>
+                <div className="flex items-start justify-end relative mr-1 ">
+                  <div className="w-[4rem]">
+                    <ProgressBar percentage={percentage} />
+                  </div>
                 </div>
               </div>
-            </div>
-          ) : null}
+            ) : null}
 
-          <div
-            className={`z-[50] mx-5  ${
-              task && task?.milestones.length > 0 ? 'block ' : 'hidden'
-            }`}
-          >
-            <MilestoneControlSection taskId={task?.id} />
+            <div
+              className={`z-[50] mx-5  ${
+                task && task?.milestones?.length > 0 ? 'block ' : 'hidden'
+              }`}
+            >
+              <MilestoneControlSection taskId={task?.id} />
+            </div>
           </div>
         </div>
 
@@ -172,7 +196,7 @@ const MileStone = ({ taskId }: { taskId: string }) => {
         <div
           className={`w-fit absolute left-[48.5%] transform-x-[-100%] ${
             openAdvancedForm ? 'hidden' : 'block'
-          }  ${task && task?.milestones.length > 0 ? 'bottom-5 ' : ' top-10'}`}
+          }  ${task && task?.milestones?.length > 0 ? 'bottom-5 ' : ' top-10'}`}
         >
           {taskId && !task?.completed ? (
             <div
@@ -205,7 +229,7 @@ const MileStone = ({ taskId }: { taskId: string }) => {
                 {taskId &&
                 !task?.completed &&
                 task &&
-                task?.milestones.length === 0 ? (
+                task?.milestones?.length === 0 ? (
                   <span>Click to add milestones</span>
                 ) : (
                   ''

@@ -91,9 +91,9 @@ const SingleTaskPc = ({
 
   const milestoneCompleted = task?.milestones?.filter(
     (ms: any) => ms?.milestoneCompleted === true,
-  ).length;
+  )?.length;
   const percentage =
-    milestoneCompleted && task.milestones.length > 0
+    milestoneCompleted && task.milestones?.length > 0
       ? Math.round((milestoneCompleted / task?.milestones?.length) * 100)
       : 0;
 
@@ -318,7 +318,7 @@ const SingleTaskPc = ({
 
               <div
                 className={`w-full flex items-center justify-center bottom-[.55rem] ${
-                  task && task?.milestones.length > 0 ? 'absolute' : 'hidden'
+                  task && task?.milestones?.length > 0 ? 'absolute' : 'hidden'
                 }`}
               >
                 <div className="w-[50%] relative">

@@ -23,7 +23,7 @@ const SingleTaskContainer = dynamic(
   },
 );
 
-const MobileTasks = ({ id }: { id: Function }) => {
+const MobileTasks = () => {
   const [completedTask, setCompletedTask] = useState<boolean>(false);
   const [taskId, setTaskId] = useState<string>('');
   const [sortModal, setSortModal] = useState<boolean>(false);
@@ -53,17 +53,7 @@ const MobileTasks = ({ id }: { id: Function }) => {
   }, [completedTask]);
 
   useEffect(() => {
-    id(taskId);
-  }, [taskId, id]);
-
-  useEffect(() => {
-    if (tasks?.length <= 0) {
-      setTaskId('');
-    }
-  }, [tasks]);
-
-  useEffect(() => {
-    if (completedTasks.length <= 0) {
+    if (completedTasks?.length <= 0) {
       setCompletedTask(false);
     }
   }, [completedTasks?.length, tasks?.length]);
