@@ -33,7 +33,7 @@ export const Dark = () => {
 
 export const Tasks = () => {
   const tasks = useAppSelector(
-    (state: RootState) => state.getTaskReducer?.tasks,
+    (state: RootState) => state?.getTaskReducer?.tasks,
   );
 
   return tasks;
@@ -53,4 +53,12 @@ export const CompletedTasks = () => {
     : [];
 
   return completedTasks;
+};
+
+export const ImportantTasks = () => {
+  const importantTasks = Tasks()?.filter(
+    (task: SingleTaskInterface) => task?.important,
+  );
+
+  return importantTasks;
 };

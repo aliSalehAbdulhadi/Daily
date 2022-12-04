@@ -5,7 +5,6 @@ import { HiOutlineStar } from 'react-icons/hi';
 import { HiLockClosed, HiLockOpen } from 'react-icons/hi';
 import { BiListPlus } from 'react-icons/bi';
 import { useState, useEffect, useRef } from 'react';
-import { Draggable } from 'react-beautiful-dnd';
 import moment from 'moment';
 import Link from 'next/link';
 import { batch } from 'react-redux';
@@ -34,6 +33,8 @@ import { setCardColorByTypeHandler } from '../../../utilities/setColorByTypeHand
 import { lockTask } from '../../../redux/slices/features/fireBaseActions/lockTaskSlice';
 import { isOnline } from '../../../utilities/isOnline';
 import { removeTask } from '../../../redux/slices/features/fireBaseActions/deleteTaskSlice';
+import { useSortable } from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
 
 const SingleTaskMobile = ({
   task,
@@ -80,11 +81,20 @@ const SingleTaskMobile = ({
   const disableDrag = useAppSelector(
     (state: RootState) => state.disableDragReducer.disableDragDnd,
   );
+
+  const { attributes, listeners, setNodeRef, transform, transition } =
+    useSortable({ id: disableDrag ? '' : task?.id });
+  // console.log(disableDrag);
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+  };
+
   const milestoneCompleted = task?.milestones?.filter(
     (ms: any) => ms?.milestoneCompleted === true,
-  ).length;
+  )?.length;
   const percentage =
-    milestoneCompleted && task?.milestones.length > 0
+    milestoneCompleted && task?.milestones?.length > 0
       ? Math.round((milestoneCompleted / task?.milestones?.length) * 100)
       : 0;
 
@@ -138,7 +148,7 @@ const SingleTaskMobile = ({
   };
 
   const deletionHandler = () => {
-    if (!disableSwiper || task?.locked) return;
+    if (disableSwiper || task?.locked) return;
 
     setDeleteAnimation(true);
     batch(() => {
@@ -153,7 +163,7 @@ const SingleTaskMobile = ({
       }
 
       setTimeout(() => {
-        dispatch(deleteTasksLocally({ index: index }));
+        dispatch(deleteTasksLocally({ taskId: task?.id }));
         setDeleteAnimation(false);
       }, 250);
     });
@@ -192,27 +202,21 @@ const SingleTaskMobile = ({
   };
 
   return (
-    <Draggable
-      key={task?.id}
-      draggableId={task?.id}
-      index={index}
-      isDragDisabled={disableDrag}
+    <div
+      ref={setNodeRef}
+      style={style}
+      {...attributes}
+      {...listeners}
+      className="pb-3"
     >
-      {(provided) => (
+      <Swipeable
+        isLocked={task?.locked}
+        isDeletingOpen={(e: boolean) => setIsDeleteOpen(e)}
+        handler={deletionHandler}
+      >
         <div
-          {...provided.draggableProps}
-          {...provided.dragHandleProps}
-          ref={provided.innerRef}
-          className="pb-3"
-        >
-          <Swipeable
-            isLocked={task?.locked}
-            isDeletingOpen={(e: boolean) => setIsDeleteOpen(e)}
-            handler={deletionHandler}
-          >
-            <div
-              ref={inViewPortRef}
-              className={` taskMobileEnter  flex text-textLight
+          ref={inViewPortRef}
+          className={` taskMobileEnter  flex text-textLight
           font-Comfortaa font-semibold ${
             task?.important && !task?.completed
               ? 'border-[1px] border-yellow-400'
@@ -223,9 +227,6 @@ const SingleTaskMobile = ({
                   task?.taskType,
                 )}`
           }
-
-
-          
           ${
             task?.completed
               ? 'bg-red-400'
@@ -236,165 +237,161 @@ const SingleTaskMobile = ({
                 ? 'translate-x-[-35rem] transition-all duration-300 ease-in-out'
                 : ''
             } ${
-                completeAnimation
-                  ? 'translate-x-[18.5rem] transition-all duration-300 ease-in-out'
-                  : ''
-              } `}
+            completeAnimation
+              ? 'translate-x-[18.5rem] transition-all duration-300 ease-in-out'
+              : ''
+          } `}
+        >
+          <div
+            className={`flex flex-col justify-between my-0 px-3  py-2 min-h-[9.5rem]  ${
+              task && task?.milestones?.length <= 0 && task?.completed
+                ? 'w-full'
+                : 'w-[75%] mobileTaskCardBoxShadow'
+            }`}
+          >
+            <div
+              className={`${
+                edit ? 'hidden' : 'block'
+              } items-center justify-between mt-1 flex`}
             >
-              <div
-                className={`flex flex-col justify-between my-0 px-3  py-2 min-h-[9.5rem]  ${
-                  task && task?.milestones?.length <= 0 && task?.completed
-                    ? 'w-full'
-                    : 'w-[75%] mobileTaskCardBoxShadow'
+              <HiOutlineStar
+                onClick={importantStateHandler}
+                size={20}
+                fill={task?.important ? '#e8b923' : 'none'}
+                className={`${task?.important ? 'text-yellow-300' : ''} ${
+                  task?.completed ? 'invisible' : 'visible'
+                }`}
+              />
+              <div className="text-[.65rem]  w-fit whitespace-nowrap select-none">
+                {formatDate}
+              </div>
+            </div>
+            <div className="relative ml-1">
+              {edit ? (
+                <form
+                  ref={textareaRef}
+                  onSubmit={editHanlder}
+                  className="flex flex-col  mt-2"
+                >
+                  <textarea
+                    className={`textAreaNoResize my-1 p-1 pb-5 outline-none w-full text-sm shadow-sm sm:text-base border-gray-300 rounded-t placeholder-slate-400`}
+                    onChange={(e) => setEditText(e.target.value)}
+                    value={editText}
+                    ref={inputRef}
+                    rows={3}
+                  />
+                  <button
+                    type="submit"
+                    className="text-xs bg-opacity-30 text-white bg-black border-[1px] py-2 px-4 w-full rounded-b self-center mt-2 tracking-wider font-semibold  transition-all ease-in-out whitespace-nowrap"
+                  >
+                    Submit
+                  </button>
+                  <span
+                    className={`absolute top-[4.5rem] right-2 text-[.65rem] ${
+                      editText?.length > 50 ? 'text-red-500' : ''
+                    }`}
+                  >
+                    {editText?.length}/50
+                  </span>
+                </form>
+              ) : (
+                <div className="w-full ">
+                  <div
+                    className={`flex w-full  h-full flex-col items-center ${
+                      task?.completed ? 'strike opacity-60' : ''
+                    }`}
+                  >
+                    <div className="self-start w-full ">
+                      <span
+                        onClick={() => (task?.completed ? null : setEdit(true))}
+                        className="wrapWord"
+                      >
+                        {task?.content}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+            <div className="flex items-center ml-[.31rem]">
+              <button
+                type="button"
+                className={` h-[2rem] w-fit flex items-center ${
+                  edit ? 'hidden' : 'flex'
                 }`}
               >
-                <div
-                  className={`${
-                    edit ? 'hidden' : 'block'
-                  } items-center justify-between mt-1 flex`}
-                >
-                  <HiOutlineStar
-                    onClick={importantStateHandler}
-                    size={20}
-                    fill={task?.important ? '#e8b923' : 'none'}
-                    className={`${task?.important ? 'text-yellow-300' : ''} ${
-                      task?.completed ? 'invisible' : 'visible'
-                    }`}
+                {task?.completed ? (
+                  <MdOutlineRemoveDone
+                    title="Incomplete"
+                    onClick={completionHandler}
+                    className="cursor-pointer mr-5 scale-[1.8] transition-all ease-in-out"
                   />
-                  <div className="text-[.65rem]  w-fit whitespace-nowrap select-none">
-                    {formatDate}
-                  </div>
-                </div>
-                <div className="relative ml-1">
-                  {edit ? (
-                    <form
-                      ref={textareaRef}
-                      onSubmit={editHanlder}
-                      className="flex flex-col  mt-2"
-                    >
-                      <textarea
-                        className={`textAreaNoResize my-1 p-1 pb-5 outline-none w-full text-sm shadow-sm sm:text-base border-gray-300 rounded-t placeholder-slate-400`}
-                        onChange={(e) => setEditText(e.target.value)}
-                        value={editText}
-                        ref={inputRef}
-                        rows={3}
-                      />
-                      <button
-                        type="submit"
-                        className="text-xs bg-opacity-30 text-white bg-black border-[1px] py-2 px-4 w-full rounded-b self-center mt-2 tracking-wider font-semibold  transition-all ease-in-out whitespace-nowrap"
-                      >
-                        Submit
-                      </button>
-                      <span
-                        className={`absolute top-[4.5rem] right-2 text-[.65rem] ${
-                          editText?.length > 50 ? 'text-red-500' : ''
-                        }`}
-                      >
-                        {editText?.length}/50
-                      </span>
-                    </form>
-                  ) : (
-                    <div className="w-full ">
-                      <div
-                        className={`flex w-full  h-full flex-col items-center ${
-                          task?.completed ? 'strike opacity-60' : ''
-                        }`}
-                      >
-                        <div className="self-start w-full ">
-                          <span
-                            onClick={() =>
-                              task?.completed ? null : setEdit(true)
-                            }
-                            className="wrapWord"
-                          >
-                            {task?.content}
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  )}
-                </div>
-                <div className="flex items-center ml-[.31rem]">
-                  <button
-                    type="button"
-                    className={` h-[2rem] w-fit flex items-center ${
-                      edit ? 'hidden' : 'flex'
-                    }`}
-                  >
-                    {task?.completed ? (
-                      <MdOutlineRemoveDone
-                        title="Incomplete"
-                        onClick={completionHandler}
-                        className="cursor-pointer mr-5 scale-[1.8] transition-all ease-in-out"
-                      />
-                    ) : (
-                      <GoCheck
-                        title="Complete task"
-                        onClick={completionHandler}
-                        className="cursor-pointer  mr-5 scale-[1.8] transition-all ease-in-out"
-                      />
-                    )}
-                  </button>
+                ) : (
+                  <GoCheck
+                    title="Complete task"
+                    onClick={completionHandler}
+                    className="cursor-pointer  mr-5 scale-[1.8] transition-all ease-in-out"
+                  />
+                )}
+              </button>
 
-                  <div
-                    className={`mr-[1.15rem] ${
-                      task?.completed ? 'opacity-60' : ''
-                    } ${edit ? 'hidden' : ''}`}
-                  >
-                    <TaskTypeMenu
-                      user={user}
-                      tasks={tasks}
-                      isVertical={false}
-                      task={task}
-                    />
-                  </div>
+              <div
+                className={`mr-[1.15rem] ${
+                  task?.completed ? 'opacity-60' : ''
+                } ${edit ? 'hidden' : ''}`}
+              >
+                <TaskTypeMenu
+                  user={user}
+                  tasks={tasks}
+                  isVertical={false}
+                  task={task}
+                />
+              </div>
 
-                  <button type="button" className={`${edit ? 'hidden' : ''}`}>
-                    {task?.locked ? (
-                      <HiLockClosed
-                        title="lock task"
-                        onClick={lockTaskHandler}
-                        size={20}
-                      />
-                    ) : (
-                      <HiLockOpen
-                        title="lock task"
-                        onClick={lockTaskHandler}
-                        size={20}
-                      />
-                    )}
-                  </button>
+              <button type="button" className={`${edit ? 'hidden' : ''}`}>
+                {task?.locked ? (
+                  <HiLockClosed
+                    title="lock task"
+                    onClick={lockTaskHandler}
+                    size={20}
+                  />
+                ) : (
+                  <HiLockOpen
+                    title="lock task"
+                    onClick={lockTaskHandler}
+                    size={20}
+                  />
+                )}
+              </button>
+            </div>
+          </div>
+          <Link href={`/tasks/${task?.id}`}>
+            {task && task?.milestones?.length > 0 ? (
+              <div className=" w-[25%] flex flex-col items-center justify-center  bg-[#64f5c56c] rounded-tr rounded-br">
+                <div className="scale-[.8]">
+                  <ProgressBar percentage={percentage} />
+                </div>
+                <div className="flex items-center mt-1">
+                  <h1>{milestoneCompleted}</h1>
+                  <span className="scale-[.80]">/</span>
+                  <span>{task?.milestones?.length}</span>
                 </div>
               </div>
-              <Link href={`/tasks/${task?.id}`}>
-                {task && task?.milestones?.length > 0 ? (
-                  <div className=" w-[25%] flex flex-col items-center justify-center  bg-[#64f5c56c] rounded-tr rounded-br">
-                    <div className="scale-[.8]">
-                      <ProgressBar percentage={percentage} />
-                    </div>
-                    <div className="flex items-center mt-1">
-                      <h1>{milestoneCompleted}</h1>
-                      <span className="scale-[.80]">/</span>
-                      <span>{task?.milestones.length}</span>
-                    </div>
-                  </div>
-                ) : (
-                  <div
-                    className={`flex items-center justify-end w-[25%] bg-[#64f5c56c] pr-2 ${
-                      task && task?.milestones?.length <= 0 && task?.completed
-                        ? 'hidden'
-                        : 'block'
-                    }`}
-                  >
-                    <BiListPlus className="opacity-80" size={30}></BiListPlus>
-                  </div>
-                )}
-              </Link>
-            </div>
-          </Swipeable>
+            ) : (
+              <div
+                className={`flex items-center justify-end w-[25%] bg-[#64f5c56c] pr-2 ${
+                  task && task?.milestones?.length <= 0 && task?.completed
+                    ? 'hidden'
+                    : 'block'
+                }`}
+              >
+                <BiListPlus className="opacity-80" size={30}></BiListPlus>
+              </div>
+            )}
+          </Link>
         </div>
-      )}
-    </Draggable>
+      </Swipeable>
+    </div>
   );
 };
 

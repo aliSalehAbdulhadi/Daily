@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 const initialState = {
-  disableSwiper: true,
+  disableSwiper: false,
 };
 
 const disableSwiper = createSlice({

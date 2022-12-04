@@ -105,7 +105,7 @@ const MilestoneSinglePage = ({
 
   const editMilestoneHanlder = () => {
     batch(() => {
-      if (editText.length === 0) {
+      if (editText?.length === 0) {
         setEditText(milestone?.milestoneContent);
       } else {
         if (isOnline()) {

@@ -14,6 +14,8 @@ import { addTaskTypeLocally } from '../../../redux/slices/features/getTasksSlice
 import { toggleDisableSwiper } from '../../../redux/slices/features/disableSwiperSlice';
 import { isOnline } from '../../../utilities/isOnline';
 import 'swiper/css';
+import { toggleDisableDragDnd } from '../../../redux/slices/features/disableDragDndSlice';
+import { batch } from 'react-redux';
 
 const TaskTypeMenu = ({
   task,
@@ -42,23 +44,28 @@ const TaskTypeMenu = ({
   };
 
   useEffect(() => {
-    if (isOnline()) {
-      dispatch(
-        addTaskType({
-          userUid: user,
-          taskId: task?.id,
-          allTasks: tasks,
-          taskType: value,
-        }),
-      );
-    }
+    batch(() => {
+      if (isOnline()) {
+        dispatch(
+          addTaskType({
+            userUid: user,
+            taskId: task?.id,
+            allTasks: tasks,
+            taskType: value,
+          }),
+        );
+      }
 
-    dispatch(addTaskTypeLocally({ taskId: task?.id, taskType: value }));
+      dispatch(addTaskTypeLocally({ taskId: task?.id, taskType: value }));
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value]);
 
   useEffect(() => {
-    dispatch(toggleDisableSwiper(hidden));
+    dispatch(toggleDisableSwiper(!hidden));
+    hidden
+      ? dispatch(toggleDisableDragDnd(false))
+      : dispatch(toggleDisableDragDnd(true));
   }, [dispatch, hidden]);
 
   return (

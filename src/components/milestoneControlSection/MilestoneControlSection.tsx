@@ -30,7 +30,7 @@ const MilestoneControlSection = ({ taskId }: { taskId: any }) => {
 
   const milestoneCompleted = task?.milestones?.filter(
     (ms: any) => ms?.milestoneCompleted === true,
-  ).length;
+  )?.length;
 
   const punctCheckbox = useAppSelector(
     (state) => state.milestonePunctCheckboxReducer.milestonePunctCheckbox,

@@ -34,7 +34,7 @@ const ChangeUserName = ({
         validationSchema={signInSchema}
         onSubmit={(values) => {
           if (isOnline()) {
-            if (values.username.length <= 0) return;
+            if (values.username?.length <= 0) return;
             dispatch(
               changeUserName({ newUserName: values.username, userUid: user }),
             );

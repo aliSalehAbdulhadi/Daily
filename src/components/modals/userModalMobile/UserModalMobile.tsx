@@ -80,6 +80,19 @@ const UserModalMobile = ({
         {user ? (
           <div className="flex flex-col items-center justify-center pb-2">
             <button
+              className="w-full  my-1 py-2 px-4 hover:bg-gray-50 mt-2 font-cerealMedium h-[98%]"
+              type="button"
+              onClick={() => {
+                setCloseAnimation(true);
+                setTimeout(() => {
+                  setOpen(false);
+                  setCloseAnimation(false);
+                }, 200);
+              }}
+            >
+              <Link href="/chart">Tasks chart</Link>
+            </button>
+            <button
               onClick={() => {
                 setOpenUsernameModal(true);
               }}

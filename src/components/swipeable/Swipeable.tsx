@@ -1,7 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useSwipeable } from 'react-swipeable';
 import { AiFillDelete } from 'react-icons/ai';
-import { useAppDispatch } from '../../interfaces/interfaces';
+import {
+  RootState,
+  useAppDispatch,
+  useAppSelector,
+} from '../../interfaces/interfaces';
 import { toggleDisableDragDnd } from '../../redux/slices/features/disableDragDndSlice';
 import useClickOutside from '../../hooks/useClickOutside';
 
@@ -20,21 +24,23 @@ const Swipeable = ({
 }) => {
   const [isDeleting, setIsDeleting] = useState<boolean>(false);
   const [isLockedAnimation, setIsLockedAnimation] = useState<boolean>(false);
-
+  const disableSwiper = useAppSelector(
+    (state: RootState) => state.disableSwiperReducer.disableSwiper,
+  );
   const dispatch = useAppDispatch();
   const handlers = useSwipeable({
     delta: { left: 120 },
     onSwipedLeft: () => {
       dispatch(toggleDisableDragDnd(true));
       isLocked ? setIsLockedAnimation(true) : setIsDeleting(true);
+      disableSwiper || isLocked ? setIsDeleting(false) : setIsDeleting(true);
     },
     onSwipedRight: () => {
       setIsDeleting(false);
-    },
-
-    onTouchStartOrOnMouseDown: () => {
       dispatch(toggleDisableDragDnd(false));
     },
+
+    onTouchStartOrOnMouseDown: () => {},
   });
   useEffect(() => {
     isDeletingOpen(isDeleting);

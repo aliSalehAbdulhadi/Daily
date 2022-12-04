@@ -90,10 +90,10 @@ const MileStone = () => {
   );
 
   const percentage = useMemo(() => {
-    return milestoneCompleted && task.milestones.length > 0
+    return milestoneCompleted && task.milestones?.length > 0
       ? Math.round((milestoneCompleted / task?.milestones?.length) * 100)
       : 0;
-  }, [milestoneCompleted, task?.milestones.length]);
+  }, [milestoneCompleted, task?.milestones?.length]);
 
   useEffect(() => {
     setScroll(false);
@@ -108,7 +108,7 @@ const MileStone = () => {
 
   useEffect(() => {
     setOpenAdvancedForm(false);
-  }, [task?.milestones.length]);
+  }, [task?.milestones?.length]);
 
   const deleteMilestoneHandler = (milestone: singleMilestoneInterface) => {
     setDeleteAnimation({
@@ -187,7 +187,7 @@ const MileStone = () => {
       <div className={`${openAdvancedForm ? 'hidden' : 'block'}`}>
         <div
           className={`flex flex-col items-center justify-center w-full sticky top-0 z-40  ${
-            task?.milestones.length === 0 ? '' : 'border-b-[1px]'
+            task?.milestones?.length === 0 ? '' : 'border-b-[1px]'
           }`}
         >
           <div
@@ -211,7 +211,7 @@ const MileStone = () => {
             </div>
             <div className="sm:w-[7%] ">
               <div className="h-[3rem] w-[3rem]">
-                {task && task?.milestones.length > 0 ? (
+                {task && task?.milestones?.length > 0 ? (
                   <div className="relative">
                     <ProgressBar percentage={percentage} />
                     <div className="absolute top-[46px] right-[43px] text-xs">
@@ -228,13 +228,13 @@ const MileStone = () => {
           <div
             className={`flex w-full transition-all shadow-md
              ${dark ? 'bg-primaryColor' : 'bg-secondaryLight'}   ${
-              task?.milestones.length === 0 ? 'pt-0' : 'pt-3'
+              task?.milestones?.length === 0 ? 'pt-0' : 'pt-3'
             }`}
           >
             <Suspense>
               <div
                 className={`w-full px-3 pb-3 pt-[0.15rem] mr-1 ${
-                  task && task?.milestones.length > 0 ? 'block ' : 'hidden'
+                  task && task?.milestones?.length > 0 ? 'block ' : 'hidden'
                 }`}
               >
                 <MilestoneControlSection taskId={task?.id} />
@@ -276,7 +276,7 @@ const MileStone = () => {
           >
             <h1
               className={`self-center mb-5 ${
-                task?.milestones.length === 0 && !task?.completed
+                task?.milestones?.length === 0 && !task?.completed
                   ? 'block'
                   : 'hidden'
               }`}
