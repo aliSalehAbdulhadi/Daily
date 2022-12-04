@@ -30,7 +30,7 @@ const TasksChart = ({
   const tasksDates = useAppSelector(
     (state: RootState) => state.getTaskReducer?.tasksDates,
   );
-
+  console.log(allTasksCount);
   let totalMilestones = 0;
   tasks?.forEach((task) => {
     totalMilestones = totalMilestones + task.milestones?.length;
@@ -142,11 +142,13 @@ const TasksChart = ({
           </div>
           <div className="flex items-center justify-between w-[75%] my-2">
             <span>Pending tasks: </span>
-            <span>{pendingTasks?.length}</span>
+            {pendingTasks?.length > 0 ? pendingTasks.length : 0}
           </div>
           <div className="flex items-center justify-between w-[75%] mb-2">
             <span>Completed tasks: </span>
-            <span>{completedTasks?.length}</span>
+            <span>
+              {completedTasks?.length > 0 ? completedTasks.length : 0}
+            </span>
           </div>
           <div className="flex items-center justify-between w-[75%]">
             <span>Important tasks: </span>
@@ -167,15 +169,15 @@ const TasksChart = ({
         <div className="flex flex-col items-center semiSm:items-start  semiSm:ml-[2rem] md:ml-[3rem] mt-8">
           <div className="flex items-center justify-between w-[75%]">
             <span>Tasks added last 7 days: </span>
-            <span>{lessThanWeek?.length}</span>
+            <span>{lessThanWeek?.length > 0 ? lessThanWeek?.length : 0}</span>
           </div>
           <div className="flex items-center justify-between w-[75%] my-2">
             <span>Tasks added last 30 days: </span>
-            <span>{lessThanMonth?.length}</span>
+            <span>{lessThanMonth?.length > 0 ? lessThanMonth?.length : 0}</span>
           </div>
           <div className="flex items-center justify-between w-[75%]">
             <span>Total tasks added: </span>
-            <span>{allTasksCount}</span>
+            <span>{allTasksCount > 0 ? allTasksCount : 0}</span>
           </div>
         </div>
       </div>

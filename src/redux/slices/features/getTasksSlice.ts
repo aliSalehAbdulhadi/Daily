@@ -252,7 +252,8 @@ const getTasksSlice = createSlice({
       build.addCase(getTasks?.fulfilled, (state, action: any) => {
         state.status = 'fulfilled';
         state.tasks = action?.payload?.userData?.tasks;
-        state.allTasksCount = action?.payload?.allTasksCount;
+        state.allTasksCount =
+          state.allTasksCount === 0 ? 0 : action?.payload?.allTasksCount;
         state.tasksDates = action?.payload?.tasksDates;
         state.userName = action?.payload?.userName
           ? encrypt(action?.payload?.userName, encryptKey)
