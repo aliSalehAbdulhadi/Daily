@@ -39,6 +39,7 @@ import { setCardColorByTypeHandler } from '../../../utilities/setColorByTypeHand
 import 'react-step-progress-bar/styles.css';
 import { lockTask } from '../../../redux/slices/features/fireBaseActions/lockTaskSlice';
 import { isOnline } from '../../../utilities/isOnline';
+import { toggleOpenMilestonePanel } from '../../../redux/slices/features/openMilestonePanelPc';
 
 const SingleTaskPc = ({
   task,
@@ -206,7 +207,7 @@ const SingleTaskPc = ({
       style={style}
       {...attributes}
       {...listeners}
-      className={`text-textLight  outline-[1px] relative   ${
+      className={`text-textLight  outline-[1px] hover:bg-opacity-90 relative   ${
         task?.important ? 'outline-[1px] outline outline-yellow-400' : ''
       }
 
@@ -306,7 +307,10 @@ const SingleTaskPc = ({
             </span>
           </form>
         ) : (
-          <div className="w-full ml-5 ">
+          <div
+            onClick={() => dispatch(toggleOpenMilestonePanel(true))}
+            className="w-full ml-5 "
+          >
             <div
               className={` flex-col  items-center flex ${
                 task?.completed ? 'strike opacity-60' : ''
@@ -321,7 +325,7 @@ const SingleTaskPc = ({
                   task && task?.milestones?.length > 0 ? 'absolute' : 'hidden'
                 }`}
               >
-                <div className="w-[50%] relative">
+                <div className="w-[50%] relative ">
                   <ProgressBar
                     percent={percentage}
                     height={8}

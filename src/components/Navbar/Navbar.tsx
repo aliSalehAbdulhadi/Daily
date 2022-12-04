@@ -15,6 +15,7 @@ import TaskForm from '../Forms/TaskForm/TaskForm';
 import useClickOutside from '../../hooks/useClickOutside';
 import useWindowSize from '../../hooks/useWindowsSize';
 import { Dark, UserKey } from '../../utilities/globalImports';
+import { toggleOpenMilestonePanel } from '../../redux/slices/features/openMilestonePanelPc';
 
 const UserModalPc = dynamic(() => import('../modals/UserModalPc/UserModalPc'), {
   suspense: true,
@@ -40,7 +41,7 @@ const Navbar = () => {
   const dispatch = useAppDispatch();
   const dark = Dark();
   const user = UserKey();
-  
+
   useEffect(() => {
     onAuthStateChanged(auth, (user) => dispatch(setUserUid(user?.uid)));
 
@@ -67,7 +68,10 @@ const Navbar = () => {
       } w-full h-[10vh]  flex items-center justify-between px-2 whitespace-nowrap text-sm md:text-base md:px-10 font-Comfortaa`}
     >
       <div className="px-3 flex items-center select-none">
-        <div className={`cursor-pointer mt-2 hidden semiSm:block`}>
+        <div
+          onClick={() => dispatch(toggleOpenMilestonePanel(false))}
+          className={`cursor-pointer mt-2 hidden semiSm:block`}
+        >
           <Link href="/">
             {dark ? (
               <div>

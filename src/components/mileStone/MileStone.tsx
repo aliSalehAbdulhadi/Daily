@@ -15,8 +15,10 @@ import useClickOutside from '../../hooks/useClickOutside';
 import {
   RootState,
   SingleTaskInterface,
+  useAppDispatch,
   useAppSelector,
 } from '../../interfaces/interfaces';
+import { toggleOpenMilestonePanel } from '../../redux/slices/features/openMilestonePanelPc';
 import { Tasks } from '../../utilities/globalImports';
 import MilestoneControlSection from '../milestoneControlSection/MilestoneControlSection';
 import ProgressBar from '../progressBar/ProgressBar';
@@ -46,6 +48,7 @@ const MileStone: FC<{
 
   const tasks: SingleTaskInterface[] = Tasks();
   const task = tasks?.find((task) => task?.id === taskId);
+  const dispatch = useAppDispatch();
 
   const milestoneAdvancedFormRef = useClickOutside(() => {
     setOpenAdvancedForm(false);
@@ -117,8 +120,12 @@ const MileStone: FC<{
           }`}
         >
           <div
-            onClick={() => setTaskId('')}
-            className="cursor-pointer  bg-primaryLight w-fit px-3 h-full flex items-center justify-center hover:bg-opacity-90 transition-all"
+            onClick={() => dispatch(toggleOpenMilestonePanel(false))}
+            className={`cursor-pointer  bg-primaryLight w-fit  flex items-center justify-center hover:bg-opacity-90 transition-all ${
+              task && task?.milestones?.length > 0
+                ? 'px-3 h-full'
+                : ' rounded-full m-5 h-14 w-[3.7rem]'
+            }`}
           >
             <TiArrowBack fill="#2c5252" size={22} />
           </div>

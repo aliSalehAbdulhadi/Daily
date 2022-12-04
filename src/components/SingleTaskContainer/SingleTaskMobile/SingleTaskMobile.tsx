@@ -33,6 +33,8 @@ import { setCardColorByTypeHandler } from '../../../utilities/setColorByTypeHand
 import { lockTask } from '../../../redux/slices/features/fireBaseActions/lockTaskSlice';
 import { isOnline } from '../../../utilities/isOnline';
 import { removeTask } from '../../../redux/slices/features/fireBaseActions/deleteTaskSlice';
+import { useSortable } from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
 
 const SingleTaskMobile = ({
   task,
@@ -79,6 +81,15 @@ const SingleTaskMobile = ({
   const disableDrag = useAppSelector(
     (state: RootState) => state.disableDragReducer.disableDragDnd,
   );
+
+  const { attributes, listeners, setNodeRef, transform, transition } =
+    useSortable({ id: disableDrag ? '' : task?.id });
+  // console.log(disableDrag);
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+  };
+
   const milestoneCompleted = task?.milestones?.filter(
     (ms: any) => ms?.milestoneCompleted === true,
   )?.length;
@@ -137,7 +148,7 @@ const SingleTaskMobile = ({
   };
 
   const deletionHandler = () => {
-    if (!disableSwiper || task?.locked) return;
+    if (disableSwiper || task?.locked) return;
 
     setDeleteAnimation(true);
     batch(() => {
@@ -191,7 +202,13 @@ const SingleTaskMobile = ({
   };
 
   return (
-    <div className="pb-3">
+    <div
+      ref={setNodeRef}
+      style={style}
+      {...attributes}
+      {...listeners}
+      className="pb-3"
+    >
       <Swipeable
         isLocked={task?.locked}
         isDeletingOpen={(e: boolean) => setIsDeleteOpen(e)}

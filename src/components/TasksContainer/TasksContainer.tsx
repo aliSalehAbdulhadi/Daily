@@ -1,14 +1,10 @@
-import { useState } from 'react';
 import dynamic from 'next/dynamic';
 import { Suspense } from 'react';
 import { RootState, useAppSelector } from '../../interfaces/interfaces';
 import useWindowSize from '../../hooks/useWindowsSize';
 import FallBackLoading from '../fallBackLoading/FallBackLoading';
 import { Dark } from '../../utilities/globalImports';
-import useClickOutside from '../../hooks/useClickOutside';
-const MileStone = dynamic(() => import('../mileStone/MileStone'), {
-  suspense: true,
-});
+
 const MobileTasks = dynamic(() => import('../MobileTasks/MobileTasks'), {
   suspense: true,
 });

@@ -18,6 +18,7 @@ import uploadLocalData from '../slices/features/fireBaseActions/uploadLocalData'
 import removeTaskStatus from '../slices/features/fireBaseActions/deleteTaskSlice';
 import openMoveMilestoneSlice from '../slices/features/openMoveMilestoneSlice';
 import selectedMilestone from '../slices/features/selectedMilestone';
+import openMilestonePanelPc from '../slices/features/openMilestonePanelPc';
 
 const rootReducer = combineReducers({
   signUpReducer: signUpSlice,
@@ -29,6 +30,7 @@ const rootReducer = combineReducers({
   resetPasswordReducer: resetPasswordSlice,
   disableSwiperReducer: disableSwiper,
   disableDragReducer: disableDragDnd,
+  openMilestonePanelReducer: openMilestonePanelPc,
   sortTaskReducer: sortTasksSlice,
   sortMilestonesReducer: sortMilestonesSlice,
   uploadLocalDataReducer: uploadLocalData,

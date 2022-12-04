@@ -8,17 +8,13 @@ const Chart = ({ chartData }: { chartData: any }) => {
       data={chartData}
       options={{
         maintainAspectRatio: false,
+        color: 'white',
+
         plugins: {
           subtitle: {
             display: true,
             text: 'Last 14 days chart',
-          },
-          legend: {
-            display: true,
-            maxHeight: 500,
-            title: {
-              text: 'dasdas',
-            },
+            color: 'white',
           },
         },
       }}

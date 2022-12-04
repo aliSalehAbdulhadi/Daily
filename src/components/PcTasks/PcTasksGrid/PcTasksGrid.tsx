@@ -99,7 +99,7 @@ const PcTasksGrid = ({
       <div
         ref={scrollRefTop}
         className={`relative  scrollBar overflow-x-hidden pb-1 w-full   ${
-          user ? 'h-[83.4vh] overflow-auto ' : 'overflow-hidden'
+          user ? 'h-[83.8vh] overflow-auto ' : 'overflow-hidden'
         } `}
       >
         <div
@@ -162,11 +162,12 @@ const PcTasksGrid = ({
               {taskSortHandler(pendingTasks)?.map(
                 (task: SingleTaskInterface, index: number) => (
                   // eslint-disable-next-line react/jsx-no-undef
-                  <Suspense key={task?.id} fallback={<LoadingCard />}>
-                    <div
-                      className="mr-2 h-fit w-[17rem] md:w-[21rem] lg:w-[17.7rem]"
-                      onClick={() => setTaskId(task.id)}
-                    >
+                  <div
+                    key={task?.id}
+                    className="mr-2 h-fit w-[17rem] md:w-[21rem] lg:w-[17.7rem]"
+                    onClick={() => setTaskId(task.id)}
+                  >
+                    <Suspense fallback={<LoadingCard />}>
                       <SingleTaskContainer
                         task={task}
                         index={index}
@@ -174,8 +175,8 @@ const PcTasksGrid = ({
                         setLoadInView={setLoadInView}
                         loadInView={loadInView}
                       />
-                    </div>
-                  </Suspense>
+                    </Suspense>
+                  </div>
                 ),
               )}
             </SortableContext>

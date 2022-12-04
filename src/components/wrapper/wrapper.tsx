@@ -5,8 +5,8 @@ import {
   useSensor,
   MouseSensor,
   useSensors,
+  TouchSensor,
 } from '@dnd-kit/core';
-import { useEffect, useState } from 'react';
 import { arrayMove } from '@dnd-kit/sortable';
 import { reArrangeTasksLocally } from '../../redux/slices/features/getTasksSlice';
 import { reArrangeFirebase } from '../../redux/slices/features/fireBaseActions/reArrangeTasksSlice';
@@ -25,23 +25,21 @@ const Wrapper = ({ children }: { children: JSX.Element }) => {
   const tasks: SingleTaskInterface[] = Tasks();
   const user = UserKey();
 
-  const [tasksItems, setTasksItems] = useState<SingleTaskInterface[]>(tasks);
-
   const mouseSensor = useSensor(MouseSensor, {
     activationConstraint: {
       distance: 10,
     },
   });
-  const sensors = useSensors(mouseSensor);
 
-  useEffect(() => {
-    batch(() => {
-      dispatch(reArrangeTasksLocally(tasksItems));
-      if (isOnline()) {
-        dispatch(reArrangeFirebase({ userUid: user, allTasks: tasksItems }));
-      }
-    });
-  }, [dispatch, tasksItems, user]);
+  const touchSensor = useSensor(TouchSensor, {
+    // Press delay of 250ms, with tolerance of 5px of movement
+    activationConstraint: {
+      delay: 200,
+      tolerance: 5,
+    },
+  });
+
+  const sensors = useSensors(mouseSensor, touchSensor);
 
   const handleDragEnd = (event: any) => {
     const { active, over } = event;
@@ -54,7 +52,15 @@ const Wrapper = ({ children }: { children: JSX.Element }) => {
       const overIndex = items
         .map((item: SingleTaskInterface) => item?.id)
         .indexOf(over?.id);
-      setTasksItems(arrayMove(items, activeIndex, overIndex));
+
+      batch(() => {
+        dispatch(
+          reArrangeTasksLocally(arrayMove(items, activeIndex, overIndex)),
+        );
+        if (isOnline()) {
+          dispatch(reArrangeFirebase({ userUid: user, allTasks: items }));
+        }
+      });
     }
   };
 

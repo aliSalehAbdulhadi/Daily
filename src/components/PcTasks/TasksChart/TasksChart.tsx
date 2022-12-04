@@ -1,7 +1,5 @@
 import moment from 'moment';
 import { useEffect, useState, useMemo, useCallback, memo } from 'react';
-import { FaHistory } from 'react-icons/fa';
-import { RiMapPinTimeLine } from 'react-icons/ri';
 import {
   RootState,
   SingleTaskInterface,
@@ -13,7 +11,7 @@ import { deleteTaskDateLocally } from '../../../redux/slices/features/getTasksSl
 import { ImportantTasks, UserKey } from '../../../utilities/globalImports';
 import Chart from './Chart/Chart';
 
-const PcTasksChart = ({
+const TasksChart = ({
   pendingTasks,
   completedTasks,
   tasks,
@@ -134,11 +132,10 @@ const PcTasksChart = ({
         <Chart chartData={data} />
       </div>
       <div className="flex flex-col mt-10 border-y-[1px] py-5">
-        <div className="flex items-center justify-between ml-[2rem] md:ml-[3rem] w-[69%]">
+        <div className="flex items-center justify-between self-center semiSm:ml-[2rem] md:ml-[3rem] semiSm:w-[66%]">
           <span className="text-base">Current tasks overview</span>
-          <RiMapPinTimeLine className=" mb-1" size={22} />
         </div>
-        <div className="flex flex-col mt-8 ml-[2rem] md:ml-[3rem] ">
+        <div className="flex flex-col items-center semiSm:items-start  semiSm:ml-[2rem] md:ml-[3rem] mt-8">
           <div className="flex items-center justify-between w-[75%]">
             <span>Total tasks: </span>
             <span>{tasks?.length}</span>
@@ -162,13 +159,12 @@ const PcTasksChart = ({
         </div>
       </div>
 
-      <div className="mt-5">
-        <div className="flex items-center justify-between ml-[2rem] md:ml-[3rem] w-[69%]">
+      <div className="mt-5 flex flex-col mb-2 semiSm:mb-0">
+        <div className="flex items-center self-center justify-between semiSm:ml-[2rem] md:ml-[3rem] semiSm:w-[65%]">
           <span className="text-base">Overall tasks overview</span>
-          <FaHistory className=" mb-1" size={19} />
         </div>
 
-        <div className="flex flex-col ml-[2rem] md:ml-[3rem] mt-8">
+        <div className="flex flex-col items-center semiSm:items-start  semiSm:ml-[2rem] md:ml-[3rem] mt-8">
           <div className="flex items-center justify-between w-[75%]">
             <span>Tasks added last 7 days: </span>
             <span>{lessThanWeek?.length}</span>
@@ -187,4 +183,4 @@ const PcTasksChart = ({
   );
 };
 
-export default memo(PcTasksChart);
+export default memo(TasksChart);

@@ -7,8 +7,8 @@ const LoadingCard = () => {
   const vw = useWindowSize();
   return (
     <div
-      className={`h-[10rem] w-full semiSm:w-[40%] md:w-[30%] xxl:w-[22%] semiSm:ml-2 rounded mb-2 flex justify-between text-xs ${
-        dark ? 'bg-primaryColor semiSm:bg-secondaryColor' : 'bg-secondaryColor'
+      className={`h-[10rem] w-full semiSm:ml-2 rounded mb-2 flex justify-between text-xs ${
+        dark ? 'bg-primaryColor ' : 'bg-secondaryColor'
       } ${
         dark
           ? 'text-secondaryColor semiSm:text-primaryColor'
