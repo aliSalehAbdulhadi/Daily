@@ -131,15 +131,16 @@ const SingleMoveTaskCard = ({
       >
         <div className="flex items-center justify-between w-full">
           <span
-            className={`text-sm w-[90%] whitespace-pre-wrap ${
+            className={`text-sm w-[90%] wrapWord ${
               moveToTask?.completed ? 'line-through opacity-60' : ''
             }`}
           >
             {moveToTask?.content}
           </span>
           <MdDone
-            size={13}
-            className={`mr-3 text-black opacity-70 rounded-full border-[1px] border-black mb-[3.3rem] ${
+            fill="white"
+            size={15}
+            className={`mr-3 text-black opacity-70 rounded-full border-[1px] border-white mb-[3.3rem] ${
               moveToTask?.completed ? '' : 'hidden'
             }`}
           />

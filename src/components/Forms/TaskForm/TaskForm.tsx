@@ -30,7 +30,6 @@ const TaskForm = () => {
     (state: RootState) => state.getTaskReducer?.allTasksCount,
   );
 
-
   const dark = Dark();
   const dispatch = useAppDispatch();
   const user = UserKey();
@@ -42,6 +41,19 @@ const TaskForm = () => {
   useEffect(() => {
     formRef.current?.blur();
   }, [submitAnimation]);
+
+  const taskColor = [
+    'green-4',
+    'blue-4',
+    'amber-2',
+    'pink-4',
+    'purple-4',
+    'teal-4',
+    'salmon',
+    'emerald-5',
+  ];
+
+  const randomNum = Math.floor(Math.random() * (7 - 0) + 0);
 
   return (
     <Formik
@@ -59,7 +71,7 @@ const TaskForm = () => {
                       content: values.Form,
                       completed: false,
                       id: uuid,
-                      taskType: 'green-4',
+                      taskType: taskColor[randomNum],
                       date: newDate.toISOString(),
                       important: false,
                       locked: false,
@@ -93,7 +105,7 @@ const TaskForm = () => {
                     content: values.Form,
                     completed: false,
                     id: uuid,
-                    taskType: 'green-4',
+                    taskType: taskColor[randomNum],
                     date: newDate.toISOString(),
                     important: false,
                     locked: false,

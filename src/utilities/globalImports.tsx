@@ -36,6 +36,7 @@ export const Tasks = () => {
     (state: RootState) => state?.getTaskReducer?.tasks,
   );
 
+
   return tasks;
 };
 

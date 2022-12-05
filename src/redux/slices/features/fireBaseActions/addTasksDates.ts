@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { updateDoc, doc, arrayUnion, setDoc } from 'firebase/firestore';
+import { updateDoc, doc, arrayUnion, } from 'firebase/firestore';
 import { db } from '../../../../container/firebase';
 
 export const addTasksDates = createAsyncThunk(

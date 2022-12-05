@@ -6,7 +6,7 @@ import {
   MdEditOff,
   MdOutlineRemoveDone,
 } from 'react-icons/md';
-import { BiX } from 'react-icons/bi';
+import { BiListPlus, BiX } from 'react-icons/bi';
 import { HiLockClosed, HiLockOpen } from 'react-icons/hi';
 import { useState, useEffect, useRef } from 'react';
 import moment from 'moment';
@@ -21,6 +21,8 @@ import { CSS } from '@dnd-kit/utilities';
 import {
   useAppDispatch,
   SingleTaskInterface,
+  useAppSelector,
+  RootState,
 } from '../../../interfaces/interfaces';
 import { completedTask } from '../../../redux/slices/features/fireBaseActions/completeTaskSlice';
 import { removeTask } from '../../../redux/slices/features/fireBaseActions/deleteTaskSlice';
@@ -65,13 +67,15 @@ const SingleTaskPc = ({
   const [editText, setEditText] = useState<string>(task?.content);
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const dispatch = useAppDispatch();
-
+  const disableDrag = useAppSelector(
+    (state: RootState) => state.disableDragReducer.disableDragDnd,
+  );
   const inViewPortRef = useRef(null);
 
   const { inViewport } = useInViewport(inViewPortRef);
 
   const { attributes, listeners, setNodeRef, transform, transition } =
-    useSortable({ id: task?.id });
+    useSortable({ id: disableDrag ? '' : task?.id });
 
   const style = {
     transform: CSS.Transform.toString(transform),
@@ -211,7 +215,7 @@ const SingleTaskPc = ({
         task?.important ? 'outline-[1px] outline outline-yellow-400' : ''
       }
 
-           hover:transition-transform hover:ease-in-out font-Comfortaa font-semibold my-2 px-5 min-h-[10rem] relative ${
+           hover:transition-transform hover:ease-in-out font-Comfortaa font-semibold my-2 px-5 min-h-[11rem] relative ${
              task?.completed
                ? 'bg-red-400 shadow-2xl'
                : setCardColorByTypeHandler(true, task?.taskType)
@@ -269,7 +273,7 @@ const SingleTaskPc = ({
               />
             )}
           </div>
-          <div className={`${task?.completed ? 'opacity-60' : ''}`}>
+          <div className={`mb-3 ${task?.completed ? 'opacity-60' : ''}`}>
             <TaskTypeMenu
               user={user}
               tasks={tasks}
@@ -286,7 +290,7 @@ const SingleTaskPc = ({
             className="flex flex-col items-center justify-center w-full relative"
           >
             <textarea
-              className={`textAreaNoResize p-2 outline-none w-[60%] shadow-sm rounded-t border-gray-300  placeholder-slate-400 `}
+              className={`textAreaNoResize p-2 outline-none w-[100%] shadow-sm rounded-t border-gray-300  placeholder-slate-400 `}
               onChange={(e) => setEditText(e.target.value)}
               value={editText}
               ref={inputRef}
@@ -294,12 +298,12 @@ const SingleTaskPc = ({
             />
             <button
               type="submit"
-              className=" text-xs bg-opacity-30 text-white bg-black  py-1 rounded-b w-[60%] tracking-wider font-semibold transition-all ease-in-out whitespace-nowrap "
+              className=" text-xs bg-opacity-30 text-white bg-black  py-1 rounded-b w-[100%] tracking-wider font-semibold transition-all ease-in-out whitespace-nowrap "
             >
               Submit
             </button>
             <span
-              className={`absolute top-[4rem] right-32 text-[.65rem] ${
+              className={`absolute top-[4.3rem] right-2 text-[.65rem] ${
                 editText?.length > 50 ? 'text-red-500' : ''
               }`}
             >
@@ -307,39 +311,41 @@ const SingleTaskPc = ({
             </span>
           </form>
         ) : (
-          <div
-            onClick={() => dispatch(toggleOpenMilestonePanel(true))}
-            className="w-full ml-5 "
-          >
+          <div className="w-full ml-5 ">
             <div
               className={` flex-col  items-center flex ${
                 task?.completed ? 'strike opacity-60' : ''
               }`}
             >
-              <div>
+              <div className=" w-full mb-3 text-[.95rem] text-center">
                 <span className="wrapWord">{task?.content}</span>
               </div>
 
               <div
-                className={`w-full flex items-center justify-center bottom-[.55rem] ${
-                  task && task?.milestones?.length > 0 ? 'absolute' : 'hidden'
-                }`}
+                onClick={() => dispatch(toggleOpenMilestonePanel(true))}
+                className={`w-full flex items-center justify-center bottom-0 left-0 absolute  border-textLight border-t-[1px] border-opacity-10 bg-green-200 bg-opacity-20 hover:bg-opacity-40 hover:text-white transition-all`}
               >
-                <div className="w-[50%] relative ">
-                  <ProgressBar
-                    percent={percentage}
-                    height={8}
-                    filledBackground="linear-gradient(to right, #ccedde, #86d9b8)"
-                    unfilledBackground="#f5faf8"
-                  />
-                  <span className="ml-5 text-[.80rem] absolute top-[-5.7px] right-[-30px]">{`${milestoneCompleted}/${task?.milestones?.length}`}</span>
-                </div>
+                {task && task?.milestones?.length > 0 ? (
+                  <div className="w-full flex items-center justify-center  h-7 rounded-b ">
+                    <div className="w-[50%] mr-7 relative">
+                      <ProgressBar
+                        percent={percentage}
+                        height={8}
+                        filledBackground="linear-gradient(to right, #ccedde, #86d9b8)"
+                        unfilledBackground="#f5faf8"
+                      />
+                      <span className="ml-5 text-[.80rem] absolute top-[-4.8px] right-[-25px]">{`${milestoneCompleted}/${task?.milestones?.length}`}</span>
+                    </div>
+                  </div>
+                ) : (
+                  <BiListPlus className={`opacity-80 mb-1`} size={25} />
+                )}
               </div>
             </div>
           </div>
         )}
 
-        <div className={` ${edit ? 'hidden' : 'flex'} flex-col pl-10 mt-2`}>
+        <div className={` ${edit ? 'hidden' : 'flex'} flex-col pl-3 mb-3`}>
           {task?.completed ? (
             <MdOutlineRemoveDone
               title="Incomplete"

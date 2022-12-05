@@ -11,6 +11,7 @@ import {
   Tasks as allTasks,
   PendingTasks,
   CompletedTasks,
+  UserKey,
 } from '../../utilities/globalImports';
 import PcSwitchButtons from './PcSwitchButtons/PcSwitchButtons';
 import PcTasksGrid from './PcTasksGrid/PcTasksGrid';
@@ -28,6 +29,7 @@ const PcTasks = () => {
   const [sortModal, setSortModal] = useState<boolean>(false);
   const [expandPanel, setExpandPanel] = useState<boolean>(false);
 
+  const user = UserKey();
   const tasks: SingleTaskInterface[] = allTasks();
   const completedTasks = CompletedTasks() ? [...CompletedTasks()] : [];
   const pendingTasks = PendingTasks() ? [...PendingTasks()] : [];
@@ -51,12 +53,16 @@ const PcTasks = () => {
   return (
     <div className="flex w-full">
       <div
-        className={`flex flex-col font-Comfortaa font-bold  mobileTaskCardBoxShadow transition-all h-[88.3vh] ${
-          expandPanel ? 'w-full' : 'w-[65%]  lg:w-[70%] xl:w-[75%] xxl:w-[80%]'
+        className={`flex flex-col font-Comfortaa font-bold  mobileTaskCardBoxShadow transition-all h-[88.3vh] relative ${
+          expandPanel || !user
+            ? 'w-full'
+            : 'w-[65%]  lg:w-[70%] xl:w-[75%] xxl:w-[80%]'
         }`}
       >
         <div
-          className={`self-start flex justify-between  shadow-md h-[4.5vh]  w-full`}
+          className={`self-start flex justify-between  shadow-md h-[4.5vh]  w-full ${
+            user ? '' : 'invisible'
+          }`}
         >
           <div
             className={` ${openMilestonePanel ? 'invisible' : 'flex '} h-full`}
@@ -65,7 +71,7 @@ const PcTasks = () => {
               completedTask={completedTask}
               setCompletedTask={setCompletedTask}
             />
-            <div className="h-full">
+            <div className="absolute left-[19.9rem]">
               <SortModal open={sortModal} setOpen={setSortModal} />
             </div>
           </div>
@@ -81,7 +87,7 @@ const PcTasks = () => {
           </button>
         </div>
         {openMilestonePanel ? (
-          <MileStone taskId={taskId} setTaskId={setTaskId} />
+          <MileStone user={user} tasks={tasks} taskId={taskId} />
         ) : (
           <PcTasksGrid
             tasks={tasks}
@@ -95,7 +101,9 @@ const PcTasks = () => {
       </div>
       <div
         className={`${
-          expandPanel ? 'hidden' : 'w-[35%] lg:w-[30%] xl:w-[25%] xxl:w-[20%]'
+          expandPanel || !user
+            ? 'hidden'
+            : 'w-[35%] lg:w-[30%] xl:w-[25%] xxl:w-[20%]'
         }`}
       >
         <Suspense fallback={<FallBackLoading />}>

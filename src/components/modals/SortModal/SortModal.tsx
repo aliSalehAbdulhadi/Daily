@@ -37,12 +37,16 @@ const SortModal = ({
   return (
     <div
       ref={sortModalRef}
-      className={` cursor-pointer text-white border-[1px] semiSm:border-l-[1px] semiSm:border-0 semiSm:w-fit   inner-shadow py-2 semiSm:py-0 semiSm:h-full  flex flex-col items-center semiSm:justify-center  semiSm:hover:bg-white semiSm:hover:text-secondaryColor whitespace-nowrap semiSm:transition-all  ${
-        !open ? 'px-2 semiSm:px-0' : ''
-      } ${open ? 'text-secondaryColor bg-white' : ''}`}
+      className={` cursor-pointer text-white  mt-1 semiSm:mt-0 rounded semiSm:rounded-none semiSm:border-l-[1px] semiSm:border-0 semiSm:w-fit w-full  inner-shadow py-2 semiSm:py-0 h-[4.5vh] flex flex-col items-center  semiSm:px-0 semiSm: semiSm:hover:bg-white semiSm:hover:text-secondaryColor whitespace-nowrap semiSm:transition-all ${
+        open ? '' : 'border-[1px] px-2'
+      }  ${open ? 'text-secondaryColor bg-white' : ''}`}
       onClick={() => setOpen(!open)}
     >
-      <div className="w-full semiSm:w-[9.9rem] flex items-center justify-center mr-2 py-[0.10rem]">
+      <div
+        className={`w-full  flex items-center mr-2  semiSm:mt-3 semiSm:mb-2 ${
+          sortBy || open ? ' justify-center semiSm:w-[10rem]' : ' ml-3 w-[5rem]'
+        }`}
+      >
         <BiSortAlt2 className="mr-1 " size={18} />
 
         <h1 className="text-[.70rem] semiSm:text-xs mt-[0.17rem]">
@@ -50,9 +54,9 @@ const SortModal = ({
         </h1>
       </div>
       <div
-        className={` transition-all semiSm:absolute semiSm:w-[10.5rem] z-40 semiSm:mr-[0.1rem] top-[9rem] ${
+        className={` transition-all z-40 px-10 semiSm:px-0 rounded-b w-full ${
           open ? 'flex' : 'hidden'
-        } flex-col items-start justify-start  mt-3 w-full bg-white  font-cerealNormal text-xs text-textLight`}
+        } flex-col items-start justify-start  bg-white  font-cerealNormal text-xs text-textLight`}
       >
         <button
           onClick={() => {

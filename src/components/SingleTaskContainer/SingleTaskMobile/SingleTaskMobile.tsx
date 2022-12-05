@@ -243,11 +243,8 @@ const SingleTaskMobile = ({
           } `}
         >
           <div
-            className={`flex flex-col justify-between my-0 px-3  py-2 min-h-[9.5rem]  ${
-              task && task?.milestones?.length <= 0 && task?.completed
-                ? 'w-full'
-                : 'w-[75%] mobileTaskCardBoxShadow'
-            }`}
+            className={`flex flex-col justify-between my-0 px-3  py-2 min-h-[9.5rem] w-[75%] mobileTaskCardBoxShadow
+          `}
           >
             <div
               className={`${
@@ -379,13 +376,9 @@ const SingleTaskMobile = ({
               </div>
             ) : (
               <div
-                className={`flex items-center justify-end w-[25%] bg-[#64f5c56c] pr-2 ${
-                  task && task?.milestones?.length <= 0 && task?.completed
-                    ? 'hidden'
-                    : 'block'
-                }`}
+                className={`flex items-center justify-end w-[25%] bg-[#64f5c56c] pr-2 `}
               >
-                <BiListPlus className="opacity-80" size={30}></BiListPlus>
+                <BiListPlus className="opacity-80" size={30} />
               </div>
             )}
           </Link>

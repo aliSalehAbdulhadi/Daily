@@ -27,7 +27,7 @@ const Wrapper = ({ children }: { children: JSX.Element }) => {
 
   const mouseSensor = useSensor(MouseSensor, {
     activationConstraint: {
-      distance: 10,
+      distance: 5,
     },
   });
 
@@ -57,9 +57,9 @@ const Wrapper = ({ children }: { children: JSX.Element }) => {
         dispatch(
           reArrangeTasksLocally(arrayMove(items, activeIndex, overIndex)),
         );
-        // if (isOnline()) {
-        //   dispatch(reArrangeFirebase({ userUid: user, allTasks: items }));
-        // }
+        if (isOnline()) {
+          dispatch(reArrangeFirebase({ userUid: user, allTasks: items }));
+        }
       });
     }
   };

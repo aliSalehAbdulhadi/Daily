@@ -1,3 +1,4 @@
+import { MdClose } from 'react-icons/md';
 import {
   RootState,
   singleMilestoneInterface,
@@ -28,14 +29,16 @@ const MoveMilestoneModal = ({
   const dispatch = useAppDispatch();
 
   return (
-    <div className="rounded hidden semiSm:flex flex-col bg-white bg-opacity-80 w-[300px] semiSm:w-[350px] h-[290px] my-5 overflow-auto scrollBar py-2 overflow-x-hidden shadow-lg">
+    <div className="rounded hidden semiSm:flex flex-col bg-white bg-opacity-80 w-[300px] semiSm:w-[350px] h-[290px]  shadow-lg">
       <div
         onClick={() => dispatch(toggleOpenMoveMilestone(false))}
-        className="self-end mr-6 mb-3 mt-1 text-red-500 cursor-pointer"
+        className="flex items-center justify-end shadow-sm  w-full h-full   cursor-pointer py-[.35rem]"
       >
-        X
+        <div className=" mr-5">
+          <MdClose className=" text-textLight hover:text-red-400" size={22} />
+        </div>
       </div>
-      <div>
+      <div className=" overflow-auto scrollBar overflow-x-hidden">
         {moveToTasks.map((task) => {
           return (
             <div className="taskCompPc" key={task.id}>

@@ -58,8 +58,8 @@ const MilestoneControlSection = ({ taskId }: { taskId: any }) => {
           <SortMilestoneModal open={sortModal} setOpen={setSortModal} />
         </div>
         <div className="flex items-center">
-          <div className="flex mr-2  flex-row items-start">
-            <div className="items-center justify-center hidden semiSm:flex ">
+          <div className="flex mr-2 mt-1  flex-row items-start">
+            <div className="items-center  justify-center hidden semiSm:flex ">
               <h1 className="mr-2">Milestones:</h1>
               <div className="min-w-[1.5rem]">
                 <span>{milestoneCompleted}</span>
@@ -68,12 +68,11 @@ const MilestoneControlSection = ({ taskId }: { taskId: any }) => {
               </div>
             </div>
 
-            <div className="ml-5  flex flex-row-reverse items-center justify-center mb-1 text-xs mr-5">
-              <label className="mt-1 semiSm:mt-0" htmlFor="punct">
-                Punct
-              </label>
+            <div className="ml-5  flex flex-row-reverse items-center justify-center  text-xs mr-5">
+              <label htmlFor="punct">Punct</label>
 
               <Checkbox
+              className='mb-1'
                 bigger
                 checked={punctCheckbox}
                 onChange={(e) =>
