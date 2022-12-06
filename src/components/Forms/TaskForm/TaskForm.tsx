@@ -78,6 +78,7 @@ const TaskForm = () => {
                       milestones: [],
                     },
                     userUid: user,
+                    tasksDates: { date: newDate.toISOString(), id: uuid },
                   }),
                 );
                 dispatch(
@@ -87,12 +88,12 @@ const TaskForm = () => {
                   }),
                 );
 
-                dispatch(
-                  addTasksDates({
-                    userUid: user,
-                    tasksDates: { date: newDate.toISOString(), id: uuid },
-                  }),
-                );
+                // dispatch(
+                //   addTasksDates({
+                //     userUid: user,
+                //     tasksDates: { date: newDate.toISOString(), id: uuid },
+                //   }),
+                // );
               });
         }
 

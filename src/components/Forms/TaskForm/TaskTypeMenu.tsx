@@ -30,7 +30,6 @@ const TaskTypeMenu = ({
 }) => {
   SwiperCore.use([Keyboard, Mousewheel]);
   const [hidden, setHidden] = useState<boolean>(true);
-  const [value, setValue] = useState<string>(task?.taskType);
   const dispatch = useAppDispatch();
 
   let domNode = useClickOutside(() => {
@@ -39,11 +38,7 @@ const TaskTypeMenu = ({
   const iconsHandler = (e: SyntheticEvent) => {
     e.preventDefault();
     const target = e.target as HTMLInputElement;
-    setValue(target.value);
-    setHidden(true);
-  };
 
-  useEffect(() => {
     batch(() => {
       if (isOnline()) {
         dispatch(
@@ -51,15 +46,17 @@ const TaskTypeMenu = ({
             userUid: user,
             taskId: task?.id,
             allTasks: tasks,
-            taskType: value,
+            taskType: target.value,
           }),
         );
       }
 
-      dispatch(addTaskTypeLocally({ taskId: task?.id, taskType: value }));
+      dispatch(
+        addTaskTypeLocally({ taskId: task?.id, taskType: target.value }),
+      );
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [value]);
+    setHidden(true);
+  };
 
   useEffect(() => {
     dispatch(toggleDisableSwiper(!hidden));

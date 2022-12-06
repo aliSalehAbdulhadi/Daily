@@ -58,7 +58,12 @@ const Wrapper = ({ children }: { children: JSX.Element }) => {
           reArrangeTasksLocally(arrayMove(items, activeIndex, overIndex)),
         );
         if (isOnline()) {
-          dispatch(reArrangeFirebase({ userUid: user, allTasks: items }));
+          dispatch(
+            reArrangeFirebase({
+              userUid: user,
+              allTasks: arrayMove(items, activeIndex, overIndex),
+            }),
+          );
         }
       });
     }

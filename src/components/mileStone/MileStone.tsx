@@ -1,14 +1,5 @@
 import dynamic from 'next/dynamic';
-import {
-  Dispatch,
-  FC,
-  memo,
-  SetStateAction,
-  Suspense,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
+import { FC, memo, Suspense, useEffect, useRef, useState } from 'react';
 import { BsPlusCircle, BsPlusCircleFill } from 'react-icons/bs';
 import { TiArrowBack } from 'react-icons/ti';
 import { batch } from 'react-redux';

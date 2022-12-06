@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { updateDoc, doc } from 'firebase/firestore';
+import { updateDoc, doc, arrayUnion, setDoc } from 'firebase/firestore';
 import { db } from '../../../../container/firebase';
 import { SingleTaskInterface } from '../../../../interfaces/interfaces';
 import { initialState } from '../../../../interfaces/interfaces';
@@ -9,14 +9,23 @@ export const uploadLocalData = createAsyncThunk(
   async ({
     userUid,
     allTasks,
+    allTasksCount,
+    userName,
+    tasksDates,
   }: {
     userUid: string;
     allTasks: SingleTaskInterface[];
+    allTasksCount: number;
+    userName: string;
+    tasksDates: { date: string; id: string }[];
   }) => {
     try {
       const docRef = doc(db, 'userData', userUid);
-      await updateDoc(docRef, {
+      await setDoc(docRef, {
+        allTasksCount: allTasksCount,
+        tasksDates: tasksDates,
         userData: { tasks: allTasks },
+        userName: userName,
       });
     } catch (error) {
       return error;
