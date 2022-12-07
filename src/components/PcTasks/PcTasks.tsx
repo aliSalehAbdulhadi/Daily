@@ -75,10 +75,12 @@ const PcTasks = () => {
           </div>
           <button
             title="Show/Hide Chart"
-            onClick={() => setExpandPanel(!expandPanel)}
             className="self-end flex items-center justify-end w-full h-full"
           >
-            <div className="hover:bg-textDark text-white hover:text-textLight  px-2 py-3">
+            <div
+              onClick={() => setExpandPanel(!expandPanel)}
+              className="hover:bg-textDark text-white hover:text-textLight  px-2 py-3"
+            >
               {expandPanel ? (
                 <BsArrowBarLeft size={20} />
               ) : (
