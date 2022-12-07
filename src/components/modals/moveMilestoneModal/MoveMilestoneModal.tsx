@@ -32,7 +32,7 @@ const MoveMilestoneModal = ({
     <div className="rounded hidden semiSm:flex flex-col bg-white bg-opacity-80 w-[300px] semiSm:w-[350px] h-[290px]  shadow-lg">
       <div
         onClick={() => dispatch(toggleOpenMoveMilestone(false))}
-        className="flex items-center justify-end shadow-sm  w-full h-full   cursor-pointer py-[.35rem]"
+        className="flex items-center justify-end shadow-sm  w-full    cursor-pointer py-[.35rem]"
       >
         <div className=" mr-5">
           <MdClose className=" text-textLight hover:text-red-400" size={22} />

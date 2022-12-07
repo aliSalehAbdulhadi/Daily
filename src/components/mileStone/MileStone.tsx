@@ -124,7 +124,7 @@ const MileStone: FC<{
                 : ' rounded-full m-5 h-14 w-[3.7rem]'
             }`}
           >
-            <TiArrowBack fill="#2c5252" size={22} />
+            <TiArrowBack title="Go back" fill="#2c5252" size={22} />
           </div>
 
           <div className="flex flex-col w-full mt-3">
@@ -238,12 +238,14 @@ const MileStone: FC<{
             >
               {plusIcon ? (
                 <BsPlusCircleFill
+                  title="Add milestone"
                   fill="white"
                   className="h-8 w-8  transition-all"
                   onClick={() => setScroll(true)}
                 />
               ) : (
                 <BsPlusCircle
+                  title="Add milestone"
                   fill="white"
                   className={`h-8 w-8 transition-all  ${
                     openAdvancedForm || isEditing ? 'hidden' : ''

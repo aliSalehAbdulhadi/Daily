@@ -64,26 +64,27 @@ const PcTasks = () => {
             user ? '' : 'invisible'
           }`}
         >
-          <div
-            className={` ${openMilestonePanel ? 'invisible' : 'flex '} h-full`}
-          >
+          <div className={` ${openMilestonePanel ? 'hidden' : 'flex '} h-full`}>
             <PcSwitchButtons
               completedTask={completedTask}
               setCompletedTask={setCompletedTask}
             />
-            <div className="absolute left-[19.9rem]">
+            <div title="Sort Tasks" className="absolute left-[19.9rem]">
               <SortModal open={sortModal} setOpen={setSortModal} />
             </div>
           </div>
           <button
+            title="Show/Hide Chart"
             onClick={() => setExpandPanel(!expandPanel)}
-            className="self-center h-full px-2 hover:bg-textDark text-white hover:text-textLight"
+            className="self-end flex items-center justify-end w-full h-full"
           >
-            {expandPanel ? (
-              <BsArrowBarLeft size={20} />
-            ) : (
-              <BsArrowBarRight size={20} />
-            )}
+            <div className="hover:bg-textDark text-white hover:text-textLight  px-2 py-3">
+              {expandPanel ? (
+                <BsArrowBarLeft size={20} />
+              ) : (
+                <BsArrowBarRight size={20} />
+              )}
+            </div>
           </button>
         </div>
         {openMilestonePanel ? (

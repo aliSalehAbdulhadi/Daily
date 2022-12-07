@@ -54,7 +54,7 @@ const MilestoneControlSection = ({ taskId }: { taskId: any }) => {
   return (
     <div className="text-[.6rem] semiSm:text-xs  semiSm:scale-[1] w-full  ">
       <div className="flex items-center justify-between   md:flex-row md:items-center w-full semiSm:mt-4 semiSm:mb-4">
-        <div className="">
+        <div title="Sort Milestones">
           <SortMilestoneModal open={sortModal} setOpen={setSortModal} />
         </div>
         <div className="flex items-center">
@@ -68,11 +68,14 @@ const MilestoneControlSection = ({ taskId }: { taskId: any }) => {
               </div>
             </div>
 
-            <div className="ml-5  flex flex-row-reverse items-center justify-center  text-xs mr-5">
+            <div
+              title="Punctuate Milestones"
+              className="ml-5  flex flex-row-reverse items-center justify-center  text-xs mr-5"
+            >
               <label htmlFor="punct">Punct</label>
 
               <Checkbox
-              className='mb-1'
+                className="mb-1"
                 bigger
                 checked={punctCheckbox}
                 onChange={(e) =>
@@ -85,7 +88,7 @@ const MilestoneControlSection = ({ taskId }: { taskId: any }) => {
           </div>
           <button
             onClick={() => setDeleteTimer(!deleteTimer)}
-            title="Delete all finished tasks"
+            title="Delete all finished milestones"
             type="button"
             disabled={task && milestoneCompleted === 0}
             className={`bg-white text-secondaryColor border-[1px]  semiSm:mb-0 px-2 py-1 rounded semiSm:mr-4 flex items-center transition-all  ${

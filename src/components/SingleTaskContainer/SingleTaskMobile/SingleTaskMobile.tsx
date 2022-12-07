@@ -252,6 +252,7 @@ const SingleTaskMobile = ({
               } items-center justify-between mt-1 flex`}
             >
               <HiOutlineStar
+                title="Important Task"
                 onClick={importantStateHandler}
                 size={20}
                 fill={task?.important ? '#e8b923' : 'none'}
@@ -263,7 +264,7 @@ const SingleTaskMobile = ({
                 {formatDate}
               </div>
             </div>
-            <div className="relative ml-1">
+            <div title="Edit Task" className="relative ml-1">
               {edit ? (
                 <form
                   ref={textareaRef}
@@ -319,7 +320,7 @@ const SingleTaskMobile = ({
               >
                 {task?.completed ? (
                   <MdOutlineRemoveDone
-                    title="Incomplete"
+                    title="Incomplete Task"
                     onClick={completionHandler}
                     className="cursor-pointer mr-5 scale-[1.8] transition-all ease-in-out"
                   />
@@ -333,6 +334,7 @@ const SingleTaskMobile = ({
               </button>
 
               <div
+                title="Task Color"
                 className={`mr-[1.15rem] ${
                   task?.completed ? 'opacity-60' : ''
                 } ${edit ? 'hidden' : ''}`}
@@ -348,13 +350,13 @@ const SingleTaskMobile = ({
               <button type="button" className={`${edit ? 'hidden' : ''}`}>
                 {task?.locked ? (
                   <HiLockClosed
-                    title="lock task"
+                    title="Unlock Task"
                     onClick={lockTaskHandler}
                     size={20}
                   />
                 ) : (
                   <HiLockOpen
-                    title="lock task"
+                    title="Lock Task"
                     onClick={lockTaskHandler}
                     size={20}
                   />
@@ -362,7 +364,7 @@ const SingleTaskMobile = ({
               </button>
             </div>
           </div>
-          <Link href={`/tasks/${task?.id}`}>
+          <Link title="Milestone Page" href={`/tasks/${task?.id}`}>
             {task && task?.milestones?.length > 0 ? (
               <div className=" w-[25%] flex flex-col items-center justify-center  bg-[#64f5c56c] rounded-tr rounded-br">
                 <div className="scale-[.8]">

@@ -16,7 +16,6 @@ import useCheckStatus from '../../../hooks/useCheckStatus';
 import { isOnline } from '../../../utilities/isOnline';
 import { Dark, UserKey } from '../../../utilities/globalImports';
 
-
 const signUpSchema = Yup.object().shape({
   UserName: Yup.string().min(3).max(15).required('User name is required'),
   Email: Yup.string().min(3).max(24).required('Email is required'),
@@ -36,7 +35,7 @@ const SignUp = ({ open, setOpen, setSignIn }: SignUpInterface) => {
   const signUpStatus = useAppSelector(
     (state: any) => state.signUpReducer?.state,
   );
-  const dark = Dark()
+  const dark = Dark();
   const [pending, fulfilled, rejected, errorMessage] = useCheckStatus({
     setOpen,
     status: signUpStatus,
@@ -136,6 +135,7 @@ const SignUp = ({ open, setOpen, setSignIn }: SignUpInterface) => {
             <div className="flex justify-between items-center mt-5">
               {pending ? (
                 <button
+                  title="Signing Up"
                   className={`flex items-center justify-center py-3 px-3 rounded text-white  text-xs md:text-sm ${
                     dark ? 'bg-secondaryColor' : 'bg-secondaryLight'
                   } `}
@@ -146,6 +146,7 @@ const SignUp = ({ open, setOpen, setSignIn }: SignUpInterface) => {
                 </button>
               ) : (
                 <button
+                  title="Sign Up"
                   className={`py-3 px-7 rounded text-white text-xs md:text-sm hover:text-primaryColor hover:bg-white ${
                     dark ? 'bg-primaryColor' : 'bg-secondaryLight'
                   }`}
@@ -157,7 +158,8 @@ const SignUp = ({ open, setOpen, setSignIn }: SignUpInterface) => {
               <div className="flex flex-col text-xs md:text-sm">
                 <span>Already have an account?</span>
                 <button
-                  className="mt-1"
+                  title="Sign In"
+                  className="mt-1 underline underline-offset-[5px]"
                   type="button"
                   onClick={() => {
                     setOpen(false);

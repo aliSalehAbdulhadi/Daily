@@ -37,6 +37,10 @@ const getTasksSlice = createSlice({
       state.status = '';
     },
 
+    changeUsernameLocally: (state: any, action: PayloadAction<string>) => {
+      state.userName = action?.payload;
+    },
+
     addTasksLocally: (
       state: any,
       action: PayloadAction<SingleTaskInterface>,
@@ -252,8 +256,7 @@ const getTasksSlice = createSlice({
       build.addCase(getTasks?.fulfilled, (state, action: any) => {
         state.status = 'fulfilled';
         state.tasks = action?.payload?.userData?.tasks;
-        state.allTasksCount =
-          state.allTasksCount === 0 ? 0 : action?.payload?.allTasksCount;
+        state.allTasksCount = action?.payload?.allTasksCount;
 
         state.tasksDates = action?.payload?.tasksDates;
         state.userName = action?.payload?.userName
@@ -270,6 +273,7 @@ const getTasksSlice = createSlice({
 export default getTasksSlice.reducer;
 export const {
   resetTaskStatus,
+  changeUsernameLocally,
   addTasksLocally,
   deleteTasksLocally,
   completeTaskLocally,

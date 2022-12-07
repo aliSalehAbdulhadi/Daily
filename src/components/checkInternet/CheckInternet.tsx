@@ -57,7 +57,7 @@ const CheckInternet = () => {
       setUploadData(false);
       dispatch(uploadLocalDataResetStatus());
       setTimeout(() => {
-        // location.reload();
+        location.reload();
       }, 200);
     }
   }, [uploadLocalDataStatus, dispatch]);

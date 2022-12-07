@@ -136,7 +136,7 @@ const Navbar = () => {
       <div className="flex items-center justify-center relative pl-[2rem]">
         <div className={`absolute mr-36 ${dark ? '' : 'opacity-90'}`}>
           <input
-            title="Dark and Light mode"
+            title="Dark/Light Mode"
             type="checkbox"
             alt="Dark mode switch"
             name="dark_mode_switch"
@@ -148,6 +148,7 @@ const Navbar = () => {
           <div className="bg-icon w-8 h-6 bg-no-repeat absolute pointer-events-none top-[-1px] right-[-12px] sm:top-[-1.2px] sm:right-[-14px] sm:w-8 sm:h-6" />
         </div>
         <div
+          title="User Setting"
           ref={userModalRef}
           onClick={() => {
             setOpenUserModalPc(true);

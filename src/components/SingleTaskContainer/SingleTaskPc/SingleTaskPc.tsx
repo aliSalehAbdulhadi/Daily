@@ -237,6 +237,7 @@ const SingleTaskPc = ({
         </div>
         <div className={` ${task?.completed ? 'hidden' : 'block'} `}>
           <HiOutlineStar
+            title="Important Task"
             onClick={importantStateHandler}
             size={20}
             fill={task?.important ? '#e8b923' : 'none'}
@@ -257,7 +258,7 @@ const SingleTaskPc = ({
           <div>
             {task?.locked ? (
               <HiLockClosed
-                title="lock task"
+                title="Unlock Task"
                 type="button"
                 onClick={lockTaskHandler}
                 size={20}
@@ -265,7 +266,7 @@ const SingleTaskPc = ({
               />
             ) : (
               <HiLockOpen
-                title="lock task"
+                title="Lock Task"
                 type="button"
                 onClick={lockTaskHandler}
                 size={20}
@@ -317,11 +318,12 @@ const SingleTaskPc = ({
                 task?.completed ? 'strike opacity-60' : ''
               }`}
             >
-              <div className=" w-full mb-3 text-[.95rem] text-center">
+              <div className=" w-full mb-3 text-[.90rem] text-center">
                 <span className="wrapWord">{task?.content}</span>
               </div>
 
               <div
+                title="Milestones"
                 onClick={() => dispatch(toggleOpenMilestonePanel(true))}
                 className={`w-full flex items-center justify-center bottom-0 left-0 absolute  border-textLight border-t-[1px] border-opacity-10 bg-green-200 bg-opacity-20 hover:bg-opacity-40 hover:text-white transition-all`}
               >
@@ -348,7 +350,7 @@ const SingleTaskPc = ({
         <div className={` ${edit ? 'hidden' : 'flex'} flex-col pl-3 mb-3`}>
           {task?.completed ? (
             <MdOutlineRemoveDone
-              title="Incomplete"
+              title="Incomplete Task"
               type="button"
               onClick={completionHandler}
               size={20}
@@ -356,7 +358,7 @@ const SingleTaskPc = ({
             />
           ) : (
             <GoCheck
-              title="Complete task"
+              title="Complete Task"
               type="button"
               onClick={completionHandler}
               size={21}
@@ -367,7 +369,7 @@ const SingleTaskPc = ({
           {!edit ? (
             <button onClick={() => setEdit(true)} disabled={task?.completed}>
               <MdModeEditOutline
-                title="Edit"
+                title="Edit Task"
                 type="submit"
                 size={20}
                 className={`mb-2 mr-2  transition-all ${
@@ -413,7 +415,7 @@ const SingleTaskPc = ({
               disabled={task?.locked}
               onClick={() => setDeleteTimer(true)}
               className={`${task?.locked ? 'cursor-default' : ''}`}
-              title="Delete"
+              title="Delete Task"
               type="button"
             >
               <AiFillDelete

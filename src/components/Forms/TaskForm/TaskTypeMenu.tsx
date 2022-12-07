@@ -80,7 +80,7 @@ const TaskTypeMenu = ({
       >
         <IoColorFill
           size={21}
-          title="Task Type"
+          title="Task Color"
           className={`${!hidden ? 'hidden' : 'block'} `}
         />
       </button>
