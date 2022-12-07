@@ -257,7 +257,6 @@ const getTasksSlice = createSlice({
         state.status = 'fulfilled';
         state.tasks = action?.payload?.userData?.tasks;
         state.allTasksCount = action?.payload?.allTasksCount;
-
         state.tasksDates = action?.payload?.tasksDates;
         state.userName = action?.payload?.userName
           ? encrypt(action?.payload?.userName, encryptKey)

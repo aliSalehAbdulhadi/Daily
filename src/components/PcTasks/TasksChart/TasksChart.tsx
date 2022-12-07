@@ -149,6 +149,7 @@ const TasksChart = ({
             <span>
               {completedTasks?.length > 0 ? completedTasks.length : 0}
             </span>
+
           </div>
           <div className="flex items-center justify-between w-[75%]">
             <span>Important tasks: </span>
@@ -179,6 +180,7 @@ const TasksChart = ({
           <div className="flex items-center justify-between w-[75%]">
             <span>Total tasks added: </span>
             <span>{allTasksCount > 0 ? allTasksCount : 0}</span>
+
           </div>
         </div>
       </div>
