@@ -21,7 +21,7 @@ export const uploadLocalData = createAsyncThunk(
   }) => {
     try {
       const docRef = doc(db, 'userData', userUid);
-      await setDoc(docRef, {
+      await updateDoc(docRef, {
         allTasksCount: allTasksCount,
         tasksDates: tasksDates,
         userData: { tasks: allTasks },

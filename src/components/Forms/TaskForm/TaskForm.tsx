@@ -64,37 +64,23 @@ const TaskForm = () => {
         if (isOnline()) {
           values.Form?.length === 0 || values.Form?.length > 50
             ? false
-            : batch(() => {
-                dispatch(
-                  addTask({
-                    task: {
-                      content: values.Form,
-                      completed: false,
-                      id: uuid,
-                      taskType: taskColor[randomNum],
-                      date: newDate.toISOString(),
-                      important: false,
-                      locked: false,
-                      milestones: [],
-                    },
-                    userUid: user,
-                    tasksDates: { date: newDate.toISOString(), id: uuid },
-                  }),
-                );
-                dispatch(
-                  increaseAllTasksCount({
-                    userUid: user,
-                    allTasksCount: allTasksCount + 1,
-                  }),
-                );
-
-                // dispatch(
-                //   addTasksDates({
-                //     userUid: user,
-                //     tasksDates: { date: newDate.toISOString(), id: uuid },
-                //   }),
-                // );
-              });
+            : dispatch(
+                addTask({
+                  task: {
+                    content: values.Form,
+                    completed: false,
+                    id: uuid,
+                    taskType: taskColor[randomNum],
+                    date: newDate.toISOString(),
+                    important: false,
+                    locked: false,
+                    milestones: [],
+                  },
+                  userUid: user,
+                  tasksDates: { date: newDate.toISOString(), id: uuid },
+                  allTasksCount: allTasksCount + 1,
+                }),
+              );
         }
 
         values.Form?.length === 0 || values.Form?.length > 50

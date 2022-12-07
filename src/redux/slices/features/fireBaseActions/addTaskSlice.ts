@@ -11,10 +11,12 @@ export const addTask = createAsyncThunk(
     task,
     userUid,
     tasksDates,
+    allTasksCount,
   }: {
     task: SingleTaskInterface;
     userUid: string;
     tasksDates: { date: string; id: string };
+    allTasksCount: number;
   }) => {
     await setDoc(
       doc(db, 'userData', userUid),
@@ -23,6 +25,7 @@ export const addTask = createAsyncThunk(
         userData: {
           tasks: arrayUnion(task),
         },
+        allTasksCount: allTasksCount,
       },
       { merge: true },
     );
