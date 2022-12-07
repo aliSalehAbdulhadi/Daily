@@ -53,14 +53,14 @@ const PcTasks = () => {
   return (
     <div className="flex w-full">
       <div
-        className={`flex flex-col font-Comfortaa font-bold  mobileTaskCardBoxShadow transition-all h-[88.3vh] relative ${
+        className={`flex flex-col font-Comfortaa font-bold  mobileTaskCardBoxShadow transition-all h-[88.35vh] relative ${
           expandPanel || !user
             ? 'w-full'
             : 'w-[65%]  lg:w-[70%] xl:w-[75%] xxl:w-[80%]'
         }`}
       >
         <div
-          className={`self-start flex justify-between  shadow-md h-[4.5vh]  w-full ${
+          className={`self-start flex justify-between  shadow-md h-[4.5vh] w-full ${
             user ? '' : 'invisible'
           }`}
         >

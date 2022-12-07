@@ -8,7 +8,7 @@ const FallBackLoading = () => {
     <div
       className={`${
         user ? 'h-[77.5vh] ' : 'h-[100vh]'
-      } semiSm:h-[86.2vh] flex items-center justify-center`}
+      } semiSm:h-[88.35vh] flex items-center justify-center`}
     >
       <div className="mb-[5rem] ml-3">
         <ClapSpinner />

@@ -148,7 +148,7 @@ const SingleTaskPc = ({
       setTimeout(() => {
         dispatch(deleteTasksLocally({ taskId: task?.id }));
         setDeleteAnimation(false);
-      }, 250);
+      }, 120);
     });
   };
 
@@ -215,14 +215,14 @@ const SingleTaskPc = ({
         task?.important ? 'outline-[1px] outline outline-yellow-400' : ''
       }
 
-           hover:transition-transform hover:ease-in-out font-Comfortaa font-semibold my-2 px-5 min-h-[11rem] relative ${
+           hover:transition-transform hover:ease-in-out font-Comfortaa font-semibold my-2 px-3 min-h-[11rem] relative ${
              task?.completed
                ? 'bg-red-400 shadow-2xl'
                : setCardColorByTypeHandler(true, task?.taskType)
            } flex flex-col justify-center items-center rounded ease-in-out
             ${
               deleteAnimation
-                ? 'translate-x-[-35rem] transition-all ease-in-out'
+                ? ' scale-75 transition-all opacity-50 ease-in-out'
                 : ''
             } ${completeAnimation ? 'animate-bounce' : ''} `}
     >
@@ -230,7 +230,7 @@ const SingleTaskPc = ({
         ref={inViewPortRef}
         className={`${
           edit ? 'hidden' : 'flex'
-        } items-center justify-between w-full absolute top-[12px]  px-5 `}
+        } items-center justify-between w-full absolute top-[12px]  px-3 `}
       >
         <div className="text-xs w-fit whitespace-nowrap select-none">
           {formatDate}
@@ -243,9 +243,7 @@ const SingleTaskPc = ({
             fill={task?.important ? '#e8b923' : 'none'}
             className={`transition-all ${
               task?.important ? '' : 'hover:fill-white hover:text-white'
-            } ${
-              task?.important ? 'text-yellow-300' : ''
-            } mr-[.6rem] cursor-pointer`}
+            } ${task?.important ? 'text-yellow-300' : ''}  cursor-pointer`}
           />
         </div>
       </div>
@@ -274,7 +272,9 @@ const SingleTaskPc = ({
               />
             )}
           </div>
-          <div className={`mb-3 ${task?.completed ? 'opacity-60' : ''}`}>
+          <div
+            className={`mb-3 ml-[2px] ${task?.completed ? 'opacity-60' : ''}`}
+          >
             <TaskTypeMenu
               user={user}
               tasks={tasks}
@@ -325,18 +325,20 @@ const SingleTaskPc = ({
               <div
                 title="Milestones"
                 onClick={() => dispatch(toggleOpenMilestonePanel(true))}
-                className={`w-full flex items-center justify-center bottom-0 left-0 absolute  border-textLight border-t-[1px] border-opacity-10 bg-green-200 bg-opacity-20 hover:bg-opacity-40 hover:text-white transition-all`}
+                className={`w-full flex items-center justify-center bottom-0 left-0 absolute  border-white border-t-[1px] border-opacity-10 bg-green-200 bg-opacity-20 hover:bg-opacity-40 hover:text-white transition-all`}
               >
                 {task && task?.milestones?.length > 0 ? (
-                  <div className="w-full flex items-center justify-center  h-7 rounded-b ">
-                    <div className="w-[50%] mr-7 relative">
+                  <div className="w-full flex items-center relative h-7 rounded-b ">
+                    <div className="w-[75%] ml-2 border-[1px] border-white rounded border-opacity-30">
                       <ProgressBar
                         percent={percentage}
                         height={8}
                         filledBackground="linear-gradient(to right, #ccedde, #86d9b8)"
                         unfilledBackground="#f5faf8"
                       />
-                      <span className="ml-5 text-[.80rem] absolute top-[-4.8px] right-[-25px]">{`${milestoneCompleted}/${task?.milestones?.length}`}</span>
+                      <div className="w-[20%]">
+                        <span className="ml-5 text-[.80rem] absolute top-[6px]  right-[10px]">{`${milestoneCompleted}/${task?.milestones?.length}`}</span>
+                      </div>
                     </div>
                   </div>
                 ) : (
@@ -354,7 +356,7 @@ const SingleTaskPc = ({
               type="button"
               onClick={completionHandler}
               size={20}
-              className="cursor-pointer mb-2 mr-2 hover:text-white transition-all "
+              className="cursor-pointer mb-2  hover:text-white transition-all "
             />
           ) : (
             <GoCheck
@@ -362,7 +364,7 @@ const SingleTaskPc = ({
               type="button"
               onClick={completionHandler}
               size={21}
-              className="cursor-pointer mb-2 mr-2 hover:text-white transition-all "
+              className="cursor-pointer mb-2  hover:text-white transition-all "
             />
           )}
 
@@ -372,7 +374,7 @@ const SingleTaskPc = ({
                 title="Edit Task"
                 type="submit"
                 size={20}
-                className={`mb-2 mr-2  transition-all ${
+                className={`mb-2   transition-all ${
                   task?.completed ? 'opacity-60' : 'hover:text-white'
                 }`}
               />
@@ -382,16 +384,24 @@ const SingleTaskPc = ({
               type="submit"
               onClick={() => setEdit(false)}
               size={20}
-              className={`cursor-pointer mb-2 mr-2 hover:text-white transition-all`}
+              className={`cursor-pointer mb-2  hover:text-white transition-all`}
             />
           )}
 
           {deleteTimer ? (
             <div
-              className="relative cursor-pointer w-fit h-fit "
+              className={`relative cursor-pointer ${
+                task?.completed
+                  ? 'w-[1.2rem] h-[1.4rem]'
+                  : 'w-[1.3rem] h-[1.3rem]'
+              }`}
               onClick={() => setDeleteTimer(false)}
             >
-              <BiX className="absolute h-4 w-4 top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]" />
+              <BiX
+                className={`absolute h-[.5] w-[.5] top-[3px] ${
+                  task?.completed ? 'left-[.22rem]' : 'left-[.19rem]'
+                }`}
+              />
               <CountdownCircleTimer
                 size={22}
                 strokeWidth={2}
@@ -419,8 +429,9 @@ const SingleTaskPc = ({
               type="button"
             >
               <AiFillDelete
+                size={20}
                 type="submit"
-                className={`scale-[1.3] ml-[.10rem] h-[1.35rem] transition-all  ${
+                className={` transition-all h-[1.35rem] ${
                   task?.locked ? 'opacity-50 ' : 'hover:text-white '
                 }`}
               />

@@ -1,4 +1,4 @@
-import { memo, Suspense, useEffect, useMemo, useRef, useState } from 'react';
+import { memo, Suspense, useEffect, useRef, useState } from 'react';
 import dynamic from 'next/dynamic';
 import {
   rectSortingStrategy,
