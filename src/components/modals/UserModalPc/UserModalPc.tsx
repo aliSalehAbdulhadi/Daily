@@ -33,12 +33,16 @@ const UserModalPc = ({
       }`}
     >
       {user ? (
-        <div className="flex items-center justify-center w-full my-1 py-2 px-4 hover:bg-gray-50 mt-2 font-cerealMedium border-b-[1.7px] mb-3">
+        <div
+          title=""
+          className="flex items-center justify-center w-full my-1 py-2 px-4 hover:bg-gray-50 mt-2 font-cerealMedium border-b-[1.7px] mb-3"
+        >
           <h1 className="text-lg">{userName}</h1>
         </div>
       ) : (
         <div className="flex flex-col items-start justify-start w-full">
           <button
+            title="Sign Up"
             onClick={() => {
               setOpenSignUpModal(true);
             }}
@@ -48,6 +52,7 @@ const UserModalPc = ({
             Sign up
           </button>
           <button
+            title="Log In"
             onClick={() => {
               setOpenSignInModal(true);
             }}
@@ -57,6 +62,7 @@ const UserModalPc = ({
             Log in
           </button>
           <button
+            title="Download Daily"
             type="button"
             className="w-full text-start my-1 py-2 px-4 hover:bg-gray-50"
           >
@@ -71,6 +77,7 @@ const UserModalPc = ({
         }`}
       >
         <button
+          title="Change Username"
           onClick={() => {
             setOpenUsernameModal(true);
           }}
@@ -80,6 +87,7 @@ const UserModalPc = ({
           Change Username
         </button>
         <button
+          title="Change Password"
           onClick={() => setOpenPasswordModal(true)}
           className="w-full text-start my-1 py-2 px-4 hover:bg-gray-50"
           type="button"
@@ -88,6 +96,7 @@ const UserModalPc = ({
         </button>
 
         <button
+          title="Download Daily"
           type="button"
           className="w-full text-start my-1 py-2 px-4 hover:bg-gray-50"
         >
@@ -95,6 +104,7 @@ const UserModalPc = ({
         </button>
 
         <button
+          title="Log Out"
           onClick={() => {
             setOpenLogoutModal(true);
           }}

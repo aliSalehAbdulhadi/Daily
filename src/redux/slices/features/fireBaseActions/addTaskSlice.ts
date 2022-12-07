@@ -1,17 +1,31 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
 import { db } from '../../../../container/firebase';
-import { doc, setDoc, arrayUnion } from 'firebase/firestore';
+import { doc, setDoc, arrayUnion, updateDoc } from 'firebase/firestore';
 import { initialState } from '../../../../interfaces/interfaces';
 import { SingleTaskInterface } from '../../../../interfaces/interfaces';
 
 export const addTask = createAsyncThunk(
   'addTask',
-  async ({ task, userUid }: { task: SingleTaskInterface; userUid: string }) => {
+  async ({
+    task,
+    userUid,
+    tasksDates,
+    allTasksCount,
+  }: {
+    task: SingleTaskInterface;
+    userUid: string;
+    tasksDates: { date: string; id: string };
+    allTasksCount: number;
+  }) => {
     await setDoc(
       doc(db, 'userData', userUid),
       {
-        userData: { tasks: arrayUnion(task) },
+        tasksDates: arrayUnion(tasksDates),
+        userData: {
+          tasks: arrayUnion(task),
+        },
+        allTasksCount: allTasksCount,
       },
       { merge: true },
     );

@@ -2,10 +2,7 @@ import * as Yup from 'yup';
 import { Formik, Form } from 'formik';
 import { FaSpinner } from 'react-icons/fa';
 import Modal from '../Modal/Modal';
-import {
-  useAppDispatch,
-  useAppSelector,
-} from '../../../interfaces/interfaces';
+import { useAppDispatch, useAppSelector } from '../../../interfaces/interfaces';
 import FormField from '../../FormField/FormField';
 import useCheckStatus from '../../../hooks/useCheckStatus';
 import { resetPasswordThunk } from '../../../redux/slices/authentication/resetPasswordSlice';
@@ -37,17 +34,18 @@ const ResetPassword = ({
     status: passwordState,
     error: passwordError,
   });
-  const dark = Dark()
+  const dark = Dark();
 
   return (
     <Modal label="Reset Password" setOpen={setOpen} open={open}>
       <Formik
         initialValues={{ Email: '' }}
         validationSchema={signInSchema}
-        onSubmit={(values) => {
+        onSubmit={(values, { resetForm }) => {
           if (isOnline()) {
             dispatch(resetPasswordThunk({ email: values.Email }));
           }
+          resetForm();
         }}
       >
         {({}) => (
@@ -58,11 +56,11 @@ const ResetPassword = ({
               label="Enter your account email."
               name="Email"
               type="email"
-              placeholder="Enter Your Email"
+              placeholder="You@email.com"
               value="email"
               classNameField="p-5 outline-none block w-full mt-1 shadow-sm sm:text-sm border-gray-300 rounded py-3 font-Comfortaa text-textLight "
             />
-            <div className={isOnline() ? '' : ''}>
+            <div className={isOnline() ? 'px-[6rem]' : ''}>
               <div className="py-2 h-4 w-full flex items-center justify-center ">
                 {rejected ? (
                   <h2 className="text-red-600 text-sm">{errorMessage}</h2>
@@ -77,28 +75,30 @@ const ResetPassword = ({
                 <div className="flex justify-center items-center mt-7">
                   {pending ? (
                     <button
+                      title="Sending"
                       className={`flex items-center justify-center  relative ${
                         dark ? 'bg-primaryColor' : 'bg-secondaryLight'
-                      } py-3 w-[10rem] rounded text-white  text-sm md:text-sm`}
+                      } py-3 px-[4rem] rounded text-white  text-sm md:text-sm`}
                       type="submit"
                     >
-                      <span className='mr-5'>Resetting</span>
+                      <span className="mr-5">Resetting</span>
                       <FaSpinner className="animate-spin absolute right-7" />
                     </button>
                   ) : (
                     <button
+                      title="Send"
                       className={`${
                         dark ? 'bg-primaryColor' : 'bg-secondaryLight'
-                      } py-3  w-[10rem]  rounded text-white  text-sm md:text-sm hover:text-primaryColor hover:bg-white`}
+                      } py-3  px-[4rem]  rounded text-white  text-sm md:text-sm hover:text-primaryColor hover:bg-white`}
                       type="submit"
                     >
-                      Reset
+                      Send
                     </button>
                   )}
                 </div>
               ) : (
-                <div className="text-sm">
-                  You must be connected to change you password.
+                <div className="text-xs">
+                  You must be connected to change your password.
                 </div>
               )}
             </div>

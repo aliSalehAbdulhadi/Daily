@@ -246,6 +246,11 @@ input::-webkit-input-placeholder {
   clip-path: inset(0px -15px 0px 0px);
 }
 
+.pcTaskCardBoxShadow {
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.5);
+  clip-path: inset(0px 0px -15px 0px);
+}
+
 .textAreaNoResize {
   resize: none;
 }

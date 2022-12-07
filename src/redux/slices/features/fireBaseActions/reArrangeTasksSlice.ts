@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { updateDoc, doc } from 'firebase/firestore';
+import { updateDoc, doc, arrayUnion } from 'firebase/firestore';
 import { db } from '../../../../container/firebase';
 import { SingleTaskInterface } from '../../../../interfaces/interfaces';
 import { initialState } from '../../../../interfaces/interfaces';
@@ -38,6 +38,7 @@ const reArrange = createSlice({
       state.state = 'pending';
     }),
       build.addCase(reArrangeFirebase.fulfilled, (state) => {
+        console.log(state);
         state.state = 'fulfilled';
       }),
       build.addCase(reArrangeFirebase.rejected, (state, action: any) => {

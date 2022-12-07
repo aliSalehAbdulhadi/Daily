@@ -5,6 +5,7 @@ import { doc, setDoc, arrayUnion } from 'firebase/firestore';
 import { initialState } from '../../../../interfaces/interfaces';
 import { SingleTaskInterface } from '../../../../interfaces/interfaces';
 
+//not used yet
 export const addRemovedTask = createAsyncThunk(
   'addRemovedTask',
   async ({ task, userUid }: { task: SingleTaskInterface; userUid: string }) => {

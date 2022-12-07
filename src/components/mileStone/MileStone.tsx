@@ -1,16 +1,8 @@
 import dynamic from 'next/dynamic';
-import {
-  Dispatch,
-  FC,
-  memo,
-  SetStateAction,
-  Suspense,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
+import { FC, memo, Suspense, useEffect, useRef, useState } from 'react';
 import { BsPlusCircle, BsPlusCircleFill } from 'react-icons/bs';
 import { TiArrowBack } from 'react-icons/ti';
+import { batch } from 'react-redux';
 import useClickOutside from '../../hooks/useClickOutside';
 import {
   RootState,
@@ -18,8 +10,11 @@ import {
   useAppDispatch,
   useAppSelector,
 } from '../../interfaces/interfaces';
+import { completedTask } from '../../redux/slices/features/fireBaseActions/completeTaskSlice';
+import { completeTaskLocally } from '../../redux/slices/features/getTasksSlice';
 import { toggleOpenMilestonePanel } from '../../redux/slices/features/openMilestonePanelPc';
 import { Tasks } from '../../utilities/globalImports';
+import { isOnline } from '../../utilities/isOnline';
 import MilestoneControlSection from '../milestoneControlSection/MilestoneControlSection';
 import ProgressBar from '../progressBar/ProgressBar';
 const MilestoneSinglePage = dynamic(
@@ -33,20 +28,22 @@ const AdvancedForm = dynamic(
 
 const MileStone: FC<{
   taskId: string;
-  setTaskId: Dispatch<SetStateAction<string>>;
+  user: string;
+  tasks: SingleTaskInterface[];
 }> = ({
   taskId,
-  setTaskId,
+  user,
+  tasks,
 }: {
   taskId: string;
-  setTaskId: Dispatch<SetStateAction<string>>;
+  user: string;
+  tasks: SingleTaskInterface[];
 }) => {
   const [plusIcon, setPlusIcon] = useState<boolean>(false);
   const [scroll, setScroll] = useState<boolean>(false);
   const [openAdvancedForm, setOpenAdvancedForm] = useState<boolean>(false);
   const [isEditing, setIsEditing] = useState<boolean>(false);
 
-  const tasks: SingleTaskInterface[] = Tasks();
   const task = tasks?.find((task) => task?.id === taskId);
   const dispatch = useAppDispatch();
 
@@ -111,9 +108,9 @@ const MileStone: FC<{
 
   return (
     <div className="m-5 flex flex-col  font-Comfortaa transition-all text-white  relative">
-      <div className="bg-primaryColor rounded overflow-hidden scrollBar w-full relative h-[75vh]">
+      <div className="bg-primaryColor rounded overflow-hidden scrollBar w-full relative h-[80vh]">
         <div
-          className={`flex h-[19%] ${
+          className={`flex h-[17.5%] ${
             task && task?.milestones?.length > 0
               ? 'border-b-[1px] shadow-lg'
               : ''
@@ -127,7 +124,7 @@ const MileStone: FC<{
                 : ' rounded-full m-5 h-14 w-[3.7rem]'
             }`}
           >
-            <TiArrowBack fill="#2c5252" size={22} />
+            <TiArrowBack title="Go back" fill="#2c5252" size={22} />
           </div>
 
           <div className="flex flex-col w-full mt-3">
@@ -161,7 +158,7 @@ const MileStone: FC<{
           </div>
         </div>
 
-        <div className="flex flex-col items-center mx-5 overflow-auto scrollBar h-[59vh]">
+        <div className="flex flex-col items-center mx-5 overflow-auto scrollBar mt-1 h-[63vh]">
           <div className="w-full mb-10 ">
             {milestonesSortHandler()?.map((milestone: any, i) => {
               return (
@@ -193,11 +190,34 @@ const MileStone: FC<{
 
             <div ref={scrollRefBottom}></div>
           </div>
-          <span
-            className={`self-center my-5 ${task?.completed ? '' : 'hidden'}`}
+          <div
+            className={`self-center my-5 ${
+              task?.completed ? '' : 'hidden'
+            } flex flex-col justify-center items-center`}
           >
-            Cant add milestones to finished tasks
-          </span>
+            <span>Cant add milestones to finished tasks</span>
+            <div className="mt-3">
+              <button
+                onClick={() =>
+                  batch(() => {
+                    dispatch(completeTaskLocally({ taskId: taskId }));
+                    if (isOnline()) {
+                      dispatch(
+                        completedTask({
+                          userUid: user,
+                          taskId: taskId,
+                          allTasks: tasks,
+                        }),
+                      );
+                    }
+                  })
+                }
+                className="ml-5 py-1 px-5 border-[1px] rounded hover:bg-white hover:text-textLight"
+              >
+                Incomplete ?
+              </button>
+            </div>
+          </div>
         </div>
 
         <div
@@ -218,12 +238,14 @@ const MileStone: FC<{
             >
               {plusIcon ? (
                 <BsPlusCircleFill
+                  title="Add milestone"
                   fill="white"
                   className="h-8 w-8  transition-all"
                   onClick={() => setScroll(true)}
                 />
               ) : (
                 <BsPlusCircle
+                  title="Add milestone"
                   fill="white"
                   className={`h-8 w-8 transition-all  ${
                     openAdvancedForm || isEditing ? 'hidden' : ''
@@ -232,7 +254,7 @@ const MileStone: FC<{
                 />
               )}
 
-              <div className="absolute whitespace-nowrap left-[-75px] top-14">
+              <div className="absolute whitespace-nowrap left-[-77px] top-14">
                 {taskId &&
                 !task?.completed &&
                 task &&

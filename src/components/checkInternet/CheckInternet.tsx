@@ -13,7 +13,11 @@ import {
   uploadLocalData,
 } from '../../redux/slices/features/fireBaseActions/uploadLocalData';
 import { isOnline } from '../../utilities/isOnline';
-import { Tasks, UserKey } from '../../utilities/globalImports';
+import {
+  DecryptedUserName,
+  Tasks,
+  UserKey,
+} from '../../utilities/globalImports';
 import { batch } from 'react-redux';
 
 const CheckInternet = () => {
@@ -24,6 +28,13 @@ const CheckInternet = () => {
   const dispatch = useAppDispatch();
   const tasks: SingleTaskInterface[] = Tasks();
   const user = UserKey();
+  const allTasksCount = useAppSelector(
+    (state: RootState) => state.getTaskReducer?.allTasksCount,
+  );
+  const tasksDates = useAppSelector(
+    (state: RootState) => state.getTaskReducer?.tasksDates,
+  );
+  const userName = DecryptedUserName();
 
   const uploadLocalDataStatus = useAppSelector(
     (state: RootState) => state.uploadLocalDataReducer.state,
@@ -55,8 +66,15 @@ const CheckInternet = () => {
     window.ononline = () => {
       setCheckInternet(true);
       batch(() => {
-        dispatch(uploadLocalData({ userUid: user, allTasks: tasks }));
-        dispatch(reArrangeFirebase({ userUid: user, allTasks: tasks }));
+        dispatch(
+          uploadLocalData({
+            userUid: user,
+            allTasks: tasks,
+            allTasksCount: allTasksCount,
+            tasksDates: tasksDates,
+            userName: userName,
+          }),
+        );
       });
 
       setUploadData(true);

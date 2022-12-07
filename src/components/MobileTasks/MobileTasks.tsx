@@ -1,6 +1,11 @@
 import { memo, Suspense, useEffect, useMemo, useRef, useState } from 'react';
 import dynamic from 'next/dynamic';
 import {
+  rectSortingStrategy,
+  verticalListSortingStrategy,
+  SortableContext,
+} from '@dnd-kit/sortable';
+import {
   useAppSelector,
   SingleTaskInterface,
 } from '../../interfaces/interfaces';
@@ -15,11 +20,6 @@ import {
   CompletedTasks,
 } from '../../utilities/globalImports';
 import LoadingCard from '../loadingCard/LoadingCard';
-import {
-  rectSortingStrategy,
-  verticalListSortingStrategy,
-  SortableContext,
-} from '@dnd-kit/sortable';
 
 const SingleTaskContainer = dynamic(
   () => import('../SingleTaskContainer/SingleTaskContainer'),

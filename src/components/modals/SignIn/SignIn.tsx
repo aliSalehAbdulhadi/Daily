@@ -37,7 +37,7 @@ const SignIn = ({
     error: signInError,
   });
 
-  const dark = Dark()
+  const dark = Dark();
 
   return (
     <Modal label="Sign In" setOpen={setOpen} open={open}>
@@ -75,6 +75,7 @@ const SignIn = ({
               classNameField="p-5 outline-none block w-full shadow-sm sm:text-sm border-gray-300 rounded py-3 font-Comfortaa text-textLight mt-1 "
             />
             <button
+              title="Forgot Password"
               type="button"
               onClick={() => {
                 setResetPassword(true);
@@ -95,6 +96,7 @@ const SignIn = ({
             <div className="flex justify-between items-center mt-7">
               {pending ? (
                 <button
+                  title="Signing In"
                   className={`flex items-center justify-center py-3 px-5 rounded text-white  text-xs md:text-sm ${
                     dark ? 'bg-primaryColor' : 'bg-secondaryLight'
                   }`}
@@ -105,6 +107,7 @@ const SignIn = ({
                 </button>
               ) : (
                 <button
+                  title="Sign In"
                   className={`py-3 px-7 rounded text-white text-xs md:text-sm hover:text-primaryColor hover:bg-white ${
                     dark ? 'bg-primaryColor' : 'bg-secondaryLight'
                   }`}
@@ -116,7 +119,8 @@ const SignIn = ({
               <div className="flex flex-col text-xs md:text-sm ">
                 <span>Dont have an account?</span>
                 <button
-                  className="mt-1"
+                  title="Sign Up"
+                  className="mt-1 underline underline-offset-[5px]"
                   type="button"
                   onClick={() => {
                     setOpen(false);

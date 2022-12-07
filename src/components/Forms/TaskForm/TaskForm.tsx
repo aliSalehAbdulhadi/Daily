@@ -30,7 +30,6 @@ const TaskForm = () => {
     (state: RootState) => state.getTaskReducer?.allTasksCount,
   );
 
-
   const dark = Dark();
   const dispatch = useAppDispatch();
   const user = UserKey();
@@ -43,6 +42,19 @@ const TaskForm = () => {
     formRef.current?.blur();
   }, [submitAnimation]);
 
+  const taskColor = [
+    'green-4',
+    'blue-4',
+    'amber-2',
+    'pink-4',
+    'purple-4',
+    'teal-4',
+    'salmon',
+    'emerald-5',
+  ];
+
+  const randomNum = Math.floor(Math.random() * (7 - 0) + 0);
+
   return (
     <Formik
       initialValues={{ Form: '' }}
@@ -52,36 +64,23 @@ const TaskForm = () => {
         if (isOnline()) {
           values.Form?.length === 0 || values.Form?.length > 50
             ? false
-            : batch(() => {
-                dispatch(
-                  addTask({
-                    task: {
-                      content: values.Form,
-                      completed: false,
-                      id: uuid,
-                      taskType: 'green-4',
-                      date: newDate.toISOString(),
-                      important: false,
-                      locked: false,
-                      milestones: [],
-                    },
-                    userUid: user,
-                  }),
-                );
-                dispatch(
-                  increaseAllTasksCount({
-                    userUid: user,
-                    allTasksCount: allTasksCount + 1,
-                  }),
-                );
-
-                dispatch(
-                  addTasksDates({
-                    userUid: user,
-                    tasksDates: { date: newDate.toISOString(), id: uuid },
-                  }),
-                );
-              });
+            : dispatch(
+                addTask({
+                  task: {
+                    content: values.Form,
+                    completed: false,
+                    id: uuid,
+                    taskType: taskColor[randomNum],
+                    date: newDate.toISOString(),
+                    important: false,
+                    locked: false,
+                    milestones: [],
+                  },
+                  userUid: user,
+                  tasksDates: { date: newDate.toISOString(), id: uuid },
+                  allTasksCount: allTasksCount + 1,
+                }),
+              );
         }
 
         values.Form?.length === 0 || values.Form?.length > 50
@@ -93,7 +92,7 @@ const TaskForm = () => {
                     content: values.Form,
                     completed: false,
                     id: uuid,
-                    taskType: 'green-4',
+                    taskType: taskColor[randomNum],
                     date: newDate.toISOString(),
                     important: false,
                     locked: false,

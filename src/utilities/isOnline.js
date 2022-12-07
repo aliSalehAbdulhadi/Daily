@@ -1,3 +1,4 @@
 export const isOnline = () => {
-  return navigator.onLine;
+  return navigator.onLine; 
+  // return false;
 };

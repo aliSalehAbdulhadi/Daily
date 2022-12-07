@@ -216,7 +216,7 @@ const MilestoneSinglePage = ({
               />
 
               <button
-                className="w-full py-2 bg-[#ebebeb] text-black mt-5 semiSm:rounded-b mb-5"
+                className="w-full hover:opacity-90 transition-all py-2 bg-[#ebebeb] text-black mt-5 semiSm:rounded-b mb-5"
                 onClick={editMilestoneHanlder}
                 type="submit"
               >
@@ -226,6 +226,7 @@ const MilestoneSinglePage = ({
           ) : (
             <div
               onClick={() => setEdit(true)}
+              title="Edit Milestone"
               className={`font-Comfortaa font-bold flex flex-col py-2 transition-all  ml-2 semiSm:ml-0`}
             >
               <pre
@@ -267,15 +268,22 @@ const MilestoneSinglePage = ({
             className="container w-fit h-fit mt-1"
           >
             {milestone?.milestoneCompleted ? (
-              <MdOutlineRemoveDone className=" h-[1.15rem]" />
+              <MdOutlineRemoveDone
+                title="Incomplete Milestone"
+                className=" h-[1.15rem]"
+              />
             ) : completeIcon ? (
-              <BsCheckCircleFill className="h-[1.15rem]" />
+              <BsCheckCircleFill
+                title="Complete Milestone"
+                className="h-[1.15rem]"
+              />
             ) : (
               <BsCheckCircle className="h-[1.15rem]" />
             )}
           </button>
 
           <button
+            title="Move Milestone"
             onMouseEnter={() => setMoveMilestoneIcon(true)}
             onMouseLeave={() => setMoveMilestoneIcon(false)}
             onClick={() => {
@@ -294,6 +302,7 @@ const MilestoneSinglePage = ({
 
           {deleteTimer ? (
             <div
+              title="Cancel Deletion"
               className="relative cursor-pointer w-fit h-fit mb-3 "
               onClick={() => setDeleteTimer(false)}
             >
@@ -313,12 +322,12 @@ const MilestoneSinglePage = ({
             </div>
           ) : (
             <button
+              title="Delete Milestone"
               onMouseEnter={() => setDeleteIcon(true)}
               onMouseLeave={() => setDeleteIcon(false)}
               className="container w-fit h-fit"
               onClick={() => setDeleteTimer(true)}
               type="button"
-              title="move milestone button"
             >
               {deleteIcon ? (
                 <AiFillDelete className="h-5" />

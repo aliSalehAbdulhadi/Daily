@@ -127,11 +127,11 @@ const TasksChart = ({
 
   return (
     <div className="h-[88.3vh]  bg-opacity-30  flex flex-col  text-white opacity-90 text-[.9rem]">
-      <div className="h-[4.5vh] "></div>
+      <div className="h-[2vh] semiSm:h-[4.5vh]"></div>
       <div className=" self-center h-[40%]">
         <Chart chartData={data} />
       </div>
-      <div className="flex flex-col mt-10 border-y-[1px] py-5">
+      <div className="flex flex-col semiSm:mt-10 mt-8 border-y-[1px] py-5">
         <div className="flex items-center justify-between self-center semiSm:ml-[2rem] md:ml-[3rem] semiSm:w-[66%]">
           <span className="text-base">Current tasks overview</span>
         </div>

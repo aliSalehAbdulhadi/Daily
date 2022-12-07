@@ -16,10 +16,15 @@ import {
   useAppDispatch,
   singleMilestoneInterface,
 } from '../../src/interfaces/interfaces';
-import { deleteMilestoneLocally } from '../../src/redux/slices/features/getTasksSlice';
+import {
+  completeTaskLocally,
+  deleteMilestoneLocally,
+} from '../../src/redux/slices/features/getTasksSlice';
 import { deleteMilestone } from '../../src/redux/slices/features/fireBaseActions/MilestonesSlice';
 
 import { Dark, Tasks, UserKey } from '../../src/utilities/globalImports';
+import { isOnline } from '../../src/utilities/isOnline';
+import { completedTask } from '../../src/redux/slices/features/fireBaseActions/completeTaskSlice';
 
 const MilestoneSinglePage = dynamic(
   () => import('../../src/components/MilestoneSinglePage/MilestoneSinglePage'),
@@ -291,11 +296,32 @@ const MileStone = () => {
               />
             ) : null}
           </div>
-          <span
-            className={`self-center mb-10 ${task?.completed ? '' : 'hidden'}`}
+          <div
+            className={`self-center ${
+              task?.completed ? '' : 'hidden'
+            } flex flex-col items-center`}
           >
-            Cant add milestones to finished tasks
-          </span>
+            <span>Cant add milestones to finished tasks</span>
+            <button
+              onClick={() =>
+                batch(() => {
+                  dispatch(completeTaskLocally({ taskId: String(id) }));
+                  if (isOnline()) {
+                    dispatch(
+                      completedTask({
+                        userUid: user,
+                        taskId: String(id),
+                        allTasks: tasks,
+                      }),
+                    );
+                  }
+                })
+              }
+              className="mt-3 py-2 px-5 border-[1px] rounded hover:bg-white hover:text-textLight"
+            >
+              Incomplete ?
+            </button>
+          </div>
         </div>
       </div>
 

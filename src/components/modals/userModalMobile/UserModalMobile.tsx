@@ -36,12 +36,16 @@ const UserModalMobile = ({
         } flex-col flex  w-[100vw] shadow-inner  bg-white  font-cerealNormal text-sm text-textLight `}
       >
         {user ? (
-          <div className="flex items-center justify-center w-full my-1 py-2 px-4 hover:bg-gray-50 mt-2 font-cerealMedium border-b-[1.7px] mb-3">
+          <div
+            title=""
+            className="flex items-center justify-center w-full my-1 py-2 px-4 hover:bg-gray-50 mt-2 font-cerealMedium border-b-[1.7px] mb-3"
+          >
             <h1 className="text-lg">{userName}</h1>
           </div>
         ) : (
           <div className="flex  items-center justify-center w-full h-[25vh]">
             <button
+              title="Log In"
               onClick={() => {
                 setOpenSignInModal(true);
               }}
@@ -52,6 +56,7 @@ const UserModalMobile = ({
             </button>
             <div className="border-l-[1px] h-[50%] ml-1"></div>
             <button
+              title="Sign Up"
               onClick={() => {
                 setOpenSignUpModal(true);
               }}
@@ -63,6 +68,7 @@ const UserModalMobile = ({
             <div className="border-l-[1px] h-[50%] ml-1"></div>
 
             <button
+              title="Download Daily"
               className="w-full  my-1 py-2 px-4 hover:bg-gray-50 mt-2 font-cerealMedium h-[98%]"
               type="button"
               onClick={() => {
@@ -80,6 +86,7 @@ const UserModalMobile = ({
         {user ? (
           <div className="flex flex-col items-center justify-center pb-2">
             <button
+              title="Tasks Chart"
               className="w-full  my-1 py-2 px-4 hover:bg-gray-50 mt-2 font-cerealMedium h-[98%]"
               type="button"
               onClick={() => {
@@ -93,6 +100,7 @@ const UserModalMobile = ({
               <Link href="/chart">Tasks chart</Link>
             </button>
             <button
+              title="Change Username"
               onClick={() => {
                 setOpenUsernameModal(true);
               }}
@@ -102,6 +110,7 @@ const UserModalMobile = ({
               Change Username
             </button>
             <button
+              title="Change Password"
               onClick={() => setOpenPasswordModal(true)}
               className="w-full text-start my-1 py-2 px-4 hover:bg-gray-50"
               type="button"
@@ -110,6 +119,7 @@ const UserModalMobile = ({
             </button>
 
             <button
+              title="Download Daily"
               type="button"
               className="w-full text-start my-1 py-2 px-4 hover:bg-gray-50"
               onClick={() => {
@@ -124,6 +134,7 @@ const UserModalMobile = ({
             </button>
 
             <button
+              title="Log Out"
               onClick={() => {
                 setOpenLogoutModal(true);
               }}
@@ -167,7 +178,7 @@ const UserModalMobile = ({
         className={`bg-black blur-sm opacity-30 min-h-[100vh] userModalLayoutEnter ${
           closeAnimation ? 'userModalLayoutExit' : ''
         }`}
-      ></div>
+      />
     </div>
   );
 };

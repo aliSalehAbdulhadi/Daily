@@ -9,7 +9,12 @@ export const addUsername = createAsyncThunk(
   async ({ userName, userUid }: { userUid: string; userName: string }) => {
     await setDoc(
       doc(db, 'userData', userUid),
-      { userName: userName, userData: { tasks: [], totalTasksCount: 0 } },
+      {
+        userName: userName,
+        userData: { tasks: [] },
+        allTasksCount: 0,
+        tasksDates: [],
+      },
       { merge: true },
     );
   },

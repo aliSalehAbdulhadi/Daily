@@ -11,7 +11,7 @@ const PcSwitchButtons = ({
     <div className="flex items-center justify-center cursor-pointer text-sm">
       <button
         type="button"
-        title="Pending tasks"
+        title="Pending Tasks"
         onClick={() => setCompletedTask(false)}
         className={`text-textDark select-none h-full px-7  whitespace-nowrap ${
           completedTask
@@ -23,7 +23,7 @@ const PcSwitchButtons = ({
       </button>
       <button
         type="button"
-        title="Finished tasks"
+        title="Finished Tasks"
         onClick={() => setCompletedTask(true)}
         className={`text-textDark select-none h-full px-7  whitespace-nowrap ${
           completedTask
