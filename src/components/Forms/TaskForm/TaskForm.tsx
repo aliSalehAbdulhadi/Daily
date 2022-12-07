@@ -3,6 +3,7 @@ import { Formik, Form } from 'formik';
 import { v4 as uuidv4 } from 'uuid';
 import { BsPlusCircleDotted } from 'react-icons/bs';
 import { memo, useEffect, useRef, useState } from 'react';
+import { batch } from 'react-redux';
 import FormField from '../../FormField/FormField';
 import { addTask } from '../../../redux/slices/features/fireBaseActions/addTaskSlice';
 import {
@@ -16,9 +17,6 @@ import {
 } from '../../../interfaces/interfaces';
 import { isOnline } from '../../../utilities/isOnline';
 import { Dark, UserKey } from '../../../utilities/globalImports';
-import { batch } from 'react-redux';
-import { increaseAllTasksCount } from '../../../redux/slices/features/fireBaseActions/increaseAllTasksCount';
-import { addTasksDates } from '../../../redux/slices/features/fireBaseActions/addTasksDates';
 
 const formSchema = Yup.object().shape({
   Form: Yup.string().max(50, 'Too Long!'),

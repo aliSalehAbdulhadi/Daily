@@ -7,7 +7,6 @@ import {
   useAppDispatch,
   useAppSelector,
 } from '../../interfaces/interfaces';
-import { reArrangeFirebase } from '../../redux/slices/features/fireBaseActions/reArrangeTasksSlice';
 import {
   uploadLocalDataResetStatus,
   uploadLocalData,
