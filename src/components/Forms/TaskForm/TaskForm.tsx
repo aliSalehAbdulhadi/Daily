@@ -136,7 +136,7 @@ const TaskForm = () => {
                   className={`${
                     dark ? 'bg-primaryColor' : 'bg-primaryLight'
                   } rounded outline-none md:text-base text-xs mr-5 w-full`}
-                  classNameField={`my-1  p-5 outline-none block shadow-sm sm:text-sm border-gray-300 rounded py-3  mt-3 font-Comfortaa w-full ${
+                  classNameField={`my-1  p-5 outline-none block shadow-sm sm:text-sm border-gray-300 rounded py-2 xs:py-3  mt-3 font-Comfortaa w-full ${
                     dark ? 'bg-textDark' : ' bg-primaryColor'
                   } ${
                     dark ? 'text-textLight' : 'text-textDark'

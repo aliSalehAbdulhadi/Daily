@@ -104,7 +104,7 @@ const Navbar = () => {
                 <Image
                   className="transition-all duration-300 ease-in-out"
                   src="/logo/dailyLight.svg"
-                  width="45"
+                  width={vw >= 330 ? '45' : '26'}
                   height="55"
                   alt="Daily logo"
                 />
@@ -114,7 +114,7 @@ const Navbar = () => {
                 <Image
                   className="transition-all duration-300 ease-in-out "
                   src="/logo/dailyDark.svg"
-                  width="45"
+                  width={vw >= 330 ? '45' : '26'}
                   height="55"
                   alt="Daily logo"
                 />
@@ -134,7 +134,11 @@ const Navbar = () => {
       </div>
 
       <div className="flex items-center justify-center relative pl-[2rem]">
-        <div className={`absolute mr-36 ${dark ? '' : 'opacity-90'}`}>
+        <div
+          className={`absolute mt-1 xs:mt-0 mr-28 xs:mr-36 ${
+            dark ? '' : 'opacity-90'
+          }`}
+        >
           <input
             title="Dark/Light Mode"
             type="checkbox"
@@ -145,7 +149,7 @@ const Navbar = () => {
               dispatch(toggleDarkMode(!dark));
             }}
           />
-          <div className="bg-icon w-8 h-6 bg-no-repeat absolute pointer-events-none top-[-1px] right-[-12px] sm:top-[-1.2px] sm:right-[-14px] sm:w-8 sm:h-6" />
+          <div className="bg-icon w-8 h-5 xs:h-6 bg-no-repeat absolute pointer-events-none top-[-1px] right-[-12px] sm:top-[-1.2px] sm:right-[-14px] sm:w-8 sm:h-6" />
         </div>
         <div
           title="User Setting"
@@ -154,14 +158,18 @@ const Navbar = () => {
             setOpenUserModalPc(true);
             setOpenUserModalMobile(true);
           }}
-          className={`flex items-center justify-center border rounded-full mb-[.20rem] py-1 pl-2 pr-1 mr-2 transition-all ease-in-out duration-200 cursor-pointer`}
+          className={`flex items-center justify-center border rounded-full mb-[.20rem] py-1 pl-2 pr-1 mr-2 mt-1 xs:mt-0 transition-all ease-in-out duration-200 cursor-pointer`}
         >
           <BsList
-            className={`mr-[.20rem] ${dark ? '' : 'opacity-80'}`}
-            size={20}
+            className={`mr-[.20rem] h-3 w-3 xs:h-5 xs:w-5 ${
+              dark ? '' : 'opacity-80'
+            }`}
             color={dark ? 'white' : 'black '}
           />
-          <IoPersonCircleSharp size={35} color={dark ? 'white' : '#707070'} />
+          <IoPersonCircleSharp
+            className=" w-5 h-5 xs:w-9 xs:h-9 "
+            color={dark ? 'white' : '#707070'}
+          />
           {vw >= 840 ? (
             <Suspense>
               <div className="absolute top-14 right-0 z-50 hidden semiSm:block opacity-100">

@@ -46,7 +46,7 @@ const MobileTasks = () => {
   const user = UserKey();
 
   const scrollRefTop = useRef<HTMLDivElement>(null);
-
+  const vh = window?.innerHeight;
   const completedTasks = CompletedTasks() ? [...CompletedTasks()] : [];
   const pendingTasks = PendingTasks() ? [...PendingTasks()] : [];
 
@@ -105,17 +105,17 @@ const MobileTasks = () => {
   return (
     <div className="flex flex-col justify-center  font-Comfortaa font-bold w-full rounded-t ">
       <div
-        className={` w-full flex item-center justify-between sticky  top-0 z-[40]  transition-all px-2 xs:px-5 py-5 shadow-md
+        className={` w-full flex item-center justify-between sticky  top-0 z-[40]  transition-all px-2 xs:px-5 py-4 xs:py-5 shadow-md
             ${dark ? 'bg-secondaryColor ' : 'bg-primaryColor'}  ${
           tasks?.length > 0 ? 'flex' : 'hidden'
         }  items-center justify-between w-full`}
       >
         <div className=" self-start select-none cursor-pointer">
-          <div className={`absolute z-[100] top-2 left-2 xs:left-5`}>
+          <div className={`absolute z-[100] top-1 xs:top-2 left-2 xs:left-5`}>
             <SortModal open={sortModal} setOpen={setSortModal} />
           </div>
         </div>
-        <div className="text-white self-center text-xs mr-2 select-none">
+        <div className="text-white self-center text-[.70rem] xs:text-xs xs:mt-1 mr-2 select-none">
           {completedTask ? (
             <span>Total tasks: {CompletedTasks()?.length}</span>
           ) : (
@@ -127,13 +127,13 @@ const MobileTasks = () => {
         ref={scrollRefTop}
         className={`relative sm:px-10 semiSm:px-0  pb-1 ${
           tasks?.length === 0 ? 'rounded-t' : ''
-        } ${user ? 'h-[62vh] overflow-auto' : ''} ${
+        } ${user ? `xs:h-[62vh] h-[57vh]  overflow-auto` : ''} ${
           dark ? 'bg-secondaryColor semiSm:bg-primaryColor' : 'bg-primaryColor'
         }`}
       >
         <div
           ref={scrollRefTop}
-          className={`w-[100%] overflow-x-hidden  semiSm:h-[67vh] px-2 xs:px-5 py-3 semiSm:py-2 overflow-auto scrollBar flex flex-col items-center  `}
+          className={`w-[100%] overflow-x-hidden   px-2 xs:px-5 py-3 semiSm:py-2 overflow-auto scrollBar flex flex-col items-center  `}
         >
           <SortableContext
             items={completedTasks}
@@ -215,16 +215,20 @@ const MobileTasks = () => {
 
       {/* mobile switch buttons */}
       <div
-        className={`flex items-center  justify-center cursor-pointer absolute bottom-0    w-full  border-t-[1px]   bg-primaryColor`}
+        className={`flex items-center  justify-center cursor-pointer absolute bottom-0    w-full  border-t-[1px] border-white border-opacity-20   ${
+          dark ? 'bg-secondaryColor' : 'bg-primaryColor'
+        }`}
       >
         <button
           type="button"
           title="Pending tasks"
           onClick={() => setCompletedTask(false)}
-          className={`text-textDark  select-none w-[45%] xs:w-[40%] rounded-l h-[6vh] my-1 text-xs  xs:text-sm  whitespace-nowrap ${
+          className={`text-textDark  select-none w-[45%] xs:w-[40%] rounded-l  my-1 text-xs  xs:text-sm  whitespace-nowrap ${
+            vh > 480 ? 'h-[3rem]' : 'h-[2.5rem]'
+          } ${
             completedTask
               ? dark
-                ? 'bg-secondaryLight text-white'
+                ? 'bg-primaryColor text-white'
                 : 'bg-secondaryLight text-white'
               : ' bg-white text-primaryColor'
           }`}
@@ -235,11 +239,13 @@ const MobileTasks = () => {
           type="button"
           title="Finished tasks"
           onClick={() => setCompletedTask(true)}
-          className={`text-textDark  select-none  w-[45%] xs:w-[40%] rounded-r h-[6vh] my-1 text-xs xs:text-sm  whitespace-nowrap ${
+          className={`text-textDark  select-none  w-[45%] xs:w-[40%] rounded-r  my-1 text-xs xs:text-sm  whitespace-nowrap ${
+            vh > 480 ? 'h-[3rem]' : 'h-[2.5rem]'
+          } ${
             completedTask
               ? 'bg-white text-primaryColor'
               : dark
-              ? 'bg-secondaryLight text-white'
+              ? 'bg-primaryColor text-white'
               : 'bg-secondaryLight text-white'
           }`}
         >

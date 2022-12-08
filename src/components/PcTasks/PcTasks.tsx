@@ -66,16 +66,23 @@ const PcTasks = () => {
         }`}
       >
         <div
-          className={`self-start flex justify-between  shadow-md h-[4.5vh] w-full ${
+          className={`self-start flex justify-between h-[3rem] shadow-md w-full ${
             user ? '' : 'invisible'
           }`}
         >
-          <div className={` ${openMilestonePanel ? 'hidden' : 'flex '} h-full`}>
+          <div
+            className={` ${
+              openMilestonePanel ? 'hidden' : 'flex '
+            } h-full relative`}
+          >
             <PcSwitchButtons
               completedTask={completedTask}
               setCompletedTask={setCompletedTask}
             />
-            <div title="Sort Tasks" className="absolute left-[19.9rem]">
+            <div
+              title="Sort Tasks"
+              className="z-40 absolute left-[318px] border-l-[1px] h-full"
+            >
               <SortModal open={sortModal} setOpen={setSortModal} />
             </div>
           </div>
@@ -85,7 +92,7 @@ const PcTasks = () => {
           >
             <div
               onClick={() => setExpandPanel(!expandPanel)}
-              className="hover:bg-textDark text-white hover:text-textLight  px-2 "
+              className="hover:bg-textDark text-white hover:text-textLight  px-2 h-full flex items-center justify-center "
             >
               {expandPanel ? (
                 <BsArrowBarLeft size={20} />

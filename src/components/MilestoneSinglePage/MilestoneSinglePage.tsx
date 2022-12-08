@@ -349,9 +349,9 @@ const MilestoneSinglePage = ({
             type="button"
           >
             {milestone?.milestoneCompleted ? (
-              <MdOutlineRemoveDone className=" h-[1.5rem] w-[1.5rem]" />
+              <MdOutlineRemoveDone className=" h-[1.2rem] w-[1.2rem] xs:h-[1.5rem] xs:w-[1.5rem]" />
             ) : (
-              <BsCheckCircle className="h-[1.5rem] w-[1.5rem]" />
+              <BsCheckCircle className="h-[1.2rem] w-[1.2rem] xs:h-[1.5rem] xs:w-[1.5rem]" />
             )}
           </button>
 
@@ -365,9 +365,9 @@ const MilestoneSinglePage = ({
             title="move milestone button"
           >
             {isOpenMoveModal && isCurrentMilestone ? (
-              <RiSendPlaneFill className="h-[1.5rem] w-[1.5rem]" />
+              <RiSendPlaneFill className="h-[1.2rem] w-[1.2rem] xs:h-[1.5rem] xs:w-[1.5rem]" />
             ) : (
-              <RiSendPlaneLine className="h-[1.5rem] w-[1.5rem]" />
+              <RiSendPlaneLine className="h-[1.2rem] w-[1.2rem] xs:h-[1.5rem] xs:w-[1.5rem]" />
             )}
           </button>
         </div>

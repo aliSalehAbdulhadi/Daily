@@ -37,57 +37,63 @@ const SortModal = ({
   return (
     <div
       ref={sortModalRef}
-      className={` cursor-pointer text-white  mt-1 semiSm:mt-0 rounded semiSm:rounded-none semiSm:border-l-[1px] semiSm:border-0 semiSm:w-fit w-full  inner-shadow py-2 semiSm:py-0  flex flex-col items-center  semiSm:px-0 semiSm: semiSm:hover:bg-white semiSm:hover:text-secondaryColor whitespace-nowrap semiSm:transition-all ${
-        open ? '' : 'border-[1px] px-2'
-      }  ${open ? 'text-secondaryColor bg-white' : ''}`}
+      className={`select-none cursor-pointer text-white  rounded semiSm:rounded-none  semiSm:border-0  inner-shadow flex flex-col items-center justify-center  semiSm:hover:bg-white semiSm:hover:text-secondaryColor whitespace-nowrap semiSm:transition-all h-full w-full text-[.70rem]  ${
+        open ? 'text-secondaryColor bg-white ' : ' '
+      }`}
       onClick={() => setOpen(!open)}
     >
       <div
-        className={`w-full  flex items-center mr-2  semiSm:mt-3 semiSm:mb-2 ${
-          sortBy || open ? ' justify-center semiSm:w-[10rem]' : ' ml-3 w-[5rem]'
+        className={` relative  flex   items-center py-1 xs:py-2 semiSm:py-0 mt-1 semiSm:mt-0   ${
+          sortBy || open
+            ? 'justify-center min-w-[8rem]'
+            : ' min-w-[5rem] semiSm:min-w-[6rem]'
+        } ${
+          open ? '' : 'border-[1px] rounded semiSm:border-0 semiSm:rounded-none'
         }`}
       >
-        <BiSortAlt2 className="mr-1 " size={18} />
+        <div className="flex">
+          <BiSortAlt2 className={`mx-1 `} size={18} />
 
-        <h1 className="text-[.70rem] semiSm:text-xs mt-[0.17rem]">
-          {sortBy ? 'By' : 'Sort by'} {taskSortTitleHandler()}
-        </h1>
-      </div>
-      <div
-        className={` transition-all z-40 px-10 semiSm:px-0 rounded-b w-full ${
-          open ? 'flex' : 'hidden'
-        } flex-col items-start justify-start  bg-white  font-cerealNormal text-xs text-textLight`}
-      >
-        <button
-          onClick={() => {
-            dispatch(sortTaskBy('newTasks'));
-            setOpen(false);
-          }}
-          className="w-full my-1 py-2  hover:bg-gray-100"
-          type="submit"
+          <h1 className=" semiSm:text-xs w-full mt-[0.17rem]">
+            {sortBy ? 'By' : 'Sort by'} {taskSortTitleHandler()}
+          </h1>
+        </div>
+        <div
+          className={` transition-all rounded-b  w-full absolute bg-white top-6   ${
+            open ? 'flex' : 'hidden'
+          } flex-col items-start justify-start  bg-white  font-cerealNormal text-xs text-textLight`}
         >
-          Latest Tasks
-        </button>
-        <button
-          onClick={() => {
-            dispatch(sortTaskBy('oldTasks'));
-            setOpen(false);
-          }}
-          type="submit"
-          className="w-full my-1 py-2  hover:bg-gray-100"
-        >
-          Oldest Tasks
-        </button>
-        <button
-          onClick={() => {
-            dispatch(sortTaskBy('importantTasks'));
-            setOpen(false);
-          }}
-          className="w-full my-1 py-2  hover:bg-gray-100"
-          type="submit"
-        >
-          Important Tasks
-        </button>
+          <button
+            onClick={() => {
+              dispatch(sortTaskBy('newTasks'));
+              setOpen(false);
+            }}
+            className="w-full my-1 py-2 hover:bg-gray-100"
+            type="submit"
+          >
+            Latest Tasks
+          </button>
+          <button
+            onClick={() => {
+              dispatch(sortTaskBy('oldTasks'));
+              setOpen(false);
+            }}
+            type="submit"
+            className="w-full my-1 py-2  hover:bg-gray-100"
+          >
+            Oldest Tasks
+          </button>
+          <button
+            onClick={() => {
+              dispatch(sortTaskBy('importantTasks'));
+              setOpen(false);
+            }}
+            className="w-full my-1 py-2  hover:bg-gray-100"
+            type="submit"
+          >
+            Important Tasks
+          </button>
+        </div>
       </div>
     </div>
   );
