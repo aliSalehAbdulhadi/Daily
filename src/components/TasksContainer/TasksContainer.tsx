@@ -36,10 +36,8 @@ const TasksContainer = () => {
           </h1>
         ) : (
           <div
-            className={`sm:px-10 semiSm:px-0  ${
-              dark
-                ? 'bg-secondaryColor'
-                : 'bg-primaryColor semiSm:bg-secondaryLight'
+            className={`  ${
+              dark ? 'bg-secondaryColor' : 'bg-primaryColor'
             }  flex justify-center transition-all ease-in-out `}
           >
             {vw >= 840 ? (

@@ -33,7 +33,7 @@ const UserModalMobile = ({
       <div
         className={`userModalEnter ${
           closeAnimation ? 'userModalExit' : ''
-        } flex-col flex  w-[100vw] shadow-inner  bg-white  font-cerealNormal text-sm text-textLight `}
+        } flex-col flex  w-[100vw] shadow-inner  bg-white  font-cerealNormal text-xs xs:text-sm text-textLight `}
       >
         {user ? (
           <div

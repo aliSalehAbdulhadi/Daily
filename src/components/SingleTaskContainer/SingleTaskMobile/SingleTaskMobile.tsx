@@ -243,7 +243,7 @@ const SingleTaskMobile = ({
           } `}
         >
           <div
-            className={`flex flex-col justify-between my-0 px-3  py-2 min-h-[9.5rem] w-[75%] mobileTaskCardBoxShadow
+            className={`flex flex-col justify-between my-0 px-3  py-2 min-h-[8rem] xs:min-h-[9.5rem] w-[75%] mobileTaskCardBoxShadow
           `}
           >
             <div
@@ -264,7 +264,7 @@ const SingleTaskMobile = ({
                 {formatDate}
               </div>
             </div>
-            <div title="Edit Task" className="relative ml-1">
+            <div title="Edit Task" className="relative ml-1 text-xs  xs:text-base">
               {edit ? (
                 <form
                   ref={textareaRef}
@@ -272,7 +272,7 @@ const SingleTaskMobile = ({
                   className="flex flex-col  mt-2"
                 >
                   <textarea
-                    className={`textAreaNoResize my-1 p-1 pb-5 outline-none w-full text-sm shadow-sm sm:text-base border-gray-300 rounded-t placeholder-slate-400`}
+                    className={`textAreaNoResize my-1 p-1 pb-5 outline-none w-full  border-gray-300 rounded-t placeholder-slate-400`}
                     onChange={(e) => setEditText(e.target.value)}
                     value={editText}
                     ref={inputRef}

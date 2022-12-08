@@ -12,11 +12,14 @@ import {
   PendingTasks,
   CompletedTasks,
   UserKey,
+  Dark,
 } from '../../utilities/globalImports';
 import PcSwitchButtons from './PcSwitchButtons/PcSwitchButtons';
 import PcTasksGrid from './PcTasksGrid/PcTasksGrid';
-import MileStone from '../mileStone/MileStone';
 import FallBackLoading from '../fallBackLoading/FallBackLoading';
+const MileStone = dynamic(() => import('../mileStone/MileStone'), {
+  suspense: true,
+});
 
 const PcTasksChart = dynamic(() => import('./TasksChart/TasksChart'), {
   suspense: true,
@@ -33,6 +36,7 @@ const PcTasks = () => {
   const tasks: SingleTaskInterface[] = allTasks();
   const completedTasks = CompletedTasks() ? [...CompletedTasks()] : [];
   const pendingTasks = PendingTasks() ? [...PendingTasks()] : [];
+  const dark = Dark();
 
   const openMilestonePanel = useAppSelector(
     (state: RootState) => state?.openMilestonePanelReducer.OpenMilestonePanel,
@@ -54,22 +58,32 @@ const PcTasks = () => {
     <div className="flex w-full">
       <div
         className={`flex flex-col font-Comfortaa font-bold  mobileTaskCardBoxShadow transition-all h-[88.35vh] relative ${
+
+          dark ? 'bg-secondaryColor' : 'bg-primaryColor'
+        } ${
           expandPanel || !user
             ? 'w-full'
             : 'w-[65%]  lg:w-[70%] xl:w-[75%] xxl:w-[80%]'
         }`}
       >
         <div
-          className={`self-start flex justify-between  shadow-md h-[4.5vh] w-full ${
+          className={`self-start flex justify-between h-[3rem] shadow-md w-full ${
             user ? '' : 'invisible'
           }`}
         >
-          <div className={` ${openMilestonePanel ? 'hidden' : 'flex '} h-full`}>
+          <div
+            className={` ${
+              openMilestonePanel ? 'hidden' : 'flex '
+            } h-full relative`}
+          >
             <PcSwitchButtons
               completedTask={completedTask}
               setCompletedTask={setCompletedTask}
             />
-            <div title="Sort Tasks" className="absolute left-[19.9rem]">
+            <div
+              title="Sort Tasks"
+              className="z-40 absolute left-[318px] border-l-[1px] h-full"
+            >
               <SortModal open={sortModal} setOpen={setSortModal} />
             </div>
           </div>
@@ -79,7 +93,7 @@ const PcTasks = () => {
           >
             <div
               onClick={() => setExpandPanel(!expandPanel)}
-              className="hover:bg-textDark text-white hover:text-textLight  px-2 py-3"
+              className="hover:bg-textDark text-white hover:text-textLight  px-2 h-full flex items-center justify-center "
             >
               {expandPanel ? (
                 <BsArrowBarLeft size={20} />
@@ -90,7 +104,9 @@ const PcTasks = () => {
           </button>
         </div>
         {openMilestonePanel ? (
-          <MileStone user={user} tasks={tasks} taskId={taskId} />
+          <Suspense fallback={<FallBackLoading />}>
+            <MileStone user={user} tasks={tasks} taskId={taskId} />
+          </Suspense>
         ) : (
           <PcTasksGrid
             tasks={tasks}

@@ -31,6 +31,8 @@ const TasksChart = ({
     (state: RootState) => state.getTaskReducer?.tasksDates,
   );
 
+  const vh = window?.innerHeight;
+
   let totalMilestones = 0;
   tasks?.forEach((task) => {
     totalMilestones = totalMilestones + task.milestones?.length;
@@ -60,7 +62,7 @@ const TasksChart = ({
     labels: daysNames.reverse(),
     datasets: [
       {
-        label: 'Tasks added per day',
+        label: 'Tasks added this day',
         data: tasksPerDay.reverse(),
         backgroundColor: ['white'],
       },
@@ -72,7 +74,7 @@ const TasksChart = ({
       ...data,
       datasets: [
         {
-          label: 'Tasks added per day',
+          label: 'Tasks added this day',
           data: tasksPerDay,
           backgroundColor: ['white'],
         },
@@ -126,9 +128,13 @@ const TasksChart = ({
   const lessThanWeek = calcLessThanDate(7);
 
   return (
-    <div className="h-[88.3vh]  bg-opacity-30  flex flex-col  text-white opacity-90 text-[.9rem]">
+    <div
+      className={`${
+        vh > 480 ? 'h-screen' : 'h-[150vh]'
+      }  xs:h-[88.3vh] bg-opacity-30  flex flex-col  text-white opacity-90 text-xs xs:text-[.9rem]`}
+    >
       <div className="h-[2vh] semiSm:h-[4.5vh]"></div>
-      <div className=" self-center h-[40%]">
+      <div className=" self-center h-[40%] w-[90%] ">
         <Chart chartData={data} />
       </div>
       <div className="flex flex-col semiSm:mt-10 mt-8 border-y-[1px] py-5">
@@ -149,7 +155,6 @@ const TasksChart = ({
             <span>
               {completedTasks?.length > 0 ? completedTasks.length : 0}
             </span>
-
           </div>
           <div className="flex items-center justify-between w-[75%]">
             <span>Important tasks: </span>
@@ -180,7 +185,6 @@ const TasksChart = ({
           <div className="flex items-center justify-between w-[75%]">
             <span>Total tasks added: </span>
             <span>{allTasksCount > 0 ? allTasksCount : 0}</span>
-
           </div>
         </div>
       </div>

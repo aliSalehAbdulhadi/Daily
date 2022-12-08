@@ -124,7 +124,7 @@ const TaskForm = () => {
           } flex items-center justify-center select-none  h-[15vh] semiSm:h-fit`}
         >
           {user ? (
-            <div className=" flex flex-col mb-5 semiSm:mb-0 ml-7 semiSm:ml-0 xl:w-[40%] md:w-[50%] w-[70%] relative">
+            <div className=" flex flex-col mb-5 semiSm:mb-0 ml-7 semiSm:ml-0 xl:w-[40%] md:w-[50%] w-[75%] xs:w-[70%] relative">
               <div className="flex items-center justify-center  w-full ">
                 <FormField
                   type="text"
@@ -136,10 +136,8 @@ const TaskForm = () => {
                   className={`${
                     dark ? 'bg-primaryColor' : 'bg-primaryLight'
                   } rounded outline-none md:text-base text-xs mr-5 w-full`}
-                  classNameField={`my-1  p-5 outline-none block shadow-sm sm:text-sm border-gray-300 rounded py-3  mt-3 font-Comfortaa w-full ${
-                    dark
-                      ? 'bg-textDark'
-                      : 'semiSm:bg-secondaryLight bg-primaryColor'
+                  classNameField={`my-1  p-5 outline-none block shadow-sm sm:text-sm border-gray-300 rounded py-2 xs:py-3  mt-3 font-Comfortaa w-full ${
+                    dark ? 'bg-textDark' : ' bg-primaryColor'
                   } ${
                     dark ? 'text-textLight' : 'text-textDark'
                   } text-sm md:text-base ${dark ? '' : 'placeholder-textDark'}`}

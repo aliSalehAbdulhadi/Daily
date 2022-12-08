@@ -29,7 +29,7 @@ const Chart = () => {
 
   return (
     <div
-      className={`flex flex-col w-full h-[90vh] ${
+      className={`flex flex-col w-full xs:h-[90vh] ${
         dark ? 'bg-secondaryColor' : 'bg-secondaryLight'
       }`}
     >
