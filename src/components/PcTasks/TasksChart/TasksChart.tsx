@@ -60,7 +60,7 @@ const TasksChart = ({
     labels: daysNames.reverse(),
     datasets: [
       {
-        label: 'Tasks added per day',
+        label: 'Tasks added this day',
         data: tasksPerDay.reverse(),
         backgroundColor: ['white'],
       },
@@ -72,7 +72,7 @@ const TasksChart = ({
       ...data,
       datasets: [
         {
-          label: 'Tasks added per day',
+          label: 'Tasks added this day',
           data: tasksPerDay,
           backgroundColor: ['white'],
         },
@@ -149,7 +149,6 @@ const TasksChart = ({
             <span>
               {completedTasks?.length > 0 ? completedTasks.length : 0}
             </span>
-
           </div>
           <div className="flex items-center justify-between w-[75%]">
             <span>Important tasks: </span>
@@ -180,7 +179,6 @@ const TasksChart = ({
           <div className="flex items-center justify-between w-[75%]">
             <span>Total tasks added: </span>
             <span>{allTasksCount > 0 ? allTasksCount : 0}</span>
-
           </div>
         </div>
       </div>

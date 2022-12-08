@@ -8,13 +8,27 @@ const Chart = ({ chartData }: { chartData: any }) => {
       data={chartData}
       options={{
         maintainAspectRatio: false,
-        color: 'white',
-
+        color: '#e0e0e0',
         plugins: {
           subtitle: {
             display: true,
             text: 'Last 14 days chart',
-            color: 'white',
+            color: '#e0e0e0',
+          },
+          legend: {
+            labels: {},
+          },
+        },
+        scales: {
+          y: {
+            ticks: {
+              color: '#e0e0e0',
+            },
+          },
+          x: {
+            ticks: {
+              color: '#e0e0e0',
+            },
           },
         },
       }}

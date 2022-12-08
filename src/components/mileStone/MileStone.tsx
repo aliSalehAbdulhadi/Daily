@@ -13,7 +13,7 @@ import {
 import { completedTask } from '../../redux/slices/features/fireBaseActions/completeTaskSlice';
 import { completeTaskLocally } from '../../redux/slices/features/getTasksSlice';
 import { toggleOpenMilestonePanel } from '../../redux/slices/features/openMilestonePanelPc';
-import { Tasks } from '../../utilities/globalImports';
+import { Dark, Tasks } from '../../utilities/globalImports';
 import { isOnline } from '../../utilities/isOnline';
 import MilestoneControlSection from '../milestoneControlSection/MilestoneControlSection';
 import ProgressBar from '../progressBar/ProgressBar';
@@ -54,6 +54,8 @@ const MileStone: FC<{
   const plusRef = useClickOutside(() => {
     setPlusIcon(false);
   });
+
+  const dark = Dark();
 
   const milestoneCompleted = task?.milestones?.filter(
     (ms: any) => ms?.milestoneCompleted === true,
@@ -107,8 +109,12 @@ const MileStone: FC<{
   };
 
   return (
-    <div className="m-5 flex flex-col  font-Comfortaa transition-all text-white  relative">
-      <div className="bg-primaryColor rounded overflow-hidden scrollBar w-full relative h-[80vh]">
+    <div className="m-4 flex flex-col  font-Comfortaa transition-all text-white  relative">
+      <div
+        className={` rounded overflow-hidden scrollBar w-full relative h-[80vh] ${
+          dark ? 'bg-primaryColor' : 'bg-secondaryColor'
+        }`}
+      >
         <div
           className={`flex h-[17.5%] ${
             task && task?.milestones?.length > 0

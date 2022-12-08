@@ -14,9 +14,7 @@ const PcSwitchButtons = ({
         title="Pending Tasks"
         onClick={() => setCompletedTask(false)}
         className={`text-textDark select-none h-full px-7  whitespace-nowrap ${
-          completedTask
-            ? 'bg-primaryColor text-white'
-            : ' bg-white text-primaryColor'
+          completedTask ? ' text-white' : ' bg-white text-primaryColor'
         }`}
       >
         Pending Tasks
@@ -26,9 +24,7 @@ const PcSwitchButtons = ({
         title="Finished Tasks"
         onClick={() => setCompletedTask(true)}
         className={`text-textDark select-none h-full px-7  whitespace-nowrap ${
-          completedTask
-            ? 'bg-white text-primaryColor'
-            : ' bg-primaryColor text-white'
+          completedTask ? 'bg-white text-primaryColor' : '  text-white'
         }`}
       >
         Finished Tasks

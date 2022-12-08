@@ -374,7 +374,7 @@ const SingleTaskPc = ({
                 title="Edit Task"
                 type="submit"
                 size={20}
-                className={`mb-2   transition-all ${
+                className={`  transition-all ${
                   task?.completed ? 'opacity-60' : 'hover:text-white'
                 }`}
               />
@@ -384,16 +384,16 @@ const SingleTaskPc = ({
               type="submit"
               onClick={() => setEdit(false)}
               size={20}
-              className={`cursor-pointer mb-2  hover:text-white transition-all`}
+              className={`cursor-pointer  hover:text-white transition-all`}
             />
           )}
 
           {deleteTimer ? (
             <div
-              className={`relative cursor-pointer ${
+              className={`relative cursor-pointer mt-2 ${
                 task?.completed
                   ? 'w-[1.2rem] h-[1.4rem]'
-                  : 'w-[1.3rem] h-[1.3rem]'
+                  : 'w-[1.3rem] h-[22px]'
               }`}
               onClick={() => setDeleteTimer(false)}
             >
@@ -424,7 +424,7 @@ const SingleTaskPc = ({
             <button
               disabled={task?.locked}
               onClick={() => setDeleteTimer(true)}
-              className={`${task?.locked ? 'cursor-default' : ''}`}
+              className={`mt-2 ${task?.locked ? 'cursor-default' : ''}`}
               title="Delete Task"
               type="button"
             >

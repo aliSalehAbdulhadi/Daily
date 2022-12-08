@@ -103,15 +103,15 @@ const MobileTasks = () => {
   };
 
   return (
-    <div className="flex flex-col justify-center  font-Comfortaa font-bold w-full rounded-t">
+    <div className="flex flex-col justify-center  font-Comfortaa font-bold w-full rounded-t ">
       <div
-        className={` w-full flex item-center justify-between sticky  top-0 z-[40]  transition-all px-5 py-5 shadow-md
+        className={` w-full flex item-center justify-between sticky  top-0 z-[40]  transition-all px-2 xs:px-5 py-5 shadow-md
             ${dark ? 'bg-secondaryColor ' : 'bg-primaryColor'}  ${
           tasks?.length > 0 ? 'flex' : 'hidden'
         }  items-center justify-between w-full`}
       >
         <div className=" self-start select-none cursor-pointer">
-          <div className={`absolute z-[100] top-2 left-5`}>
+          <div className={`absolute z-[100] top-2 left-2 xs:left-5`}>
             <SortModal open={sortModal} setOpen={setSortModal} />
           </div>
         </div>
@@ -125,15 +125,15 @@ const MobileTasks = () => {
       </div>
       <div
         ref={scrollRefTop}
-        className={`relative  pb-1 ${tasks?.length === 0 ? 'rounded-t' : ''} ${
-          user ? 'h-[61.5vh] overflow-auto' : ''
-        } ${
+        className={`relative sm:px-10 semiSm:px-0  pb-1 ${
+          tasks?.length === 0 ? 'rounded-t' : ''
+        } ${user ? 'h-[62vh] overflow-auto' : ''} ${
           dark ? 'bg-secondaryColor semiSm:bg-primaryColor' : 'bg-primaryColor'
         }`}
       >
         <div
           ref={scrollRefTop}
-          className={`w-[100%] overflow-x-hidden  semiSm:h-[67vh] px-5 py-3 semiSm:py-2 overflow-auto scrollBar flex flex-col items-center  `}
+          className={`w-[100%] overflow-x-hidden  semiSm:h-[67vh] px-2 xs:px-5 py-3 semiSm:py-2 overflow-auto scrollBar flex flex-col items-center  `}
         >
           <SortableContext
             items={completedTasks}
@@ -215,18 +215,16 @@ const MobileTasks = () => {
 
       {/* mobile switch buttons */}
       <div
-        className={`flex items-center  justify-center cursor-pointer absolute bottom-0 py-[0.70rem] z-[40] w-full semiSm:hidden border-t-[1px]  ${
-          tasks?.length > 0 ? 'block' : 'hidden'
-        } ${dark ? 'bg-secondaryColor' : 'bg-primaryColor'}`}
+        className={`flex items-center  justify-center cursor-pointer absolute bottom-0    w-full  border-t-[1px]   bg-primaryColor`}
       >
         <button
           type="button"
           title="Pending tasks"
           onClick={() => setCompletedTask(false)}
-          className={`text-textDark  select-none py-3 px-7 rounded-tl rounded-bl text-sm semiSm:text-base whitespace-nowrap ${
+          className={`text-textDark  select-none w-[45%] xs:w-[40%] rounded-l h-[6vh] my-1 text-xs  xs:text-sm  whitespace-nowrap ${
             completedTask
               ? dark
-                ? 'bg-primaryColor text-white'
+                ? 'bg-secondaryLight text-white'
                 : 'bg-secondaryLight text-white'
               : ' bg-white text-primaryColor'
           }`}
@@ -237,11 +235,11 @@ const MobileTasks = () => {
           type="button"
           title="Finished tasks"
           onClick={() => setCompletedTask(true)}
-          className={`text-textDark  select-none py-3 px-5 rounded-tr rounded-br text-sm semiSm:text-base whitespace-nowrap ${
+          className={`text-textDark  select-none  w-[45%] xs:w-[40%] rounded-r h-[6vh] my-1 text-xs xs:text-sm  whitespace-nowrap ${
             completedTask
               ? 'bg-white text-primaryColor'
               : dark
-              ? 'bg-primaryColor text-white'
+              ? 'bg-secondaryLight text-white'
               : 'bg-secondaryLight text-white'
           }`}
         >

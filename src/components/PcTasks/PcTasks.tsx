@@ -12,11 +12,14 @@ import {
   PendingTasks,
   CompletedTasks,
   UserKey,
+  Dark,
 } from '../../utilities/globalImports';
 import PcSwitchButtons from './PcSwitchButtons/PcSwitchButtons';
 import PcTasksGrid from './PcTasksGrid/PcTasksGrid';
-import MileStone from '../mileStone/MileStone';
 import FallBackLoading from '../fallBackLoading/FallBackLoading';
+const MileStone = dynamic(() => import('../mileStone/MileStone'), {
+  suspense: true,
+});
 
 const PcTasksChart = dynamic(() => import('./TasksChart/TasksChart'), {
   suspense: true,
@@ -33,6 +36,7 @@ const PcTasks = () => {
   const tasks: SingleTaskInterface[] = allTasks();
   const completedTasks = CompletedTasks() ? [...CompletedTasks()] : [];
   const pendingTasks = PendingTasks() ? [...PendingTasks()] : [];
+  const dark = Dark();
 
   const openMilestonePanel = useAppSelector(
     (state: RootState) => state?.openMilestonePanelReducer.OpenMilestonePanel,
@@ -54,6 +58,8 @@ const PcTasks = () => {
     <div className="flex w-full">
       <div
         className={`flex flex-col font-Comfortaa font-bold  mobileTaskCardBoxShadow transition-all h-[88.35vh] relative ${
+          dark ? 'bg-secondaryColor' : 'bg-primaryColor'
+        } ${
           expandPanel || !user
             ? 'w-full'
             : 'w-[65%]  lg:w-[70%] xl:w-[75%] xxl:w-[80%]'
@@ -79,7 +85,7 @@ const PcTasks = () => {
           >
             <div
               onClick={() => setExpandPanel(!expandPanel)}
-              className="hover:bg-textDark text-white hover:text-textLight  px-2 py-3"
+              className="hover:bg-textDark text-white hover:text-textLight  px-2 "
             >
               {expandPanel ? (
                 <BsArrowBarLeft size={20} />
@@ -90,7 +96,9 @@ const PcTasks = () => {
           </button>
         </div>
         {openMilestonePanel ? (
-          <MileStone user={user} tasks={tasks} taskId={taskId} />
+          <Suspense fallback={<FallBackLoading />}>
+            <MileStone user={user} tasks={tasks} taskId={taskId} />
+          </Suspense>
         ) : (
           <PcTasksGrid
             tasks={tasks}
