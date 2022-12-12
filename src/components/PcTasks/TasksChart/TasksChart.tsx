@@ -132,6 +132,7 @@ const TasksChart = ({
       className={`${
         vh > 480 ? 'h-[100vh]' : 'h-[150vh]'
       }  xs:h-[88.3vh] bg-opacity-30  flex flex-col  text-white opacity-90 text-xs xs:text-[.9rem] overflow-auto scrollBar`}
+
     >
       <div className="h-[2vh] semiSm:h-[4.5vh]"></div>
       <div className=" self-center h-[40%] w-[90%] ">
