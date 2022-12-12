@@ -30,7 +30,7 @@ const Chart = () => {
   return (
     <div
       className={`flex flex-col w-full xs:h-[90vh] ${
-        dark ? 'bg-secondaryColor' : 'bg-primaryColor'
+        dark ? 'bg-secondaryColor' : 'bg-secondaryLight'
       }`}
     >
       <Suspense fallback={<FallBackLoading />}>

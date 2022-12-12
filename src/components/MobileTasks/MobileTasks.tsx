@@ -123,9 +123,10 @@ const MobileTasks = () => {
           )}
         </div>
       </div>
+
       <div
         ref={scrollRefTop}
-        className={`relative sm:px-10 semiSm:px-0  pb-1 ${
+        className={`sm:px-10 semiSm:px-0  pb-1 ${
           tasks?.length === 0 ? 'rounded-t' : ''
         } ${user ? `xs:h-[62vh] h-[57vh]  overflow-auto` : ''} ${
           dark ? 'bg-secondaryColor semiSm:bg-primaryColor' : 'bg-primaryColor'
@@ -215,7 +216,7 @@ const MobileTasks = () => {
 
       {/* mobile switch buttons */}
       <div
-        className={`flex items-center  justify-center cursor-pointer absolute bottom-0    w-full  border-t-[1px] border-white border-opacity-20   ${
+        className={`flex items-center  justify-center cursor-pointer fixed bottom-0    w-full  border-t-[1px] border-white border-opacity-20   ${
           dark ? 'bg-secondaryColor' : 'bg-primaryColor'
         }`}
       >

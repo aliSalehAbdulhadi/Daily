@@ -43,10 +43,8 @@ const SortModal = ({
       onClick={() => setOpen(!open)}
     >
       <div
-        className={` relative  flex   items-center py-1 xs:py-2 semiSm:py-0 mt-1 semiSm:mt-0   ${
-          sortBy || open
-            ? 'justify-center min-w-[8rem]'
-            : ' min-w-[5rem] semiSm:min-w-[6rem]'
+        className={` relative justify-center  flex   items-center py-1 xs:py-2 semiSm:py-0 px-3 mt-1 semiSm:mt-0   ${
+          sortBy || open ? 'min-w-[8rem]' : ' min-w-[5rem] semiSm:min-w-[6rem]'
         } ${
           open ? '' : 'border-[1px] rounded semiSm:border-0 semiSm:rounded-none'
         }`}

@@ -235,7 +235,7 @@ const SingleTaskPc = ({
         <div className="text-xs w-fit whitespace-nowrap select-none">
           {formatDate}
         </div>
-        <div className={` ${task?.completed ? 'hidden' : 'block'} `}>
+        <div className={` ${task?.completed ? 'invisible  ' : 'visible'} `}>
           <HiOutlineStar
             title="Important Task"
             onClick={importantStateHandler}
@@ -349,7 +349,9 @@ const SingleTaskPc = ({
           </div>
         )}
 
-        <div className={` ${edit ? 'hidden' : 'flex'} flex-col pl-3 mb-3`}>
+        <div
+          className={`relative ${edit ? 'hidden' : 'flex'} flex-col pl-3 mb-3`}
+        >
           {task?.completed ? (
             <MdOutlineRemoveDone
               title="Incomplete Task"
@@ -363,7 +365,7 @@ const SingleTaskPc = ({
               title="Complete Task"
               type="button"
               onClick={completionHandler}
-              size={21}
+              size={20}
               className="cursor-pointer mb-2  hover:text-white transition-all "
             />
           )}
@@ -390,17 +392,11 @@ const SingleTaskPc = ({
 
           {deleteTimer ? (
             <div
-              className={`relative cursor-pointer mt-2 ${
-                task?.completed
-                  ? 'w-[1.2rem] h-[1.4rem]'
-                  : 'w-[1.3rem] h-[22px]'
-              }`}
+              className={`  cursor-pointer mt-2 h-[1.3rem] w-[1.2rem]`}
               onClick={() => setDeleteTimer(false)}
             >
               <BiX
-                className={`absolute h-[.5] w-[.5] top-[3px] ${
-                  task?.completed ? 'left-[.22rem]' : 'left-[.19rem]'
-                }`}
+                className={`absolute h-[.5] w-[.5] top-[59px] left-[15.3px]`}
               />
               <CountdownCircleTimer
                 size={22}

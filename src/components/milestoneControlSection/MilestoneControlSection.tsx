@@ -70,7 +70,7 @@ const MilestoneControlSection = ({ taskId }: { taskId: any }) => {
 
             <div
               title="Punctuate Milestones"
-              className="ml-5  flex flex-col xs:flex-row-reverse items-center justify-center  text-xs mr-2 xs:mr-5"
+              className="md:ml-5 semiSm:ml-1  flex flex-col xs:flex-row-reverse items-center justify-center  text-xs mr-2 xs:mr-5"
             >
               <label htmlFor="punct">Punct</label>
 
