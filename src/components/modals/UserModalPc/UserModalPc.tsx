@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 import Link from 'next/link';
 import ChangeUserName from '../changeUserName/changeUserName';
 import ResetPassword from '../resetPassword/ResetPassword';
@@ -10,9 +10,11 @@ import { DecryptedUserName, UserKey } from '../../../utilities/globalImports';
 const UserModalPc = ({
   open,
   closeAnimation,
+  closeModalHandler,
 }: {
   open: boolean;
   closeAnimation: boolean;
+  closeModalHandler: Function;
 }) => {
   const [openPasswordModal, setOpenPasswordModal] = useState<boolean>(false);
   const [openUsernameModal, setOpenUsernameModal] = useState<boolean>(false);
@@ -40,7 +42,10 @@ const UserModalPc = ({
           <h1 className="text-lg">{userName}</h1>
         </div>
       ) : (
-        <div className="flex flex-col items-start justify-start w-full">
+        <div
+          onClick={() => closeModalHandler()}
+          className="flex flex-col items-start justify-start w-full"
+        >
           <button
             title="Sign Up"
             onClick={() => {
@@ -72,6 +77,7 @@ const UserModalPc = ({
       )}
 
       <div
+        onClick={() => closeModalHandler()}
         className={`flex flex-col items-center justify-center ${
           user ? 'block' : 'hidden'
         }`}

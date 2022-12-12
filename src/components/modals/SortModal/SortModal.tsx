@@ -49,15 +49,15 @@ const SortModal = ({
           open ? '' : 'border-[1px] rounded semiSm:border-0 semiSm:rounded-none'
         }`}
       >
-        <div className="flex">
-          <BiSortAlt2 className={`mx-1 `} size={18} />
+        <div className="flex z-40">
+          <BiSortAlt2 className={`mr-1 `} size={18} />
 
           <h1 className=" semiSm:text-xs w-full mt-[0.17rem]">
             {sortBy ? 'By' : 'Sort by'} {taskSortTitleHandler()}
           </h1>
         </div>
         <div
-          className={` transition-all rounded-b  w-full absolute bg-white top-6   ${
+          className={` transition-all rounded-b  w-full absolute bg-white top-4 pt-4 pb-1  ${
             open ? 'flex' : 'hidden'
           } flex-col items-start justify-start  bg-white  font-cerealNormal text-xs text-textLight`}
         >
