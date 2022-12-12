@@ -99,7 +99,7 @@ const PcTasksGrid = ({
       <div
         ref={scrollRefTop}
         className={`relative  scrollBar overflow-x-hidden w-full   ${
-          user ? 'h-[83.89vh] overflow-auto ' : 'overflow-hidden'
+          user ? 'h-[83.4vh] overflow-auto ' : 'overflow-hidden'
         } `}
       >
         <div

@@ -58,7 +58,6 @@ const PcTasks = () => {
     <div className="flex w-full">
       <div
         className={`flex flex-col font-Comfortaa font-bold  mobileTaskCardBoxShadow transition-all h-[88.35vh] relative ${
-
           dark ? 'bg-secondaryColor' : 'bg-primaryColor'
         } ${
           expandPanel || !user

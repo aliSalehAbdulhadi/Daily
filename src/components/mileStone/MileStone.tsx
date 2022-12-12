@@ -116,7 +116,7 @@ const MileStone: FC<{
         }`}
       >
         <div
-          className={`flex h-[17.5%] ${
+          className={`flex  ${
             task && task?.milestones?.length > 0
               ? 'border-b-[1px] shadow-lg'
               : ''
@@ -126,7 +126,7 @@ const MileStone: FC<{
             onClick={() => dispatch(toggleOpenMilestonePanel(false))}
             className={`cursor-pointer  bg-primaryLight w-fit  flex items-center justify-center hover:bg-opacity-90 transition-all ${
               task && task?.milestones?.length > 0
-                ? 'px-3 h-full'
+                ? 'px-3'
                 : ' rounded-full m-5 h-14 w-[3.7rem]'
             }`}
           >
