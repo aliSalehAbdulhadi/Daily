@@ -37,7 +37,7 @@ const Navbar = () => {
   const [openUserModalMobile, setOpenUserModalMobile] =
     useState<boolean>(false);
   const [closeAnimation, setCloseAnimation] = useState<boolean>(false);
-
+  
   const dispatch = useAppDispatch();
   const dark = Dark();
   const user = UserKey();
@@ -54,12 +54,16 @@ const Navbar = () => {
   }, [user]);
 
   const userModalRef = useClickOutside(() => {
+    closeModalPcHandler();
+  });
+
+  const closeModalPcHandler = () => {
     setCloseAnimation(true);
     setTimeout(() => {
       setOpenUserModalPc(false);
       setCloseAnimation(false);
     }, 180);
-  });
+  };
 
   return (
     <nav
@@ -170,28 +174,28 @@ const Navbar = () => {
             className=" w-5 h-5 xs:w-9 xs:h-9 "
             color={dark ? 'white' : '#707070'}
           />
-          {vw >= 840 ? (
-            <Suspense>
-              <div className="absolute top-14 right-0 z-50 hidden semiSm:block opacity-100">
-                <UserModalPc
-                  closeAnimation={closeAnimation}
-                  open={openUserModalPc}
-                />
-              </div>
-            </Suspense>
-          ) : null}
         </div>
+        {vw >= 840 ? (
+          <Suspense>
+            <div className="absolute top-14 right-0 z-50 hidden semiSm:block opacity-100">
+              <UserModalPc
+                closeAnimation={closeAnimation}
+                closeModalHandler={closeModalPcHandler}
+                open={openUserModalPc}
+              />
+            </div>
+          </Suspense>
+        ) : (
+          <Suspense>
+            <div className="fixed top-0 right-0  z-50 semiSm:hidden">
+              <UserModalMobile
+                open={openUserModalMobile}
+                setOpen={setOpenUserModalMobile}
+              />
+            </div>
+          </Suspense>
+        )}
       </div>
-      {vw < 840 ? (
-        <Suspense>
-          <div className="fixed top-0 right-0  z-50 semiSm:hidden">
-            <UserModalMobile
-              open={openUserModalMobile}
-              setOpen={setOpenUserModalMobile}
-            />
-          </div>
-        </Suspense>
-      ) : null}
     </nav>
   );
 };

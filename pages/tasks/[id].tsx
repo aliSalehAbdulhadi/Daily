@@ -25,6 +25,9 @@ import { deleteMilestone } from '../../src/redux/slices/features/fireBaseActions
 import { Dark, Tasks, UserKey } from '../../src/utilities/globalImports';
 import { isOnline } from '../../src/utilities/isOnline';
 import { completedTask } from '../../src/redux/slices/features/fireBaseActions/completeTaskSlice';
+import useWindowSize from '../../src/hooks/useWindowsSize';
+import NotFoundPage from '../404';
+import MilestoneControlSection from '../../src/components/milestoneControlSection/MilestoneControlSection';
 
 const MilestoneSinglePage = dynamic(
   () => import('../../src/components/MilestoneSinglePage/MilestoneSinglePage'),
@@ -33,14 +36,6 @@ const MilestoneSinglePage = dynamic(
 const AdvancedForm = dynamic(
   () => import('../../src/components/Forms/advancedForm/AdvancedForm'),
   { ssr: false },
-);
-
-const MilestoneControlSection = dynamic(
-  () =>
-    import(
-      '../../src/components/milestoneControlSection/MilestoneControlSection'
-    ),
-  { suspense: true },
 );
 
 const MoveMilestoneModalMobile = dynamic(
@@ -115,6 +110,8 @@ const MileStone = () => {
     setOpenAdvancedForm(false);
   }, [task?.milestones?.length]);
 
+  const vw = useWindowSize();
+
   const deleteMilestoneHandler = (milestone: singleMilestoneInterface) => {
     setDeleteAnimation({
       animation: true,
@@ -170,6 +167,8 @@ const MileStone = () => {
       return sortedMilestones;
     } else return task?.milestones;
   };
+
+  if (vw > 839 || !user) return <NotFoundPage />;
 
   return (
     <div
@@ -236,15 +235,13 @@ const MileStone = () => {
               task?.milestones?.length === 0 ? 'pt-0' : 'pt-3'
             }`}
           >
-            <Suspense>
-              <div
-                className={`w-full px-3 pb-3 pt-[0.15rem] mr-1 ${
-                  task && task?.milestones?.length > 0 ? 'block ' : 'hidden'
-                }`}
-              >
-                <MilestoneControlSection taskId={task?.id} />
-              </div>
-            </Suspense>
+            <div
+              className={`w-full px-3 pb-3 pt-[0.15rem] mr-1 ${
+                task && task?.milestones?.length > 0 ? 'block ' : 'hidden'
+              }`}
+            >
+              <MilestoneControlSection taskId={task?.id} />
+            </div>
           </div>
         </div>
 
