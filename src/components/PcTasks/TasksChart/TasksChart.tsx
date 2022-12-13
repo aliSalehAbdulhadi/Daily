@@ -114,11 +114,15 @@ const TasksChart = ({
         const DaysDiffInMs = day * 24 * 60 * 60 * 1000;
 
         const timeDiffInMs = +now.getTime() - +pastTime.getTime();
-        if (timeDiffInMs >= DaysDiffInMs && day === 30) {
-          //'Date is older than 30 days'
-          removeDateHandler(taskDate?.id);
+
+        if (timeDiffInMs >= DaysDiffInMs) {
+          //'Date is older than specified number of days'
+          if (day === 30) {
+            removeDateHandler(taskDate?.id);
+          }
+          return false;
         } else {
-          //'Date is not older than 30 days'
+          //'Date is not older than specified number of days'
           return taskDate;
         }
       });
