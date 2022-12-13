@@ -218,7 +218,7 @@ const MobileTasks = () => {
       <div
         className={`flex items-center  justify-center cursor-pointer fixed bottom-0    w-full  border-t-[1px] border-white border-opacity-20   ${
           dark ? 'bg-secondaryColor' : 'bg-primaryColor'
-        }`}
+        } ${user ? '' : 'hidden'} `}
       >
         <button
           type="button"
