@@ -36,10 +36,10 @@ const ConfirmLogOut = ({
       setOpen={setOpen}
       open={open}
     >
-      <div className="flex items-center justify-evenly md:text-base text-sm font-Comfortaa">
+      <div className="flex items-center justify-evenly md:text-base text-sm font-Comfortaa py-3 px-2">
         <button
           onClick={logOutHandler}
-          className="bg-red-600 hover:bg-white hover:text-red-600 text-white  py-2 px-4 rounded whitespace-nowrap"
+          className="bg-red-500 hover:bg-white hover:text-red-500 text-white  py-2 px-4 mr-5 rounded whitespace-nowrap"
           type="button"
         >
           Log Out

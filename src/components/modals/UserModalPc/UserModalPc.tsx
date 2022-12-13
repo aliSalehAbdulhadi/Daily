@@ -43,7 +43,11 @@ const UserModalPc = ({
         </div>
       ) : (
         <div
-          onClick={() => closeModalHandler()}
+          onClick={() =>
+            setTimeout(() => {
+              closeModalHandler();
+            })
+          }
           className="flex flex-col items-start justify-start w-full"
         >
           <button
@@ -77,7 +81,11 @@ const UserModalPc = ({
       )}
 
       <div
-        onClick={() => closeModalHandler()}
+        onClick={() =>
+          setTimeout(() => {
+            closeModalHandler();
+          }, 1000)
+        }
         className={`flex flex-col items-center justify-center ${
           user ? 'block' : 'hidden'
         }`}

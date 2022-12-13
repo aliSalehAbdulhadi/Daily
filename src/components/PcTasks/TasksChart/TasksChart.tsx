@@ -1,5 +1,6 @@
 import moment from 'moment';
 import { useEffect, useState, useMemo, useCallback, memo } from 'react';
+import { batch } from 'react-redux';
 import {
   RootState,
   SingleTaskInterface,
@@ -85,19 +86,21 @@ const TasksChart = ({
 
   const removeDateHandler = useCallback(
     (id: string) => {
-      dispatch(
-        deleteTaskDate({
-          userUid: user,
-          allTasksDates: tasksDates,
-          dateId: id,
-        }),
-      );
+      batch(() => {
+        dispatch(
+          deleteTaskDate({
+            userUid: user,
+            allTasksDates: tasksDates,
+            dateId: id,
+          }),
+        );
 
-      dispatch(
-        deleteTaskDateLocally({
-          dateId: id,
-        }),
-      );
+        dispatch(
+          deleteTaskDateLocally({
+            dateId: id,
+          }),
+        );
+      });
     },
     [dispatch, tasksDates, user],
   );
@@ -108,14 +111,18 @@ const TasksChart = ({
       return tasksDates?.filter((taskDate: { date: string; id: string }) => {
         const pastTime = new Date(taskDate?.date);
 
-        const thirtyDaysInMs = day * 24 * 60 * 60 * 1000;
+        const DaysDiffInMs = day * 24 * 60 * 60 * 1000;
 
         const timeDiffInMs = +now.getTime() - +pastTime.getTime();
-        if (timeDiffInMs >= thirtyDaysInMs) {
-          //'Date is older than 30 days'
-          removeDateHandler(taskDate?.id);
+
+        if (timeDiffInMs >= DaysDiffInMs) {
+          //'Date is older than specified number of days'
+          if (day === 30) {
+            removeDateHandler(taskDate?.id);
+          }
+          return false;
         } else {
-          //'Date is not older than 30 days'
+          //'Date is not older than specified number of days'
           return taskDate;
         }
       });
