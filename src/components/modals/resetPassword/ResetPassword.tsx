@@ -8,6 +8,7 @@ import useCheckStatus from '../../../hooks/useCheckStatus';
 import { resetPasswordThunk } from '../../../redux/slices/authentication/resetPasswordSlice';
 import { isOnline } from '../../../utilities/isOnline';
 import { Dark } from '../../../utilities/globalImports';
+import ModalNoConnectionError from '../../modalNoConnectionError/ModalNoConnectionError';
 
 const signInSchema = Yup.object().shape({
   Email: Yup.string().min(3).max(24).required(),
@@ -52,33 +53,33 @@ const ResetPassword = ({
           <Form>
             <FormField
               autoComplete="email"
-              className="mb-3"
+              className={`mb-10 mt-5 h-10 ${isOnline() ? '' : 'hidden '}`}
               label="Enter your account email."
               name="Email"
               type="email"
               placeholder="You@email.com"
               value="email"
-              classNameField="p-5 outline-none block w-full mt-1 shadow-sm sm:text-sm border-gray-300 rounded py-3 font-Comfortaa text-textLight "
+              classNameField="p-3 outline-none block w-full mt-1 shadow-sm sm:text-sm border-gray-300 rounded py-3 mb-1 font-Comfortaa text-textLight text-xs xs:text-sm semiSm:text-base"
             />
-            <div className={isOnline() ? 'px-[6rem]' : ''}>
-              <div className="py-2 h-4 w-full flex items-center justify-center ">
-                {rejected ? (
-                  <h2 className="text-red-600 text-sm">{errorMessage}</h2>
-                ) : null}
-                {fulfilled ? (
-                  <h2 className="text-green-600 text-sm">
-                    Email sent successfully
-                  </h2>
-                ) : null}
-              </div>
-              {isOnline() ? (
-                <div className="flex justify-center items-center mt-7">
+            {isOnline() ? (
+              <div className={`${isOnline() ? '' : ''} px-[5rem] py-5`}>
+                <div className="w-[11rem] h-5 flex items-center justify-center ">
+                  {rejected ? (
+                    <h2 className="text-red-600 text-sm">{errorMessage}</h2>
+                  ) : null}
+                  {fulfilled ? (
+                    <h2 className="text-green-600 text-sm ">
+                      Email sent successfully
+                    </h2>
+                  ) : null}
+                </div>
+                <div className="flex justify-center items-center ">
                   {pending ? (
                     <button
                       title="Sending"
                       className={`flex items-center justify-center  relative ${
                         dark ? 'bg-primaryColor' : 'bg-secondaryLight'
-                      } py-3 px-[4rem] rounded text-white  text-sm md:text-sm`}
+                      } py-3 px-[2.45rem] rounded text-white  text-sm md:text-sm`}
                       type="submit"
                     >
                       <span className="mr-5">Resetting</span>
@@ -89,19 +90,19 @@ const ResetPassword = ({
                       title="Send"
                       className={`${
                         dark ? 'bg-primaryColor' : 'bg-secondaryLight'
-                      } py-3  px-[4rem]  rounded text-white  text-sm md:text-sm hover:text-primaryColor hover:bg-white`}
+                      } py-3 px-[4rem]  rounded text-white  text-sm md:text-sm hover:text-primaryColor hover:bg-white`}
                       type="submit"
                     >
                       Send
                     </button>
                   )}
                 </div>
-              ) : (
-                <div className="text-xs">
-                  You must be connected to change your password.
-                </div>
-              )}
-            </div>
+              </div>
+            ) : (
+              <div className="flex items-center justify-center mt-5">
+                <ModalNoConnectionError errorType="to change your password." />
+              </div>
+            )}
           </Form>
         )}
       </Formik>

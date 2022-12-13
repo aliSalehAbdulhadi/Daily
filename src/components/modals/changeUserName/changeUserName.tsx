@@ -8,6 +8,7 @@ import FormField from '../../FormField/FormField';
 import { changeUserName } from '../../../redux/slices/features/fireBaseActions/changeUserNameSlice';
 import { isOnline } from '../../../utilities/isOnline';
 import { Dark, UserKey } from '../../../utilities/globalImports';
+import ModalNoConnectionError from '../../modalNoConnectionError/ModalNoConnectionError';
 
 const signInSchema = Yup.object().shape({
   username: Yup.string().min(0).max(15).required(),
@@ -27,7 +28,7 @@ const ChangeUserName = ({
   const dark = Dark();
 
   return (
-    <Modal label="Change User Name" setOpen={setOpen} open={open}>
+    <Modal label="Change Username" setOpen={setOpen} open={open}>
       <Formik
         initialValues={{ username: '' }}
         validationSchema={signInSchema}
@@ -50,23 +51,23 @@ const ChangeUserName = ({
           <Form>
             <FormField
               autoComplete=""
-              className="mb-3"
-              label=""
+              className={`mb-10 mt-5 h-10 ${isOnline() ? '' : 'hidden '}`}
+              label="Enter new username"
               name="username"
               type="userName"
               placeholder="Enter new username"
               value="userName"
-              classNameField="p-5 outline-none block w-full shadow-sm sm:text-sm border-gray-300 rounded py-3 font-Comfortaa text-textLight"
+              classNameField="p-3 outline-none block w-full shadow-sm sm:text-sm border-gray-300 rounded py-3 mb-1 font-Comfortaa text-textLight text-xs xs:text-sm semiSm:text-base"
             />
 
             {isOnline() ? (
-              <div className="flex justify-center items-center mt-8 px-[5rem] py-5">
+              <div className="flex justify-center items-center px-[4.5rem] py-5">
                 {animation ? (
                   <button
                     title="Changing"
                     className={`flex items-center justify-center relative ${
                       dark ? 'bg-primaryColor' : 'bg-secondaryLight'
-                    } py-3 w-[10rem] rounded text-white  text-xs md:text-sm`}
+                    } py-3 px-[2.95rem] rounded text-white  text-xs md:text-sm`}
                     type="submit"
                   >
                     <span className="mr-5">Changing</span>
@@ -77,7 +78,7 @@ const ChangeUserName = ({
                     title="Change"
                     className={`${
                       dark ? 'bg-primaryColor' : 'bg-secondaryLight'
-                    } py-3 w-[10rem] rounded text-white  text-xs md:text-sm hover:text-primaryColor hover:bg-white`}
+                    } py-3 px-[4rem] rounded text-white  text-xs md:text-sm hover:text-primaryColor hover:bg-white`}
                     type="submit"
                   >
                     Change
@@ -85,8 +86,8 @@ const ChangeUserName = ({
                 )}
               </div>
             ) : (
-              <div className="mt-8 text-sm">
-                You must be connected to change your name.
+              <div className="flex items-center justify-center mt-5">
+                <ModalNoConnectionError errorType="to change your username." />
               </div>
             )}
           </Form>

@@ -57,10 +57,8 @@ function Modal({
                   dark ? 'bg-secondaryColor' : 'bg-primaryColor'
                 }`}
               >
-                <div className="flex  justify-between mb-5">
-                  <h2 className="w-max font-semibold text-[1.2rem] mt-[0.20rem]">
-                    {label}
-                  </h2>
+                <div className="flex  justify-between">
+                  <h2 className="w-max font-semibold mt-[.45rem]">{label}</h2>
                   <button
                     type="button"
                     className="rounded-full cursor-pointer hover:bg-cusOrange hover:text-white outline-none ml-3 mb-3"
