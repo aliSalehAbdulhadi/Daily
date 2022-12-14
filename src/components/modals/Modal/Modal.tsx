@@ -8,17 +8,20 @@ function Modal({
   label,
   open,
   setOpen,
+  closeable = true,
 }: ModalInterface): JSX.Element {
   const cancelButtonRef = useRef(null);
-
   const dark = Dark();
+
+  const mockFunction = () => {};
+
   return (
     <Transition.Root show={open} as={Fragment}>
       <Dialog
         as="div"
         className="fixed z-[98] inset-0 overflow-y-auto text-white "
         initialFocus={cancelButtonRef}
-        onClose={setOpen}
+        onClose={closeable ? setOpen : mockFunction}
       >
         <div className="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0 font-Comfortaa">
           <Transition.Child
@@ -61,7 +64,9 @@ function Modal({
                   <h2 className="w-max font-semibold mt-[.45rem]">{label}</h2>
                   <button
                     type="button"
-                    className="rounded-full cursor-pointer hover:bg-cusOrange hover:text-white outline-none ml-3 mb-3"
+                    className={`rounded-full cursor-pointer hover:bg-cusOrange hover:text-white outline-none ml-3 mb-3 ${
+                      closeable ? '' : 'hidden'
+                    }`}
                     onClick={() => setOpen(false)}
                     ref={cancelButtonRef}
                   >

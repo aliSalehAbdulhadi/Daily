@@ -19,10 +19,12 @@ import removeTaskStatus from '../slices/features/fireBaseActions/deleteTaskSlice
 import openMoveMilestoneSlice from '../slices/features/openMoveMilestoneSlice';
 import selectedMilestone from '../slices/features/selectedMilestone';
 import openMilestonePanelPc from '../slices/features/openMilestonePanelPc';
+import signInWithGoogleSlice from '../slices/authentication/signInWithGoogleSlice';
 
 const rootReducer = combineReducers({
   signUpReducer: signUpSlice,
   signInReducer: signInSlice,
+  signInWithGoogleReducer: signInWithGoogleSlice,
   userReducer: userSlice,
   addTaskReducer: addTaskSlice,
   getTaskReducer: getTaskSlice,

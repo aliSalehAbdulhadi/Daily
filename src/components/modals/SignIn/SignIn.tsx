@@ -12,6 +12,8 @@ import { signInThunk } from '../../../redux/slices/authentication/signInSlice';
 import useCheckStatus from '../../../hooks/useCheckStatus';
 import { isOnline } from '../../../utilities/isOnline';
 import { Dark } from '../../../utilities/globalImports';
+import GoogleButton from '../../googleButton/GoogleButton';
+import { signInWithGoogle } from '../../../redux/slices/authentication/signInWithGoogleSlice';
 
 const signInSchema = Yup.object().shape({
   Email: Yup.string().min(3).max(24).required(),
@@ -53,7 +55,7 @@ const SignIn = ({
         }}
       >
         {({}) => (
-          <Form className="flex flex-col min-w-[35vh]">
+          <Form className="flex flex-col ">
             <FormField
               autoComplete="email"
               className="mb-3"
@@ -62,7 +64,7 @@ const SignIn = ({
               type="email"
               placeholder="Enter Your Email"
               value="email"
-              classNameField="p-5 outline-none block w-full shadow-sm sm:text-sm border-gray-300 rounded py-3 font-Comfortaa text-textLight mt-1"
+              classNameField="p-5 outline-none block w-full shadow-sm sm:text-sm border-gray-300 rounded py-2 xs:py-3 font-Comfortaa text-textLight mt-1"
             />
             <FormField
               autoComplete=""
@@ -72,7 +74,7 @@ const SignIn = ({
               type="password"
               placeholder="Enter Your Password"
               value="password"
-              classNameField="p-5 outline-none block w-full shadow-sm sm:text-sm border-gray-300 rounded py-3 font-Comfortaa text-textLight mt-1 "
+              classNameField="p-5 outline-none block w-full shadow-sm sm:text-sm border-gray-300 rounded py-2 xs:py-3 font-Comfortaa text-textLight mt-1 "
             />
             <button
               title="Forgot Password"
@@ -93,22 +95,29 @@ const SignIn = ({
                 <h2 className="text-green-600 text-sm">Login successful</h2>
               ) : null}
             </div>
+
+            <div
+              onClick={() => dispatch(signInWithGoogle())}
+              className="flex items-center justify-center mb-1"
+            >
+              <GoogleButton />
+            </div>
             <div className="flex justify-between items-center mt-7">
               {pending ? (
                 <button
                   title="Signing In"
-                  className={`flex items-center justify-center py-3 px-5 rounded text-white  text-xs md:text-sm ${
+                  className={`flex items-center justify-center py-3 px-2 rounded text-white whitespace-nowrap  text-xs  ${
                     dark ? 'bg-primaryColor' : 'bg-secondaryLight'
                   }`}
                   type="submit"
                 >
-                  <FaSpinner className="mr-4 animate-spin" />
                   Signing In
+                  <FaSpinner className=" ml-2 animate-spin" />
                 </button>
               ) : (
                 <button
                   title="Sign In"
-                  className={`py-3 px-7 rounded text-white text-xs md:text-sm hover:text-primaryColor hover:bg-white ${
+                  className={`  py-3 px-7 whitespace-nowrap  rounded text-white text-xs  hover:text-primaryColor hover:bg-white ${
                     dark ? 'bg-primaryColor' : 'bg-secondaryLight'
                   }`}
                   type="submit"
@@ -116,11 +125,11 @@ const SignIn = ({
                   Sign In
                 </button>
               )}
-              <div className="flex flex-col text-xs md:text-sm ">
-                <span>Dont have an account?</span>
+              <div className="flex flex-col items-center justify-center text-xs mr-5 xs:mr-0 xs:ml-4 whitespace-nowrap">
+                <span className="hidden xs:block">Dont have an account?</span>
                 <button
                   title="Sign Up"
-                  className="mt-1 underline underline-offset-[5px]"
+                  className="xs:mt-1 underline underline-offset-[5px]"
                   type="button"
                   onClick={() => {
                     setOpen(false);

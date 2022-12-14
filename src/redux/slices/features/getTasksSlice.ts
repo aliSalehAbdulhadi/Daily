@@ -47,7 +47,7 @@ const getTasksSlice = createSlice({
     ) => {
       state.tasks?.unshift(action.payload);
       state.isAddingTask = !state.isAddingTask;
-      state.allTasksCount++;
+      state.allTasksCount = state.allTasksCount + 1;
     },
     deleteTasksLocally: (
       state: any,
@@ -256,7 +256,9 @@ const getTasksSlice = createSlice({
       build.addCase(getTasks?.fulfilled, (state, action: any) => {
         state.status = 'fulfilled';
         state.tasks = action?.payload?.userData?.tasks;
-        state.allTasksCount = action?.payload?.allTasksCount;
+        state.allTasksCount = action?.payload?.allTasksCount
+          ? action?.payload?.allTasksCount
+          : 0;
         state.tasksDates = action?.payload?.tasksDates;
         state.userName = action?.payload?.userName
           ? encrypt(action?.payload?.userName, encryptKey)

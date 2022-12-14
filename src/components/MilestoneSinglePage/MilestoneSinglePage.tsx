@@ -303,7 +303,7 @@ const MilestoneSinglePage = ({
           {deleteTimer ? (
             <div
               title="Cancel Deletion"
-              className="relative cursor-pointer w-fit h-fit mb-3 "
+              className="relative cursor-pointer w-fit h-fit mb-3 ml-1"
               onClick={() => setDeleteTimer(false)}
             >
               <BiX className="absolute h-4 w-4 top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]" />

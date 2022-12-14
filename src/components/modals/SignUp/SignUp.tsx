@@ -15,6 +15,7 @@ import { addUsername } from '../../../redux/slices/features/fireBaseActions/addU
 import useCheckStatus from '../../../hooks/useCheckStatus';
 import { isOnline } from '../../../utilities/isOnline';
 import { Dark, UserKey } from '../../../utilities/globalImports';
+import GoogleButton from '../../googleButton/GoogleButton';
 
 const signUpSchema = Yup.object().shape({
   UserName: Yup.string().min(3).max(15).required('User name is required'),
@@ -82,16 +83,16 @@ const SignUp = ({ open, setOpen, setSignIn }: SignUpInterface) => {
         }}
       >
         {({}) => (
-          <Form className="min-w-[35vh]">
+          <Form className="">
             <FormField
               autoComplete="username"
-              className="mb-3"
+              className="mb-3 placeholder-text-sm"
               label="User Name"
               name="UserName"
               type="text"
               placeholder="Enter Your User Name"
               value="username"
-              classNameField="p-5 outline-none block w-full shadow-sm sm:text-sm border-gray-300 rounded py-3 font-Comfortaa text-textLight mt-1"
+              classNameField="p-5 outline-none block w-full shadow-sm sm:text-sm border-gray-300 rounded py-2 xs:py-3 font-Comfortaa text-textLight mt-1"
             />
             <FormField
               autoComplete="email"
@@ -101,7 +102,7 @@ const SignUp = ({ open, setOpen, setSignIn }: SignUpInterface) => {
               type="email"
               placeholder="Enter Your Email"
               value="email"
-              classNameField="p-5 outline-none block w-full shadow-sm sm:text-sm border-gray-300 rounded py-3 font-Comfortaa text-textLight mt-1"
+              classNameField="p-5 outline-none block w-full shadow-sm sm:text-sm border-gray-300 rounded py-2 xs:py-3 font-Comfortaa text-textLight mt-1"
             />
             <FormField
               autoComplete=""
@@ -111,7 +112,7 @@ const SignUp = ({ open, setOpen, setSignIn }: SignUpInterface) => {
               type="password"
               placeholder="Enter Your Password"
               value="password"
-              classNameField="p-5 outline-none block w-full shadow-sm sm:text-sm border-gray-300 rounded py-3 font-Comfortaa text-textLight mt-1"
+              classNameField="p-5 outline-none block w-full shadow-sm sm:text-sm border-gray-300 rounded py-2 xs:py-3 font-Comfortaa text-textLight mt-1"
             />
 
             <FormField
@@ -122,7 +123,7 @@ const SignUp = ({ open, setOpen, setSignIn }: SignUpInterface) => {
               type="password"
               placeholder="Enter Your Password Again"
               value="password"
-              classNameField="p-5 outline-none block w-full shadow-sm sm:text-sm border-gray-300 rounded py-3 font-Comfortaa text-textLight mt-1"
+              classNameField="p-5 outline-none block w-full shadow-sm sm:text-sm border-gray-300 rounded py-2 xs:py-3 font-Comfortaa text-textLight mt-1"
             />
             <div className="py-4 h-4 w-full flex items-center justify-center">
               {rejected ? (
@@ -132,22 +133,26 @@ const SignUp = ({ open, setOpen, setSignIn }: SignUpInterface) => {
                 <h2 className="text-green-600 text-sm">Sign Up Successful</h2>
               ) : null}
             </div>
-            <div className="flex justify-between items-center mt-5">
+
+            <div className="flex items-center justify-center mb-1">
+              <GoogleButton />
+            </div>
+            <div className="flex justify-between items-center mt-7">
               {pending ? (
                 <button
                   title="Signing Up"
-                  className={`flex items-center justify-center py-3 px-3 rounded text-white  text-xs md:text-sm ${
-                    dark ? 'bg-secondaryColor' : 'bg-secondaryLight'
+                  className={`flex items-center justify-center py-3 px-2 rounded text-white whitespace-nowrap  text-xs  ${
+                    dark ? 'bg-primaryColor' : 'bg-secondaryLight'
                   } `}
                   type="submit"
                 >
-                  <FaSpinner className="mr-3 animate-spin" />
                   Signing Up
+                  <FaSpinner className="ml-2 animate-spin" />
                 </button>
               ) : (
                 <button
                   title="Sign Up"
-                  className={`py-3 px-7 rounded text-white text-xs md:text-sm hover:text-primaryColor hover:bg-white ${
+                  className={`py-3 px-7 rounded whitespace-nowrap  text-white text-xs  hover:text-primaryColor hover:bg-white ${
                     dark ? 'bg-primaryColor' : 'bg-secondaryLight'
                   }`}
                   type="submit"
@@ -155,11 +160,13 @@ const SignUp = ({ open, setOpen, setSignIn }: SignUpInterface) => {
                   Sign Up
                 </button>
               )}
-              <div className="flex flex-col text-xs md:text-sm">
-                <span>Already have an account?</span>
+              <div className="flex flex-col items-center justify-center text-xs mr-5 xs:mr-0 xs:ml-4 whitespace-nowrap">
+                <span className="hidden xs:block">
+                  Already have an account?
+                </span>
                 <button
                   title="Sign In"
-                  className="mt-1 underline underline-offset-[5px]"
+                  className="xs:mt-1 underline underline-offset-[5px]"
                   type="button"
                   onClick={() => {
                     setOpen(false);

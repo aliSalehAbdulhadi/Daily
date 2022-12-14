@@ -13,7 +13,9 @@ const ErrorMessage = ({
 }) => {
   return (
     <div className="flex flex-col items-center">
-      <div className="text-white font-light">{message}</div>
+      <div className="text-white font-light text-sm xs:text-base">
+        {message}
+      </div>
       <div
         className={` ${
           imageLink && imageLink?.length > 0 ? 'block' : 'hidden'
