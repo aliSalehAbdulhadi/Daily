@@ -6,6 +6,7 @@ export interface ModalInterface {
   label: string;
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  closeable?: boolean;
   children: React.ReactNode;
 }
 
