@@ -1,11 +1,7 @@
 import { useEffect, useState } from 'react';
 import type { NextPage } from 'next';
 import TaskForm from '../src/components/Forms/TaskForm/TaskForm';
-import {
-  RootState,
-  useAppDispatch,
-  useAppSelector,
-} from '../src/interfaces/interfaces';
+import { useAppDispatch } from '../src/interfaces/interfaces';
 import { trickStore } from '../src/redux/slices/features/trickStore';
 import { isOnline } from '../src/utilities/isOnline';
 import TasksContainer from '../src/components/TasksContainer/TasksContainer';
@@ -30,15 +26,12 @@ const Home: NextPage = () => {
     }
   }, [dispatch, tasks, user]);
 
-  const signInWithGoogleStatus = useAppSelector(
-    (state: RootState) => state.signInWithGoogleReducer,
-  );
-
   useEffect(() => {
     setOpen(false);
   }, [user]);
 
   useEffect(() => {
+    //to set the new user document in firestore
     setTimeout(() => {
       if (userName?.length === 0 && user) {
         setOpen(true);
