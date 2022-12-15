@@ -2,7 +2,6 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { initialState } from '../../../interfaces/interfaces';
 import {
   GoogleAuthProvider,
-  signInWithPopup,
   signInWithRedirect,
 } from 'firebase/auth';
 import { auth } from '../../../container/firebase';
