@@ -30,15 +30,12 @@ const Home: NextPage = () => {
     }
   }, [dispatch, tasks, user]);
 
-  const signInWithGoogleStatus = useAppSelector(
-    (state: RootState) => state.signInWithGoogleReducer,
-  );
-
   useEffect(() => {
     setOpen(false);
   }, [user]);
 
   useEffect(() => {
+    //to set the new user document in firestore
     setTimeout(() => {
       if (userName?.length === 0 && user) {
         setOpen(true);

@@ -28,7 +28,6 @@ const SetUserName = ({
   const [animation, setAnimation] = useState<boolean>(false);
   const dispatch = useAppDispatch();
   const user = UserKey();
-
   const dark = Dark();
 
   return (
@@ -49,7 +48,6 @@ const SetUserName = ({
             setTimeout(() => {
               dispatch(changeUsernameLocally(values.username));
               dispatch(getTasks({ userUid: user }));
-
               setOpen(false);
               setAnimation(false);
             }, 1000);
