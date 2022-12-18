@@ -26,7 +26,7 @@ const Home: NextPage = () => {
   useEffect(() => {
     if (isOnline()) {
       // trick redux store to refresh its data so it will sync between multiple opened devices at the same time
-      dispatch(trickStore({ trick: 'trick store to refresh.' }));
+      dispatch(trickStore({ trick: 'trick store to refresh' }));
     }
   }, [dispatch, tasks, user]);
 
