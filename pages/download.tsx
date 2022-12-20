@@ -18,17 +18,10 @@ const Download = () => {
   return (
     <Suspense>
       <div
-        className={`min-h-[90vh] font-Comfortaa flex flex-col items-center relative ${
+        className={`min-h-[90vh] font-Comfortaa flex flex-col items-center  ${
           dark ? 'bg-secondaryColor' : 'bg-primaryColor'
         } w-full `}
       >
-        <div
-          className={` absolute left-[29px] top-4 p-2 semiSm:left-[65px] semiSm:top-5 semiSm:p-3 cursor-pointer rounded-full   bg-primaryLight w-fit  flex items-center justify-center hover:bg-opacity-90 transition-all`}
-        >
-          <Link href={'/'}>
-            <TiArrowBack title="Go back" fill="#2c5252" size={22} />
-          </Link>
-        </div>
         <div className="mt-[5rem]  text-white">
           <div className="flex flex-col items-center">
             <span className="text-2xl">Select Your Platform</span>

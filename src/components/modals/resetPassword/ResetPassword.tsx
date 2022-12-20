@@ -11,7 +11,7 @@ import { Dark } from '../../../utilities/globalImports';
 import ModalNoConnectionError from '../../modalNoConnectionError/ModalNoConnectionError';
 
 const signInSchema = Yup.object().shape({
-  Email: Yup.string().min(3).max(24).required(),
+  Email: Yup.string().required(),
 });
 
 const ResetPassword = ({
@@ -53,7 +53,7 @@ const ResetPassword = ({
           <Form>
             <FormField
               autoComplete="email"
-              className={`mb-10 mt-5 h-10 ${isOnline() ? '' : 'hidden '}`}
+              className={` ${isOnline() ? '' : 'hidden '}`}
               label="Enter your account email."
               name="Email"
               type="email"

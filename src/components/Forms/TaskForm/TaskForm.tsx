@@ -144,14 +144,14 @@ const TaskForm = () => {
                   } text-sm md:text-base ${dark ? '' : 'placeholder-textDark'}`}
                 />
                 <div
-                  className={`absolute text-xs font-light semiSm:font-normal top-[60px] semiSm:top-[64px] right-10 semiSm:right-11  ${
+                  className={`absolute text-xs font-light semiSm:font-normal  top-[30px] xs:top-[60px] semiSm:top-[64px] right-10 semiSm:right-11  ${
                     value?.length > 0 ? 'visible' : 'invisible'
                   } ${
                     value?.length > 50
                       ? 'text-red-500'
                       : dark
-                      ? 'text-white'
-                      : 'text-black'
+                      ? 'text-black xs:text-white'
+                      : 'text-white xs:text-black'
                   }`}
                 >
                   <span>{value?.length}</span>
@@ -163,7 +163,7 @@ const TaskForm = () => {
                   type="submit"
                   className={`${
                     dark ? 'text-textDark' : 'text-textLight'
-                  } scale-[1.6] mt-2 rounded-br-md `}
+                  } scale-[1.6] mb-2 rounded-br-md `}
                 >
                   <BsPlusCircleDotted
                     className={` hover:rotate-[360deg] transition-all ease-in-out duration-500 ${
@@ -171,14 +171,14 @@ const TaskForm = () => {
                     }`}
                   />
                 </button>
+                <h1
+                  className={`absolute top-[60px] semiSm:top-[63px] left-0 text-xs semiSm:text-sm ml-1 font-Comfortaa w-fit  ${
+                    value?.length > 50 ? 'hidden' : 'block'
+                  }`}
+                >
+                  What are you up to today?
+                </h1>
               </div>
-              <h1
-                className={`text-xs semiSm:text-sm self-start ml-1 font-Comfortaa ${
-                  value?.length > 50 ? 'hidden' : 'block'
-                }`}
-              >
-                What are you up to today?
-              </h1>
             </div>
           ) : null}
         </Form>

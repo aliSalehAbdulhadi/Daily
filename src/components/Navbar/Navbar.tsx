@@ -16,6 +16,7 @@ import useClickOutside from '../../hooks/useClickOutside';
 import useWindowSize from '../../hooks/useWindowsSize';
 import { Dark, UserKey } from '../../utilities/globalImports';
 import { toggleOpenMilestonePanel } from '../../redux/slices/features/openMilestonePanelPc';
+import { useRouter } from 'next/router';
 
 const UserModalPc = dynamic(() => import('../modals/UserModalPc/UserModalPc'), {
   suspense: true,
@@ -37,7 +38,7 @@ const Navbar = () => {
   const [openUserModalMobile, setOpenUserModalMobile] =
     useState<boolean>(false);
   const [closeAnimation, setCloseAnimation] = useState<boolean>(false);
-  
+
   const dispatch = useAppDispatch();
   const dark = Dark();
   const user = UserKey();
@@ -65,6 +66,8 @@ const Navbar = () => {
     }, 180);
   };
 
+  const router = useRouter();
+
   return (
     <nav
       className={`${dark ? 'bg-primaryColor' : 'bg-primaryLight'} ${
@@ -74,7 +77,7 @@ const Navbar = () => {
       <div className="px-3 flex items-center select-none">
         <div
           onClick={() => dispatch(toggleOpenMilestonePanel(false))}
-          className={`cursor-pointer mt-2 hidden semiSm:block`}
+          className={`cursor-pointer mt-2 hidden semiSm:block h-fit w-fit `}
         >
           <Link href="/">
             {dark ? (
@@ -133,7 +136,11 @@ const Navbar = () => {
         </Suspense>
       </div>
 
-      <div className="hidden semiSm:block w-full  ">
+      <div
+        className={`w-full bg-red-100 semiSm:block hidden ${
+          router?.pathname === '/download' ? 'invisible' : ''
+        }`}
+      >
         <TaskForm />
       </div>
 

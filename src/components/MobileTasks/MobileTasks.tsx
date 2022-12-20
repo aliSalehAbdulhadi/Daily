@@ -115,11 +115,17 @@ const MobileTasks = () => {
             <SortModal open={sortModal} setOpen={setSortModal} />
           </div>
         </div>
-        <div className="text-white self-center text-[.70rem] xs:text-xs xs:mt-1 mr-2 select-none">
+        <div className="text-white self-center text-[.70rem] xs:text-xs xs:mt-1 select-none min-w-[85px]">
           {completedTask ? (
-            <span>Total tasks: {CompletedTasks()?.length}</span>
+            <div>
+              Total tasks:
+              <span className="ml-1 ">{CompletedTasks()?.length}</span>
+            </div>
           ) : (
-            <span>Total tasks: {PendingTasks()?.length}</span>
+            <div>
+              Total tasks:
+              <span className="ml-1 ">{PendingTasks()?.length}</span>
+            </div>
           )}
         </div>
       </div>

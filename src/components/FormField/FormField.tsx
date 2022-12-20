@@ -35,7 +35,7 @@ function FormField({
           rows={5}
         />
         <ErrorMessage
-          className="text-sm text-red-600"
+          className="text-xs text-red-600"
           component="div"
           name={name}
         />
@@ -44,10 +44,10 @@ function FormField({
   }
 
   return (
-    <div className={className}>
+    <div className={`h-[5rem] ${className}`}>
       <label
         htmlFor={name}
-        className={`ml-3 block text-xs font-Comfortaa md:text-sm whitespace-nowrap font-medium`}
+        className={`ml-3 block text-xs font-Comfortaa whitespace-nowrap font-medium`}
       >
         {label}
       </label>
@@ -60,7 +60,7 @@ function FormField({
         placeholder={placeholder}
       />
       <ErrorMessage
-        className="text-sm text-red-600"
+        className="text-xs text-red-600 mt-1"
         component="div"
         name={name}
       />

@@ -51,7 +51,7 @@ const ChangeUserName = ({
           <Form>
             <FormField
               autoComplete=""
-              className={`mb-10 mt-5 h-10 ${isOnline() ? '' : 'hidden '}`}
+              className={` ${isOnline() ? '' : 'hidden '}`}
               label="Enter new username"
               name="username"
               type="userName"

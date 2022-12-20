@@ -2,6 +2,7 @@ import { Fragment, useRef } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { ModalInterface } from '../../../interfaces/interfaces';
 import { Dark } from '../../../utilities/globalImports';
+import { MdClose } from 'react-icons/md';
 
 function Modal({
   children,
@@ -60,8 +61,8 @@ function Modal({
                   dark ? 'bg-secondaryColor' : 'bg-primaryColor'
                 }`}
               >
-                <div className="flex  justify-between">
-                  <h2 className="w-max font-semibold mt-[.45rem]">{label}</h2>
+                <div className="flex  justify-between border-b-[1px] border-white border-opacity-30 mb-5">
+                  <h2 className="w-max font-semibold mt-[.2rem]">{label}</h2>
                   <button
                     type="button"
                     className={`rounded-full cursor-pointer hover:bg-cusOrange hover:text-white outline-none ml-3 mb-3 ${
@@ -70,14 +71,10 @@ function Modal({
                     onClick={() => setOpen(false)}
                     ref={cancelButtonRef}
                   >
-                    <svg
-                      className="h-8 w-8"
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="currentColor"
-                      viewBox="0 0 16 16"
-                    >
-                      <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
-                    </svg>
+                    <MdClose
+                      className="rounded-lg opacity-[.75] text-white hover:text-red-400 "
+                      size={25}
+                    />
                   </button>
                 </div>
                 {children}
