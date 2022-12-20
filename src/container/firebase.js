@@ -9,7 +9,7 @@ const app = initializeApp({
 
   //use different domain for development
   authDomain:
-    env == 'production'
+    env !== 'production'
       ? process.env.NEXT_PUBLIC_AUTH_DOMAIN
       : 'daily-todo-app-1e4a1.firebaseapp.com',
 

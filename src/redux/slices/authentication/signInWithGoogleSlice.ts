@@ -3,6 +3,7 @@ import { initialState } from '../../../interfaces/interfaces';
 import {
   GoogleAuthProvider,
   signInWithRedirect,
+  signInWithPopup,
 } from 'firebase/auth';
 import { auth } from '../../../container/firebase';
 
@@ -11,7 +12,7 @@ export const signInWithGoogle = createAsyncThunk(
   async ({}, { rejectWithValue }) => {
     try {
       const provider = new GoogleAuthProvider();
-      await signInWithRedirect(auth, provider);
+      await signInWithPopup(auth, provider);
     } catch (err: any) {
       return rejectWithValue(err);
     }
