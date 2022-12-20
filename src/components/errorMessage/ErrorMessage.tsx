@@ -13,7 +13,7 @@ const ErrorMessage = ({
 }) => {
   return (
     <div className="flex flex-col items-center">
-      <div className="text-white font-light text-sm xs:text-base">
+      <div className="font-light text-sm xs:text-base">
         {message}
       </div>
       <div

@@ -112,7 +112,7 @@ const MileStone: FC<{
     <div className="m-4 flex flex-col  font-Comfortaa transition-all text-white  relative">
       <div
         className={` rounded overflow-hidden scrollBar w-full relative h-[80vh] ${
-          dark ? 'bg-primaryColor' : 'bg-secondaryColor'
+          dark ? 'bg-primaryColor' : 'bg-secondaryColor bg-opacity-60'
         }`}
       >
         <div
@@ -218,9 +218,9 @@ const MileStone: FC<{
                     }
                   })
                 }
-                className="ml-5 py-1 px-5 border-[1px] rounded hover:bg-white hover:text-textLight"
+                className="ml-1 py-1 px-5 border-[1px] rounded hover:bg-white hover:text-textLight"
               >
-                Incomplete ?
+                Remove from completed tasks ?
               </button>
             </div>
           </div>

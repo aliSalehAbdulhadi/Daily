@@ -46,7 +46,7 @@ const UserModalPc = ({
           onClick={() =>
             setTimeout(() => {
               closeModalHandler();
-            })
+            }, 100)
           }
           className="flex flex-col items-start justify-start w-full"
         >
@@ -70,13 +70,16 @@ const UserModalPc = ({
           >
             Log in
           </button>
-          <button
-            title="Download Daily"
-            type="button"
-            className="w-full text-start my-1 py-2 px-4 hover:bg-gray-50"
-          >
-            <Link href="/download">Download</Link>
-          </button>
+
+          <Link href="/download">
+            <button
+              title="Download Daily"
+              type="button"
+              className="w-full text-start my-1 py-2 px-4 hover:bg-gray-50"
+            >
+              Download
+            </button>
+          </Link>
         </div>
       )}
 
@@ -84,7 +87,7 @@ const UserModalPc = ({
         onClick={() =>
           setTimeout(() => {
             closeModalHandler();
-          }, 1000)
+          }, 100)
         }
         className={`flex flex-col items-center justify-center ${
           user ? 'block' : 'hidden'
@@ -95,7 +98,7 @@ const UserModalPc = ({
           onClick={() => {
             setOpenUsernameModal(true);
           }}
-          className="w-full text-start my-1 py-2 px-4 hover:bg-gray-50"
+          className="w-full  text-start my-1 py-2 px-4 hover:bg-gray-50"
           type="button"
         >
           Change Username
@@ -109,13 +112,15 @@ const UserModalPc = ({
           Change Password
         </button>
 
-        <button
-          title="Download Daily"
-          type="button"
-          className="w-full text-start my-1 py-2 px-4 hover:bg-gray-50"
-        >
-          <Link href="/download">Download Daily</Link>
-        </button>
+        <Link href="/download">
+          <button
+            title="Download Daily"
+            type="button"
+            className="w-full text-start my-1 py-2 px-4 hover:bg-gray-50"
+          >
+            Download Daily
+          </button>
+        </Link>
 
         <button
           title="Log Out"

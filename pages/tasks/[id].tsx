@@ -314,9 +314,9 @@ const MileStone = () => {
                   }
                 })
               }
-              className="mt-3 py-2 px-5 border-[1px] rounded hover:bg-white hover:text-textLight"
+              className="mt-3 py-2 px-4 border-[1px] rounded hover:bg-white hover:text-textLight"
             >
-              Incomplete ?
+              Remove from completed tasks ?
             </button>
           </div>
         </div>

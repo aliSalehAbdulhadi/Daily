@@ -435,6 +435,32 @@ input::-webkit-input-placeholder {
   }
 }
 
+.mobileMoveModal {
+  animation: mobileMoveModal 0.3s linear;
+}
+
+@keyframes mobileMoveModal {
+  from {
+    transform: translateX(-35rem);
+  }
+  to {
+    transform: translateX(0rem);
+  }
+}
+
+.mobileMoveModalLayOut {
+  animation: mobileMoveModalLayOut 0.3s linear;
+}
+
+@keyframes mobileMoveModalLayOut {
+  from {
+    transform: translateX(35rem);
+  }
+  to {
+    transform: translateX(0rem);
+  }
+}
+
 .swiper {
   position: relative;
   overflow: hidden;

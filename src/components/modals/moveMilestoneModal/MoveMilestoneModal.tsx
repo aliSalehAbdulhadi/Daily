@@ -8,6 +8,7 @@ import {
 } from '../../../interfaces/interfaces';
 import { toggleOpenMoveMilestone } from '../../../redux/slices/features/openMoveMilestoneSlice';
 import SingleMoveTaskCard from '../../singleMoveTaskCard/SingleMoveTaskCard';
+import ErrorMessage from '../../errorMessage/ErrorMessage';
 
 const MoveMilestoneModal = ({
   taskId,
@@ -39,19 +40,28 @@ const MoveMilestoneModal = ({
         </div>
       </div>
       <div className=" overflow-auto scrollBar overflow-x-hidden">
-        {moveToTasks.map((task) => {
-          return (
-            <div className="taskCompPc" key={task.id}>
-              <SingleMoveTaskCard
-                user={user}
-                tasks={tasks}
-                moveToTask={task}
-                taskId={taskId}
-                milestone={milestone}
-              />
-            </div>
-          );
-        })}
+        {moveToTasks?.length > 0 ? (
+          moveToTasks?.map((task) => {
+            return (
+              <div className="taskCompPc" key={task.id}>
+                <SingleMoveTaskCard
+                  user={user}
+                  tasks={tasks}
+                  moveToTask={task}
+                  taskId={taskId}
+                  milestone={milestone}
+                />
+              </div>
+            );
+          })
+        ) : (
+          <div className={`mt-[6rem] text-black opacity-70`}>
+            <ErrorMessage
+              message="There are no tasks to display."
+              type="noTasks"
+            />
+          </div>
+        )}
       </div>
     </div>
   );

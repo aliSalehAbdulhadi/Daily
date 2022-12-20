@@ -7,19 +7,28 @@ import AndroidInstructions from '../src/components/downloadInstructions/androidI
 import AppleInstructions from '../src/components/downloadInstructions/appleInstructions/AppleInstructions';
 import useWindowSize from '../src/hooks/useWindowsSize';
 import { Dark } from '../src/utilities/globalImports';
+import Link from 'next/link';
+import { TiArrowBack } from 'react-icons/ti';
 
 const Download = () => {
   const [instruction, setInstruction] = useState<string>('');
-  const dark = Dark()
+  const dark = Dark();
   const vw = useWindowSize();
 
   return (
     <Suspense>
       <div
-        className={`min-h-[90vh] font-Comfortaa flex flex-col items-center ${
+        className={`min-h-[90vh] font-Comfortaa flex flex-col items-center relative ${
           dark ? 'bg-secondaryColor' : 'bg-primaryColor'
         } w-full `}
       >
+        <div
+          className={` absolute left-[29px] top-4 p-2 semiSm:left-[65px] semiSm:top-5 semiSm:p-3 cursor-pointer rounded-full   bg-primaryLight w-fit  flex items-center justify-center hover:bg-opacity-90 transition-all`}
+        >
+          <Link href={'/'}>
+            <TiArrowBack title="Go back" fill="#2c5252" size={22} />
+          </Link>
+        </div>
         <div className="mt-[5rem]  text-white">
           <div className="flex flex-col items-center">
             <span className="text-2xl">Select Your Platform</span>
