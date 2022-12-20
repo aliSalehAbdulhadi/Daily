@@ -12,6 +12,10 @@ export const signInWithGoogle = createAsyncThunk(
   async ({ isMobile }: { isMobile: boolean }, { rejectWithValue }) => {
     try {
       const provider = new GoogleAuthProvider();
+      provider.setCustomParameters({
+        prompt: 'select_account',
+      });
+
       isMobile
         ? await signInWithRedirect(auth, provider)
         : await signInWithPopup(auth, provider);
