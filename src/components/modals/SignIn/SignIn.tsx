@@ -14,6 +14,7 @@ import { isOnline } from '../../../utilities/isOnline';
 import { Dark } from '../../../utilities/globalImports';
 import GoogleButton from '../../googleButton/GoogleButton';
 import { signInWithGoogle } from '../../../redux/slices/authentication/signInWithGoogleSlice';
+import useWindowSize from '../../../hooks/useWindowsSize';
 
 const signInSchema = Yup.object().shape({
   Email: Yup.string().min(3).max(24).required(),
@@ -40,6 +41,7 @@ const SignIn = ({
   });
 
   const dark = Dark();
+  const vw = useWindowSize();
 
   return (
     <Modal label="Sign In" setOpen={setOpen} open={open}>
@@ -97,7 +99,9 @@ const SignIn = ({
             </div>
 
             <div
-              onClick={() => dispatch(signInWithGoogle())}
+              onClick={() =>
+                dispatch(signInWithGoogle({ isMobile: vw <= 840 }))
+              }
               className="flex items-center justify-center mb-1"
             >
               <GoogleButton />
@@ -106,7 +110,7 @@ const SignIn = ({
               {pending ? (
                 <button
                   title="Signing In"
-                  className={`flex items-center justify-center py-3 px-2 rounded text-white whitespace-nowrap  text-xs  ${
+                  className={`flex items-center justify-center py-3 px-[8.2px] rounded text-white whitespace-nowrap  text-xs  ${
                     dark ? 'bg-primaryColor' : 'bg-secondaryLight'
                   }`}
                   type="submit"

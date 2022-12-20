@@ -16,6 +16,8 @@ import useCheckStatus from '../../../hooks/useCheckStatus';
 import { isOnline } from '../../../utilities/isOnline';
 import { Dark, UserKey } from '../../../utilities/globalImports';
 import GoogleButton from '../../googleButton/GoogleButton';
+import { signInWithGoogle } from '../../../redux/slices/authentication/signInWithGoogleSlice';
+import useWindowSize from '../../../hooks/useWindowsSize';
 
 const signUpSchema = Yup.object().shape({
   UserName: Yup.string().min(3).max(15).required('User name is required'),
@@ -59,6 +61,8 @@ const SignUp = ({ open, setOpen, setSignIn }: SignUpInterface) => {
       );
     }
   }, [user, dispatch, fullName, submit]);
+
+  const vw = useWindowSize();
 
   return (
     <Modal label="Sign Up" setOpen={setOpen} open={open}>
@@ -134,7 +138,12 @@ const SignUp = ({ open, setOpen, setSignIn }: SignUpInterface) => {
               ) : null}
             </div>
 
-            <div className="flex items-center justify-center mb-1">
+            <div
+              onClick={() =>
+                dispatch(signInWithGoogle({ isMobile: vw <= 840 }))
+              }
+              className="flex items-center justify-center mb-1"
+            >
               <GoogleButton />
             </div>
             <div className="flex justify-between items-center mt-7">

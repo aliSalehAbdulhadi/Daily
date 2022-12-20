@@ -9,10 +9,12 @@ import { auth } from '../../../container/firebase';
 
 export const signInWithGoogle = createAsyncThunk(
   'user/signUp',
-  async ({}, { rejectWithValue }) => {
+  async ({ isMobile }: { isMobile: boolean }, { rejectWithValue }) => {
     try {
       const provider = new GoogleAuthProvider();
-      await signInWithPopup(auth, provider);
+      isMobile
+        ? await signInWithRedirect(auth, provider)
+        : await signInWithPopup(auth, provider);
     } catch (err: any) {
       return rejectWithValue(err);
     }
