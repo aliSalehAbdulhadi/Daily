@@ -31,7 +31,7 @@ const ConfirmLogOut = ({
       label={
         isOnline()
           ? 'Want to log out?'
-          : 'Changes added while offline will be removed, Continue?'
+          : 'Changes added while offline will be removed, continue?'
       }
       setOpen={setOpen}
       open={open}
@@ -39,7 +39,7 @@ const ConfirmLogOut = ({
       <div className="flex items-center justify-evenly md:text-base text-sm font-Comfortaa py-3 px-2">
         <button
           onClick={logOutHandler}
-          className="bg-red-500 hover:bg-white hover:text-red-500 text-white  py-2 px-4 mr-5 rounded whitespace-nowrap"
+          className="bg-red-400 hover:bg-white hover:text-red-500 text-white  py-2 px-4 mr-5 rounded whitespace-nowrap"
           type="button"
         >
           Log Out

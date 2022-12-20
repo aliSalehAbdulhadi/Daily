@@ -13,7 +13,7 @@ import {
   SingleTaskInterface,
   useAppSelector,
 } from '../../../interfaces/interfaces';
-import { UserKey } from '../../../utilities/globalImports';
+import { PendingTasks, UserKey } from '../../../utilities/globalImports';
 import LoadingCard from '../../loadingCard/LoadingCard';
 import ErrorMessage from '../../errorMessage/ErrorMessage';
 const SingleTaskContainer = dynamic(
@@ -107,12 +107,12 @@ const PcTasksGrid = ({
           className={`w-[100%] py-2 scrollBar flex justify-center flex-wrap `}
         >
           {user ? (
-            completedTask && tasks?.length > 0 ? (
+            !completedTask && pendingTasks?.length > 0 ? (
               <SortableContext
-                items={completedTasks}
+                items={pendingTasks}
                 strategy={rectSortingStrategy}
               >
-                {taskSortHandler(completedTasks)?.map(
+                {taskSortHandler(pendingTasks)?.map(
                   (task: SingleTaskInterface, index: number) => (
                     <Suspense key={task?.id} fallback={<LoadingCard />}>
                       <div
@@ -134,8 +134,10 @@ const PcTasksGrid = ({
             ) : (
               <div
                 className={`${
-                  tasks?.length <= 0 ? 'block' : 'hidden'
-                }  mt-[7rem]`}
+                  PendingTasks?.length === 0 && !completedTask
+                    ? 'block'
+                    : 'hidden'
+                }  mt-[7rem] text-white `}
               >
                 <ErrorMessage
                   message="There are no tasks to display."
@@ -144,7 +146,7 @@ const PcTasksGrid = ({
               </div>
             )
           ) : (
-            <div className="mt-[7rem]">
+            <div className="mt-[7rem] text-white">
               <ErrorMessage
                 message="Please login to start adding tasks."
                 type="noUser"
@@ -154,12 +156,12 @@ const PcTasksGrid = ({
             </div>
           )}
 
-          {!completedTask && tasks && tasks?.length > 0 ? (
+          {completedTask && completedTasks?.length > 0 ? (
             <SortableContext
-              items={pendingTasks}
+              items={completedTasks}
               strategy={rectSortingStrategy}
             >
-              {taskSortHandler(pendingTasks)?.map(
+              {taskSortHandler(completedTasks)?.map(
                 (task: SingleTaskInterface, index: number) => (
                   // eslint-disable-next-line react/jsx-no-undef
                   <div
@@ -180,7 +182,20 @@ const PcTasksGrid = ({
                 ),
               )}
             </SortableContext>
-          ) : null}
+          ) : (
+            <div
+              className={`${
+                completedTasks?.length === 0 && completedTask
+                  ? 'block'
+                  : 'hidden'
+              }  mt-[7rem] text-white `}
+            >
+              <ErrorMessage
+                message="There are no tasks to display."
+                type="noTasks"
+              />
+            </div>
+          )}
         </div>
       </div>
     </div>

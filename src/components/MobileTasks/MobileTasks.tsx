@@ -115,11 +115,17 @@ const MobileTasks = () => {
             <SortModal open={sortModal} setOpen={setSortModal} />
           </div>
         </div>
-        <div className="text-white self-center text-[.70rem] xs:text-xs xs:mt-1 mr-2 select-none">
+        <div className="text-white self-center text-[.70rem] xs:text-xs xs:mt-1 select-none min-w-[85px]">
           {completedTask ? (
-            <span>Total tasks: {CompletedTasks()?.length}</span>
+            <div>
+              Total tasks:
+              <span className="ml-1 ">{CompletedTasks()?.length}</span>
+            </div>
           ) : (
-            <span>Total tasks: {PendingTasks()?.length}</span>
+            <div>
+              Total tasks:
+              <span className="ml-1 ">{PendingTasks()?.length}</span>
+            </div>
           )}
         </div>
       </div>
@@ -136,10 +142,7 @@ const MobileTasks = () => {
           ref={scrollRefTop}
           className={`w-[100%] overflow-x-hidden   px-2 xs:px-5 py-3 semiSm:py-2 overflow-auto scrollBar flex flex-col items-center  `}
         >
-          <SortableContext
-            items={completedTasks}
-            strategy={rectSortingStrategy}
-          >
+          <SortableContext items={pendingTasks} strategy={rectSortingStrategy}>
             {user ? (
               !completedTask && pendingTasks?.length > 0 ? (
                 taskSortHandler(pendingTasks)?.map(
@@ -167,7 +170,7 @@ const MobileTasks = () => {
                     pendingTasks?.length <= 0 && !completedTask
                       ? 'block'
                       : 'hidden'
-                  }  mt-[7rem]`}
+                  }  mt-[7rem] text-white `}
                 >
                   <ErrorMessage
                     message="There are no tasks to display."
@@ -176,7 +179,7 @@ const MobileTasks = () => {
                 </div>
               )
             ) : (
-              <div className="mt-[7rem]">
+              <div className="mt-[7rem] text-white ">
                 <ErrorMessage
                   message="Please login to start adding tasks."
                   type="noUser"
@@ -188,7 +191,7 @@ const MobileTasks = () => {
           </SortableContext>
 
           <SortableContext
-            items={pendingTasks}
+            items={completedTasks}
             strategy={verticalListSortingStrategy}
           >
             {completedTask && completedTasks?.length > 0 ? (
@@ -213,7 +216,9 @@ const MobileTasks = () => {
               )
             ) : (
               <div
-                className={`${completedTask ? 'block' : 'hidden'}  mt-[7rem]`}
+                className={`${
+                  completedTask ? 'block' : 'hidden'
+                } text-white  mt-[7rem]`}
               >
                 <ErrorMessage
                   message="There are no tasks to display."

@@ -21,7 +21,7 @@ import useWindowSize from '../../../hooks/useWindowsSize';
 
 const signUpSchema = Yup.object().shape({
   UserName: Yup.string().min(3).max(15).required('User name is required'),
-  Email: Yup.string().min(3).max(24).required('Email is required'),
+  Email: Yup.string().required('Email is required'),
   Password: Yup.string().min(6).required('Password is required'),
   PasswordConfirmation: Yup.string()
     .required('Password is required')
@@ -91,10 +91,10 @@ const SignUp = ({ open, setOpen, setSignIn }: SignUpInterface) => {
             <FormField
               autoComplete="username"
               className="mb-3 placeholder-text-sm"
-              label="User Name"
+              label="Username"
               name="UserName"
               type="text"
-              placeholder="Enter Your User Name"
+              placeholder="Enter Your Username"
               value="username"
               classNameField="p-5 outline-none block w-full shadow-sm sm:text-sm border-gray-300 rounded py-2 xs:py-3 font-Comfortaa text-textLight mt-1"
             />
@@ -122,31 +122,32 @@ const SignUp = ({ open, setOpen, setSignIn }: SignUpInterface) => {
             <FormField
               autoComplete=""
               className="mb-3"
-              label="Password Confirmation"
+              label="Re-write password"
               name="PasswordConfirmation"
               type="password"
               placeholder="Enter Your Password Again"
               value="password"
               classNameField="p-5 outline-none block w-full shadow-sm sm:text-sm border-gray-300 rounded py-2 xs:py-3 font-Comfortaa text-textLight mt-1"
             />
-            <div className="py-4 h-4 w-full flex items-center justify-center">
-              {rejected ? (
-                <h2 className="text-red-600 text-sm">{errorMessage}</h2>
-              ) : null}
-              {fulfilled ? (
-                <h2 className="text-green-600 text-sm">Sign Up Successful</h2>
-              ) : null}
-            </div>
 
             <div
               onClick={() =>
                 dispatch(signInWithGoogle({ isMobile: vw <= 840 }))
               }
-              className="flex items-center justify-center mb-1"
+              className="flex items-center justify-center mt-5"
             >
               <GoogleButton />
             </div>
-            <div className="flex justify-between items-center mt-7">
+
+            <div className="mt-4 h-4 w-full flex items-center justify-center">
+              {rejected ? (
+                <h2 className="text-red-600 text-sm">{errorMessage}d</h2>
+              ) : null}
+              {fulfilled ? (
+                <h2 className="text-green-600 text-sm">Sign Up Successful</h2>
+              ) : null}
+            </div>
+            <div className="flex justify-between items-center mt-3">
               {pending ? (
                 <button
                   title="Signing Up"

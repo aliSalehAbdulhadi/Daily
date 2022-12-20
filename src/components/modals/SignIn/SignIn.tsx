@@ -17,7 +17,7 @@ import { signInWithGoogle } from '../../../redux/slices/authentication/signInWit
 import useWindowSize from '../../../hooks/useWindowsSize';
 
 const signInSchema = Yup.object().shape({
-  Email: Yup.string().min(3).max(24).required(),
+  Email: Yup.string().required(),
   Password: Yup.string().min(6).required(),
 });
 
@@ -85,11 +85,21 @@ const SignIn = ({
                 setResetPassword(true);
                 setOpen(false);
               }}
-              className="text-xs self-end mr-1 mt-1"
+              className="text-sm self-center  mt-7"
             >
               Forgot Password?
             </button>
-            <div className="py-4 h-4 w-full flex items-center justify-center">
+
+            <div
+              onClick={() =>
+                dispatch(signInWithGoogle({ isMobile: vw <= 840 }))
+              }
+              className="flex items-center justify-center mt-5"
+            >
+              <GoogleButton />
+            </div>
+
+            <div className="mt-3 h-4 w-full flex items-center justify-center">
               {rejected ? (
                 <h2 className="text-red-600 text-sm">{errorMessage}</h2>
               ) : null}
@@ -97,16 +107,7 @@ const SignIn = ({
                 <h2 className="text-green-600 text-sm">Login successful</h2>
               ) : null}
             </div>
-
-            <div
-              onClick={() =>
-                dispatch(signInWithGoogle({ isMobile: vw <= 840 }))
-              }
-              className="flex items-center justify-center mb-1"
-            >
-              <GoogleButton />
-            </div>
-            <div className="flex justify-between items-center mt-7">
+            <div className="flex justify-between items-center mt-3">
               {pending ? (
                 <button
                   title="Signing In"

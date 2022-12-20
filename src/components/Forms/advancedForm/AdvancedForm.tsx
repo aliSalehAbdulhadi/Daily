@@ -15,7 +15,6 @@ import { modules } from '../../../utilities/quillToolBar';
 import { isOnline } from '../../../utilities/isOnline';
 import { Dark, Tasks, UserKey } from '../../../utilities/globalImports';
 
-
 const AdvancedForm = ({
   taskId,
   setOpenAdvancedForm,
@@ -31,7 +30,6 @@ const AdvancedForm = ({
   const user = UserKey();
   const tasks: SingleTaskInterface[] = Tasks();
   const dark = Dark();
-
 
   const quillRef = useRef(null);
   useEffect(() => {
@@ -105,7 +103,10 @@ const AdvancedForm = ({
         }}
         className="absolute ml-10 text-black right-2 top-[.60rem] hidden semiSm:block "
       >
-        <AiFillCloseSquare className="rounded-lg opacity-[.75]" size={20} />
+        <AiFillCloseSquare
+          className="rounded-lg hover:text-red-600 opacity-[.75]"
+          size={20}
+        />
       </button>
 
       <ReactQuill
@@ -123,7 +124,7 @@ const AdvancedForm = ({
 
       <div className="w-full flex items-center ">
         <button
-          className="w-[75%] semiSm:w-full py-2 bg-primaryLight text-black semiSm:rounded-b"
+          className="w-[75%] semiSm:w-full py-2 bg-primaryLight text-black semiSm:rounded-b "
           type="submit"
         >
           Submit

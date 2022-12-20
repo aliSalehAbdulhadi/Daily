@@ -36,8 +36,8 @@ const UserModalPc = ({
     >
       {user ? (
         <div
-          title=""
-          className="flex items-center justify-center w-full my-1 py-2 px-4 hover:bg-gray-50 mt-2 font-cerealMedium border-b-[1.7px] mb-3"
+          title="Your username"
+          className="flex items-center justify-center w-full  py-2 px-4 hover:bg-gray-50 rounded-t-lg font-cerealMedium border-b-[1.7px] mb-3"
         >
           <h1 className="text-lg">{userName}</h1>
         </div>
@@ -46,7 +46,7 @@ const UserModalPc = ({
           onClick={() =>
             setTimeout(() => {
               closeModalHandler();
-            })
+            }, 100)
           }
           className="flex flex-col items-start justify-start w-full"
         >
@@ -55,7 +55,7 @@ const UserModalPc = ({
             onClick={() => {
               setOpenSignUpModal(true);
             }}
-            className="w-full text-start my-1 py-2 px-4 hover:bg-gray-50 mt-2 font-cerealMedium"
+            className="w-full text-start  py-3 px-4 hover:bg-gray-50  font-cerealMedium"
             type="button"
           >
             Sign up
@@ -65,18 +65,21 @@ const UserModalPc = ({
             onClick={() => {
               setOpenSignInModal(true);
             }}
-            className="w-full text-start my-1 pt-2 px-4 hover:bg-gray-50 mb-3"
+            className="w-full text-start  py-3 px-4 hover:bg-gray-50"
             type="button"
           >
             Log in
           </button>
-          <button
-            title="Download Daily"
-            type="button"
-            className="w-full text-start my-1 py-2 px-4 hover:bg-gray-50"
-          >
-            <Link href="/download">Download</Link>
-          </button>
+
+          <Link href="/download">
+            <button
+              title="Download Daily"
+              type="button"
+              className="w-full text-start rounded-b-lg py-3 px-4 hover:bg-gray-50"
+            >
+              Download
+            </button>
+          </Link>
         </div>
       )}
 
@@ -84,18 +87,28 @@ const UserModalPc = ({
         onClick={() =>
           setTimeout(() => {
             closeModalHandler();
-          }, 1000)
+          }, 100)
         }
         className={`flex flex-col items-center justify-center ${
           user ? 'block' : 'hidden'
         }`}
       >
+        <Link href="/download">
+          <button
+            title="Download Daily"
+            type="button"
+            className="w-full text-start  py-3 px-4 hover:bg-gray-50"
+          >
+            Download Daily
+          </button>
+        </Link>
+
         <button
           title="Change Username"
           onClick={() => {
             setOpenUsernameModal(true);
           }}
-          className="w-full text-start my-1 py-2 px-4 hover:bg-gray-50"
+          className="w-full  text-start  py-3 px-4 hover:bg-gray-50"
           type="button"
         >
           Change Username
@@ -103,18 +116,10 @@ const UserModalPc = ({
         <button
           title="Change Password"
           onClick={() => setOpenPasswordModal(true)}
-          className="w-full text-start my-1 py-2 px-4 hover:bg-gray-50"
+          className="w-full text-start  py-3 px-4 hover:bg-gray-50"
           type="button"
         >
           Change Password
-        </button>
-
-        <button
-          title="Download Daily"
-          type="button"
-          className="w-full text-start my-1 py-2 px-4 hover:bg-gray-50"
-        >
-          <Link href="/download">Download Daily</Link>
         </button>
 
         <button
@@ -122,7 +127,7 @@ const UserModalPc = ({
           onClick={() => {
             setOpenLogoutModal(true);
           }}
-          className={`w-full text-start my-1 py-2 px-4 hover:bg-gray-50 `}
+          className={`w-full text-start  py-3 px-4 hover:bg-gray-50 rounded-b-lg`}
           type="button"
         >
           Log Out

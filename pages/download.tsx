@@ -7,16 +7,18 @@ import AndroidInstructions from '../src/components/downloadInstructions/androidI
 import AppleInstructions from '../src/components/downloadInstructions/appleInstructions/AppleInstructions';
 import useWindowSize from '../src/hooks/useWindowsSize';
 import { Dark } from '../src/utilities/globalImports';
+import Link from 'next/link';
+import { TiArrowBack } from 'react-icons/ti';
 
 const Download = () => {
   const [instruction, setInstruction] = useState<string>('');
-  const dark = Dark()
+  const dark = Dark();
   const vw = useWindowSize();
 
   return (
     <Suspense>
       <div
-        className={`min-h-[90vh] font-Comfortaa flex flex-col items-center ${
+        className={`min-h-[90vh] font-Comfortaa flex flex-col items-center  ${
           dark ? 'bg-secondaryColor' : 'bg-primaryColor'
         } w-full `}
       >
