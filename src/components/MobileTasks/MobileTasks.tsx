@@ -141,8 +141,8 @@ const MobileTasks = () => {
             strategy={rectSortingStrategy}
           >
             {user ? (
-              completedTask && tasks?.length > 0 ? (
-                taskSortHandler(completedTasks)?.map(
+              !completedTask && pendingTasks?.length > 0 ? (
+                taskSortHandler(pendingTasks)?.map(
                   (task: SingleTaskInterface, index: number) =>
                     index <= loadInView ? (
                       <Suspense key={task?.id} fallback={<LoadingCard />}>
@@ -164,7 +164,9 @@ const MobileTasks = () => {
               ) : (
                 <div
                   className={`${
-                    tasks?.length <= 0 ? 'block' : 'hidden'
+                    pendingTasks?.length <= 0 && !completedTask
+                      ? 'block'
+                      : 'hidden'
                   }  mt-[7rem]`}
                 >
                   <ErrorMessage
@@ -189,27 +191,36 @@ const MobileTasks = () => {
             items={pendingTasks}
             strategy={verticalListSortingStrategy}
           >
-            {!completedTask && tasks && tasks?.length > 0
-              ? taskSortHandler(pendingTasks)?.map(
-                  (task: SingleTaskInterface, index: number) =>
-                    index <= loadInView ? (
-                      <Suspense key={task?.id} fallback={<LoadingCard />}>
-                        <div
-                          className="w-full"
-                          onClick={() => setTaskId(task.id)}
-                        >
-                          <SingleTaskContainer
-                            task={task}
-                            index={index}
-                            taskId={taskId}
-                            setLoadInView={setLoadInView}
-                            loadInView={loadInView}
-                          />
-                        </div>
-                      </Suspense>
-                    ) : null,
-                )
-              : null}
+            {completedTask && completedTasks?.length > 0 ? (
+              taskSortHandler(completedTasks)?.map(
+                (task: SingleTaskInterface, index: number) =>
+                  index <= loadInView ? (
+                    <Suspense key={task?.id} fallback={<LoadingCard />}>
+                      <div
+                        className="w-full"
+                        onClick={() => setTaskId(task.id)}
+                      >
+                        <SingleTaskContainer
+                          task={task}
+                          index={index}
+                          taskId={taskId}
+                          setLoadInView={setLoadInView}
+                          loadInView={loadInView}
+                        />
+                      </div>
+                    </Suspense>
+                  ) : null,
+              )
+            ) : (
+              <div
+                className={`${completedTask ? 'block' : 'hidden'}  mt-[7rem]`}
+              >
+                <ErrorMessage
+                  message="There are no tasks to display."
+                  type="noTasks"
+                />
+              </div>
+            )}
           </SortableContext>
         </div>
       </div>
@@ -218,7 +229,7 @@ const MobileTasks = () => {
       <div
         className={`flex items-center  justify-center cursor-pointer fixed bottom-0    w-full  border-t-[1px] border-white border-opacity-20   ${
           dark ? 'bg-secondaryColor' : 'bg-primaryColor'
-        } ${user ? '' : 'hidden'} `}
+        } ${user && tasks?.length > 0 ? '' : 'hidden'} `}
       >
         <button
           type="button"
