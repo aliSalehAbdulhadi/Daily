@@ -141,7 +141,7 @@ const SignUp = ({ open, setOpen, setSignIn }: SignUpInterface) => {
 
             <div className="mt-4 h-4 w-full flex items-center justify-center">
               {rejected ? (
-                <h2 className="text-red-600 text-sm">{errorMessage}d</h2>
+                <h2 className="text-red-600 text-sm">{errorMessage}</h2>
               ) : null}
               {fulfilled ? (
                 <h2 className="text-green-600 text-sm">Sign Up Successful</h2>

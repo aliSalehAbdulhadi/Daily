@@ -114,7 +114,14 @@ const PcTasksGrid = ({
               >
                 {taskSortHandler(pendingTasks)?.map(
                   (task: SingleTaskInterface, index: number) => (
-                    <Suspense key={task?.id} fallback={<LoadingCard />}>
+                    <Suspense
+                      key={task?.id}
+                      fallback={
+                        <div className="mr-2 h-fit w-[19rem] md:w-[23rem] lg:w-[17.7rem]">
+                          <LoadingCard />
+                        </div>
+                      }
+                    >
                       <div
                         className="mr-2 h-fit w-[19rem] md:w-[23rem] lg:w-[17.7rem]"
                         onClick={() => setTaskId(task.id)}

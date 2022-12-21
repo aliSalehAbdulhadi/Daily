@@ -47,7 +47,7 @@ function FormField({
     <div className={`h-[5rem] ${className}`}>
       <label
         htmlFor={name}
-        className={`ml-3 block text-xs font-Comfortaa whitespace-nowrap font-medium`}
+        className={`ml-3 mb-1 block text-xs font-Comfortaa whitespace-nowrap font-medium`}
       >
         {label}
       </label>

@@ -227,7 +227,7 @@ const MilestoneSinglePage = ({
             <div
               onClick={() => setEdit(true)}
               title="Edit Milestone"
-              className={`font-Comfortaa font-bold flex flex-col py-2 transition-all  ml-2 semiSm:ml-0`}
+              className={`font-Comfortaa  flex flex-col py-2 transition-all  ml-2 semiSm:ml-0`}
             >
               <pre
                 className={`flex transition-all semiSm:pb-0 whitespace-pre-line font-Comfortaa  ${
