@@ -13,7 +13,7 @@ const GoogleButton = () => {
             alt="Google Icon"
           />
         </div>
-        <span className="pr-2 ml-2 font-bold   text-xs xs:text-sm ">
+        <span className="pr-2 font-bold   text-xs py-1 px-3 opacity-90">
           Sign in with Google
         </span>
       </div>

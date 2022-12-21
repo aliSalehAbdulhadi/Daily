@@ -57,7 +57,7 @@ const PcTasks = () => {
   return (
     <div className="flex w-full">
       <div
-        className={`flex flex-col font-Comfortaa font-bold  mobileTaskCardBoxShadow transition-all h-[88.35vh] relative ${
+        className={`flex flex-col font-Comfortaa  mobileTaskCardBoxShadow transition-all h-[88.35vh] relative ${
           dark ? 'bg-secondaryColor' : 'bg-primaryColor'
         } ${
           expandPanel || !user
@@ -81,7 +81,7 @@ const PcTasks = () => {
             />
             <div
               title="Sort Tasks"
-              className="z-40 absolute left-[318px] border-l-[1px] h-full"
+              className="z-40 absolute font-bold left-[318px] border-l-[1px] h-full"
             >
               <SortModal open={sortModal} setOpen={setSortModal} />
             </div>

@@ -31,9 +31,7 @@ const TasksContainer = () => {
     >
       <div>
         {signInStatus === 'pending' ? (
-          <h1 className="font-bold">
-            <FallBackLoading />
-          </h1>
+          <FallBackLoading />
         ) : (
           <div
             className={`  ${
