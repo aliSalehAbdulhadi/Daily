@@ -74,6 +74,7 @@ const TaskForm = () => {
                     important: false,
                     locked: false,
                     milestones: [],
+                    dueDate: '',
                   },
                   userUid: user,
                   tasksDates: { date: newDate.toISOString(), id: uuid },
@@ -96,6 +97,7 @@ const TaskForm = () => {
                     important: false,
                     locked: false,
                     milestones: [],
+                    dueDate: '',
                   }),
                 );
 

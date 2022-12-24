@@ -54,6 +54,7 @@ export interface SingleTaskInterface {
   important: boolean;
   locked: boolean;
   milestones: object[];
+  dueDate: string;
 }
 
 export interface singleMilestoneInterface {

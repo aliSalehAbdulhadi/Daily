@@ -35,6 +35,7 @@ import { isOnline } from '../../../utilities/isOnline';
 import { removeTask } from '../../../redux/slices/features/fireBaseActions/deleteTaskSlice';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
+import DueTaskModal from '../../modals/dueTaskModal/DueTaskModal';
 
 const SingleTaskMobile = ({
   task,
@@ -264,7 +265,10 @@ const SingleTaskMobile = ({
                 {formatDate}
               </div>
             </div>
-            <div title="Edit Task" className="relative ml-1 text-xs  xs:text-base">
+            <div
+              title="Edit Task"
+              className="relative ml-1 text-xs  xs:text-base"
+            >
               {edit ? (
                 <form
                   ref={textareaRef}
@@ -311,57 +315,59 @@ const SingleTaskMobile = ({
                 </div>
               )}
             </div>
-            <div className="flex items-center ml-[.31rem]">
-              <button
-                type="button"
-                className={` h-[2rem] w-fit flex items-center ${
-                  edit ? 'hidden' : 'flex'
-                }`}
-              >
-                {task?.completed ? (
-                  <MdOutlineRemoveDone
-                    title="Incomplete Task"
-                    onClick={completionHandler}
-                    className="cursor-pointer mr-5 scale-[1.8] transition-all ease-in-out"
-                  />
-                ) : (
-                  <GoCheck
-                    title="Complete task"
-                    onClick={completionHandler}
-                    className="cursor-pointer  mr-5 scale-[1.8] transition-all ease-in-out"
-                  />
-                )}
-              </button>
+            <div className="flex items-center justify-between ">
+              <div className="flex items-center ml-[.31rem]">
+                <button
+                  type="button"
+                  className={` h-[2rem] w-fit flex items-center ${
+                    edit ? 'hidden' : 'flex'
+                  }`}
+                >
+                  {task?.completed ? (
+                    <MdOutlineRemoveDone
+                      title="Incomplete Task"
+                      onClick={completionHandler}
+                      className="cursor-pointer mr-5 scale-[1.8] transition-all ease-in-out"
+                    />
+                  ) : (
+                    <GoCheck
+                      title="Complete task"
+                      onClick={completionHandler}
+                      className="cursor-pointer  mr-5 scale-[1.8] transition-all ease-in-out"
+                    />
+                  )}
+                </button>
 
-              <div
-                title="Task Color"
-                className={`mr-[1.15rem] ${
-                  task?.completed ? 'opacity-60' : ''
-                } ${edit ? 'hidden' : ''}`}
-              >
-                <TaskTypeMenu
-                  user={user}
-                  tasks={tasks}
-                  isVertical={false}
-                  task={task}
-                />
+                <div
+                  title="Task Color"
+                  className={`mr-[1.15rem] ${
+                    task?.completed ? 'opacity-60' : ''
+                  } ${edit ? 'hidden' : ''}`}
+                >
+                  <TaskTypeMenu
+                    user={user}
+                    tasks={tasks}
+                    isVertical={false}
+                    task={task}
+                  />
+                </div>
+
+                <button type="button" className={`${edit ? 'hidden' : ''}`}>
+                  {task?.locked ? (
+                    <HiLockClosed
+                      title="Unlock Task"
+                      onClick={lockTaskHandler}
+                      size={20}
+                    />
+                  ) : (
+                    <HiLockOpen
+                      title="Lock Task"
+                      onClick={lockTaskHandler}
+                      size={20}
+                    />
+                  )}
+                </button>
               </div>
-
-              <button type="button" className={`${edit ? 'hidden' : ''}`}>
-                {task?.locked ? (
-                  <HiLockClosed
-                    title="Unlock Task"
-                    onClick={lockTaskHandler}
-                    size={20}
-                  />
-                ) : (
-                  <HiLockOpen
-                    title="Lock Task"
-                    onClick={lockTaskHandler}
-                    size={20}
-                  />
-                )}
-              </button>
             </div>
           </div>
           <Link title="Milestone Page" href={`/tasks/${task?.id}`}>

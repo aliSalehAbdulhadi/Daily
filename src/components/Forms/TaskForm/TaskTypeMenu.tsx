@@ -79,7 +79,7 @@ const TaskTypeMenu = ({
         onClick={() => setHidden(false || task?.completed)}
       >
         <IoColorFill
-          size={21}
+          size={20}
           title="Task Color"
           className={`${!hidden ? 'hidden' : 'block'} `}
         />

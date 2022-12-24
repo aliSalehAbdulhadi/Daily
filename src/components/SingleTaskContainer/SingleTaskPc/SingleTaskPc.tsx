@@ -241,7 +241,7 @@ const SingleTaskPc = ({
           {formatDate}
         </div>
         <div>
-          <DueTaskModal />
+          <DueTaskModal tasks={tasks} task={task} user={user} />
         </div>
       </div>
       <div className="flex items-center w-full mt-4">
@@ -259,7 +259,7 @@ const SingleTaskPc = ({
           >
             <HiOutlineStar
               title="Important Task"
-              size={20}
+              size={19}
               fill={task?.important ? '#e8b923' : 'none'}
               className={`transition-all ${
                 task?.important || task?.completed
