@@ -775,7 +775,6 @@ input::-webkit-input-placeholder {
 /* react-date-picker css */
 .react-datepicker-popper {
   width: 34vh;
-  z-index: 99999 !important;
 }
 .react-datepicker__triangle {
   left: 3px !important;

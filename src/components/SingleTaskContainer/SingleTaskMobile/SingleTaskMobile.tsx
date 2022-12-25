@@ -244,7 +244,7 @@ const SingleTaskMobile = ({
           } `}
         >
           <div
-            className={`flex flex-col justify-between my-0 px-3  py-2 min-h-[8rem] xs:min-h-[9.5rem] w-[75%] mobileTaskCardBoxShadow
+            className={`flex flex-col justify-between my-0 mx-3  py-2 min-h-[8rem] xs:min-h-[9.5rem] w-[75%] 
           `}
           >
             <div
@@ -352,7 +352,10 @@ const SingleTaskMobile = ({
                   />
                 </div>
 
-                <button type="button" className={`${edit ? 'hidden' : ''}`}>
+                <button
+                  type="button"
+                  className={`${edit || disableSwiper ? 'hidden' : ''}`}
+                >
                   {task?.locked ? (
                     <HiLockClosed
                       title="Unlock Task"
@@ -368,8 +371,16 @@ const SingleTaskMobile = ({
                   )}
                 </button>
               </div>
+              <div
+                className={` scale-75 xs:scale-90 mt-1  z-40 ${
+                  edit || disableSwiper ? 'hidden' : ''
+                }`}
+              >
+                <DueTaskModal tasks={tasks} task={task} user={user} />
+              </div>
             </div>
           </div>
+
           <Link title="Milestone Page" href={`/tasks/${task?.id}`}>
             {task && task?.milestones?.length > 0 ? (
               <div className=" w-[25%] flex flex-col items-center justify-center  bg-[#64f5c56c] rounded-tr rounded-br">

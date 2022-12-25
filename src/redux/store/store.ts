@@ -20,6 +20,7 @@ import openMoveMilestoneSlice from '../slices/features/openMoveMilestoneSlice';
 import selectedMilestone from '../slices/features/selectedMilestone';
 import openMilestonePanelPc from '../slices/features/openMilestonePanelPc';
 import signInWithGoogleSlice from '../slices/authentication/signInWithGoogleSlice';
+import isNotImportant from '../slices/features/isNotImportant';
 
 const rootReducer = combineReducers({
   signUpReducer: signUpSlice,
@@ -42,6 +43,7 @@ const rootReducer = combineReducers({
   trickStoreReducer: trickStore,
   openMoveMilestoneReducer: openMoveMilestoneSlice,
   selectedMilestoneReducer: selectedMilestone,
+  isNotImportantReducer: isNotImportant,
 });
 
 const persistConfig = {
@@ -52,6 +54,7 @@ const persistConfig = {
     'userReducer',
     'milestonePunctCheckboxReducer',
     'darkModeReducer',
+    'isNotImportantReducer',
   ],
 };
 
