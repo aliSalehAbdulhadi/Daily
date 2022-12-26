@@ -21,6 +21,9 @@ import {
 import { addTaskDueDate } from '../../../redux/slices/features/fireBaseActions/addTaskDueDate';
 import { toggleIsNotImportant } from '../../../redux/slices/features/isNotImportant';
 import useWindowSize from '../../../hooks/useWindowsSize';
+import { hours } from '../../../utilities/globalImports';
+import { TiArrowSortedUp } from 'react-icons/ti';
+import useClickOutside from '../../../hooks/useClickOutside';
 
 const DueTaskModal = ({
   tasks,
@@ -32,6 +35,7 @@ const DueTaskModal = ({
   user: string;
 }) => {
   const [timerIconHover, setTimerIconHover] = useState<boolean>(false);
+  const [dueDate, setDueDate] = useState<string>('');
   const [showDueDateModal, setShowDueDateModal] = useState<boolean>(false);
   const [showDueDateModalMobile, setShowDueDateModalMobile] =
     useState<boolean>(false);
@@ -39,6 +43,15 @@ const DueTaskModal = ({
     useState<boolean>(false);
   const [dueAtDateCheck, setDueAtDateCheck] = useState<any>(false);
   const [dueText, setDueText] = useState<string>('');
+  const [windowOfSetY, setWindowOfSetY] = useState<number>(0);
+  const [isModalOnTop, setIsModalOnTop] = useState<boolean>();
+
+  let times: any = [];
+  for (let i = 0; i < 24; i++) {
+    for (let y = 0; y <= 45; y = y + 15) {
+      times.push(String(`${i < 10 ? '0' + i : i}:${y > 0 ? y : '0' + y}`));
+    }
+  }
 
   const vw = useWindowSize();
 
@@ -47,6 +60,61 @@ const DueTaskModal = ({
     (state: RootState) => state.isNotImportantReducer.isNotImportant,
   );
   const dueDateFormatted = moment(task?.dueDate).format('MMM/DD hh:mm');
+  const dateRef = useClickOutside(() => {
+    setDueDate('');
+  });
+
+  const handleMouseMove = (event: any) => {
+    // Calculate position within bounds of element
+    const localX = event.clientX - event.target.offsetLeft;
+    const localY = event.clientY - event.target.offsetTop;
+
+    return setWindowOfSetY(localY);
+  };
+
+  const addDueDateHandler = (
+    hour: string = '00:00:00',
+    clearTimer: boolean = false,
+  ) => {
+    //add due date
+    batch(() => {
+      if (isOnline()) {
+        dispatch(
+          addTaskDueDate({
+            taskId: task?.id,
+            userUid: user,
+            allTasks: tasks,
+            dueDate: clearTimer
+              ? ''
+              : dueDate.replaceAll('00:00:00', `${hour}:00`),
+          }),
+        );
+      }
+
+      dispatch(
+        addTaskDueDateLocally({
+          taskId: task?.id,
+          dueDate: clearTimer
+            ? ''
+            : dueDate.replaceAll('00:00:00', `${hour}:00`),
+        }),
+      );
+    });
+  };
+
+  const removeDueDateHanlder = () => {
+    //remove due date and clear states
+    addDueDateHandler('', true);
+    setDueAtDateCheck(false);
+    setShowDueDateModal(false);
+    dispatch(toggleIsNotImportant(false));
+  };
+
+  useEffect(() => {
+    if (windowOfSetY && windowOfSetY - window?.innerHeight >= -300) {
+      setIsModalOnTop(true);
+    }
+  }, [windowOfSetY]);
 
   useEffect(() => {
     setDueText(moment(task?.dueDate).fromNow());
@@ -115,32 +183,6 @@ const DueTaskModal = ({
     user,
   ]);
 
-  const addDueDateHandler = (date: string) => {
-    //add due date
-    batch(() => {
-      if (isOnline()) {
-        dispatch(
-          addTaskDueDate({
-            taskId: task?.id,
-            userUid: user,
-            allTasks: tasks,
-            dueDate: date,
-          }),
-        );
-      }
-
-      dispatch(addTaskDueDateLocally({ taskId: task?.id, dueDate: date }));
-    });
-  };
-
-  const removeDueDateHanlder = () => {
-    //remove due date and clear states
-    addDueDateHandler('');
-    setDueAtDateCheck(false);
-    setShowDueDateModal(false);
-    dispatch(toggleIsNotImportant(false));
-  };
-
   useEffect(() => {
     if (task?.completed) {
       removeDueDateHanlder();
@@ -166,7 +208,7 @@ const DueTaskModal = ({
   }, [showDueDateModalMobile, showFullDueDateModal, task?.dueDate]);
 
   return (
-    <div className="relative ">
+    <div className="relative " onMouseMove={(e) => handleMouseMove(e)}>
       {task?.dueDate ? (
         <div
           onMouseEnter={() => setShowDueDateModal(true)}
@@ -186,12 +228,10 @@ const DueTaskModal = ({
           ) : (
             <div
               className={`flex items-center justify-center ${
-                dueAtDateCheck ? 'text-red-800 animate-pulse' : ''
+                dueAtDateCheck ? 'text-red-700 animate-pulse' : ''
               }`}
             >
-              <span className="mr-2 hidden semiSm:block ">
-                Due {dueDateFormatted}
-              </span>
+              <span className="mr-2 hidden semiSm:block ">Due {dueText}</span>
 
               <div>
                 <FiBell
@@ -221,6 +261,7 @@ const DueTaskModal = ({
         onMouseEnter={() => setTimerIconHover(true)}
         onMouseLeave={() => setTimerIconHover(false)}
         className={`text-sm  absolute left-0 top-0 z-20`}
+        ref={dateRef}
       >
         <DatePicker
           title="Add due date to task"
@@ -228,13 +269,42 @@ const DueTaskModal = ({
             task?.dueDate || task?.completed ? 'hidden' : ''
           }`}
           value=""
-          showTimeSelect
-          timeFormat="HH:mm"
-          onChange={(date: any) => addDueDateHandler(String(date))}
+          onChange={(date: any) => setDueDate(String(date))}
           dateFormat="MMMM d, yyyy h:mm aa"
           minDate={new Date()}
           timeIntervals={15}
+          disabled={dueDate?.length > 0}
         />
+
+        <div
+          className={`h-[14rem] w-[5rem] absolute  right-[-26px]  flex-col ${
+            isModalOnTop ? 'top-[-241px]' : 'top-[31px]'
+          } ${dueDate ? 'flex' : 'hidden'}`}
+        >
+          <TiArrowSortedUp
+            size={30}
+            className={`absolute left-[27px] z-[-5] text-white ${
+              isModalOnTop ? 'bottom-[-18px] rotate-180' : 'top-[-17px] '
+            }`}
+          />
+          <span className="text-center  w-full text-white bg-secondaryColor py-3 rounded-t border-x-[1px] border-t-[1px] border-white border-opacity-40 ">
+            Time
+          </span>
+          <div className="overflow-auto scrollBar bg-primaryColor text-white rounded-b border-[1px] border-white border-opacity-40">
+            {hours?.map((hour) => (
+              <div
+                key={hour}
+                className=" text-center py-1 hover:bg-secondaryColor"
+                onClick={() => {
+                  addDueDateHandler(hour);
+                  setDueDate('');
+                }}
+              >
+                {hour}
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
 
       <div
@@ -249,7 +319,7 @@ const DueTaskModal = ({
             dueAtDateCheck ? 'text-red-700' : ''
           } `}
         >
-          Due {dueText}
+          Due {dueDateFormatted}
         </span>
       </div>
 
@@ -276,12 +346,6 @@ const DueTaskModal = ({
           {dueText}
         </span>
       </div>
-      <style>{`.react-datepicker-popper{width:${
-        vw >= 840 ? '34vh' : '40vh'
-      }`}</style>
-      <style>{`.react-datepicker-popper{width:${
-        vw >= 330 ? '40vh' : '45vh'
-      }`}</style>
     </div>
   );
 };

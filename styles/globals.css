@@ -242,8 +242,7 @@ input::-webkit-input-placeholder {
 }
 
 .mobileTaskCardBoxShadow {
-  box-shadow: 0 0 12px rgba(0, 0, 0, 0.5);
-  clip-path: inset(0px -15px 0px 0px);
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.6);
 }
 
 .pcTaskCardBoxShadow {
@@ -774,7 +773,6 @@ input::-webkit-input-placeholder {
 
 /* react-date-picker css */
 .react-datepicker-popper {
-  width: 34vh;
 }
 .react-datepicker__triangle {
   left: 3px !important;
@@ -796,7 +794,8 @@ input::-webkit-input-placeholder {
   background-color: #427676 !important;
   color: white !important;
 }
-.react-datepicker__header--has-time-select {
+.react-datepicker__header {
+  background-color: #2c5252 !important;
 }
 .react-datepicker__current-month {
   color: white !important;

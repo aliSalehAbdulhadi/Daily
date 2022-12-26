@@ -244,7 +244,7 @@ const SingleTaskMobile = ({
           } `}
         >
           <div
-            className={`flex flex-col justify-between my-0 mx-3  py-2 min-h-[8rem] xs:min-h-[9.5rem] w-[75%] 
+            className={`flex flex-col justify-between my-0 px-3  py-2 min-h-[8rem] xs:min-h-[9.5rem] w-[75%] mobileTaskCardBoxShadow
           `}
           >
             <div
@@ -383,7 +383,7 @@ const SingleTaskMobile = ({
 
           <Link title="Milestone Page" href={`/tasks/${task?.id}`}>
             {task && task?.milestones?.length > 0 ? (
-              <div className=" w-[25%] flex flex-col items-center justify-center  bg-[#64f5c56c] rounded-tr rounded-br">
+              <div className=" w-[25%] flex flex-col  items-center justify-center  bg-[#64f5c56c] rounded-tr rounded-br">
                 <div className="scale-[.8]">
                   <ProgressBar percentage={percentage} />
                 </div>
