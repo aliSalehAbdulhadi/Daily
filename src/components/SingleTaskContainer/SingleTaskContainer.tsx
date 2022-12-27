@@ -43,6 +43,7 @@ const SingleTaskContainer = ({
             index={index}
             setLoadInView={setLoadInView}
             loadInView={loadInView}
+            taskId={taskId}
           />
         </div>
       )}

@@ -4,8 +4,8 @@ import { ImChrome } from 'react-icons/im';
 
 const AndroidInstructions = () => {
   return (
-    <div className="mx-5 mt-10 text-white self-center ml-7">
-      <div className="w-fit">
+    <div className="mx-5 mt-10 text-white self-center ml-7 ">
+      <div className="w-fit ">
         <div className="flex items-center">
           <span>
             1- Open Daily in your <b className="underline">Chrome</b> browser

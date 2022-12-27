@@ -54,7 +54,7 @@ const ResetPassword = ({
             <FormField
               autoComplete="email"
               className={` ${isOnline() ? '' : 'hidden '}`}
-              label="Enter your account email."
+              label="Enter your account email"
               name="Email"
               type="email"
               placeholder="You@email.com"

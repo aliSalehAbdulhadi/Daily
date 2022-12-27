@@ -1,4 +1,4 @@
-import { memo, SyntheticEvent } from 'react';
+import { memo, Suspense, SyntheticEvent } from 'react';
 import { GoCheck } from 'react-icons/go';
 import { MdOutlineRemoveDone } from 'react-icons/md';
 import { HiOutlineStar } from 'react-icons/hi';
@@ -9,6 +9,9 @@ import moment from 'moment';
 import Link from 'next/link';
 import { batch } from 'react-redux';
 import { useInViewport } from 'react-in-viewport';
+import { useSortable } from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
+import dynamic from 'next/dynamic';
 import {
   RootState,
   useAppDispatch,
@@ -33,9 +36,9 @@ import { setCardColorByTypeHandler } from '../../../utilities/setColorByTypeHand
 import { lockTask } from '../../../redux/slices/features/fireBaseActions/lockTaskSlice';
 import { isOnline } from '../../../utilities/isOnline';
 import { removeTask } from '../../../redux/slices/features/fireBaseActions/deleteTaskSlice';
-import { useSortable } from '@dnd-kit/sortable';
-import { CSS } from '@dnd-kit/utilities';
-import DueTaskModal from '../../modals/dueTaskModal/DueTaskModal';
+const DueTaskModal = dynamic(
+  () => import('../../modals/dueTaskModal/DueTaskModal'),
+);
 
 const SingleTaskMobile = ({
   task,
@@ -44,6 +47,7 @@ const SingleTaskMobile = ({
   index,
   setLoadInView,
   loadInView,
+  taskId,
 }: {
   task: SingleTaskInterface;
   tasks: SingleTaskInterface[];
@@ -51,6 +55,7 @@ const SingleTaskMobile = ({
   index: number;
   setLoadInView: any;
   loadInView: number;
+  taskId: string;
 }) => {
   const [completeAnimation, setCompleteAnimation] = useState<boolean>(false);
   const [deleteAnimation, setDeleteAnimation] = useState<boolean>(false);
@@ -76,7 +81,7 @@ const SingleTaskMobile = ({
   }, [edit]);
 
   const formatDate = moment(task?.date).format('MMM/D/YYYY');
-  const disableSwiper = useAppSelector(
+  const hideButton = useAppSelector(
     (state: RootState) => state.disableSwiperReducer.disableSwiper,
   );
   const disableDrag = useAppSelector(
@@ -149,7 +154,7 @@ const SingleTaskMobile = ({
   };
 
   const deletionHandler = () => {
-    if (disableSwiper || task?.locked) return;
+    if (hideButton || task?.locked) return;
 
     setDeleteAnimation(true);
     batch(() => {
@@ -354,7 +359,9 @@ const SingleTaskMobile = ({
 
                 <button
                   type="button"
-                  className={`${edit || disableSwiper ? 'hidden' : ''}`}
+                  className={`${
+                    (edit || hideButton) && task?.id === taskId ? 'hidden' : ''
+                  }`}
                 >
                   {task?.locked ? (
                     <HiLockClosed
@@ -371,13 +378,15 @@ const SingleTaskMobile = ({
                   )}
                 </button>
               </div>
-              <div
-                className={` scale-75 xs:scale-90 mt-1  z-40 ${
-                  edit || disableSwiper ? 'hidden' : ''
-                }`}
-              >
-                <DueTaskModal tasks={tasks} task={task} user={user} />
-              </div>
+              <Suspense>
+                <div
+                  className={` mt-1 ${
+                    (edit || hideButton) && task?.id === taskId ? 'hidden' : ''
+                  }`}
+                >
+                  <DueTaskModal tasks={tasks} task={task} user={user} />
+                </div>
+              </Suspense>
             </div>
           </div>
 

@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
-import { RiTimerLine } from 'react-icons/ri';
-import { FiBell, FiBellOff } from 'react-icons/fi';
 import dynamic from 'next/dynamic';
 import moment from 'moment';
+import { RxLapTimer } from 'react-icons/rx';
+import { TiArrowSortedUp } from 'react-icons/ti';
+import { HiBellAlert, HiBell, HiBellSlash } from 'react-icons/hi2';
+import { batch } from 'react-redux';
 const DatePicker = dynamic(() => import('react-datepicker'));
 import 'react-datepicker/dist/react-datepicker.css';
 import {
@@ -11,7 +13,6 @@ import {
   useAppDispatch,
   useAppSelector,
 } from '../../../interfaces/interfaces';
-import { batch } from 'react-redux';
 import { isOnline } from '../../../utilities/isOnline';
 import { changeTaskImportantState } from '../../../redux/slices/features/fireBaseActions/changeTaskImportantStateSlice';
 import {
@@ -19,10 +20,12 @@ import {
   changeTaskImportantStateLocally,
 } from '../../../redux/slices/features/getTasksSlice';
 import { addTaskDueDate } from '../../../redux/slices/features/fireBaseActions/addTaskDueDate';
-import { toggleIsNotImportant } from '../../../redux/slices/features/isNotImportant';
+import {
+  addNotImportantTask,
+  removeNotImportantTask,
+} from '../../../redux/slices/features/notImportantTasks';
 import useWindowSize from '../../../hooks/useWindowsSize';
 import { hours } from '../../../utilities/globalImports';
-import { TiArrowSortedUp } from 'react-icons/ti';
 import useClickOutside from '../../../hooks/useClickOutside';
 
 const DueTaskModal = ({
@@ -46,14 +49,14 @@ const DueTaskModal = ({
   const [windowOfSetY, setWindowOfSetY] = useState<number>(0);
   const [isModalOnTop, setIsModalOnTop] = useState<boolean>();
 
-
-
+  const dispatch = useAppDispatch();
   const vw = useWindowSize();
 
-  const dispatch = useAppDispatch();
-  const isNotImportant = useAppSelector(
-    (state: RootState) => state.isNotImportantReducer.isNotImportant,
+  const notImportantTasks: string[] = useAppSelector(
+    (state: RootState) => state.notImportantTasksReducer.tasks,
   );
+  const isNotImportant = notImportantTasks?.includes(task?.id);
+
   const dueDateFormatted = moment(task?.dueDate).format('MMM/DD hh:mm');
   const dateRef = useClickOutside(() => {
     setDueDate('');
@@ -102,7 +105,7 @@ const DueTaskModal = ({
     addDueDateHandler('', true);
     setDueAtDateCheck(false);
     setShowDueDateModal(false);
-    dispatch(toggleIsNotImportant(false));
+    dispatch(removeNotImportantTask(task?.id));
   };
 
   useEffect(() => {
@@ -125,7 +128,7 @@ const DueTaskModal = ({
         //task is due
         setDueAtDateCheck(true);
         clearInterval(timer);
-        dispatch(toggleIsNotImportant(false));
+        dispatch(removeNotImportantTask(task?.id));
       } else if (
         moment(new Date().toISOString()).unix() * 1000 >=
         moment(task?.dueDate).unix() * 1000 - 7200000
@@ -147,7 +150,10 @@ const DueTaskModal = ({
             dispatch(changeTaskImportantStateLocally({ taskId: task?.id }));
           });
         }
-        dispatch(toggleIsNotImportant(true));
+
+        if (isNotImportant === false) {
+          dispatch(addNotImportantTask(task?.id));
+        }
         setDueAtDateCheck(false);
       } else {
         //not due yet
@@ -213,11 +219,11 @@ const DueTaskModal = ({
           {showDueDateModal ||
           showFullDueDateModal ||
           showDueDateModalMobile ? (
-            <FiBellOff
+            <HiBellSlash
               title="Clear due date"
               onClick={removeDueDateHanlder}
               className="semiSm:hover:text-white transition-all"
-              size={vw > 840 ? 20 : 22}
+              size={vw > 840 ? 21 : 22}
               type="button"
             />
           ) : (
@@ -229,14 +235,23 @@ const DueTaskModal = ({
               <span className="mr-2 hidden semiSm:block ">Due {dueText}</span>
 
               <div>
-                <FiBell
-                  onClick={() => setShowDueDateModalMobile(true)}
-                  className={`semiSm:hover:text-white  transition-all   ${
-                    dueAtDateCheck ? 'bell' : ''
-                  }`}
-                  size={vw > 840 ? 20 : 22}
-                  type="button"
-                />
+                {dueAtDateCheck ? (
+                  <HiBellAlert
+                    onClick={() => setShowDueDateModalMobile(true)}
+                    className={`semiSm:hover:text-white  transition-all   ${
+                      dueAtDateCheck ? 'bell' : ''
+                    }`}
+                    size={vw > 840 ? 20 : 22}
+                    type="button"
+                  />
+                ) : (
+                  <HiBell
+                    onClick={() => setShowDueDateModalMobile(true)}
+                    className={`semiSm:hover:text-white  transition-all`}
+                    size={vw > 840 ? 20 : 22}
+                    type="button"
+                  />
+                )}
               </div>
             </div>
           )}
@@ -248,38 +263,39 @@ const DueTaskModal = ({
             timerIconHover ? 'semiSm:text-white' : ''
           } ${task?.completed ? 'opacity-60' : ''} `}
         >
-          <RiTimerLine size={vw > 840 ? 21 : 24} />
+          <RxLapTimer size={vw > 840 ? 20 : 21} />
         </div>
       )}
 
       <div
         onMouseEnter={() => setTimerIconHover(true)}
         onMouseLeave={() => setTimerIconHover(false)}
-        className={`text-sm  absolute left-0 top-0 z-20`}
+        className={`text-sm  absolute left-0 top-0 `}
         ref={dateRef}
       >
         <DatePicker
           title="Add due date to task"
-          className={`w-full text-center cursor-pointer outline-none bg-transparent caret-transparent  ${
+          className={`w-full text-center cursor-pointer outline-none bg-transparent caret-transparent   ${
             task?.dueDate || task?.completed ? 'hidden' : ''
           }`}
           value=""
           onChange={(date: any) => setDueDate(String(date))}
           dateFormat="MMMM d, yyyy h:mm aa"
           minDate={new Date()}
-          timeIntervals={15}
           disabled={dueDate?.length > 0}
         />
 
         <div
-          className={`h-[14rem] w-[5rem] absolute  right-[-26px]  flex-col ${
-            isModalOnTop ? 'top-[-241px]' : 'top-[31px]'
+          className={`h-[14rem] w-[5rem] absolute top-[8px] right-[-27px]  flex-col z-40 scale-[.8] xs:scale-100 ${
+            isModalOnTop ? 'xs:top-[-241px] ' : 'xs:top-[31px] '
           } ${dueDate ? 'flex' : 'hidden'}`}
         >
           <TiArrowSortedUp
             size={30}
-            className={`absolute left-[27px] z-[-5] text-white ${
-              isModalOnTop ? 'bottom-[-18px] rotate-180' : 'top-[-17px] '
+            className={`absolute left-[26px]  z-[-5]  text-white ${
+              isModalOnTop
+                ? 'xs:bottom-[-18px] xs:rotate-180 '
+                : 'xs:top-[-17px] top-[-17px]'
             }`}
           />
           <span className="text-center  w-full text-white bg-secondaryColor py-3 rounded-t border-x-[1px] border-t-[1px] border-white border-opacity-40 ">
@@ -341,6 +357,7 @@ const DueTaskModal = ({
           {dueText}
         </span>
       </div>
+      <style>{`.react-datepicker{scale:${vw > 330 ? '' : '0.8'}} `}</style>
     </div>
   );
 };

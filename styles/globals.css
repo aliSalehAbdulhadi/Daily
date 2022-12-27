@@ -242,7 +242,7 @@ input::-webkit-input-placeholder {
 }
 
 .mobileTaskCardBoxShadow {
-  box-shadow: 0 0 12px rgba(0, 0, 0, 0.6);
+  box-shadow: 5px 0 10px -3px rgba(0, 0, 0, 0.4);
 }
 
 .pcTaskCardBoxShadow {
@@ -773,6 +773,7 @@ input::-webkit-input-placeholder {
 
 /* react-date-picker css */
 .react-datepicker-popper {
+  z-index: 999 !important;
 }
 .react-datepicker__triangle {
   left: 3px !important;

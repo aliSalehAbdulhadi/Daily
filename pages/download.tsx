@@ -7,8 +7,7 @@ import AndroidInstructions from '../src/components/downloadInstructions/androidI
 import AppleInstructions from '../src/components/downloadInstructions/appleInstructions/AppleInstructions';
 import useWindowSize from '../src/hooks/useWindowsSize';
 import { Dark } from '../src/utilities/globalImports';
-import Link from 'next/link';
-import { TiArrowBack } from 'react-icons/ti';
+
 
 const Download = () => {
   const [instruction, setInstruction] = useState<string>('');

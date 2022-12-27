@@ -1,4 +1,4 @@
-import { memo, SyntheticEvent } from 'react';
+import { memo, Suspense, SyntheticEvent } from 'react';
 import { AiFillDelete } from 'react-icons/ai';
 import { GoCheck } from 'react-icons/go';
 import {
@@ -42,7 +42,10 @@ import 'react-step-progress-bar/styles.css';
 import { lockTask } from '../../../redux/slices/features/fireBaseActions/lockTaskSlice';
 import { isOnline } from '../../../utilities/isOnline';
 import { toggleOpenMilestonePanel } from '../../../redux/slices/features/openMilestonePanelPc';
-import DueTaskModal from '../../modals/dueTaskModal/DueTaskModal';
+import dynamic from 'next/dynamic';
+const DueTaskModal = dynamic(
+  () => import('../../modals/dueTaskModal/DueTaskModal'),
+);
 
 const SingleTaskPc = ({
   task,
@@ -240,9 +243,9 @@ const SingleTaskPc = ({
         <div className="text-xs w-fit whitespace-nowrap select-none">
           {formatDate}
         </div>
-        <div>
+        <Suspense>
           <DueTaskModal tasks={tasks} task={task} user={user} />
-        </div>
+        </Suspense>
       </div>
       <div className="flex items-center w-full mt-4">
         <div
@@ -254,7 +257,7 @@ const SingleTaskPc = ({
             disabled={task?.completed}
             onClick={importantStateHandler}
             className={` ${task?.completed ? 'opacity-60  ' : ''} ${
-              hideButtons ? 'hidden' : ''
+              hideButtons && task?.id === taskId ? 'hidden' : ''
             }`}
           >
             <HiOutlineStar
@@ -278,7 +281,11 @@ const SingleTaskPc = ({
               task={task}
             />
           </div>
-          <div className={`mb-[.55rem] ${hideButtons ? 'hidden' : ''}`}>
+          <div
+            className={`mb-[.55rem] ${
+              hideButtons && task?.id === taskId ? 'hidden' : ''
+            }`}
+          >
             {task?.locked ? (
               <HiLockClosed
                 title="Unlock Task"
