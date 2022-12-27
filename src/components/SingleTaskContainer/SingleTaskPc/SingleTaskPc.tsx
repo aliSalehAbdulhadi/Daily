@@ -1,4 +1,4 @@
-import { memo, SyntheticEvent } from 'react';
+import { memo, Suspense, SyntheticEvent } from 'react';
 import { AiFillDelete } from 'react-icons/ai';
 import { GoCheck } from 'react-icons/go';
 import {
@@ -42,6 +42,10 @@ import 'react-step-progress-bar/styles.css';
 import { lockTask } from '../../../redux/slices/features/fireBaseActions/lockTaskSlice';
 import { isOnline } from '../../../utilities/isOnline';
 import { toggleOpenMilestonePanel } from '../../../redux/slices/features/openMilestonePanelPc';
+import dynamic from 'next/dynamic';
+const DueTaskModal = dynamic(
+  () => import('../../modals/dueTaskModal/DueTaskModal'),
+);
 
 const SingleTaskPc = ({
   task,
@@ -82,6 +86,10 @@ const SingleTaskPc = ({
     transition,
   };
 
+  const hideButtons = useAppSelector(
+    (state: RootState) => state.disableSwiperReducer.disableSwiper,
+  );
+
   useEffect(() => {
     if (inViewport && index >= loadInView - 3) {
       setLoadInView(loadInView + 10);
@@ -92,7 +100,7 @@ const SingleTaskPc = ({
     inputRef?.current?.focus();
   }, [edit]);
 
-  const formatDate = moment(task?.date).format('MMM/D/YYYY');
+  const formatDate = moment(task?.date).format('MMM/D/YY');
 
   const milestoneCompleted = task?.milestones?.filter(
     (ms: any) => ms?.milestoneCompleted === true,
@@ -235,17 +243,9 @@ const SingleTaskPc = ({
         <div className="text-xs w-fit whitespace-nowrap select-none">
           {formatDate}
         </div>
-        <div className={` ${task?.completed ? 'invisible  ' : 'visible'} `}>
-          <HiOutlineStar
-            title="Important Task"
-            onClick={importantStateHandler}
-            size={20}
-            fill={task?.important ? '#e8b923' : 'none'}
-            className={`transition-all ${
-              task?.important ? '' : 'hover:fill-white hover:text-white'
-            } ${task?.important ? 'text-yellow-300' : ''}  cursor-pointer`}
-          />
-        </div>
+        <Suspense>
+          <DueTaskModal tasks={tasks} task={task} user={user} />
+        </Suspense>
       </div>
       <div className="flex items-center w-full mt-4">
         <div
@@ -253,27 +253,26 @@ const SingleTaskPc = ({
             edit ? 'hidden' : 'block'
           } w-[5%]  z-39 cursor-pointer`}
         >
-          <div>
-            {task?.locked ? (
-              <HiLockClosed
-                title="Unlock Task"
-                type="button"
-                onClick={lockTaskHandler}
-                size={20}
-                className="cursor-pointer  hover:text-white transition-all ease-in-out"
-              />
-            ) : (
-              <HiLockOpen
-                title="Lock Task"
-                type="button"
-                onClick={lockTaskHandler}
-                size={20}
-                className="cursor-pointer  hover:text-white transition-all ease-in-out"
-              />
-            )}
-          </div>
+          <button
+            disabled={task?.completed}
+            onClick={importantStateHandler}
+            className={` ${task?.completed ? 'opacity-60  ' : ''} ${
+              hideButtons && task?.id === taskId ? 'hidden' : ''
+            }`}
+          >
+            <HiOutlineStar
+              title="Important Task"
+              size={19}
+              fill={task?.important ? '#e8b923' : 'none'}
+              className={`transition-all ${
+                task?.important || task?.completed
+                  ? ''
+                  : 'hover:fill-white hover:text-white'
+              } ${task?.important ? 'text-yellow-300' : ''}  cursor-pointer`}
+            />
+          </button>
           <div
-            className={`mb-3 ml-[2px] ${task?.completed ? 'opacity-60' : ''}`}
+            className={`ml-[2px] my-2 ${task?.completed ? 'opacity-60' : ''}`}
           >
             <TaskTypeMenu
               user={user}
@@ -281,6 +280,29 @@ const SingleTaskPc = ({
               isVertical={true}
               task={task}
             />
+          </div>
+          <div
+            className={`mb-[.55rem] ${
+              hideButtons && task?.id === taskId ? 'hidden' : ''
+            }`}
+          >
+            {task?.locked ? (
+              <HiLockClosed
+                title="Unlock Task"
+                type="button"
+                onClick={lockTaskHandler}
+                size={19}
+                className="cursor-pointer  hover:text-white transition-all ease-in-out"
+              />
+            ) : (
+              <HiLockOpen
+                title="Lock Task"
+                type="button"
+                onClick={lockTaskHandler}
+                size={19}
+                className="cursor-pointer  hover:text-white transition-all ease-in-out"
+              />
+            )}
           </div>
         </div>
 

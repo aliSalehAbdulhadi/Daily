@@ -1,4 +1,4 @@
-import { memo, SyntheticEvent } from 'react';
+import { memo, Suspense, SyntheticEvent } from 'react';
 import { GoCheck } from 'react-icons/go';
 import { MdOutlineRemoveDone } from 'react-icons/md';
 import { HiOutlineStar } from 'react-icons/hi';
@@ -9,6 +9,9 @@ import moment from 'moment';
 import Link from 'next/link';
 import { batch } from 'react-redux';
 import { useInViewport } from 'react-in-viewport';
+import { useSortable } from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
+import dynamic from 'next/dynamic';
 import {
   RootState,
   useAppDispatch,
@@ -33,8 +36,9 @@ import { setCardColorByTypeHandler } from '../../../utilities/setColorByTypeHand
 import { lockTask } from '../../../redux/slices/features/fireBaseActions/lockTaskSlice';
 import { isOnline } from '../../../utilities/isOnline';
 import { removeTask } from '../../../redux/slices/features/fireBaseActions/deleteTaskSlice';
-import { useSortable } from '@dnd-kit/sortable';
-import { CSS } from '@dnd-kit/utilities';
+const DueTaskModal = dynamic(
+  () => import('../../modals/dueTaskModal/DueTaskModal'),
+);
 
 const SingleTaskMobile = ({
   task,
@@ -43,6 +47,7 @@ const SingleTaskMobile = ({
   index,
   setLoadInView,
   loadInView,
+  taskId,
 }: {
   task: SingleTaskInterface;
   tasks: SingleTaskInterface[];
@@ -50,6 +55,7 @@ const SingleTaskMobile = ({
   index: number;
   setLoadInView: any;
   loadInView: number;
+  taskId: string;
 }) => {
   const [completeAnimation, setCompleteAnimation] = useState<boolean>(false);
   const [deleteAnimation, setDeleteAnimation] = useState<boolean>(false);
@@ -75,7 +81,7 @@ const SingleTaskMobile = ({
   }, [edit]);
 
   const formatDate = moment(task?.date).format('MMM/D/YYYY');
-  const disableSwiper = useAppSelector(
+  const hideButton = useAppSelector(
     (state: RootState) => state.disableSwiperReducer.disableSwiper,
   );
   const disableDrag = useAppSelector(
@@ -148,7 +154,7 @@ const SingleTaskMobile = ({
   };
 
   const deletionHandler = () => {
-    if (disableSwiper || task?.locked) return;
+    if (hideButton || task?.locked) return;
 
     setDeleteAnimation(true);
     batch(() => {
@@ -264,7 +270,10 @@ const SingleTaskMobile = ({
                 {formatDate}
               </div>
             </div>
-            <div title="Edit Task" className="relative ml-1 text-xs  xs:text-base">
+            <div
+              title="Edit Task"
+              className="relative ml-1 text-xs  xs:text-base"
+            >
               {edit ? (
                 <form
                   ref={textareaRef}
@@ -311,62 +320,79 @@ const SingleTaskMobile = ({
                 </div>
               )}
             </div>
-            <div className="flex items-center ml-[.31rem]">
-              <button
-                type="button"
-                className={` h-[2rem] w-fit flex items-center ${
-                  edit ? 'hidden' : 'flex'
-                }`}
-              >
-                {task?.completed ? (
-                  <MdOutlineRemoveDone
-                    title="Incomplete Task"
-                    onClick={completionHandler}
-                    className="cursor-pointer mr-5 scale-[1.8] transition-all ease-in-out"
-                  />
-                ) : (
-                  <GoCheck
-                    title="Complete task"
-                    onClick={completionHandler}
-                    className="cursor-pointer  mr-5 scale-[1.8] transition-all ease-in-out"
-                  />
-                )}
-              </button>
+            <div className="flex items-center justify-between ">
+              <div className="flex items-center ml-[.31rem]">
+                <button
+                  type="button"
+                  className={` h-[2rem] w-fit flex items-center ${
+                    edit ? 'hidden' : 'flex'
+                  }`}
+                >
+                  {task?.completed ? (
+                    <MdOutlineRemoveDone
+                      title="Incomplete Task"
+                      onClick={completionHandler}
+                      className="cursor-pointer mr-5 scale-[1.8] transition-all ease-in-out"
+                    />
+                  ) : (
+                    <GoCheck
+                      title="Complete task"
+                      onClick={completionHandler}
+                      className="cursor-pointer  mr-5 scale-[1.8] transition-all ease-in-out"
+                    />
+                  )}
+                </button>
 
-              <div
-                title="Task Color"
-                className={`mr-[1.15rem] ${
-                  task?.completed ? 'opacity-60' : ''
-                } ${edit ? 'hidden' : ''}`}
-              >
-                <TaskTypeMenu
-                  user={user}
-                  tasks={tasks}
-                  isVertical={false}
-                  task={task}
-                />
+                <div
+                  title="Task Color"
+                  className={`mr-[1.15rem] ${
+                    task?.completed ? 'opacity-60' : ''
+                  } ${edit ? 'hidden' : ''}`}
+                >
+                  <TaskTypeMenu
+                    user={user}
+                    tasks={tasks}
+                    isVertical={false}
+                    task={task}
+                  />
+                </div>
+
+                <button
+                  type="button"
+                  className={`${
+                    (edit || hideButton) && task?.id === taskId ? 'hidden' : ''
+                  }`}
+                >
+                  {task?.locked ? (
+                    <HiLockClosed
+                      title="Unlock Task"
+                      onClick={lockTaskHandler}
+                      size={20}
+                    />
+                  ) : (
+                    <HiLockOpen
+                      title="Lock Task"
+                      onClick={lockTaskHandler}
+                      size={20}
+                    />
+                  )}
+                </button>
               </div>
-
-              <button type="button" className={`${edit ? 'hidden' : ''}`}>
-                {task?.locked ? (
-                  <HiLockClosed
-                    title="Unlock Task"
-                    onClick={lockTaskHandler}
-                    size={20}
-                  />
-                ) : (
-                  <HiLockOpen
-                    title="Lock Task"
-                    onClick={lockTaskHandler}
-                    size={20}
-                  />
-                )}
-              </button>
+              <Suspense>
+                <div
+                  className={` mt-1 ${
+                    (edit || hideButton) && task?.id === taskId ? 'hidden' : ''
+                  }`}
+                >
+                  <DueTaskModal tasks={tasks} task={task} user={user} />
+                </div>
+              </Suspense>
             </div>
           </div>
+
           <Link title="Milestone Page" href={`/tasks/${task?.id}`}>
             {task && task?.milestones?.length > 0 ? (
-              <div className=" w-[25%] flex flex-col items-center justify-center  bg-[#64f5c56c] rounded-tr rounded-br">
+              <div className=" w-[25%] flex flex-col  items-center justify-center  bg-[#64f5c56c] rounded-tr rounded-br">
                 <div className="scale-[.8]">
                   <ProgressBar percentage={percentage} />
                 </div>

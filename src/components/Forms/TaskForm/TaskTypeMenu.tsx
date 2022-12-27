@@ -68,7 +68,7 @@ const TaskTypeMenu = ({
   return (
     <div
       ref={domNode}
-      className={` flex semiSm:flex-col items-center justify-center semiSm:h-[3rem]`}
+      className={` flex semiSm:flex-col items-center justify-center `}
     >
       <button
         disabled={task?.completed}
@@ -79,7 +79,7 @@ const TaskTypeMenu = ({
         onClick={() => setHidden(false || task?.completed)}
       >
         <IoColorFill
-          size={21}
+          size={20}
           title="Task Color"
           className={`${!hidden ? 'hidden' : 'block'} `}
         />

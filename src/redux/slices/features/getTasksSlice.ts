@@ -92,6 +92,22 @@ const getTasksSlice = createSlice({
       });
     },
 
+    addTaskDueDateLocally: (
+      state: {
+        tasks: SingleTaskInterface[];
+        error: {}[];
+        status: string;
+      },
+      action: PayloadAction<{ taskId: string; dueDate: string }>,
+    ) => {
+      state.tasks = state.tasks?.map((task: SingleTaskInterface) => {
+        if (task?.id === action.payload.taskId) {
+          task.dueDate = action.payload.dueDate;
+        }
+        return task;
+      });
+    },
+
     addTaskTypeLocally: (
       state: {
         tasks: SingleTaskInterface[];
@@ -147,9 +163,11 @@ const getTasksSlice = createSlice({
     ) => {
       state.tasks = action.payload;
     },
+
     addTasksDatesLocally: (state: any, action: any) => {
       state?.tasksDates?.unshift(action?.payload);
     },
+
     deleteTaskDateLocally: (
       state: any,
       action: PayloadAction<{
@@ -279,7 +297,9 @@ export const {
   deleteTasksLocally,
   completeTaskLocally,
   editTaskLocally,
+  changeTaskImportantStateLocally,
   reArrangeTasksLocally,
+  addTaskDueDateLocally,
   addTasksDatesLocally,
   deleteTaskDateLocally,
   addMilestoneLocally,
@@ -288,6 +308,5 @@ export const {
   deleteMilestoneLocally,
   editMilestoneLocally,
   addTaskTypeLocally,
-  changeTaskImportantStateLocally,
   deleteAllFinishedMilestoneLocally,
 } = getTasksSlice.actions;

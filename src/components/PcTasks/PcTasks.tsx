@@ -81,7 +81,7 @@ const PcTasks = () => {
             />
             <div
               title="Sort Tasks"
-              className="z-40 absolute font-bold left-[318px] border-l-[1px] h-full"
+              className="z-40 absolute left-[318px] border-l-[1px] h-full"
             >
               <SortModal open={sortModal} setOpen={setSortModal} />
             </div>

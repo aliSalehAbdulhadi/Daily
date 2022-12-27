@@ -57,7 +57,10 @@ const Swipeable = ({
   });
 
   return (
-    <div className="flex overflow-hidden  " {...handlers}>
+    <div
+      className={`flex ${isDeleting ? ' overflow-hidden ' : ''}`}
+      {...handlers}
+    >
       <div
         className={`transition-all  flex items-center w-full relative  ${
           isDeleting ? 'translate-x-[-5rem]' : ''

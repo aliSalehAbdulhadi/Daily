@@ -105,13 +105,13 @@ const MobileTasks = () => {
   return (
     <div className="flex flex-col justify-center  font-Comfortaa font-bold w-full rounded-t ">
       <div
-        className={` w-full flex item-center justify-between sticky  top-0 z-[40]  transition-all px-2 xs:px-5 py-4 xs:py-5 shadow-md
+        className={` w-full flex item-center justify-between sticky  top-0  transition-all px-2 xs:px-5 py-4 xs:py-5 shadow-md
             ${dark ? 'bg-secondaryColor ' : 'bg-primaryColor'}  ${
           tasks?.length > 0 ? 'flex' : 'hidden'
         }  items-center justify-between w-full`}
       >
         <div className=" self-start select-none cursor-pointer">
-          <div className={`absolute z-[100] top-1 xs:top-2 left-2 xs:left-5`}>
+          <div className={`absolute z-50 top-1 xs:top-2 left-2 xs:left-5`}>
             <SortModal open={sortModal} setOpen={setSortModal} />
           </div>
         </div>
@@ -134,61 +134,59 @@ const MobileTasks = () => {
         ref={scrollRefTop}
         className={`sm:px-10 semiSm:px-0  pb-1 ${
           tasks?.length === 0 ? 'rounded-t' : ''
-        } ${user ? `xs:h-[62vh] h-[57vh]  overflow-auto` : ''} ${
+        } ${user ? `xs:h-[62vh] h-[57vh] overflow-auto` : ''} ${
           dark ? 'bg-secondaryColor semiSm:bg-primaryColor' : 'bg-primaryColor'
         }`}
       >
         <div
           ref={scrollRefTop}
-          className={`w-[100%] overflow-x-hidden   px-2 xs:px-5 py-3 semiSm:py-2 overflow-auto scrollBar flex flex-col items-center  `}
+          className={`w-[100%] px-2 xs:px-5 py-3 semiSm:py-2 flex flex-col items-center  `}
         >
-          <SortableContext items={pendingTasks} strategy={rectSortingStrategy}>
-            {user ? (
-              !completedTask && pendingTasks?.length > 0 ? (
-                taskSortHandler(pendingTasks)?.map(
-                  (task: SingleTaskInterface, index: number) =>
-                    index <= loadInView ? (
-                      <Suspense key={task?.id} fallback={<LoadingCard />}>
-                        <div
-                          className="w-full"
-                          onClick={() => setTaskId(task.id)}
-                        >
-                          <SingleTaskContainer
-                            task={task}
-                            index={index}
-                            taskId={taskId}
-                            setLoadInView={setLoadInView}
-                            loadInView={loadInView}
-                          />
-                        </div>
-                      </Suspense>
-                    ) : null,
-                )
-              ) : (
-                <div
-                  className={`${
-                    pendingTasks?.length <= 0 && !completedTask
-                      ? 'block'
-                      : 'hidden'
-                  }  mt-[7rem] text-white `}
-                >
-                  <ErrorMessage
-                    message="There are no tasks to display."
-                    type="noTasks"
-                  />
-                </div>
+          {user ? (
+            !completedTask && pendingTasks?.length > 0 ? (
+              taskSortHandler(pendingTasks)?.map(
+                (task: SingleTaskInterface, index: number) =>
+                  index <= loadInView ? (
+                    <Suspense key={task?.id} fallback={<LoadingCard />}>
+                      <div
+                        className="w-full"
+                        onClick={() => setTaskId(task.id)}
+                      >
+                        <SingleTaskContainer
+                          task={task}
+                          index={index}
+                          taskId={taskId}
+                          setLoadInView={setLoadInView}
+                          loadInView={loadInView}
+                        />
+                      </div>
+                    </Suspense>
+                  ) : null,
               )
             ) : (
-              <div className="mt-[7rem] text-white ">
+              <div
+                className={`${
+                  pendingTasks?.length <= 0 && !completedTask
+                    ? 'block'
+                    : 'hidden'
+                }  mt-[7rem] text-white `}
+              >
                 <ErrorMessage
-                  message="Please login to start adding tasks."
-                  type="noUser"
-                  imageLink="/images/wavy.png"
-                  imageAlt="Photo of a girl sitting on a hourglass and there is a man standing next to it"
+                  message="There are no tasks to display."
+                  type="noTasks"
                 />
               </div>
-            )}
-          </SortableContext>
+            )
+          ) : (
+            <div className="mt-[7rem] text-white ">
+              <ErrorMessage
+                message="Please login to start adding tasks."
+                type="noUser"
+                imageLink="/images/wavy.png"
+                imageAlt="Photo of a girl sitting on a hourglass and there is a man standing next to it"
+              />
+            </div>
+          )}
 
           <SortableContext
             items={completedTasks}
