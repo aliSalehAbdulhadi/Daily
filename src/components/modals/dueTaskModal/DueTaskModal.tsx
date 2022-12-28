@@ -283,6 +283,7 @@ const DueTaskModal = ({
           dateFormat="MMMM d, yyyy h:mm aa"
           minDate={new Date()}
           disabled={dueDate?.length > 0}
+          onFocus={(e) => (e.target.readOnly = true)}
         />
 
         <div
