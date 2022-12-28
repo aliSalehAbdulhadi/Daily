@@ -78,12 +78,19 @@ const SingleTaskPc = ({
 
   const { inViewport } = useInViewport(inViewPortRef);
 
-  const { attributes, listeners, setNodeRef, transform, transition } =
-    useSortable({ id: disableDrag ? '' : task?.id });
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging,
+  } = useSortable({ id: disableDrag ? '' : task?.id });
 
   const style = {
     transform: CSS.Transform.toString(transform),
     transition,
+    opacity: isDragging ? 0.8 : 1,
   };
 
   const hideButtons = useAppSelector(

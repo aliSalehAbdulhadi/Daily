@@ -38,7 +38,6 @@ const reArrange = createSlice({
       state.state = 'pending';
     }),
       build.addCase(reArrangeFirebase.fulfilled, (state) => {
-        console.log(state);
         state.state = 'fulfilled';
       }),
       build.addCase(reArrangeFirebase.rejected, (state, action: any) => {

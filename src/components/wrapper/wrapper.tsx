@@ -32,7 +32,7 @@ const Wrapper = ({ children }: { children: JSX.Element }) => {
   });
 
   const touchSensor = useSensor(TouchSensor, {
-    // Press delay of 250ms, with tolerance of 5px of movement
+    // Press delay of 200ms, with tolerance of 5px of movement
     activationConstraint: {
       delay: 200,
       tolerance: 5,
@@ -43,7 +43,6 @@ const Wrapper = ({ children }: { children: JSX.Element }) => {
 
   const handleDragEnd = (event: any) => {
     const { active, over } = event;
-
     if (active.id !== over?.id) {
       const items = Array.from(tasks);
       const activeIndex = items
