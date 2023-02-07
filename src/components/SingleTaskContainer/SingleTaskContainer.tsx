@@ -2,7 +2,7 @@ import { memo } from 'react';
 import useWindowSize from '../../hooks/useWindowsSize';
 import { SingleTaskInterface } from '../../interfaces/interfaces';
 import { Tasks, UserKey } from '../../utilities/globalImports';
-import SingleTaskMobile from './SingleTaskMobile/SingleTaskMobile';
+import SingleTaskMobile from '../TasksContainer/MobileScreenTaskComponentsContainer/MobileScreenSingleTask/MobileScreenSingleTask';
 import SingleTaskPc from './SingleTaskPc/SingleTaskPc';
 
 const SingleTaskContainer = ({

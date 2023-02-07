@@ -5,27 +5,27 @@ import {
   RootState,
   SingleTaskInterface,
   useAppSelector,
-} from '../../interfaces/interfaces';
-import SortModal from '../modals/SortModal/SortModal';
+} from '../../../../interfaces/interfaces';
+import SortModal from '../../../modals/SortModal/SortModal';
 import {
   Tasks as allTasks,
   PendingTasks,
   CompletedTasks,
   UserKey,
   Dark,
-} from '../../utilities/globalImports';
-import PcSwitchButtons from './PcSwitchButtons/PcSwitchButtons';
-import PcTasksGrid from './PcTasksGrid/PcTasksGrid';
-import FallBackLoading from '../fallBackLoading/FallBackLoading';
-const MileStone = dynamic(() => import('../mileStone/MileStone'), {
+} from '../../../../utilities/globalImports';
+import PcSwitchButtons from '../BigScreenSwitchButtons/BigScreenSwitchButtons';
+import PcTasksGrid from '../BigScreenTasksGrid/BigScreenTasksGrid';
+import FallBackLoading from '../../../fallBackLoading/FallBackLoading';
+const MileStone = dynamic(() => import('../../../mileStone/MileStone'), {
   suspense: true,
 });
 
-const PcTasksChart = dynamic(() => import('./TasksChart/TasksChart'), {
+const PcTasksChart = dynamic(() => import('../../../TasksChart/TasksChart'), {
   suspense: true,
 });
 
-const PcTasks = () => {
+const BigScreenTasks = () => {
   const [completedTask, setCompletedTask] = useState<boolean>(false);
 
   const [taskId, setTaskId] = useState<string>('');
@@ -114,6 +114,7 @@ const PcTasks = () => {
             taskId={taskId}
             setTaskId={setTaskId}
             completedTasks={completedTasks}
+            user={user}
           />
         )}
       </div>
@@ -136,4 +137,4 @@ const PcTasks = () => {
   );
 };
 
-export default memo(PcTasks);
+export default memo(BigScreenTasks);

@@ -6,10 +6,10 @@ import {
   SingleTaskInterface,
   useAppDispatch,
   useAppSelector,
-} from '../../../interfaces/interfaces';
-import { deleteTaskDate } from '../../../redux/slices/features/fireBaseActions/addTasksDates';
-import { deleteTaskDateLocally } from '../../../redux/slices/features/getTasksSlice';
-import { ImportantTasks, UserKey } from '../../../utilities/globalImports';
+} from '../../interfaces/interfaces';
+import { deleteTaskDate } from '../../redux/slices/features/fireBaseActions/addTasksDates';
+import { deleteTaskDateLocally } from '../../redux/slices/features/getTasksSlice';
+import { ImportantTasks, UserKey } from '../../utilities/globalImports';
 import Chart from './Chart/Chart';
 
 const TasksChart = ({
@@ -131,7 +131,6 @@ const TasksChart = ({
   );
 
   const lessThanMonth = calcLessThanDate(30);
-
   const lessThanWeek = calcLessThanDate(7);
 
   return (

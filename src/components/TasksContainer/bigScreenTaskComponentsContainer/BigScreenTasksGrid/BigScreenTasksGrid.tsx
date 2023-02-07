@@ -12,23 +12,24 @@ import {
   RootState,
   SingleTaskInterface,
   useAppSelector,
-} from '../../../interfaces/interfaces';
-import { PendingTasks, UserKey } from '../../../utilities/globalImports';
-import LoadingCard from '../../loadingCard/LoadingCard';
-import ErrorMessage from '../../errorMessage/ErrorMessage';
-const SingleTaskContainer = dynamic(
-  () => import('../../SingleTaskContainer/SingleTaskContainer'),
+} from '../../../../interfaces/interfaces';
+import { PendingTasks, UserKey } from '../../../../utilities/globalImports';
+import LoadingCard from '../../../loadingCard/LoadingCard';
+import ErrorMessage from '../../../errorMessage/ErrorMessage';
+const BigScreenSingleTask = dynamic(
+  () => import('../BigScreenSingleTask/BigScreenSingleTask'),
   {
     suspense: true,
   },
 );
-const PcTasksGrid = ({
+const BigScreenTasksGrid = ({
   tasks,
   completedTask,
   pendingTasks,
   completedTasks,
   setTaskId,
   taskId,
+  user,
 }: {
   tasks: SingleTaskInterface[];
   completedTask: boolean;
@@ -36,11 +37,11 @@ const PcTasksGrid = ({
   completedTasks: SingleTaskInterface[];
   setTaskId: Dispatch<SetStateAction<string>>;
   taskId: string;
+  user: string;
 }) => {
   const [loadInView, setLoadInView] = useState<number>(10);
 
   const scrollRefTop = useRef<HTMLDivElement>(null);
-  const user = UserKey();
 
   const sortBy = useAppSelector(
     (state: RootState) => state.sortTaskReducer.sortTask,
@@ -126,10 +127,12 @@ const PcTasksGrid = ({
                         className="mr-2 h-fit w-[19rem] md:w-[23rem] lg:w-[17.7rem]"
                         onClick={() => setTaskId(task.id)}
                       >
-                        <SingleTaskContainer
+                        <BigScreenSingleTask
                           task={task}
+                          tasks={tasks}
                           index={index}
                           taskId={taskId}
+                          user={user}
                           setLoadInView={setLoadInView}
                           loadInView={loadInView}
                         />
@@ -177,10 +180,12 @@ const PcTasksGrid = ({
                     onClick={() => setTaskId(task.id)}
                   >
                     <Suspense fallback={<LoadingCard />}>
-                      <SingleTaskContainer
+                      <BigScreenSingleTask
                         task={task}
+                        tasks={tasks}
                         index={index}
                         taskId={taskId}
+                        user={user}
                         setLoadInView={setLoadInView}
                         loadInView={loadInView}
                       />
@@ -209,4 +214,4 @@ const PcTasksGrid = ({
   );
 };
 
-export default PcTasksGrid;
+export default BigScreenTasksGrid;

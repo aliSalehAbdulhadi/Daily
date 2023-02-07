@@ -11,7 +11,7 @@ import { Dark, UserKey } from '../src/utilities/globalImports';
 import NotFoundPage from './404';
 
 const TasksChart = dynamic(
-  () => import('../src/components/PcTasks/TasksChart/TasksChart'),
+  () => import('../src/components/TasksChart/TasksChart'),
   {
     suspense: true,
   },
