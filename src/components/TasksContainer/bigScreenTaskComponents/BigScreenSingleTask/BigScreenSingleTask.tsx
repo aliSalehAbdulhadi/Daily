@@ -23,31 +23,31 @@ import {
   SingleTaskInterface,
   useAppSelector,
   RootState,
-} from '../../../interfaces/interfaces';
-import { completedTask } from '../../../redux/slices/features/fireBaseActions/completeTaskSlice';
-import { removeTask } from '../../../redux/slices/features/fireBaseActions/deleteTaskSlice';
+} from '../../../../interfaces/interfaces';
+import { completedTask } from '../../../../redux/slices/features/fireBaseActions/completeTaskSlice';
+import { removeTask } from '../../../../redux/slices/features/fireBaseActions/deleteTaskSlice';
 import {
   changeTaskImportantStateLocally,
   deleteTasksLocally,
   completeTaskLocally,
   lockTaskLocally,
   editTaskLocally,
-} from '../../../redux/slices/features/getTasksSlice';
-import { editTask } from '../../../redux/slices/features/fireBaseActions/editTaskSlice';
-import useClickOutside from '../../../hooks/useClickOutside';
-import TaskTypeMenu from '../../Forms/TaskForm/TaskTypeMenu';
-import { changeTaskImportantState } from '../../../redux/slices/features/fireBaseActions/changeTaskImportantStateSlice';
-import { setCardColorByTypeHandler } from '../../../utilities/setColorByTypeHandler';
+} from '../../../../redux/slices/features/getTasksSlice';
+import { editTask } from '../../../../redux/slices/features/fireBaseActions/editTaskSlice';
+import useClickOutside from '../../../../hooks/useClickOutside';
+import TaskTypeMenu from '../../../Forms/TaskForm/TaskTypeMenu';
+import { changeTaskImportantState } from '../../../../redux/slices/features/fireBaseActions/changeTaskImportantStateSlice';
+import { setCardColorByTypeHandler } from '../../../../utilities/setColorByTypeHandler';
 import 'react-step-progress-bar/styles.css';
-import { lockTask } from '../../../redux/slices/features/fireBaseActions/lockTaskSlice';
-import { isOnline } from '../../../utilities/isOnline';
-import { toggleOpenMilestonePanel } from '../../../redux/slices/features/openMilestonePanelPc';
+import { lockTask } from '../../../../redux/slices/features/fireBaseActions/lockTaskSlice';
+import { isOnline } from '../../../../utilities/isOnline';
+import { toggleOpenMilestonePanel } from '../../../../redux/slices/features/openMilestonePanelPc';
 import dynamic from 'next/dynamic';
 const DueTaskModal = dynamic(
-  () => import('../../modals/dueTaskModal/DueTaskModal'),
+  () => import('../../../modals/dueTaskModal/DueTaskModal'),
 );
 
-const SingleTaskPc = ({
+const BigScreenSingleTask = ({
   task,
   tasks,
   index,
@@ -468,4 +468,4 @@ const SingleTaskPc = ({
   );
 };
 
-export default memo(SingleTaskPc);
+export default memo(BigScreenSingleTask);

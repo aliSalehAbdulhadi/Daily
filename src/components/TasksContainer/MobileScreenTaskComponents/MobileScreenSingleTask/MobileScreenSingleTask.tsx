@@ -17,30 +17,30 @@ import {
   useAppDispatch,
   useAppSelector,
   SingleTaskInterface,
-} from '../../../interfaces/interfaces';
-import { completedTask } from '../../../redux/slices/features/fireBaseActions/completeTaskSlice';
+} from '../../../../interfaces/interfaces';
+import { completedTask } from '../../../../redux/slices/features/fireBaseActions/completeTaskSlice';
 import {
   changeTaskImportantStateLocally,
   deleteTasksLocally,
   completeTaskLocally,
   lockTaskLocally,
   editTaskLocally,
-} from '../../../redux/slices/features/getTasksSlice';
-import { editTask } from '../../../redux/slices/features/fireBaseActions/editTaskSlice';
-import useClickOutside from '../../../hooks/useClickOutside';
-import ProgressBar from '../../progressBar/ProgressBar';
-import Swipeable from '../../swipeable/Swipeable';
-import TaskTypeMenu from '../../Forms/TaskForm/TaskTypeMenu';
-import { changeTaskImportantState } from '../../../redux/slices/features/fireBaseActions/changeTaskImportantStateSlice';
-import { setCardColorByTypeHandler } from '../../../utilities/setColorByTypeHandler';
-import { lockTask } from '../../../redux/slices/features/fireBaseActions/lockTaskSlice';
-import { isOnline } from '../../../utilities/isOnline';
-import { removeTask } from '../../../redux/slices/features/fireBaseActions/deleteTaskSlice';
+} from '../../../../redux/slices/features/getTasksSlice';
+import { editTask } from '../../../../redux/slices/features/fireBaseActions/editTaskSlice';
+import useClickOutside from '../../../../hooks/useClickOutside';
+import ProgressBar from '../../../progressBar/ProgressBar';
+import Swipeable from '../../../swipeable/Swipeable';
+import TaskTypeMenu from '../../../Forms/TaskForm/TaskTypeMenu';
+import { changeTaskImportantState } from '../../../../redux/slices/features/fireBaseActions/changeTaskImportantStateSlice';
+import { setCardColorByTypeHandler } from '../../../../utilities/setColorByTypeHandler';
+import { lockTask } from '../../../../redux/slices/features/fireBaseActions/lockTaskSlice';
+import { isOnline } from '../../../../utilities/isOnline';
+import { removeTask } from '../../../../redux/slices/features/fireBaseActions/deleteTaskSlice';
 const DueTaskModal = dynamic(
-  () => import('../../modals/dueTaskModal/DueTaskModal'),
+  () => import('../../../modals/dueTaskModal/DueTaskModal'),
 );
 
-const SingleTaskMobile = ({
+const MobileScreenSingleTask = ({
   task,
   tasks,
   user,
@@ -423,4 +423,4 @@ const SingleTaskMobile = ({
   );
 };
 
-export default memo(SingleTaskMobile);
+export default memo(MobileScreenSingleTask);

@@ -1,7 +1,7 @@
 import { ErrorMessage, Field } from 'formik';
 import { useEffect } from 'react';
-import { FieldPropsInterface } from '../../interfaces/interfaces';
-import { Dark } from '../../utilities/globalImports';
+import { FieldPropsInterface } from '../../../interfaces/interfaces';
+import { Dark } from '../../../utilities/globalImports';
 
 function FormField({
   autoComplete = '',

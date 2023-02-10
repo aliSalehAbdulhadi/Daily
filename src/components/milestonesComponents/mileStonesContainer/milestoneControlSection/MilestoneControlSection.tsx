@@ -9,14 +9,14 @@ import {
   SingleTaskInterface,
   useAppDispatch,
   useAppSelector,
-} from '../../interfaces/interfaces';
-import { deleteAllFinishedMilestoneLocally } from '../../redux/slices/features/getTasksSlice';
-import { deleteAllFinishedMilestone } from '../../redux/slices/features/fireBaseActions/MilestonesSlice';
-import SortMilestoneModal from '../modals/sortMilestoneModal/SortMilestoneModal';
-import { punctCheckboxAction } from '../../redux/slices/features/milestonePunctCheckboxSlice';
+} from '../../../../interfaces/interfaces';
+import { deleteAllFinishedMilestoneLocally } from '../../../../redux/slices/features/getTasksSlice';
+import { deleteAllFinishedMilestone } from '../../../../redux/slices/features/fireBaseActions/MilestonesSlice';
+import SortMilestoneModal from '../../../modals/sortMilestoneModal/SortMilestoneModal';
+import { punctCheckboxAction } from '../../../../redux/slices/features/milestonePunctCheckboxSlice';
 import '@djthoms/pretty-checkbox';
-import { isOnline } from '../../utilities/isOnline';
-import { Tasks, UserKey } from '../../utilities/globalImports';
+import { isOnline } from '../../../../utilities/isOnline';
+import { Tasks, UserKey } from '../../../../utilities/globalImports';
 
 const MilestoneControlSection = ({ taskId }: { taskId: any }) => {
   const [sortModal, setSortModal] = useState<boolean>(false);

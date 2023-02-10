@@ -7,7 +7,6 @@ import {
   useAppDispatch,
   useAppSelector,
 } from '../../../interfaces/interfaces';
-import FormField from '../../FormField/FormField';
 import { signInThunk } from '../../../redux/slices/authentication/signInSlice';
 import useCheckStatus from '../../../hooks/useCheckStatus';
 import { isOnline } from '../../../utilities/isOnline';
@@ -15,6 +14,7 @@ import { Dark } from '../../../utilities/globalImports';
 import GoogleButton from '../../googleButton/GoogleButton';
 import { signInWithGoogle } from '../../../redux/slices/authentication/signInWithGoogleSlice';
 import useWindowSize from '../../../hooks/useWindowsSize';
+import FormField from '../../Forms/FormField/FormField';
 
 const signInSchema = Yup.object().shape({
   Email: Yup.string().required(),

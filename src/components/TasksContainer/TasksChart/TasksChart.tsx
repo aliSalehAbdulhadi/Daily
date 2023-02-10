@@ -131,7 +131,6 @@ const TasksChart = ({
   );
 
   const lessThanMonth = calcLessThanDate(30);
-
   const lessThanWeek = calcLessThanDate(7);
 
   return (

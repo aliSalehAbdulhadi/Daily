@@ -4,15 +4,15 @@ import { Formik, Form } from 'formik';
 import { FaSpinner } from 'react-icons/fa';
 import Modal from '../Modal/Modal';
 import { useAppDispatch } from '../../../interfaces/interfaces';
-import FormField from '../../FormField/FormField';
 import { isOnline } from '../../../utilities/isOnline';
 import { Dark, UserKey } from '../../../utilities/globalImports';
-import ModalNoConnectionError from '../../modalNoConnectionError/ModalNoConnectionError';
+import NoConnectionError from '../../NoConnectionError/NoConnectionError';
 import { addUsername } from '../../../redux/slices/features/fireBaseActions/addUsernameSlice';
 import {
   changeUsernameLocally,
   getTasks,
 } from '../../../redux/slices/features/getTasksSlice';
+import FormField from '../../Forms/FormField/FormField';
 
 const signInSchema = Yup.object().shape({
   username: Yup.string().min(0).max(15).required(),
@@ -94,7 +94,7 @@ const SetUserName = ({
               </div>
             ) : (
               <div className="flex items-center justify-center mt-5">
-                <ModalNoConnectionError errorType="to change your username." />
+                <NoConnectionError errorType="to change your username." />
               </div>
             )}
           </Form>

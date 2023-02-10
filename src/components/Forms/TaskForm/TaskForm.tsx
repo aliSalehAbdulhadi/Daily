@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { BsPlusCircleDotted } from 'react-icons/bs';
 import { memo, useEffect, useRef, useState } from 'react';
 import { batch } from 'react-redux';
-import FormField from '../../FormField/FormField';
+import FormField from '../FormField/FormField';
 import { addTask } from '../../../redux/slices/features/fireBaseActions/addTaskSlice';
 import {
   addTasksDatesLocally,

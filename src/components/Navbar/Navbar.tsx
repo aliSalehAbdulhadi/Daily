@@ -18,9 +18,12 @@ import { Dark, UserKey } from '../../utilities/globalImports';
 import { toggleOpenMilestonePanel } from '../../redux/slices/features/openMilestonePanelPc';
 import { useRouter } from 'next/router';
 
-const UserModalPc = dynamic(() => import('../modals/UserModalPc/UserModalPc'), {
-  suspense: true,
-});
+const UserModalPc = dynamic(
+  () => import('../modals/bigScreenUserModal/BigScreenUserModal'),
+  {
+    suspense: true,
+  },
+);
 const UserModalMobile = dynamic(
   () => import('../modals/userModalMobile/UserModalMobile'),
   {

@@ -1,6 +1,6 @@
 import React, { Dispatch, SetStateAction } from 'react';
 
-const PcSwitchButtons = ({
+const BigScreenSwitchButtons = ({
   completedTask,
   setCompletedTask,
 }: {
@@ -33,4 +33,4 @@ const PcSwitchButtons = ({
   );
 };
 
-export default PcSwitchButtons;
+export default BigScreenSwitchButtons;

@@ -1,10 +1,10 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { initialState } from "../../../interfaces/interfaces";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../../container/firebase";
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { initialState } from '../../../interfaces/interfaces';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '../../../container/firebase';
 
 export const signUpThunk = createAsyncThunk(
-  "user/signUp",
+  'user/signUp',
   async (
     { email, password }: { email: string; password: string },
     { rejectWithValue },
@@ -19,28 +19,28 @@ export const signUpThunk = createAsyncThunk(
 
 const initialState: initialState = {
   error: [],
-  state: "",
+  state: '',
 };
 const signUpSlice = createSlice({
-  name: "signUpSlice",
+  name: 'signUpSlice',
   initialState,
   reducers: {
     clearSignUpState: (state: any) => {
-      state.state = "";
+      state.state = '';
       state.error = [];
     },
   },
 
   extraReducers(build) {
     build.addCase(signUpThunk.pending, (state) => {
-      state.state = "pending";
+      state.state = 'pending';
     });
     build.addCase(signUpThunk.fulfilled, (state) => {
-      state.state = "fulfilled";
+      state.state = 'fulfilled';
     });
     build.addCase(signUpThunk.rejected, (state, action: any) => {
       state.error = action.error.message;
-      state.state = "rejected";
+      state.state = 'rejected';
     });
   },
 });

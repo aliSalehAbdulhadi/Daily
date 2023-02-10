@@ -11,33 +11,33 @@ import { MdOutlineRemoveDone } from 'react-icons/md';
 import { FaWindowClose } from 'react-icons/fa';
 import { RiSendPlaneLine, RiSendPlaneFill } from 'react-icons/ri';
 import { batch } from 'react-redux';
-import useClickOutside from '../../hooks/useClickOutside';
+import useClickOutside from '../../../hooks/useClickOutside';
 import {
   RootState,
   singleMilestoneInterface,
   SingleTaskInterface,
   useAppDispatch,
   useAppSelector,
-} from '../../interfaces/interfaces';
+} from '../../../interfaces/interfaces';
 import {
   completeMilestoneLocally,
   deleteMilestoneLocally,
   editMilestoneLocally,
-} from '../../redux/slices/features/getTasksSlice';
+} from '../../../redux/slices/features/getTasksSlice';
 import {
   completeMilestone,
   deleteMilestone,
   editMilestone,
-} from '../../redux/slices/features/fireBaseActions/MilestonesSlice';
-import { modules } from '../../utilities/quillToolBar';
+} from '../../../redux/slices/features/fireBaseActions/MilestonesSlice';
+import { modules } from '../../../utilities/quillToolBar';
 import 'react-quill/dist/quill.bubble.css';
 import 'react-quill/dist/quill.snow.css';
-import { isOnline } from '../../utilities/isOnline';
-import { toggleOpenMoveMilestone } from '../../redux/slices/features/openMoveMilestoneSlice';
-import { setSelectedMilestone } from '../../redux/slices/features/selectedMilestone';
-import { UserKey } from '../../utilities/globalImports';
+import { isOnline } from '../../../utilities/isOnline';
+import { toggleOpenMoveMilestone } from '../../../redux/slices/features/openMoveMilestoneSlice';
+import { setSelectedMilestone } from '../../../redux/slices/features/selectedMilestone';
+import { UserKey } from '../../../utilities/globalImports';
 const MoveMilestoneModal = dynamic(
-  () => import('../modals/moveMilestoneModal/MoveMilestoneModal'),
+  () => import('../../modals/moveMilestoneModal/MoveMilestoneModal'),
   {
     suspense: true,
   },

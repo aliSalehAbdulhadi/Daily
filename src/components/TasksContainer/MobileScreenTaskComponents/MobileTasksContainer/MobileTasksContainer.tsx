@@ -8,27 +8,25 @@ import {
 import {
   useAppSelector,
   SingleTaskInterface,
-} from '../../interfaces/interfaces';
-import { RootState } from '../../interfaces/interfaces';
-import SortModal from '../modals/SortModal/SortModal';
-import ErrorMessage from '../errorMessage/ErrorMessage';
+} from '../../../../interfaces/interfaces';
+import { RootState } from '../../../../interfaces/interfaces';
+import SortModal from '../../../modals/SortModal/SortModal';
+import ErrorMessage from '../../../errorMessage/ErrorMessage';
 import {
   UserKey,
   Tasks as allTasks,
   Dark,
   PendingTasks,
   CompletedTasks,
-} from '../../utilities/globalImports';
-import LoadingCard from '../loadingCard/LoadingCard';
-
-const SingleTaskContainer = dynamic(
-  () => import('../SingleTaskContainer/SingleTaskContainer'),
+} from '../../../../utilities/globalImports';
+import LoadingCard from '../../../loadingCard/LoadingCard';
+const SingleTaskMobile = dynamic(
+  () => import('../MobileScreenSingleTask/MobileScreenSingleTask'),
   {
     suspense: true,
   },
 );
-
-const MobileTasks = () => {
+const MobileTasksContainer = () => {
   const [completedTask, setCompletedTask] = useState<boolean>(false);
   const [taskId, setTaskId] = useState<string>('');
   const [sortModal, setSortModal] = useState<boolean>(false);
@@ -156,12 +154,14 @@ const MobileTasks = () => {
                           className="w-full"
                           onClick={() => setTaskId(task.id)}
                         >
-                          <SingleTaskContainer
+                          <SingleTaskMobile
+                            tasks={tasks}
+                            user={user}
                             task={task}
                             index={index}
-                            taskId={taskId}
                             setLoadInView={setLoadInView}
                             loadInView={loadInView}
+                            taskId={taskId}
                           />
                         </div>
                       </Suspense>
@@ -206,12 +206,14 @@ const MobileTasks = () => {
                         className="w-full"
                         onClick={() => setTaskId(task.id)}
                       >
-                        <SingleTaskContainer
+                        <SingleTaskMobile
+                          tasks={tasks}
+                          user={user}
                           task={task}
                           index={index}
-                          taskId={taskId}
                           setLoadInView={setLoadInView}
                           loadInView={loadInView}
+                          taskId={taskId}
                         />
                       </div>
                     </Suspense>
@@ -276,4 +278,4 @@ const MobileTasks = () => {
   );
 };
 
-export default memo(MobileTasks);
+export default memo(MobileTasksContainer);

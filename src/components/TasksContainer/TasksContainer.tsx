@@ -5,12 +5,22 @@ import useWindowSize from '../../hooks/useWindowsSize';
 import FallBackLoading from '../fallBackLoading/FallBackLoading';
 import { Dark } from '../../utilities/globalImports';
 
-const MobileTasks = dynamic(() => import('../MobileTasks/MobileTasks'), {
-  suspense: true,
-});
-const PcTasks = dynamic(() => import('../PcTasks/PcTasks'), {
-  suspense: true,
-});
+const MobileTasks = dynamic(
+  () =>
+    import(
+      './MobileScreenTaskComponents/MobileTasksContainer/MobileTasksContainer'
+    ),
+  {
+    suspense: true,
+  },
+);
+const PcTasks = dynamic(
+  () =>
+    import('./bigScreenTaskComponents/BigScreenTasksContainer/BigScreenTasks'),
+  {
+    suspense: true,
+  },
+);
 
 const TasksContainer = () => {
   const dark = Dark();
