@@ -61,6 +61,8 @@ const DueTaskModal = ({
   const dateRef = useClickOutside(() => {
     setDueDate('');
   });
+  const currentTime = moment(new Date()).format('H:mm');
+  const currentDate = moment(new Date()).format('MMM/DD');
 
   const handleMouseMove = (event: any) => {
     // Calculate position within bounds of element
@@ -223,7 +225,7 @@ const DueTaskModal = ({
               title="Clear due date"
               onClick={removeDueDateHanlder}
               className="semiSm:hover:text-white transition-all"
-              size={vw > 840 ? 21 : 22}
+              size={vw > 840 ? 20 : 22}
               type="button"
             />
           ) : (
@@ -302,19 +304,25 @@ const DueTaskModal = ({
           <span className="text-center  w-full text-white bg-secondaryColor py-3 rounded-t border-x-[1px] border-t-[1px] border-white border-opacity-40 ">
             Time
           </span>
-          <div className="overflow-auto scrollBar bg-primaryColor text-white rounded-b border-[1px] border-white border-opacity-40">
-            {hours?.map((hour) => (
-              <div
-                key={hour}
-                className=" text-center py-1 hover:bg-secondaryColor"
-                onClick={() => {
-                  addDueDateHandler(hour);
-                  setDueDate('');
-                }}
-              >
-                {hour}
-              </div>
-            ))}
+          <div className="overflow-auto flex flex-col scrollBar bg-primaryColor text-white rounded-b border-[1px] border-white border-opacity-40 shadow-md">
+            {hours?.map((hour) =>
+              currentTime + 10 < hour ||
+              moment(dueDate).format('MMM/DD') !== currentDate ? (
+                <button
+                  key={hour}
+                  type="button"
+                  className={`text-center py-1 hover:bg-secondaryColor`}
+                  onClick={() => {
+                    addDueDateHandler(hour);
+                    setDueDate('');
+                  }}
+                >
+                  {hour}
+                </button>
+              ) : (
+                false
+              ),
+            )}
           </div>
         </div>
       </div>
@@ -327,7 +335,7 @@ const DueTaskModal = ({
         }`}
       >
         <span
-          className={`text-center mt-1 ${
+          className={`text-center mt-[0.20rem] ${
             dueAtDateCheck ? 'text-red-700' : ''
           } `}
         >
@@ -344,14 +352,14 @@ const DueTaskModal = ({
         }`}
       >
         <span
-          className={`text-center mt-1 ${
+          className={`text-center mt-[0.20rem] ${
             dueAtDateCheck ? 'text-red-700' : ''
           } ${showDueDateModalMobile ? 'flex semiSm:hidden' : 'hidden'}`}
         >
           Due {dueDateFormatted}
         </span>
         <span
-          className={`text-center mt-1 ${
+          className={`text-center mt-[0.20rem] ${
             dueAtDateCheck ? 'text-red-700' : ''
           } ${showFullDueDateModal ? 'flex' : 'hidden'}`}
         >

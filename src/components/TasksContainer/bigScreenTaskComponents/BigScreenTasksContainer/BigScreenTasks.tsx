@@ -92,11 +92,9 @@ const BigScreenTasks = () => {
               <SortModal open={sortModal} setOpen={setSortModal} />
             </div>
           </div>
-          <button
-            title="Show/Hide Chart"
-            className="self-end flex items-center justify-end w-full h-full"
-          >
-            <div
+          <div className="self-end flex items-center justify-end w-full h-full">
+            <button
+              title="Show/Hide Chart"
               onClick={() => setExpandPanel(!expandPanel)}
               className="hover:bg-textDark text-white hover:text-textLight  px-2 h-full flex items-center justify-center "
             >
@@ -105,8 +103,8 @@ const BigScreenTasks = () => {
               ) : (
                 <BsArrowBarRight size={20} />
               )}
-            </div>
-          </button>
+            </button>
+          </div>
         </div>
         {openMilestonePanel ? (
           <Suspense fallback={<FallBackLoading />}>

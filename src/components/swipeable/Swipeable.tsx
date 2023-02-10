@@ -66,7 +66,7 @@ const Swipeable = ({
           isDeleting ? 'translate-x-[-5rem]' : ''
         } ${isLockedAnimation ? ' shakeAnimation' : ''}`}
       >
-        <div className="w-full shrink-0">{children}</div>
+        <div className="w-full shrink-0 ">{children}</div>
         <div
           ref={deleteRef}
           onClick={() => {

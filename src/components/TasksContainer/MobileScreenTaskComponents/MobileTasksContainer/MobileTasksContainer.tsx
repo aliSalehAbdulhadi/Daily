@@ -109,7 +109,7 @@ const MobileTasksContainer = () => {
         }  items-center justify-between w-full`}
       >
         <div className=" self-start select-none cursor-pointer">
-          <div className={`absolute z-50 top-1 xs:top-2 left-2 xs:left-5`}>
+          <div className={`absolute  top-1 xs:top-2 left-2 xs:left-5`}>
             <SortModal open={sortModal} setOpen={setSortModal} />
           </div>
         </div>
@@ -138,7 +138,7 @@ const MobileTasksContainer = () => {
       >
         <div
           ref={scrollRefTop}
-          className={`w-[100%] px-2 xs:px-5 py-3 semiSm:py-2 flex flex-col items-center  `}
+          className={`w-[100%] px-2 xs:px-5 py-3 semiSm:py-2 flex flex-col items-center `}
         >
           <SortableContext
             items={pendingTasks}

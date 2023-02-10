@@ -3,12 +3,15 @@ import dynamic from 'next/dynamic';
 const ReactQuill = dynamic(() => import('react-quill'), {
   ssr: false,
 });
-import { AiFillDelete, AiOutlineDelete } from 'react-icons/ai';
+import {
+  AiFillCloseSquare,
+  AiFillDelete,
+  AiOutlineDelete,
+} from 'react-icons/ai';
 import { BsCheckCircle, BsCheckCircleFill } from 'react-icons/bs';
 import { CountdownCircleTimer } from 'react-countdown-circle-timer';
 import { BiX } from 'react-icons/bi';
 import { MdOutlineRemoveDone } from 'react-icons/md';
-import { FaWindowClose } from 'react-icons/fa';
 import { RiSendPlaneLine, RiSendPlaneFill } from 'react-icons/ri';
 import { batch } from 'react-redux';
 import useClickOutside from '../../../hooks/useClickOutside';
@@ -205,7 +208,10 @@ const MilestoneSinglePage = ({
                 onClick={() => setEdit(false)}
                 className="absolute text-black right-2  top-[.60rem] "
               >
-                <FaWindowClose size={20} />
+                <AiFillCloseSquare
+                  className="rounded-lg hover:text-red-600 opacity-[.75]"
+                  size={20}
+                />
               </button>
               <ReactQuill
                 theme="snow"
