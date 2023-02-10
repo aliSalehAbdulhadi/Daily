@@ -26,7 +26,7 @@ const SingleTaskMobile = dynamic(
     suspense: true,
   },
 );
-const MobileTasks = () => {
+const MobileTasksContainer = () => {
   const [completedTask, setCompletedTask] = useState<boolean>(false);
   const [taskId, setTaskId] = useState<string>('');
   const [sortModal, setSortModal] = useState<boolean>(false);
@@ -278,4 +278,4 @@ const MobileTasks = () => {
   );
 };
 
-export default memo(MobileTasks);
+export default memo(MobileTasksContainer);

@@ -4,7 +4,6 @@ import { Formik, Form } from 'formik';
 import { FaSpinner } from 'react-icons/fa';
 import Modal from '../Modal/Modal';
 import { SignUpInterface } from '../../../interfaces/interfaces';
-import FormField from '../../FormField/FormField';
 import {
   useAppDispatch,
   useAppSelector,
@@ -18,6 +17,7 @@ import { Dark, UserKey } from '../../../utilities/globalImports';
 import GoogleButton from '../../googleButton/GoogleButton';
 import { signInWithGoogle } from '../../../redux/slices/authentication/signInWithGoogleSlice';
 import useWindowSize from '../../../hooks/useWindowsSize';
+import FormField from '../../Forms/FormField/FormField';
 
 const signUpSchema = Yup.object().shape({
   UserName: Yup.string().min(3).max(15).required('User name is required'),

@@ -3,26 +3,26 @@ import { FC, memo, Suspense, useEffect, useRef, useState } from 'react';
 import { BsPlusCircle, BsPlusCircleFill } from 'react-icons/bs';
 import { TiArrowBack } from 'react-icons/ti';
 import { batch } from 'react-redux';
-import useClickOutside from '../../hooks/useClickOutside';
+import useClickOutside from '../../../../hooks/useClickOutside';
 import {
   RootState,
   SingleTaskInterface,
   useAppDispatch,
   useAppSelector,
-} from '../../interfaces/interfaces';
-import { completedTask } from '../../redux/slices/features/fireBaseActions/completeTaskSlice';
-import { completeTaskLocally } from '../../redux/slices/features/getTasksSlice';
-import { toggleOpenMilestonePanel } from '../../redux/slices/features/openMilestonePanelPc';
-import { Dark, Tasks } from '../../utilities/globalImports';
-import { isOnline } from '../../utilities/isOnline';
-import MilestoneControlSection from '../milestoneControlSection/MilestoneControlSection';
-import ProgressBar from '../progressBar/ProgressBar';
+} from '../../../../interfaces/interfaces';
+import { completedTask } from '../../../../redux/slices/features/fireBaseActions/completeTaskSlice';
+import { completeTaskLocally } from '../../../../redux/slices/features/getTasksSlice';
+import { toggleOpenMilestonePanel } from '../../../../redux/slices/features/openMilestonePanelPc';
+import { Dark, Tasks } from '../../../../utilities/globalImports';
+import { isOnline } from '../../../../utilities/isOnline';
+import MilestoneControlSection from './../milestoneControlSection/MilestoneControlSection';
+import ProgressBar from '../../../progressBar/ProgressBar';
 const MilestoneSinglePage = dynamic(
-  () => import('../MilestoneSinglePage/MilestoneSinglePage'),
+  () => import('../../MilestoneSinglePage/MilestoneSinglePage'),
   { suspense: true },
 );
 const AdvancedForm = dynamic(
-  () => import('../Forms/advancedForm/AdvancedForm'),
+  () => import('../../../Forms/advancedForm/AdvancedForm'),
   { ssr: false },
 );
 

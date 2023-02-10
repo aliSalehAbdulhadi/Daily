@@ -7,7 +7,7 @@ import SignUp from '../SignUp/SignUp';
 import ConfirmLogOut from '../confirmLogOut/ConfirmLogOut';
 import { DecryptedUserName, UserKey } from '../../../utilities/globalImports';
 
-const UserModalPc = ({
+const BigScreenUserModal = ({
   open,
   closeAnimation,
   closeModalHandler,
@@ -152,4 +152,4 @@ const UserModalPc = ({
   );
 };
 
-export default UserModalPc;
+export default BigScreenUserModal;

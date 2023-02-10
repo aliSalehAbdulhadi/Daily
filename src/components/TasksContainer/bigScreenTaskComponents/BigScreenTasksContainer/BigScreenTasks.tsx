@@ -14,14 +14,20 @@ import {
   UserKey,
   Dark,
 } from '../../../../utilities/globalImports';
-import PcSwitchButtons from '../BigScreenSwitchButtons/BigScreenSwitchButtons';
-import PcTasksGrid from '../BigScreenTasksGrid/BigScreenTasksGrid';
+import PcSwitchButtons from './BigScreenSwitchButtons/BigScreenSwitchButtons';
+import PcTasksGrid from './BigScreenTasksGrid/BigScreenTasksGrid';
 import FallBackLoading from '../../../fallBackLoading/FallBackLoading';
-const MileStone = dynamic(() => import('../../../mileStone/MileStone'), {
-  suspense: true,
-});
+const MileStone = dynamic(
+  () =>
+    import(
+      '../../../milestonesComponents/mileStonesContainer/Milestones/MileStone'
+    ),
+  {
+    suspense: true,
+  },
+);
 
-const PcTasksChart = dynamic(() => import('../../../TasksChart/TasksChart'), {
+const PcTasksChart = dynamic(() => import('../../TasksChart/TasksChart'), {
   suspense: true,
 });
 

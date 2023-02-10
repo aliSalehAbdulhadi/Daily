@@ -27,10 +27,13 @@ import { isOnline } from '../../src/utilities/isOnline';
 import { completedTask } from '../../src/redux/slices/features/fireBaseActions/completeTaskSlice';
 import useWindowSize from '../../src/hooks/useWindowsSize';
 import NotFoundPage from '../404';
-import MilestoneControlSection from '../../src/components/milestoneControlSection/MilestoneControlSection';
+import MilestoneControlSection from '../../src/components/milestonesComponents/mileStonesContainer/milestoneControlSection/MilestoneControlSection';
 
 const MilestoneSinglePage = dynamic(
-  () => import('../../src/components/MilestoneSinglePage/MilestoneSinglePage'),
+  () =>
+    import(
+      '../../src/components/milestonesComponents/MilestoneSinglePage/MilestoneSinglePage'
+    ),
   { suspense: true },
 );
 const AdvancedForm = dynamic(

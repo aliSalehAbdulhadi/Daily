@@ -3,12 +3,12 @@ import { Formik, Form } from 'formik';
 import { FaSpinner } from 'react-icons/fa';
 import Modal from '../Modal/Modal';
 import { useAppDispatch, useAppSelector } from '../../../interfaces/interfaces';
-import FormField from '../../FormField/FormField';
 import useCheckStatus from '../../../hooks/useCheckStatus';
 import { resetPasswordThunk } from '../../../redux/slices/authentication/resetPasswordSlice';
 import { isOnline } from '../../../utilities/isOnline';
 import { Dark } from '../../../utilities/globalImports';
-import ModalNoConnectionError from '../../modalNoConnectionError/ModalNoConnectionError';
+import NoConnectionError from '../../NoConnectionError/NoConnectionError';
+import FormField from '../../Forms/FormField/FormField';
 
 const signInSchema = Yup.object().shape({
   Email: Yup.string().required(),
@@ -100,7 +100,7 @@ const ResetPassword = ({
               </div>
             ) : (
               <div className="flex items-center justify-center mt-5">
-                <ModalNoConnectionError errorType="to change your password." />
+                <NoConnectionError errorType="to change your password." />
               </div>
             )}
           </Form>

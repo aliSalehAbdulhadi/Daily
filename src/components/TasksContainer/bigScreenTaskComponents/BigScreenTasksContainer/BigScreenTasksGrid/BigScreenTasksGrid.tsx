@@ -12,12 +12,12 @@ import {
   RootState,
   SingleTaskInterface,
   useAppSelector,
-} from '../../../../interfaces/interfaces';
-import { PendingTasks, UserKey } from '../../../../utilities/globalImports';
-import LoadingCard from '../../../loadingCard/LoadingCard';
-import ErrorMessage from '../../../errorMessage/ErrorMessage';
+} from '../../../../../interfaces/interfaces';
+import { PendingTasks, UserKey } from '../../../../../utilities/globalImports';
+import LoadingCard from '../../../../loadingCard/LoadingCard';
+import ErrorMessage from '../../../../errorMessage/ErrorMessage';
 const BigScreenSingleTask = dynamic(
-  () => import('../BigScreenSingleTask/BigScreenSingleTask'),
+  () => import('../../BigScreenSingleTask/BigScreenSingleTask'),
   {
     suspense: true,
   },

@@ -6,14 +6,17 @@ import FallBackLoading from '../fallBackLoading/FallBackLoading';
 import { Dark } from '../../utilities/globalImports';
 
 const MobileTasks = dynamic(
-  () => import('./MobileScreenTaskComponentsContainer/MobileTasks/MobileTasks'),
+  () =>
+    import(
+      './MobileScreenTaskComponents/MobileTasksContainer/MobileTasksContainer'
+    ),
   {
     suspense: true,
   },
 );
 const PcTasks = dynamic(
   () =>
-    import('./bigScreenTaskComponentsContainer/BigScreenTasks/BigScreenTasks'),
+    import('./bigScreenTaskComponents/BigScreenTasksContainer/BigScreenTasks'),
   {
     suspense: true,
   },
