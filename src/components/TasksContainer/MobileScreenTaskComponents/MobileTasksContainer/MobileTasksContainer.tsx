@@ -103,7 +103,7 @@ const MobileTasksContainer = () => {
   return (
     <div className="flex flex-col justify-center  font-Comfortaa font-bold w-full rounded-t relative">
       <div
-        className={` w-full z-50 flex item-center justify-between sticky  top-0  transition-all px-2 xs:px-5 py-4 xs:py-5 shadow-md
+        className={` w-full z-40 flex item-center justify-between sticky  top-0  transition-all px-2 xs:px-5 py-4 xs:py-5 shadow-md
             ${dark ? 'bg-secondaryColor ' : 'bg-primaryColor'}  ${
           tasks?.length > 0 ? 'flex' : 'hidden'
         }  items-center justify-between w-full`}
