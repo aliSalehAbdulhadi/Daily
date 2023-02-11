@@ -27,6 +27,9 @@ import {
 import useWindowSize from '../../../hooks/useWindowsSize';
 import { hours } from '../../../utilities/globalImports';
 import useClickOutside from '../../../hooks/useClickOutside';
+import { CountdownCircleTimer } from 'react-countdown-circle-timer';
+import { setCardColorByTypeHandler } from '../../../utilities/setColorByTypeHandler';
+import { BiX } from 'react-icons/bi';
 
 const DueTaskModal = ({
   tasks,
@@ -48,6 +51,7 @@ const DueTaskModal = ({
   const [dueText, setDueText] = useState<string>('');
   const [windowOfSetY, setWindowOfSetY] = useState<number>(0);
   const [isModalOnTop, setIsModalOnTop] = useState<boolean>();
+  const [deleteTimer, setDeleteTimer] = useState<boolean>(false);
 
   const dispatch = useAppDispatch();
   const vw = useWindowSize();
@@ -218,12 +222,36 @@ const DueTaskModal = ({
           onMouseLeave={() => setShowDueDateModal(false)}
           className="text-xs w-fit flex flex-row items-center justify-center"
         >
-          {showDueDateModal ||
-          showFullDueDateModal ||
-          showDueDateModalMobile ? (
+          {deleteTimer ? (
+            <div
+              className={`  cursor-pointer  h-[1.25rem] w-[1.3rem]`}
+              onClick={() => setDeleteTimer(false)}
+            >
+              <BiX size={14} className={`absolute top-[3px] left-[3px]`} />
+              <CountdownCircleTimer
+                size={20}
+                strokeWidth={2}
+                isPlaying
+                duration={1.5}
+                // @ts-ignore
+                trailColor={
+                  task?.completed
+                    ? '#f87171'
+                    : setCardColorByTypeHandler(false, task?.taskType)
+                }
+                colors="#ffff"
+                onComplete={() => {
+                  setDeleteTimer(false);
+                  removeDueDateHanlder();
+                }}
+              />
+            </div>
+          ) : showDueDateModal ||
+            showFullDueDateModal ||
+            showDueDateModalMobile ? (
             <HiBellSlash
               title="Clear due date"
-              onClick={removeDueDateHanlder}
+              onClick={() => setDeleteTimer(true)}
               className="semiSm:hover:text-white transition-all"
               size={vw > 840 ? 20 : 22}
               type="button"
@@ -331,7 +359,7 @@ const DueTaskModal = ({
         onMouseEnter={() => setShowDueDateModal(true)}
         onMouseLeave={() => setShowDueDateModal(false)}
         className={`hidden  bg-primaryLight bg-opacity-60 rounded w-[7rem] min-h-[2.5rem] absolute top-[-10px] left-0 translate-x-[-110%] text-[.7rem] flex-col items-center justify-center transition-all ${
-          showDueDateModal ? 'semiSm:flex' : 'hidden'
+          showDueDateModal && !deleteTimer ? 'semiSm:flex' : 'hidden'
         }`}
       >
         <span
@@ -346,7 +374,9 @@ const DueTaskModal = ({
       <div
         //Mobile due date display modal
         className={`semiSm:hidden bg-primaryLight bg-opacity-90  rounded w-[7rem] min-h-[2.5rem] absolute top-[-10px] left-[0px] translate-x-[-110%] text-[.7rem]  flex-col items-center justify-center transition-all ${
-          (showDueDateModalMobile || showFullDueDateModal) && task?.dueDate
+          (showDueDateModalMobile || showFullDueDateModal) &&
+          task?.dueDate &&
+          !deleteTimer
             ? 'flex'
             : 'hidden'
         }`}
