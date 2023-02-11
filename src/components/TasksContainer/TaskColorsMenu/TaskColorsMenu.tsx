@@ -4,6 +4,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { RiCheckboxBlankCircleFill } from 'react-icons/ri';
 //@ts-ignore
 import SwiperCore, { Keyboard, Mousewheel } from 'swiper/core';
+import { batch } from 'react-redux';
 import useClickOutside from '../../../hooks/useClickOutside';
 import {
   SingleTaskInterface,
@@ -15,9 +16,8 @@ import { toggleDisableSwiper } from '../../../redux/slices/features/disableSwipe
 import { isOnline } from '../../../utilities/isOnline';
 import 'swiper/css';
 import { toggleDisableDragDnd } from '../../../redux/slices/features/disableDragDndSlice';
-import { batch } from 'react-redux';
 
-const TaskTypeMenu = ({
+const TaskColorsMenu = ({
   task,
   isVertical,
   tasks,
@@ -58,10 +58,12 @@ const TaskTypeMenu = ({
   };
 
   useEffect(() => {
-    dispatch(toggleDisableSwiper(!hidden));
-    hidden
-      ? dispatch(toggleDisableDragDnd(false))
-      : dispatch(toggleDisableDragDnd(true));
+    batch(() => {
+      dispatch(toggleDisableSwiper(!hidden));
+      hidden
+        ? dispatch(toggleDisableDragDnd(false))
+        : dispatch(toggleDisableDragDnd(true));
+    });
   }, [dispatch, hidden]);
 
   return (
@@ -228,4 +230,4 @@ const TaskTypeMenu = ({
   );
 };
 
-export default TaskTypeMenu;
+export default TaskColorsMenu;
