@@ -424,10 +424,11 @@ const BigScreenSingleTask = ({
               onClick={() => setDeleteTimer(false)}
             >
               <BiX
-                className={`absolute h-[.5] w-[.5] top-[59px] left-[15.3px]`}
+                className={`absolute top-[59.3px] left-[15px]`}
+                size={14}
               />
               <CountdownCircleTimer
-                size={22}
+                size={20}
                 strokeWidth={2}
                 isPlaying
                 duration={1.5}
