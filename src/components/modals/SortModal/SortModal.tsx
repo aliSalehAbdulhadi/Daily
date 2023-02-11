@@ -43,7 +43,7 @@ const SortModal = ({
       onClick={() => setOpen(!open)}
     >
       <div
-        className={` relative justify-center flex   items-center py-1 xs:py-2 semiSm:py-0 px-3 mt-1 semiSm:mt-0   z-50 ${
+        className={` relative justify-center flex   items-center py-1 xs:py-2 semiSm:py-0 px-3 mt-1 semiSm:mt-0 ${
           sortBy || open ? 'min-w-[8rem]' : ' min-w-[5rem] semiSm:min-w-[6rem]'
         } ${
           open ? '' : 'border-[1px] rounded semiSm:border-0 semiSm:rounded-none'
@@ -57,7 +57,7 @@ const SortModal = ({
           </h1>
         </div>
         <div
-          className={` transition-all rounded-b  w-full absolute bg-white top-4 pt-4 pb-1  ${
+          className={` transition-all rounded-b  w-full absolute bg-white top-4 pt-4 pb-1 ${
             open ? 'flex' : 'hidden'
           } flex-col items-start justify-start  bg-white  font-cerealNormal text-xs text-textLight`}
         >
@@ -66,7 +66,7 @@ const SortModal = ({
               dispatch(sortTaskBy('newTasks'));
               setOpen(false);
             }}
-            className="w-full my-1 py-2 hover:bg-gray-100"
+            className="w-full my-1 py-2 hover:bg-gray-100 "
             type="submit"
           >
             Latest Tasks

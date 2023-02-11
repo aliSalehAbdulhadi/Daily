@@ -94,7 +94,7 @@ const BigScreenSingleTask = ({
   };
 
   const hideButtons = useAppSelector(
-    (state: RootState) => state.disableSwiperReducer.disableSwiper,
+    (state: RootState) => state.disableDragReducer.disableDragDnd,
   );
 
   useEffect(() => {

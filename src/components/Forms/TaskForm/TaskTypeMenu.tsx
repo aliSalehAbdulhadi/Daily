@@ -31,7 +31,6 @@ const TaskTypeMenu = ({
   SwiperCore.use([Keyboard, Mousewheel]);
   const [hidden, setHidden] = useState<boolean>(true);
   const dispatch = useAppDispatch();
-
   let domNode = useClickOutside(() => {
     setHidden(true);
   });

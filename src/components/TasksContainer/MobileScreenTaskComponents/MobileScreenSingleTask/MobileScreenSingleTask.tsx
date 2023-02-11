@@ -220,7 +220,7 @@ const MobileScreenSingleTask = ({
       style={style}
       {...attributes}
       {...listeners}
-      className="pb-3"
+      className="pb-3 "
     >
       <Swipeable
         isLocked={task?.locked}

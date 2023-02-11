@@ -101,15 +101,15 @@ const MobileTasksContainer = () => {
   };
 
   return (
-    <div className="flex flex-col justify-center  font-Comfortaa font-bold w-full rounded-t ">
+    <div className="flex flex-col justify-center  font-Comfortaa font-bold w-full rounded-t relative">
       <div
-        className={` w-full flex item-center justify-between sticky  top-0  transition-all px-2 xs:px-5 py-4 xs:py-5 shadow-md
+        className={` w-full z-50 flex item-center justify-between sticky  top-0  transition-all px-2 xs:px-5 py-4 xs:py-5 shadow-md
             ${dark ? 'bg-secondaryColor ' : 'bg-primaryColor'}  ${
           tasks?.length > 0 ? 'flex' : 'hidden'
         }  items-center justify-between w-full`}
       >
-        <div className=" self-start select-none cursor-pointer">
-          <div className={`absolute  top-1 xs:top-2 left-2 xs:left-5`}>
+        <div className=" self-start select-none cursor-pointer ">
+          <div className={`absolute top-1 xs:top-2 left-2 xs:left-5`}>
             <SortModal open={sortModal} setOpen={setSortModal} />
           </div>
         </div>
