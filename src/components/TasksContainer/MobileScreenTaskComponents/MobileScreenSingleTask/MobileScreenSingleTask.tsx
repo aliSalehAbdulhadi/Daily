@@ -30,6 +30,7 @@ import { editTask } from '../../../../redux/slices/features/fireBaseActions/edit
 import useClickOutside from '../../../../hooks/useClickOutside';
 import ProgressBar from '../../../progressBar/ProgressBar';
 import Swipeable from '../../../swipeable/Swipeable';
+
 import { changeTaskImportantState } from '../../../../redux/slices/features/fireBaseActions/changeTaskImportantStateSlice';
 import { setCardColorByTypeHandler } from '../../../../utilities/setColorByTypeHandler';
 import { lockTask } from '../../../../redux/slices/features/fireBaseActions/lockTaskSlice';
