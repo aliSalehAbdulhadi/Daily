@@ -35,7 +35,6 @@ import {
 } from '../../../../redux/slices/features/getTasksSlice';
 import { editTask } from '../../../../redux/slices/features/fireBaseActions/editTaskSlice';
 import useClickOutside from '../../../../hooks/useClickOutside';
-import TaskTypeMenu from '../../../Forms/TaskForm/TaskTypeMenu';
 import { changeTaskImportantState } from '../../../../redux/slices/features/fireBaseActions/changeTaskImportantStateSlice';
 import { setCardColorByTypeHandler } from '../../../../utilities/setColorByTypeHandler';
 import 'react-step-progress-bar/styles.css';
@@ -43,6 +42,7 @@ import { lockTask } from '../../../../redux/slices/features/fireBaseActions/lock
 import { isOnline } from '../../../../utilities/isOnline';
 import { toggleOpenMilestonePanel } from '../../../../redux/slices/features/openMilestonePanelPc';
 import dynamic from 'next/dynamic';
+import TaskColorsMenu from '../../TaskColorsMenu/TaskColorsMenu';
 const DueTaskModal = dynamic(
   () => import('../../../modals/dueTaskModal/DueTaskModal'),
 );
@@ -74,6 +74,9 @@ const BigScreenSingleTask = ({
   const disableDrag = useAppSelector(
     (state: RootState) => state.disableDragReducer.disableDragDnd,
   );
+  const hideButtons = useAppSelector(
+    (state: RootState) => state.disableDragReducer.disableDragDnd,
+  );
   const inViewPortRef = useRef(null);
 
   const { inViewport } = useInViewport(inViewPortRef);
@@ -90,12 +93,8 @@ const BigScreenSingleTask = ({
   const style = {
     transform: CSS.Transform.toString(transform),
     transition,
-    opacity: isDragging ? 0.8 : 1,
+    opacity: isDragging && !hideButtons ? 0.8 : 1,
   };
-
-  const hideButtons = useAppSelector(
-    (state: RootState) => state.disableSwiperReducer.disableSwiper,
-  );
 
   useEffect(() => {
     if (inViewport && index >= loadInView - 3) {
@@ -281,7 +280,7 @@ const BigScreenSingleTask = ({
           <div
             className={`ml-[2px] my-2 ${task?.completed ? 'opacity-60' : ''}`}
           >
-            <TaskTypeMenu
+            <TaskColorsMenu
               user={user}
               tasks={tasks}
               isVertical={true}

@@ -33,7 +33,11 @@ const Swipeable = ({
     onSwipedLeft: () => {
       dispatch(toggleDisableDragDnd(true));
       isLocked ? setIsLockedAnimation(true) : setIsDeleting(true);
-      disableSwiper || isLocked ? setIsDeleting(false) : setIsDeleting(true);
+
+      if (disableSwiper) {
+        setIsDeleting(false);
+        setIsLockedAnimation(false);
+      } 
     },
     onSwipedRight: () => {
       setIsDeleting(false);
@@ -58,7 +62,7 @@ const Swipeable = ({
 
   return (
     <div
-      className={`flex ${isDeleting ? ' overflow-hidden ' : ''}`}
+      className={`flex  ${isDeleting ? ' overflow-hidden ' : ''}`}
       {...handlers}
     >
       <div
@@ -66,7 +70,7 @@ const Swipeable = ({
           isDeleting ? 'translate-x-[-5rem]' : ''
         } ${isLockedAnimation ? ' shakeAnimation' : ''}`}
       >
-        <div className="w-full shrink-0">{children}</div>
+        <div className="w-full">{children}</div>
         <div
           ref={deleteRef}
           onClick={() => {

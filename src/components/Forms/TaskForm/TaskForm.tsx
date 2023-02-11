@@ -9,7 +9,6 @@ import { addTask } from '../../../redux/slices/features/fireBaseActions/addTaskS
 import {
   addTasksDatesLocally,
   addTasksLocally,
-  getTasks,
 } from '../../../redux/slices/features/getTasksSlice';
 import {
   RootState,

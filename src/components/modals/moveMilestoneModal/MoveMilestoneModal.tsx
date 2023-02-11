@@ -39,7 +39,7 @@ const MoveMilestoneModal = ({
           <MdClose className=" text-textLight hover:text-red-400" size={22} />
         </div>
       </div>
-      <div className=" overflow-auto scrollBar overflow-x-hidden">
+      <div className=" overflow-auto scrollBar overflow-x-hidden semiSm:mt-1">
         {moveToTasks?.length > 0 ? (
           moveToTasks?.map((task) => {
             return (

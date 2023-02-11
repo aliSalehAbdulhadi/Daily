@@ -30,12 +30,13 @@ import { editTask } from '../../../../redux/slices/features/fireBaseActions/edit
 import useClickOutside from '../../../../hooks/useClickOutside';
 import ProgressBar from '../../../progressBar/ProgressBar';
 import Swipeable from '../../../swipeable/Swipeable';
-import TaskTypeMenu from '../../../Forms/TaskForm/TaskTypeMenu';
+
 import { changeTaskImportantState } from '../../../../redux/slices/features/fireBaseActions/changeTaskImportantStateSlice';
 import { setCardColorByTypeHandler } from '../../../../utilities/setColorByTypeHandler';
 import { lockTask } from '../../../../redux/slices/features/fireBaseActions/lockTaskSlice';
 import { isOnline } from '../../../../utilities/isOnline';
 import { removeTask } from '../../../../redux/slices/features/fireBaseActions/deleteTaskSlice';
+import TaskColorsMenu from '../../TaskColorsMenu/TaskColorsMenu';
 const DueTaskModal = dynamic(
   () => import('../../../modals/dueTaskModal/DueTaskModal'),
 );
@@ -220,7 +221,7 @@ const MobileScreenSingleTask = ({
       style={style}
       {...attributes}
       {...listeners}
-      className="pb-3"
+      className="pb-3 "
     >
       <Swipeable
         isLocked={task?.locked}
@@ -356,7 +357,7 @@ const MobileScreenSingleTask = ({
                     task?.completed ? 'opacity-60' : ''
                   } ${edit ? 'hidden' : ''}`}
                 >
-                  <TaskTypeMenu
+                  <TaskColorsMenu
                     user={user}
                     tasks={tasks}
                     isVertical={false}
