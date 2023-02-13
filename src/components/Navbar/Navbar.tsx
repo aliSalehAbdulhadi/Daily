@@ -133,7 +133,7 @@ const Navbar = () => {
           </Link>
         </div>
         <Suspense>
-          <div className="ml-4 mb-4 md:mb-0 md:mt-1">
+          <div className="ml-3 mb-4 md:mb-0 md:mt-1">
             <CheckInternet />
           </div>
         </Suspense>
