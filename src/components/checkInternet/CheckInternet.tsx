@@ -99,10 +99,10 @@ const CheckInternet = () => {
             <MdWifiOff
               onClick={() => setShowErrorMessage(true)}
               type="button"
-              className="cursor-pointer scale-[1.5] transition-all ease-in-out fill-red-600 animate-pulse absolute left-1 semiSm:left-0"
+              className="cursor-pointer scale-[1.2] xs:scale-[1.5] transition-all ease-in-out fill-red-600 animate-pulse absolute left-1 semiSm:left-0"
             />
             <h1
-              className={`text-red-500 text-xs scale-75 semiSm:ml-5 semiSm:scale-100 border-[1px] p-3 rounded absolute  top-0 left-0 semiSm:left-5 z-40 bg-white ${
+              className={`text-red-500 text-xs scale-75 semiSm:ml-5 semiSm:scale-100 border-[1px] p-3 rounded absolute  top-0 left-[-7px] xs:left-0 semiSm:left-5 z-40 bg-white ${
                 showErrorMessage ? 'visible' : 'invisible'
               }`}
             >
