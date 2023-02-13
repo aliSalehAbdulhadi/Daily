@@ -1,9 +1,7 @@
 import { useEffect, useState } from 'react';
 import type { NextPage } from 'next';
 import TaskForm from '../src/components/Forms/TaskForm/TaskForm';
-import {
-  useAppDispatch,
-} from '../src/interfaces/interfaces';
+import { useAppDispatch } from '../src/interfaces/interfaces';
 import { trickStore } from '../src/redux/slices/features/trickStore';
 import { isOnline } from '../src/utilities/isOnline';
 import TasksContainer from '../src/components/TasksContainer/TasksContainer';
