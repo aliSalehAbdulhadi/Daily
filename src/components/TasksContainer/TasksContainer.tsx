@@ -5,7 +5,7 @@ import useWindowSize from '../../hooks/useWindowsSize';
 import FallBackLoading from '../fallBackLoading/FallBackLoading';
 import { Dark } from '../../utilities/globalImports';
 
-const MobileTasks = dynamic(
+const MobileTasksContainer = dynamic(
   () =>
     import(
       './MobileScreenTaskComponents/MobileTasksContainer/MobileTasksContainer'
@@ -64,7 +64,7 @@ const TasksContainer = () => {
                   <FallBackLoading />
                 ) : (
                   <div className={`h-[75vh] w-full transition-all`}>
-                    <MobileTasks />
+                    <MobileTasksContainer />
                   </div>
                 )}
               </Suspense>

@@ -6,6 +6,7 @@ import { BsList } from 'react-icons/bs';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
 import { Suspense } from 'react';
+import { useRouter } from 'next/router';
 import { auth } from '../../container/firebase';
 import { setUserUid } from '../../redux/slices/authentication/userSlice';
 import { useAppDispatch } from '../../interfaces/interfaces';
@@ -16,7 +17,6 @@ import useClickOutside from '../../hooks/useClickOutside';
 import useWindowSize from '../../hooks/useWindowsSize';
 import { Dark, UserKey } from '../../utilities/globalImports';
 import { toggleOpenMilestonePanel } from '../../redux/slices/features/openMilestonePanelPc';
-import { useRouter } from 'next/router';
 
 const UserModalPc = dynamic(
   () => import('../modals/bigScreenUserModal/BigScreenUserModal'),

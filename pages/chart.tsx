@@ -1,5 +1,5 @@
 import dynamic from 'next/dynamic';
-import React, { Suspense } from 'react';
+import React, { Suspense, memo } from 'react';
 import FallBackLoading from '../src/components/fallBackLoading/FallBackLoading';
 import useWindowSize from '../src/hooks/useWindowsSize';
 import {
@@ -50,4 +50,4 @@ const Chart = () => {
   );
 };
 
-export default Chart;
+export default memo(Chart);
