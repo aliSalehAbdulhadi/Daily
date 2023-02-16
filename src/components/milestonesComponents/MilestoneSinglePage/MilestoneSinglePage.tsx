@@ -11,7 +11,7 @@ import {
 import { BsCheckCircle, BsCheckCircleFill } from 'react-icons/bs';
 import { CountdownCircleTimer } from 'react-countdown-circle-timer';
 import { BiX } from 'react-icons/bi';
-import { MdOutlineRemoveDone } from 'react-icons/md';
+import { MdClose, MdOutlineRemoveDone } from 'react-icons/md';
 import { RiSendPlaneLine, RiSendPlaneFill } from 'react-icons/ri';
 import { batch } from 'react-redux';
 import useClickOutside from '../../../hooks/useClickOutside';
@@ -72,6 +72,7 @@ const MilestoneSinglePage = ({
   const [deleteIcon, setDeleteIcon] = useState<boolean>(false);
   const [completeIcon, setCompleteIcon] = useState<boolean>(false);
   const [moveMilestoneIcon, setMoveMilestoneIcon] = useState<boolean>(false);
+  const [moveMilestoneModal, setMoveMilestoneModal] = useState<boolean>(false);
 
   const editRef = useRef<HTMLTextAreaElement>(null);
   const user = UserKey();
@@ -97,6 +98,10 @@ const MilestoneSinglePage = ({
 
   //@ts-ignore
   const isCurrentMilestone = currentSelectedMilestone.id === milestone.id;
+
+  const moveMilestoneModalRef = useClickOutside(() => {
+    setMoveMilestoneModal(false);
+  });
 
   useEffect(() => {
     editRef?.current?.focus();
@@ -208,7 +213,7 @@ const MilestoneSinglePage = ({
                 onClick={() => setEdit(false)}
                 className="absolute text-black right-2  top-[.60rem] "
               >
-                <AiFillCloseSquare
+                <MdClose
                   className="rounded-lg hover:text-red-600 opacity-[.75]"
                   size={20}
                 />
@@ -293,13 +298,13 @@ const MilestoneSinglePage = ({
             onMouseEnter={() => setMoveMilestoneIcon(true)}
             onMouseLeave={() => setMoveMilestoneIcon(false)}
             onClick={() => {
-              dispatch(toggleOpenMoveMilestone(true));
+              setMoveMilestoneModal(!moveMilestoneModal);
               dispatch(setSelectedMilestone(milestone));
             }}
             className="container w-fit h-fit "
             type="button"
           >
-            {moveMilestoneIcon || (isOpenMoveModal && isCurrentMilestone) ? (
+            {moveMilestoneIcon || (moveMilestoneModal && isCurrentMilestone) ? (
               <RiSendPlaneFill className="h-5 " />
             ) : (
               <RiSendPlaneLine className="h-5" />
@@ -361,6 +366,7 @@ const MilestoneSinglePage = ({
             )}
           </button>
 
+          {/* Mobile move milestone buttons */}
           <button
             onClick={() => {
               dispatch(toggleOpenMoveMilestone(true));
@@ -381,11 +387,17 @@ const MilestoneSinglePage = ({
 
       <Suspense>
         <div
+          ref={moveMilestoneModalRef}
           className={`top-[-20px] right-14 z-40 ${
-            isOpenMoveModal && isCurrentMilestone ? 'absolute' : 'hidden'
+            moveMilestoneModal && isCurrentMilestone ? 'absolute' : 'hidden'
           }`}
         >
-          <MoveMilestoneModal user={user} tasks={tasks} taskId={taskId} />
+          <MoveMilestoneModal
+            setMoveMilestoneModal={setMoveMilestoneModal}
+            user={user}
+            tasks={tasks}
+            taskId={taskId}
+          />
         </div>
       </Suspense>
     </div>

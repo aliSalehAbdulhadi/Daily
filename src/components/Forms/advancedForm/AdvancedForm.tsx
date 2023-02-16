@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import ReactQuill from 'react-quill';
 import { v4 as uuidv4 } from 'uuid';
-import { AiFillCloseSquare } from 'react-icons/ai';
 import { MdClose } from 'react-icons/md';
 import 'react-quill/dist/quill.snow.css';
 import 'react-quill/dist/quill.bubble.css';
@@ -103,7 +102,7 @@ const AdvancedForm = ({
         }}
         className="absolute ml-10 text-black right-2 top-[.60rem] hidden semiSm:block "
       >
-        <AiFillCloseSquare
+        <MdClose
           className="rounded-lg hover:text-red-600 opacity-[.75]"
           size={20}
         />
