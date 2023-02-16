@@ -17,6 +17,7 @@ import { ProgressBar } from 'react-step-progress-bar';
 import { batch } from 'react-redux';
 import { useInViewport } from 'react-in-viewport';
 import { useSortable } from '@dnd-kit/sortable';
+import dynamic from 'next/dynamic';
 import { CSS } from '@dnd-kit/utilities';
 import {
   useAppDispatch,
@@ -41,7 +42,6 @@ import 'react-step-progress-bar/styles.css';
 import { lockTask } from '../../../../redux/slices/features/fireBaseActions/lockTaskSlice';
 import { isOnline } from '../../../../utilities/isOnline';
 import { toggleOpenMilestonePanel } from '../../../../redux/slices/features/openMilestonePanelPc';
-import dynamic from 'next/dynamic';
 import TaskColorsMenu from '../../TaskColorsMenu/TaskColorsMenu';
 const DueTaskModal = dynamic(
   () => import('../../../modals/dueTaskModal/DueTaskModal'),
@@ -262,9 +262,9 @@ const BigScreenSingleTask = ({
           <button
             disabled={task?.completed}
             onClick={importantStateHandler}
-            className={` ${task?.completed ? 'opacity-60  ' : ''} ${
-              hideButtons && task?.id === taskId ? 'hidden' : ''
-            }`}
+            className={` ${
+              task?.completed ? 'opacity-60 cursor-default ' : ' cursor-pointer'
+            } ${hideButtons && task?.id === taskId ? 'hidden' : ''}`}
           >
             <HiOutlineStar
               title="Important Task"
@@ -274,7 +274,7 @@ const BigScreenSingleTask = ({
                 task?.important || task?.completed
                   ? ''
                   : 'hover:fill-white hover:text-white'
-              } ${task?.important ? 'text-yellow-300' : ''}  cursor-pointer`}
+              } ${task?.important ? 'text-yellow-300' : ''} `}
             />
           </button>
           <div
@@ -288,9 +288,8 @@ const BigScreenSingleTask = ({
             />
           </div>
           <div
-            className={`mb-[.55rem] ${
-              hideButtons && task?.id === taskId ? 'hidden' : ''
-            }`}
+            className={`mb-[.55rem] 
+              ${hideButtons && task?.id === taskId ? 'hidden' : ''}`}
           >
             {task?.locked ? (
               <HiLockClosed
@@ -298,7 +297,7 @@ const BigScreenSingleTask = ({
                 type="button"
                 onClick={lockTaskHandler}
                 size={19}
-                className="cursor-pointer  hover:text-white transition-all ease-in-out"
+                className=" hover:text-white transition-all ease-in-out"
               />
             ) : (
               <HiLockOpen
@@ -306,7 +305,7 @@ const BigScreenSingleTask = ({
                 type="button"
                 onClick={lockTaskHandler}
                 size={19}
-                className="cursor-pointer  hover:text-white transition-all ease-in-out"
+                className=" hover:text-white transition-all ease-in-out"
               />
             )}
           </div>
@@ -423,10 +422,7 @@ const BigScreenSingleTask = ({
               className={`  cursor-pointer mt-2 h-[1.3rem] w-[1.2rem]`}
               onClick={() => setDeleteTimer(false)}
             >
-              <BiX
-                className={`absolute top-[59.3px] left-[15px]`}
-                size={14}
-              />
+              <BiX className={`absolute top-[59.3px] left-[15px]`} size={14} />
               <CountdownCircleTimer
                 size={20}
                 strokeWidth={2}

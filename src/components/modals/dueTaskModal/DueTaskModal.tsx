@@ -5,6 +5,7 @@ import { RxLapTimer } from 'react-icons/rx';
 import { TiArrowSortedUp } from 'react-icons/ti';
 import { HiBellAlert, HiBell, HiBellSlash } from 'react-icons/hi2';
 import { batch } from 'react-redux';
+import { BiX } from 'react-icons/bi';
 const DatePicker = dynamic(() => import('react-datepicker'));
 import 'react-datepicker/dist/react-datepicker.css';
 import {
@@ -29,7 +30,6 @@ import { hours } from '../../../utilities/globalImports';
 import useClickOutside from '../../../hooks/useClickOutside';
 import { CountdownCircleTimer } from 'react-countdown-circle-timer';
 import { setCardColorByTypeHandler } from '../../../utilities/setColorByTypeHandler';
-import { BiX } from 'react-icons/bi';
 
 const DueTaskModal = ({
   tasks,
@@ -291,7 +291,7 @@ const DueTaskModal = ({
           title="Add due date to task"
           className={`transition-all  ${
             timerIconHover ? 'semiSm:text-white' : ''
-          } ${task?.completed ? 'opacity-60' : ''} `}
+          } ${task?.completed ? 'opacity-60 cursor-default' : ''} `}
         >
           <RxLapTimer size={vw > 840 ? 20 : 21} />
         </div>

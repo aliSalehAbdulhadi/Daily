@@ -41,7 +41,7 @@ const UserModalMobile = ({
         {user ? (
           <div
             title=""
-            className="flex items-center justify-center w-full  py-2 px-4  mt-2 font-cerealMedium border-b-[1.7px] mb-3"
+            className="flex items-center  justify-center mx-5  py-2 px-4  mt-2 font-cerealMedium border-b-[1.7px] mb-3"
           >
             <h1 className="text-lg">{userName}</h1>
           </div>

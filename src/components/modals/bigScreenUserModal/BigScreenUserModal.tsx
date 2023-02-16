@@ -37,7 +37,7 @@ const BigScreenUserModal = ({
       {user ? (
         <div
           title="Your username"
-          className="flex items-center justify-center w-full  py-2 px-4 hover:bg-gray-50 rounded-t-lg font-cerealMedium border-b-[1.7px] mb-3"
+          className="flex items-center justify-center mx-5  py-2 px-4 hover:bg-gray-50 rounded-t-lg font-cerealMedium border-b-[1.7px] mb-3"
         >
           <h1 className="text-lg">{userName}</h1>
         </div>

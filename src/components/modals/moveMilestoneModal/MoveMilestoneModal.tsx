@@ -1,4 +1,5 @@
 import { MdClose } from 'react-icons/md';
+import { Dispatch, SetStateAction } from 'react';
 import {
   RootState,
   singleMilestoneInterface,
@@ -14,10 +15,12 @@ const MoveMilestoneModal = ({
   taskId,
   tasks,
   user,
+  setMoveMilestoneModal,
 }: {
   taskId: string;
   tasks: SingleTaskInterface[];
   user: string;
+  setMoveMilestoneModal: Dispatch<SetStateAction<boolean>>;
 }) => {
   const moveToTasks: SingleTaskInterface[] = tasks.filter(
     (task) => task.id !== taskId,
@@ -32,11 +35,8 @@ const MoveMilestoneModal = ({
   return (
     <div className="rounded hidden semiSm:flex flex-col bg-primaryLight bg-opacity-90  w-[300px] semiSm:w-[350px] h-[290px]  shadow-lg">
       <div className="flex items-center justify-end shadow-sm  w-full    cursor-pointer py-[.35rem]">
-        <div
-          onClick={() => dispatch(toggleOpenMoveMilestone(false))}
-          className=" mr-5"
-        >
-          <MdClose className=" text-textLight hover:text-red-400" size={22} />
+        <div onClick={() => setMoveMilestoneModal(false)} className=" mr-5">
+          <MdClose className=" text-textLight hover:text-red-400" size={20} />
         </div>
       </div>
       <div className=" overflow-auto scrollBar overflow-x-hidden semiSm:mt-1">
