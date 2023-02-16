@@ -334,7 +334,7 @@ const DueTaskModal = ({
           </span>
           <div className="overflow-auto flex flex-col scrollBar bg-primaryColor text-white rounded-b border-[1px] border-white border-opacity-40 shadow-md">
             {hours?.map((hour) =>
-              currentTime + 10 < hour ||
+              currentTime < hour ||
               moment(dueDate).format('MMM/DD') !== currentDate ? (
                 <button
                   key={hour}
