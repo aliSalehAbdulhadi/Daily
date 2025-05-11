@@ -40,16 +40,16 @@
     "react-icons": "^4.7.1",
     "react-in-viewport": "^1.0.0-alpha.28",
     "react-quill": "^2.0.0",
-    "react-redux": "^8.0.2",
+    "react-redux": "^9.0.0",
     "react-spinners-kit": "^1.9.1",
     "react-step-progress-bar": "^1.0.3",
     "react-swipeable": "^7.0.0",
-    "redux": "^4.2.0",
+    "redux": "^5.0.0",
     "redux-persist": "^6.0.0",
     "sharp": "^0.31.2",
     "swiper": "^8.3.2",
     "uuid": "^8.3.2",
-    "yup": "^0.32.11"
+    "yup": "^1.0.0"
   },
   "devDependencies": {
     "@svgr/webpack": "^6.2.1",
